@@ -13,14 +13,14 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
         <!-- Styles -->
-        <style>
-
-        </style>
+        @vite('resources/css/app.css')
     </head>
-    <body>
+    <body id="main-body">
         <header id="bfg-header">
             <div class="banner-container">
-                <img id="bfg-logo" src="{{ asset("images/bfg-logo.png") }}" alt="bfg logo">
+                <a id="logo-home" href="{{ route('home') }}">
+                    <img id="bfg-logo" src="{{ asset("images/bfg-logo.png") }}" alt="bfg logo">
+                </a>
             </div>
         </header>
         <div class="quick-get-started">

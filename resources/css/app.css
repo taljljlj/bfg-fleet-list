@@ -1,0 +1,29 @@
+/* =================== */
+/*      General        */
+/* =================== */
+#main-body {
+    margin: 0;
+    background-color: #4a5568;
+}
+
+/* =================== */
+/*      BFG Header     */
+/* =================== */
+#bfg-header {
+    height: 150px;
+    background-image: url('@images/header_background.jpg');
+    background-size: cover;
+    text-align: center;
+}
+.banner-container {
+    position: relative;
+    height: 100%;
+}
+#logo-home {
+    text-align: center;
+    align-items: end;
+}
+#bfg-logo {
+    padding-top: 15px;
+    height: 80%;
+}
