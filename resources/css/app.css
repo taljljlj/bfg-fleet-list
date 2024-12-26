@@ -1,0 +1,74 @@
+/* =================== */
+/*      General        */
+/* =================== */
+#main_body {
+    margin: 0;
+    background-color: #4a5568;
+}
+
+/* =================== */
+/*      BFG Header     */
+/* =================== */
+#bfg_header {
+    height: 150px;
+    background-image: url('@images/header_background.jpg');
+    background-size: cover;
+    text-align: center;
+}
+.banner-container {
+    position: relative;
+    height: 100%;
+}
+#logo_home {
+    text-align: center;
+    align-items: end;
+}
+#bfg_logo {
+    padding-top: 15px;
+    height: 80%;
+}
+
+/* =================== */
+/*      Navbar         */
+/* =================== */
+
+#navbar {
+    text-align: center;
+    font-family: "League Gothic", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+    background-color: #c8c5dc;
+}
+.navbar-container {
+    max-width: 1500px;
+    margin: auto;
+}
+#navbar ul {
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+#navbar li {
+    display: inline-block;
+    height: 40px;
+    padding: 15px 40px;
+    font-size: 40px;
+    color: black;
+}
+#navbar a {
+    text-decoration: none;
+    color: black;
+}
+#navbar a:hover {
+    color: #2d3748;
+}
+#user_dropdown_btn {
+    height: 100%;
+}
+#user_dropdown_btn img {
+    height: 100%;
+}
