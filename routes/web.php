@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('home');
+
+    Route::group(['prefix' => 'editor'], function () {
+        Route::get('/', 'EditorController@index')->name('editor.index');
+        Route::get('/{faction}/', 'EditorController@index')->name('editor.faction');
+    });
+});

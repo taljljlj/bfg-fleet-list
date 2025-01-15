@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ships', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('factions_id');
             $table->string('class');
             $table->string('type');
             $table->smallInteger('hitpoints');

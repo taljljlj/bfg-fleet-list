@@ -13,11 +13,7 @@ return new class extends Migration
     {
         Schema::create('armaments', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->string('name');
-            $table->smallInteger('range_speed');
-            $table->smallInteger('firepower');
-            $table->string('fire_arc');
+            $table->string('type')->unique();
         });
     }
 

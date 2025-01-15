@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Armament extends Model
 {
     use HasFactory;
+
+    public function ships() {
+        return $this->belongsToMany(Ship::class, 'ship_armaments')
+            ->withPivot('placement', 'fire_arc', 'range_speed', 'firepower');
+    }
 }

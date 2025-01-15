@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('fleet_lists', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('name');
-            $table->integer('factions_id');
+            $table->foreignId('factions_id');
         });
     }
 

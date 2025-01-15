@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Faction extends Model
 {
     use HasFactory;
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public static function getByName(string $name) {
+        return self::where('name', $name)->first();
+    }
 }
