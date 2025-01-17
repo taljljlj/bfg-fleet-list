@@ -18,7 +18,7 @@ class FactionSeeder extends Seeder
             ["name" => "Space Marines"],
             ["name" => "Adeptus Mechanicus"],
             ["name" => "Inquisition"],
-            ["name" => "Rogue Trader"],
+            ["name" => "Rogue Traders"],
             ["name" => "Chaos"],
             ["name" => "Eldar"],
             ["name" => "Dark Eldar"],

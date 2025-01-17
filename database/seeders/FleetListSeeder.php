@@ -50,7 +50,7 @@ class FleetListSeeder extends Seeder
         ]);
 
         //get Rogue Trader ID for Rogue Trader fleet lists
-        $factionId = Faction::getByName('Rogue Trader')->id;
+        $factionId = Faction::getByName('Rogue Traders')->id;
         $fleetLists = array_merge($fleetLists, [
             ["name" => "Rogue Traders", "factions_id" => $factionId],
             ["name" => "Exploration Fleet List", "factions_id" => $factionId],

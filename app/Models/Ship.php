@@ -9,6 +9,7 @@ class Ship extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     public function armaments() {
         return $this->belongsToMany(Armament::class, 'ship_armaments')
                     ->withPivot('placement', 'fire_arc', 'range_speed', 'firepower');

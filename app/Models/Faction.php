@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Faction extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     /**
      * @param string $name
