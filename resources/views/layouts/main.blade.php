@@ -32,7 +32,7 @@
 <div id="navbar">
     <div class="navbar-container">
         <ul>
-            <li><a href="">Fleet List Editor</a></li>
+            <li><a href="{{ route('editor.index') }}">Fleet Editor</a></li>
             <li>
                 <div id="user_dropdown_btn"><img src="{{ asset("images/user-icon.png") }}" alt="user logo"></div>
             </li>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EditorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,8 @@ Route::group(['middleware' => 'guest'], function () {
     })->name('home');
 
     Route::group(['prefix' => 'editor'], function () {
-        Route::get('/', 'EditorController@index')->name('editor.index');
-        Route::get('/{faction}/', 'EditorController@index')->name('editor.faction');
+        Route::get('/', [EditorController::class, 'index'])->name('editor.index');
+        Route::post('/', [EditorController::class, 'submitFaction'])->name('editor.submit.faction');
+        Route::get('/{faction}/', [EditorController::class, 'showFleetList'])->name('editor.fleet-list');
     });
 });
