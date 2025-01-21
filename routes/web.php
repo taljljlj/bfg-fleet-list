@@ -24,5 +24,7 @@ Route::group(['middleware' => 'guest'], function () {
         Route::get('/', [EditorController::class, 'index'])->name('editor.index');
         Route::post('/', [EditorController::class, 'submitFaction'])->name('editor.submit.faction');
         Route::get('/{faction}/', [EditorController::class, 'showFleetList'])->name('editor.fleet-list');
+        Route::post('/{faction}/', [EditorController::class, 'submitFleetList'])->name('editor.submit.fleet-list');
+        Route::get('/{faction}/{fleetList}/fleet/', [EditorController::class, 'showFleet'])->name('editor.fleet');
     });
 });

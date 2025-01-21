@@ -10,8 +10,14 @@ class Ship extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    //Relations
     public function armaments() {
         return $this->belongsToMany(Armament::class, 'ship_armaments')
-                    ->withPivot('placement', 'fire_arc', 'range_speed', 'firepower');
+                    ->withPivot('range_speed', 'firepower');
+    }
+
+    public function faction() {
+        return $this->belongsTo(Faction::class);
     }
 }
