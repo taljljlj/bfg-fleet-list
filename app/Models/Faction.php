@@ -10,6 +10,11 @@ class Faction extends Model
     use HasFactory;
     public $timestamps = false;
 
+    //Relations
+    public function fleetLists() {
+        return $this->hasMany(FleetList::class);
+    }
+
     /**
      * @param string $name
      * @return mixed

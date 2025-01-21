@@ -19,96 +19,96 @@ class FleetListSeeder extends Seeder
         //get Imperium ID for imperial fleet lists
         $factionId = Faction::getByName('Imperium')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Gothic Sector Fleet List", "factions_id" => $factionId],
-            ["name" => "Bastion Fleet List", "factions_id" => $factionId],
-            ["name" => "Armageddon Sector Fleet List", "factions_id" => $factionId],
-            ["name" => "Battlefleet Bakka", "factions_id" => $factionId],
-            ["name" => "Bakka Sector Fleet List", "factions_id" => $factionId]
+            ["name" => "Gothic Sector Fleet List", "faction_id" => $factionId],
+            ["name" => "Bastion Fleet List", "faction_id" => $factionId],
+            ["name" => "Armageddon Sector Fleet List", "faction_id" => $factionId],
+            ["name" => "Battlefleet Bakka", "faction_id" => $factionId],
+            ["name" => "Bakka Sector Fleet List", "faction_id" => $factionId]
         ]);
 
         //get Space Marine ID for space marine fleet lists
         $factionId = Faction::getByName('Space Marines')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Codex Astardes Fleet List", "factions_id" => $factionId],
-            ["name" => "Crusade Fleet List", "factions_id" => $factionId],
-            ["name" => "Dominion Fleet List", "factions_id" => $factionId],
+            ["name" => "Codex Astardes Fleet List", "faction_id" => $factionId],
+            ["name" => "Crusade Fleet List", "faction_id" => $factionId],
+            ["name" => "Dominion Fleet List", "faction_id" => $factionId],
         ]);
 
         //get Adeptus Mechanicus ID for adeptus mechanicus fleet lists
         $factionId = Faction::getByName('Adeptus Mechanicus')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Adeptus Mechanicus Fleet List", "factions_id" => $factionId],
+            ["name" => "Adeptus Mechanicus Fleet List", "faction_id" => $factionId],
         ]);
 
         //get Inquisition ID for Inquisition fleet lists
         $factionId = Faction::getByName('Inquisition')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "The Ordos Majoris", "factions_id" => $factionId],
-            ["name" => "The Ordos Minoris", "factions_id" => $factionId],
-            ["name" => "The Emperor's Inquisition", "factions_id" => $factionId],
-            ["name" => "Inquisitors of the Ordos", "factions_id" => $factionId],
+            ["name" => "The Ordos Majoris", "faction_id" => $factionId],
+            ["name" => "The Ordos Minoris", "faction_id" => $factionId],
+            ["name" => "The Emperor's Inquisition", "faction_id" => $factionId],
+            ["name" => "Inquisitors of the Ordos", "faction_id" => $factionId],
         ]);
 
         //get Rogue Trader ID for Rogue Trader fleet lists
         $factionId = Faction::getByName('Rogue Traders')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Rogue Traders", "factions_id" => $factionId],
-            ["name" => "Exploration Fleet List", "factions_id" => $factionId],
-            ["name" => "Pirates and Wolf Packs", "factions_id" => $factionId],
+            ["name" => "Rogue Traders", "faction_id" => $factionId],
+            ["name" => "Exploration Fleet List", "faction_id" => $factionId],
+            ["name" => "Pirates and Wolf Packs", "faction_id" => $factionId],
         ]);
 
         //get Chaos ID for Chaos fleet lists
         $factionId = Faction::getByName('Chaos')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Chaos Incursion Fleet List", "factions_id" => $factionId],
-            ["name" => "Black Crusade Fleet List", "factions_id" => $factionId],
-            ["name" => "The Sorcerous Fleet", "factions_id" => $factionId],
-            ["name" => "The Plaguefleet", "factions_id" => $factionId],
-            ["name" => "The Berzerker Fleet", "factions_id" => $factionId],
-            ["name" => "The Pleasurefleet", "factions_id" => $factionId],
+            ["name" => "Chaos Incursion Fleet List", "faction_id" => $factionId],
+            ["name" => "Black Crusade Fleet List", "faction_id" => $factionId],
+            ["name" => "The Sorcerous Fleet", "faction_id" => $factionId],
+            ["name" => "The Plaguefleet", "faction_id" => $factionId],
+            ["name" => "The Berzerker Fleet", "faction_id" => $factionId],
+            ["name" => "The Pleasurefleet", "faction_id" => $factionId],
         ]);
 
         //get Eldar ID for Eldar fleet lists
         $factionId = Faction::getByName('Eldar')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Eldar Corsairs Fleet List [Gothic Sector]", "factions_id" => $factionId],
-            ["name" => "Eldar Corsairs Fleet List [Later Gothic War]", "factions_id" => $factionId],
-            ["name" => "Lyanden Caftworld Fleet", "factions_id" => $factionId],
+            ["name" => "Eldar Corsairs Fleet List [Gothic Sector]", "faction_id" => $factionId],
+            ["name" => "Eldar Corsairs Fleet List [Later Gothic War]", "faction_id" => $factionId],
+            ["name" => "Lyanden Caftworld Fleet", "faction_id" => $factionId],
         ]);
 
         //get Dark Eldar ID for Dark Eldar fleet lists
         $factionId = Faction::getByName('Dark Eldar')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Pirates Fleet List", "factions_id" => $factionId],
+            ["name" => "Pirates Fleet List", "faction_id" => $factionId],
         ]);
 
         //get Orks ID for Orks fleet lists
         $factionId = Faction::getByName('Orks')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Cyclops Fleet List", "factions_id" => $factionId],
-            ["name" => "Ork Waaagh! Fleet List", "factions_id" => $factionId],
-            ["name" => "Ork Clanz", "factions_id" => $factionId],
-            ["name" => "Da Ork Clanz Fleet List", "factions_id" => $factionId],
+            ["name" => "Cyclops Fleet List", "faction_id" => $factionId],
+            ["name" => "Ork Waaagh! Fleet List", "faction_id" => $factionId],
+            ["name" => "Ork Clanz", "faction_id" => $factionId],
+            ["name" => "Da Ork Clanz Fleet List", "faction_id" => $factionId],
         ]);
 
         //get Necrons ID for Necrons fleet lists
         $factionId = Faction::getByName('Necrons')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Harvest Fleet List", "factions_id" => $factionId],
+            ["name" => "Harvest Fleet List", "faction_id" => $factionId],
         ]);
 
         //get Tyranids ID for Tyranids fleet lists
         $factionId = Faction::getByName('Tyranids')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Vanguard Fleet List", "factions_id" => $factionId],
-            ["name" => "Hive Fleet List", "factions_id" => $factionId],
+            ["name" => "Vanguard Fleet List", "faction_id" => $factionId],
+            ["name" => "Hive Fleet List", "faction_id" => $factionId],
         ]);
 
         //get Tau ID for Tau fleet lists
         $factionId = Faction::getByName('Tau')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Kor'vattra Fleet List", "factions_id" => $factionId],
-            ["name" => "Commerce Protection Fleet List", "factions_id" => $factionId],
+            ["name" => "Kor'vattra Fleet List", "faction_id" => $factionId],
+            ["name" => "Commerce Protection Fleet List", "faction_id" => $factionId],
         ]);
 
         foreach ($fleetLists as $fleetList) {

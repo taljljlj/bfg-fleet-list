@@ -26,6 +26,8 @@ class EditorController extends Controller
     }
 
     public function showFleetList(Faction $faction) {
-        dd($faction);
+        $fleetLists = $faction->fleetLists()->get();
+
+        dd($fleetLists);
     }
 }
