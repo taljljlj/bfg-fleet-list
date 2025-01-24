@@ -1,7 +1,7 @@
 /* =================== */
 /*      General        */
 /* =================== */
-#main_body {
+#mainBody {
     margin: 0;
     background-color: #4a5568;
 }
@@ -9,21 +9,21 @@
 /* =================== */
 /*      BFG Header     */
 /* =================== */
-#bfg_header {
+#bfgHeader {
     height: 150px;
     background-image: url('@images/header_background.jpg');
     background-size: cover;
     text-align: center;
 }
-.banner-container {
+#bfgHeader .banner-container {
     position: relative;
     height: 100%;
 }
-#logo_home {
+#bfgHeader .logo-home {
     text-align: center;
     align-items: end;
 }
-#bfg_logo {
+#bfgHeader .bfg-logo {
     padding-top: 15px;
     height: 80%;
 }
@@ -42,7 +42,7 @@
         "wdth" 100;
     background-color: #c8c5dc;
 }
-.navbar-container {
+#navbar .navbar-container {
     max-width: 1500px;
     margin: auto;
 }
@@ -66,9 +66,9 @@
 #navbar a:hover {
     color: #2d3748;
 }
-#user_dropdown_btn {
+#userDropdownBtn {
     height: 100%;
 }
-#user_dropdown_btn img {
+#userDropdownBtn img {
     height: 100%;
 }

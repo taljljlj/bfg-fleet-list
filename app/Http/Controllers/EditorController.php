@@ -61,8 +61,8 @@ class EditorController extends Controller
     }
 
     public function showFleet(Faction $faction, FleetList $fleetList) {
-        $ships = $faction->ships()->get();
-//dd($ships[0]);
-        return view('pages.editor-fleet', compact('faction', 'fleetList', 'ships'));
+        $shipsGrouped = $faction->ships()->get()->groupBy('type');
+//dd($shipsGrouped);
+        return view('pages.editor-fleet', compact('faction', 'fleetList', 'shipsGrouped'));
     }
 }
