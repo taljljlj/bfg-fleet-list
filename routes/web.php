@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EditorController;
+use App\Http\Controllers\FleetBuilderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +20,11 @@ Route::group(['middleware' => 'guest'], function () {
         return view('welcome');
     })->name('home');
 
-    Route::group(['prefix' => 'editor'], function () {
-        Route::get('/', [EditorController::class, 'index'])->name('editor.index');
-        Route::post('/', [EditorController::class, 'submitFaction'])->name('editor.submit.faction');
-        Route::get('/{faction}/', [EditorController::class, 'showFleetList'])->name('editor.fleet-list');
-        Route::post('/{faction}/', [EditorController::class, 'submitFleetList'])->name('editor.submit.fleet-list');
-        Route::get('/{faction}/{fleetList}/fleet/', [EditorController::class, 'showFleet'])->name('editor.fleet');
+    Route::group(['prefix' => 'fleet-builder'], function () {
+        Route::get('/', [FleetBuilderController::class, 'index'])->name('builder.index');
+        Route::post('/', [FleetBuilderController::class, 'submitFaction'])->name('builder.submit.faction');
+        Route::get('/{faction}/', [FleetBuilderController::class, 'showFleetList'])->name('builder.fleet-list');
+        Route::post('/{faction}/', [FleetBuilderController::class, 'submitFleetList'])->name('builder.submit.fleet-list');
+        Route::get('/{faction}/{fleetList}/fleet/', [FleetBuilderController::class, 'showFleet'])->name('builder.fleet');
     });
 });

@@ -4,6 +4,9 @@
 #mainBody {
     margin: 0;
     background-color: #4a5568;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* =================== */
@@ -11,7 +14,7 @@
 /* =================== */
 #bfgHeader {
     height: 150px;
-    background-image: url('@images/header_background.jpg');
+    background-image: url('@images/header-bg.jpg');
     background-size: cover;
     text-align: center;
 }
@@ -71,4 +74,33 @@
 }
 #userDropdownBtn img {
     height: 100%;
+}
+
+/* =================== */
+/*    Fleet Builder    */
+/* =================== */
+
+#fleetBuilderBody {
+    flex: 1;
+    background-image: url('@images/fleet-builder-bg-2.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 50px 0;
+    text-align: center;
+}
+
+#fleetBuilderBody .content-wrapper {
+    max-width: 700px;
+    margin: auto;
+    position: relative;
+}
+
+#fleetBuilderBody .section {
+    border: #c8c5dc 3px solid;
+    border-radius: 5px;
+    padding: 25px;
+    min-height: 50vh;
+    background-color: #6097c05e;
+    box-shadow: #1a202c 0 0 30px, inset #c8c5dc 0 0 30px;
+    backdrop-filter: blur(5px);
 }

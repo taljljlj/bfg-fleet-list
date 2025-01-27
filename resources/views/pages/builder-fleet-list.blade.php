@@ -1,6 +1,6 @@
-@extends('layouts.main')
+@extends('layouts.builder-layout')
 
-@section('content')
+@section('builder-content')
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    <form action="{{ route('editor.submit.fleet-list', ['faction' => $faction]) }}" method="POST">
+    <form action="{{ route('builder.submit.fleet-list', ['faction' => $faction]) }}" method="POST">
         @csrf
         <input type="hidden" id="step" name="step" value="fleet-list">
         <input type="hidden" id="faction" name="faction" value="{{ $faction->id }}">

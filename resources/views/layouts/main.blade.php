@@ -32,16 +32,14 @@
     <div id="navbar">
         <div class="navbar-container">
             <ul>
-                <li><a href="{{ route('editor.index') }}">Fleet Editor</a></li>
+                <li><a href="{{ route('builder.index') }}">Fleet Builder</a></li>
                 <li>
                     <div id="userDropdownBtn"><img src="{{ asset("images/user-icon.png") }}" alt="user logo"></div>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="page-content">
-        @yield('content')
-    </div>
+    @yield('content')
     <footer>
         @stack('scripts')
     </footer>
