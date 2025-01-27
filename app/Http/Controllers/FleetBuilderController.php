@@ -18,7 +18,7 @@ class FleetBuilderController extends Controller
     {
         $factions = Faction::all();
 
-        return view('pages.builder-faction', compact('factions'));
+        return view('pages.fleet-builder', compact('factions'));
     }
 
     /**

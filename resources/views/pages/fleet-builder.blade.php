@@ -1,8 +1,13 @@
 @extends('layouts.builder-layout')
 
 @section('builder-content')
-    <h1>{{ $faction->name }}</h1>
-    <h3>{{ $fleetList->name }}</h3>
+    <div class="section">
+        @foreach($factions as $faction)
+            <div class="faction">
+                <img src="{{ asset('images/factions/' . $faction->img_url) }}" alt="{{ $faction->name }} Logo">
+            </div>
+        @endforeach
+    </div>
     <h1><span id="points">0</span> pts.</h1>
     <button id="addShip">Add Ship</button>
     <div id="shipContainer">
@@ -15,12 +20,7 @@
                     <div class="dropdown-select"></div>
                     <div class="dropdown-content">
                         <ul>
-                            @foreach($shipsGrouped as $type=>$ships)
-                                <li><b>{{ $type }}</b></li>
-                                @foreach($ships as $ship)
-                                    <li>{{ $ship->class }}</li>
-                                @endforeach
-                            @endforeach
+
                         </ul>
                     </div>
                 </div>
