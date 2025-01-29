@@ -1,10 +1,11 @@
 @extends('layouts.builder-layout')
 
 @section('builder-content')
-    <div class="section">
+    <div class="section section-top">
         @foreach($factions as $faction)
             <div class="faction">
                 <img src="{{ asset('images/factions/' . $faction->img_url) }}" alt="{{ $faction->name }} Logo">
+                <h3>{{ $faction->name }}</h3>
             </div>
         @endforeach
     </div>
@@ -35,11 +36,21 @@
 
 @push('scripts')
     <script>
-        var addShipButton = document.getElementById('addShip');
-        var shipModal = document.getElementById('shipModal');
+        var factions = document.querySelectorAll('.faction');
 
-        addShipButton.addEventListener('click', function () {
-            shipModal.style.display = "block";
+        factions.forEach(faction => {
+            faction.addEventListener('click', function () {
+                clearSelected();
+                // Toggle the 'selected' class on click
+                this.classList.add('selected');
+            });
         });
+
+        function clearSelected() {
+            var selectedFaction = document.querySelector('.faction.selected');
+            if (selectedFaction) {
+                selectedFaction.classList.remove('selected');
+            }
+        }
     </script>
 @endpush

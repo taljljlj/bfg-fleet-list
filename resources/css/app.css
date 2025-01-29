@@ -7,6 +7,13 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
+    font-family: "League Gothic", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
 }
 
 /* =================== */
@@ -37,12 +44,6 @@
 
 #navbar {
     text-align: center;
-    font-family: "League Gothic", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-variation-settings:
-        "wdth" 100;
     background-color: #c8c5dc;
 }
 #navbar .navbar-container {
@@ -90,7 +91,7 @@
 }
 
 #fleetBuilderBody .content-wrapper {
-    max-width: 700px;
+    padding: 0 20px;
     margin: auto;
     position: relative;
 }
@@ -99,8 +100,61 @@
     border: #c8c5dc 3px solid;
     border-radius: 5px;
     padding: 25px;
-    min-height: 50vh;
     background-color: #6097c05e;
     box-shadow: #1a202c 0 0 30px, inset #c8c5dc 0 0 30px;
     backdrop-filter: blur(5px);
+}
+
+#fleetBuilderBody .section.section-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#fleetBuilderBody .section.section-top .faction {
+    margin: 10px 5px;
+    opacity: 70%;
+    cursor: pointer;
+    position: relative;
+}
+
+#fleetBuilderBody .section.section-top .faction:hover {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px #c8c5dc) hue-rotate(45deg);
+}
+
+#fleetBuilderBody .section.section-top .faction.selected {
+    opacity: 1;
+}
+
+#fleetBuilderBody .section.section-top .faction.selected:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: calc(50% - 10px);
+    border-top: 20px solid white;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    bottom: -25px;
+}
+
+#fleetBuilderBody .section.section-top .faction img {
+    height: 60px;
+}
+
+#fleetBuilderBody .section.section-top .faction h3 {
+    margin: 0;
+    font-optical-sizing: initial;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+    letter-spacing: 0.5px;
+    color: white;
+}
+
+#fleetBuilderBody .section.section-right {
+    min-height: 50vh;
 }
