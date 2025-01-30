@@ -64,11 +64,13 @@
     color: black;
 }
 #navbar a {
+    display: block;
     text-decoration: none;
-    color: black;
+    color: #2d3748;
+    height: 100%;
 }
 #navbar a:hover {
-    color: #2d3748;
+    color: black;
 }
 #userDropdownBtn {
     height: 100%;
@@ -86,7 +88,6 @@
     background-image: url('@images/fleet-builder-bg-2.jpg');
     background-size: cover;
     background-position: center;
-    padding: 50px 0;
     text-align: center;
 }
 
@@ -103,6 +104,44 @@
     background-color: #6097c05e;
     box-shadow: #1a202c 0 0 30px, inset #c8c5dc 0 0 30px;
     backdrop-filter: blur(5px);
+    margin-top: 50px;
+    color: #c8c5dc;
+    position: relative;
+}
+
+#fleetBuilderBody .section .section-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(7px);
+    background-color: rgba(54, 87, 115, 0.5);
+}
+
+#fleetBuilderBody .section .section-overlay img {
+    width: 75px;
+    height: 75px;
+    animation: spin 2s ease-in-out infinite;
+    -moz-animation: spin 2s linear infinite;
+    -webkit-animation: spin 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+@-moz-keyframes spin{
+    100% { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin{
+    100% { transform: rotate(360deg); }
 }
 
 #fleetBuilderBody .section.section-top {
@@ -157,4 +196,91 @@
 
 #fleetBuilderBody .section.section-right {
     min-height: 50vh;
+}
+
+#fleetBuilderBody .section.section-left {
+    width: 300px;
+    min-height: 50vh;
+    float: left;
+}
+
+#fleetBuilderBody .section.section-left .section-subsection {
+    position: relative;
+    padding-bottom: 5px;
+}
+
+#fleetBuilderBody .section.section-left .section-subsection:after {
+    position: absolute;
+    display: block;
+    content: "";
+    bottom: 0;
+    right: -25px;
+    height: 3px;
+    width: 300px;
+    background: linear-gradient(to right, transparent 0%, #c8c5dc 100%);
+}
+
+#fleetBuilderBody .section.section-left h1 {
+    margin: 0;
+    text-align: right;
+}
+
+#fleetBuilderBody .section.section-left h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#fleetBuilderBody .section .dropdown {
+    position: relative;
+}
+
+#fleetBuilderBody .section .dropdown .dropdown-select {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 35px;
+    padding: 5px 15px;
+    border: 2px solid #c8c5dc;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+#fleetBuilderBody .section .dropdown .dropdown-select img {
+    height: 100%;
+    float: right;
+}
+
+#fleetBuilderBody .section .dropdown .dropdown-content {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    top: 33px;
+    border: 2px solid #c8c5dc;
+    border-top: none;
+    backdrop-filter: blur(7px);
+    background-color: rgb(54, 87, 115);
+    z-index: 1;
+    border-radius: 5px;
+    box-shadow: #1a202c 0 0 30px, inset #c8c5dc 0 0 30px;
+}
+
+#fleetBuilderBody .section .dropdown .dropdown-content ul {
+    padding: 0;
+    list-style: none;
+}
+
+#fleetBuilderBody .section .dropdown .dropdown-content ul li {
+    padding: 2px 7px;
+    cursor: pointer;
+}
+
+#fleetBuilderBody .section .dropdown .dropdown-content ul li:hover {
+    color: white;
+    border-top: 2px solid #c8c5dc;}
+
+#fleetBuilderBody .section.section-right {
+    width: calc(100% - 450px);
+    min-height: 50vh;
+    float: right;
 }

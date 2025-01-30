@@ -9,7 +9,41 @@
             </div>
         @endforeach
     </div>
-    <h1><span id="points">0</span> pts.</h1>
+    <div class="section section-left">
+        <div class="section-overlay" style="display: none">
+            <img src="{{ asset('images/loading-icon.png') }}" alt="Loading Icon">
+        </div>
+        <div class="section-subsection">
+            <h1><span id="points">0</span> pts.</h1>
+        </div>
+        <div class="section-subsection">
+            <h3>Fleet List:</h3>
+            <div id="fleetlistDropdownBtn" class="dropdown">
+                <div class="dropdown-select">
+                    <span id="dropdownSelected"></span>
+                    <span class="dropdown-caret"><img src="{{ asset('images/caret-icon.png') }}" alt="Caret"></span>
+                </div>
+                <div class="dropdown-content">
+                    <ul id="fleetListDropdown">
+                        <li>Test 1</li>
+                        <li>Test 2</li>
+                        <li>Test 3</li>
+                        <li>Test 4</li>
+                        <li>Test 5</li>
+                        <li>Test 6</li>
+                        <li>Test 7</li>
+                        <li>Test 8</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section section-right">
+        <div class="section-overlay" style="display: none">
+            <img src="{{ asset('images/loading-icon.png') }}" alt="Loading Icon">
+        </div>
+    </div>
+
     <button id="addShip">Add Ship</button>
     <div id="shipContainer">
 
