@@ -23,7 +23,7 @@
                     <span id="dropdownSelected"></span>
                     <span class="dropdown-caret"><img src="{{ asset('images/caret-icon.png') }}" alt="Caret"></span>
                 </div>
-                <div class="dropdown-content">
+                <div class="dropdown-content" style="display: none">
                     <ul id="fleetListDropdown">
                         <li>Test 1</li>
                         <li>Test 2</li>
@@ -43,32 +43,10 @@
             <img src="{{ asset('images/loading-icon.png') }}" alt="Loading Icon">
         </div>
     </div>
-
-    <button id="addShip">Add Ship</button>
-    <div id="shipContainer">
-
-    </div>
-    <div id="shipModal" class="modal" style="display:none">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="dropdown">
-                    <div class="dropdown-select"></div>
-                    <div class="dropdown-content">
-                        <ul>
-
-                        </ul>
-                    </div>
-                </div>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('scripts')
+    {{--Faction selection script--}}
     <script>
         var factions = document.querySelectorAll('.faction');
 
@@ -86,5 +64,14 @@
                 selectedFaction.classList.remove('selected');
             }
         }
+    </script>
+    {{--Fleet List Selection Script--}}
+    <script>
+        var fleetListDropdown = document.getElementById('fleetlistDropdownBtn');
+        var fleetListDropdownContent = document.querySelector('#fleetlistDropdownBtn .dropdown-content');
+
+        fleetListDropdown.addEventListener('click', function () {
+            fleetListDropdownContent.style.display = fleetListDropdownContent.style.display === 'none' ? 'block' : 'none';
+        })
     </script>
 @endpush

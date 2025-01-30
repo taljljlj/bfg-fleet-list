@@ -97,6 +97,12 @@
     position: relative;
 }
 
+#fleetBuilderBody .content-wrapper:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
 #fleetBuilderBody .section {
     border: #c8c5dc 3px solid;
     border-radius: 5px;
@@ -246,6 +252,10 @@
     z-index: 100;
 }
 
+#fleetBuilderBody .section .dropdown .dropdown-select:hover {
+    box-shadow: inset #c8c5dc 0 0 10px;
+}
+
 #fleetBuilderBody .section .dropdown .dropdown-select img {
     height: 100%;
     float: right;
@@ -273,11 +283,14 @@
 #fleetBuilderBody .section .dropdown .dropdown-content ul li {
     padding: 2px 7px;
     cursor: pointer;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
 }
 
 #fleetBuilderBody .section .dropdown .dropdown-content ul li:hover {
     color: white;
-    border-top: 2px solid #c8c5dc;}
+    border-color: #c8c5dc;
+}
 
 #fleetBuilderBody .section.section-right {
     width: calc(100% - 450px);
