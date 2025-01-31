@@ -25,14 +25,19 @@ class FleetBuilderController extends Controller
      * @param FleetBuilderFormRequest $request
      * @return RedirectResponse
      */
-    public function submitFaction(FleetBuilderFormRequest $request) : RedirectResponse
+    public function submitFaction(FleetBuilderFormRequest $request)
     {
         $request->validated();
         $factionId = $request->get('faction');
 
         $faction = Faction::findOrFail($factionId);
+        $fleetLists = $faction->fleetLists()->get();
 
-        return redirect()->route('builder.fleet-list', compact('faction'));
+        return response()->json([
+            'message' => 'Faction successfully created.',
+            'faction' => $faction,
+            'fleetLists' => $fleetLists
+        ]);
     }
 
     /**

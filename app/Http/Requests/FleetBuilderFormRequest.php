@@ -29,7 +29,7 @@ class FleetBuilderFormRequest extends FormRequest
         switch ($step) {
             case 'faction':
                 $rules = [
-                    'faction' => 'required|string|max:25',
+                    'faction' => 'required|integer',
                 ];
                 break;
             case 'fleet-list':

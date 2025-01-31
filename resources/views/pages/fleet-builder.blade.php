@@ -3,8 +3,8 @@
 @section('builder-content')
     <div class="section section-top">
         @foreach($factions as $faction)
-            <div class="faction">
-                <img src="{{ asset('images/factions/' . $faction->img_url) }}" alt="{{ $faction->name }} Logo">
+            <div class="faction" data-faction-id="{{ $faction->id }}">
+                <img src="{{ asset('images/factions/' . $faction->img_url) }}" alt="{{ $faction->name }} Logo"">
                 <h3>{{ $faction->name }}</h3>
             </div>
         @endforeach
@@ -52,9 +52,16 @@
 
         factions.forEach(faction => {
             faction.addEventListener('click', function () {
-                clearSelected();
                 // Toggle the 'selected' class on click
+                clearSelected();
                 this.classList.add('selected');
+
+                //Loading overlay
+
+                //Submit faction via ajax
+                let factionId = this.getAttribute('data-faction-id');
+                let step = 'faction';
+                submitFaction(step, factionId);
             });
         });
 
@@ -64,6 +71,38 @@
                 selectedFaction.classList.remove('selected');
             }
         }
+
+        function submitFaction(step, factionId) {
+            fetch('{{ route('faction.submit') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Assuming you're using Laravel with CSRF protection
+                },
+                body: JSON.stringify({
+                    faction: factionId,
+                    step: step
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    alert('Faction submitted successfully!');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Submission failed. Please check your input.');
+                });
+        }
+
+        function toggleLoadingOverlay() {
+            let loadingOverlays = document.querySelectorAll('.section-overlay');
+
+            loadingOverlays.forEach(loadingOverlay => {
+                
+            })
+        }
+
     </script>
     {{--Fleet List Selection Script--}}
     <script>
@@ -74,4 +113,8 @@
             fleetListDropdownContent.style.display = fleetListDropdownContent.style.display === 'none' ? 'block' : 'none';
         })
     </script>
+@endpush
+
+@push('headers')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
