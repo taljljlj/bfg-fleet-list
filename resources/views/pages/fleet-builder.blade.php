@@ -4,7 +4,7 @@
     <div class="section section-top">
         @foreach($factions as $faction)
             <div class="faction" data-faction-id="{{ $faction->id }}">
-                <img src="{{ asset('images/factions/' . $faction->img_url) }}" alt="{{ $faction->name }} Logo"">
+                <img src="{{ asset('images/factions/' . $faction->img_url) }}" alt="{{ $faction->name }} Logo">
                 <h3>{{ $faction->name }}</h3>
             </div>
         @endforeach
