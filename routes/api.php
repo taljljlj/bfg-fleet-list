@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/faction', [FleetBuilderController::class, 'submitFaction'])->name('faction.submit');
+Route::post('/fleet-list', [FleetBuilderController::class, 'submitFleetList'])->name('fleet-list.submit');

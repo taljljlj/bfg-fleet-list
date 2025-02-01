@@ -22,7 +22,6 @@ class FleetListSeeder extends Seeder
             ["name" => "Gothic Sector Fleet List", "faction_id" => $factionId],
             ["name" => "Bastion Fleet List", "faction_id" => $factionId],
             ["name" => "Armageddon Sector Fleet List", "faction_id" => $factionId],
-            ["name" => "Battlefleet Bakka", "faction_id" => $factionId],
             ["name" => "Bakka Sector Fleet List", "faction_id" => $factionId]
         ]);
 
@@ -109,6 +108,7 @@ class FleetListSeeder extends Seeder
         $fleetLists = array_merge($fleetLists, [
             ["name" => "Kor'vattra Fleet List", "faction_id" => $factionId],
             ["name" => "Commerce Protection Fleet List", "faction_id" => $factionId],
+            ["name" => "Demiurg and Kroot Xenos Fleet List", "faction_id" => $factionId],
         ]);
 
         foreach ($fleetLists as $fleetList) {

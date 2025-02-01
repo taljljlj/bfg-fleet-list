@@ -15,4 +15,8 @@ class FleetList extends Model
     public function faction() {
         return $this->belongsTo(Faction::class);
     }
+
+    public function ships() {
+        return $this->belongsToMany(Ship::class, 'fleetlist_ships');
+    }
 }

@@ -17,6 +17,10 @@ class Ship extends Model
                     ->withPivot('range_speed', 'firepower');
     }
 
+    public function fleetLists() {
+        return $this->belongsToMany(FleetList::class, 'fleetlist_ships');
+    }
+
     public function faction() {
         return $this->belongsTo(Faction::class);
     }
