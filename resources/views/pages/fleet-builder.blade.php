@@ -29,6 +29,9 @@
                 </div>
             </div>
         </div>
+        <div id="shipList" class="section-subsection last">
+
+        </div>
     </div>
     <div class="section section-right">
         <div class="section-overlay" style="visibility: hidden">
@@ -139,27 +142,28 @@
                 let fleetListName = e.target.getAttribute('data-name');
 
                 fleetListDropdownSelected.innerHTML = fleetListName;
+
+                submitFleetList('fleet-list', fleetListId);
             }
         })
 
         function submitFleetList(step, fleetListId) {
-            fetch('{{ route('faction.submit') }}', {
+            fetch('{{ route('fleet-list.submit') }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Assuming you're using Laravel with CSRF protection
                 },
                 body: JSON.stringify({
-                    faction: factionId,
+                    fleetList: fleetListId,
                     step: step
                 })
             })
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
-                    //Update fleet list GUI
-                    clearFleetListDropdown();
-                    updateFleetListDropdown(data.fleetLists);
+                    //Update ship list GUI
+
 
 
                     //Remove loading overlay after data is processed
@@ -172,6 +176,10 @@
                     //Remove loading overlay after running into errors
                     toggleLoadingOverlay(false);
                 });
+        }
+
+        function updateShipList() {
+
         }
     </script>
 @endpush

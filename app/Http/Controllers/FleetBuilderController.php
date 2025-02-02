@@ -48,13 +48,16 @@ class FleetBuilderController extends Controller
     public function submitFleetList(FleetBuilderFormRequest $request) : JsonResponse
     {
         $request->validated();
-        $fleetListId = $request->get('fleet_list');
+        $fleetListId = $request->get('fleetList');
 
         $fleetList = FleetList::findOrFail($fleetListId);
 
+        $ships = $fleetList->ships()->with('armaments')->get()->groupBy('type');
+
         return response()->json([
             'message' => 'Faction successfully created.',
-            'fleetList' => $fleetList
+            'fleetList' => $fleetList,
+            'ships' => $ships
         ]);
     }
 }

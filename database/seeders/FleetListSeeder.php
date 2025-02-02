@@ -42,10 +42,10 @@ class FleetListSeeder extends Seeder
         //get Inquisition ID for Inquisition fleet lists
         $factionId = Faction::getByName('Inquisition')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "The Ordos Majoris", "faction_id" => $factionId],
-            ["name" => "The Ordos Minoris", "faction_id" => $factionId],
             ["name" => "The Emperor's Inquisition", "faction_id" => $factionId],
-            ["name" => "Inquisitors of the Ordos", "faction_id" => $factionId],
+            ["name" => "Ordo Hereticus", "faction_id" => $factionId],
+            ["name" => "Ordo Xenos", "faction_id" => $factionId],
+            ["name" => "Ordo Malleus", "faction_id" => $factionId],
         ]);
 
         //get Rogue Trader ID for Rogue Trader fleet lists
