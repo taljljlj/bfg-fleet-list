@@ -56,7 +56,7 @@
         factions.forEach(faction => {
             faction.addEventListener('click', function () {
                 // Toggle the 'selected' class on click
-                factionClear();
+                factionChangeClear();
                 this.classList.add('selected');
 
                 //Loading overlay
@@ -64,32 +64,34 @@
 
                 //Submit faction via ajax
                 let factionId = this.getAttribute('data-faction-id');
-                submitFaction('faction', factionId);
+                submitFaction(factionId);
             });
         });
 
         //Reset fleet builder content when fleet selected
-        function factionClear() {
+        function factionChangeClear() {
+            //Factions clear
             let selectedFaction = document.querySelector('.faction.selected');
             if (selectedFaction) {
                 selectedFaction.classList.remove('selected');
             }
+
+            //Fleet list clear
             fleetListDropdownSelected.innerHTML = '';
             clearFleetListDropdown();
+
+            //Ship list clear
+            shipList.innerHTML = '';
         }
 
         //Submit selected faction, get related fleet lists
-        function submitFaction(step, factionId) {
-            fetch('{{ route('faction.submit') }}', {
-                method: 'POST',
+        function submitFaction(factionId) {
+            fetch(`/api/faction/${factionId}`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Assuming you're using Laravel with CSRF protection
-                },
-                body: JSON.stringify({
-                    faction: factionId,
-                    step: step
-                })
+                }
             })
                 .then(response => response.json())
                 .then(data => {
@@ -145,26 +147,21 @@
 
                 fleetListDropdownSelected.innerHTML = fleetListName;
 
-                submitFleetList('fleet-list', fleetListId);
+                submitFleetList(fleetListId);
             }
         })
 
-        function submitFleetList(step, fleetListId) {
-            fetch('{{ route('fleet-list.submit') }}', {
-                method: 'POST',
+        function submitFleetList(fleetListId) {
+            fetch(`/api/fleet-list/${fleetListId}`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Assuming you're using Laravel with CSRF protection
-                },
-                body: JSON.stringify({
-                    fleetList: fleetListId,
-                    step: step
-                })
+                }
             })
                 .then(response => response.json())
                 .then(data => {
                     updateShipList(data);
-                    //TODO: clear ship list content on faction change
 
                     //Remove loading overlay after data is processed
                     toggleLoadingOverlay(false);
@@ -187,11 +184,43 @@
             Object.keys(shipsList).forEach(type => {
                 shipListHtml += `<h4>${type}</h4>`;
                 shipsList[type].forEach(ship => {
-                    shipListHtml += `<li data-ship-id="$ship.id"><span class="ship-class">${ship.class}</span> <span class="ship-pts">${ship.points}</span> <span class="ship-add-btn"><img src="${addShipIcon}" alt="Add Ship Icon"></span></li>`
+                    shipListHtml += `<li><span class="ship-class">${ship.class}</span> <span class="ship-pts">${ship.points}</span> <span class="ship-add-btn" data-ship-id="${ship.id}"><img src="${addShipIcon}" alt="Add Ship Icon"></span></li>`
                 })
             })
 
             shipList.innerHTML = shipListHtml;
+        }
+
+        shipList.addEventListener('click', function (e) {
+            if(e.target.parentElement.classList.contains('ship-add-btn')) {
+                let shipId = e.target.parentElement.getAttribute('data-ship-id');
+
+                addShip(shipId);
+            }
+        })
+
+        function addShip(shipId) {
+            fetch(`/api/ship/${shipId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Assuming you're using Laravel with CSRF protection
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    //TODO: 2 chained ajax request are going to be needed here, 1st to get ships data, then apply modifiersto data, 2nd get blade component populated with data return HTML. go straight for the 2nd request in initial implementation before developing custom fleet list logic, conditions and modifiers
+
+                    //Remove loading overlay after data is processed
+                    toggleLoadingOverlay(false);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Submission failed. Please check your input.');
+
+                    //Remove loading overlay after running into errors
+                    toggleLoadingOverlay(false);
+                });
         }
     </script>
 @endpush

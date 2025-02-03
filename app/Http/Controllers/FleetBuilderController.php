@@ -33,16 +33,12 @@ class FleetBuilderController extends Controller
      * @param FleetBuilderFormRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function submitFaction(FleetBuilderFormRequest $request) : JsonResponse
+    public function getFleetListByFaction(Faction $faction) : JsonResponse
     {
-        $request->validated();
-        $factionId = $request->get('faction');
-
-        $faction = Faction::findOrFail($factionId);
         $fleetLists = $faction->fleetLists()->get();
 
         return response()->json([
-            'message' => 'Faction successfully created.',
+            'message' => 'Faction selected.',
             'faction' => $faction,
             'fleetLists' => $fleetLists
         ]);
@@ -52,20 +48,24 @@ class FleetBuilderController extends Controller
      * @param FleetBuilderFormRequest $request
      * @return JsonResponse
      */
-    public function submitFleetList(FleetBuilderFormRequest $request) : JsonResponse
+    public function getShipsByFleetList(FleetList $fleetList) : JsonResponse
     {
-        $request->validated();
-        $fleetListId = $request->get('fleetList');
-
-        $fleetList = FleetList::findOrFail($fleetListId);
-
         $ships = $fleetList->ships()->with('armaments')->get()->groupBy('type');
         $shipsSorted = $this->fleetBuilderService->sortShips($ships);
 
         return response()->json([
-            'message' => 'Faction successfully created.',
+            'message' => 'Fleet List selected.',
             'fleetList' => $fleetList,
             'ships' => $shipsSorted
+        ]);
+    }
+
+    public function getShipById(Ship $ship) : JsonResponse
+    {
+        $ship->load('armaments');
+        return response()->json([
+            'message' => 'Ship added to fleet.',
+            'ship' => $ship,
         ]);
     }
 }

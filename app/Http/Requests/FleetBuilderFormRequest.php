@@ -16,6 +16,7 @@ class FleetBuilderFormRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     * This Form Request has been made redundant for the time being
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
@@ -29,17 +30,17 @@ class FleetBuilderFormRequest extends FormRequest
         switch ($step) {
             case 'faction':
                 $rules = [
-                    'faction' => 'required|integer',
+                    'faction' => 'required|integer|exists:factions,id',
                 ];
                 break;
             case 'fleet-list':
                 $rules = [
-
+                    'fleetList' =>  'required|integer|exists:fleet_lists,id',
                 ];
                 break;
-            case 'fleet':
+            case 'ship':
                 $rules = [
-
+                    'shipId' => 'required|integer|exists:ships,id',
                 ];
                 break;
             default:
@@ -50,7 +51,7 @@ class FleetBuilderFormRequest extends FormRequest
 
     private function validateStep($step)
     {
-        if (!$step || !in_array($step, ['faction', 'fleet-list', 'fleet'])) {
+        if (!$step || !in_array($step, ['faction', 'fleet-list', 'ship'])) {
             abort(422, 'Invalid step provided');
         }
     }

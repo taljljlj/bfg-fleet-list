@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/faction', [FleetBuilderController::class, 'submitFaction'])->name('faction.submit');
-Route::post('/fleet-list', [FleetBuilderController::class, 'submitFleetList'])->name('fleet-list.submit');
+Route::get('/faction/{faction}', [FleetBuilderController::class, 'getFleetListByFaction']);
+Route::get('/fleet-list/{fleetList}', [FleetBuilderController::class, 'getShipsByFleetList']);
+Route::get('/ship/{ship}', [FleetBuilderController::class, 'getShipById']);
