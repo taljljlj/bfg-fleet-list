@@ -29,8 +29,9 @@
                 </div>
             </div>
         </div>
-        <div id="shipList" class="section-subsection last">
-
+        <div class="section-subsection last">
+            <ul id="shipList">
+            </ul>
         </div>
     </div>
     <div class="section section-right">
@@ -49,6 +50,7 @@
         var fleetListDropdownBtn = document.getElementById('fleetListDropdownBtn');
         var fleetListDropdownContent = document.querySelector('#fleetListDropdownBtn .dropdown-content');
         var fleetListDropdownSelected = document.getElementById('dropdownSelected');
+        var shipList = document.getElementById('shipList');
 
         //Faction selection event listener
         factions.forEach(faction => {
@@ -161,10 +163,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
-                    //Update ship list GUI
-
-
+                    updateShipList(data);
+                    //TODO: clear ship list content on faction change
 
                     //Remove loading overlay after data is processed
                     toggleLoadingOverlay(false);
@@ -178,8 +178,20 @@
                 });
         }
 
-        function updateShipList() {
+        function updateShipList(data) {
+            let shipsList = data.ships;
 
+            let shipListHtml = '';
+            let addShipIcon = '{{ asset('images/add-ship-icon.png') }}';
+
+            Object.keys(shipsList).forEach(type => {
+                shipListHtml += `<h4>${type}</h4>`;
+                shipsList[type].forEach(ship => {
+                    shipListHtml += `<li data-ship-id="$ship.id"><span class="ship-class">${ship.class}</span> <span class="ship-pts">${ship.points}</span> <span class="ship-add-btn"><img src="${addShipIcon}" alt="Add Ship Icon"></span></li>`
+                })
+            })
+
+            shipList.innerHTML = shipListHtml;
         }
     </script>
 @endpush

@@ -14,6 +14,7 @@
     font-style: normal;
     font-variation-settings:
         "wdth" 100;
+    letter-spacing: 0.5px;
 }
 
 /* =================== */
@@ -109,7 +110,7 @@
     padding: 25px;
     background-color: #6097c05e;
     box-shadow: #1a202c 0 0 30px, inset #c8c5dc 0 0 30px;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(12px);
     margin-top: 50px;
     color: #c8c5dc;
     position: relative;
@@ -212,6 +213,7 @@
     width: 300px;
     min-height: 50vh;
     float: left;
+    letter-spacing: 1px;
 }
 
 #fleetBuilderBody .section.section-left .section-subsection {
@@ -306,6 +308,65 @@
 #fleetBuilderBody .section .dropdown .dropdown-content ul li:hover {
     color: white;
     border-color: #c8c5dc;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList {
+    padding: 0;
+    list-style: none;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList li {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    padding: 5px 0;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList .ship-class {
+    flex: 1;
+    text-align: left;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList .ship-pts,
+#fleetBuilderBody .section.section-left ul#shipList .ship-add-btn {
+    text-align: right;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList .ship-pts {
+    margin: 0 10px;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList .ship-add-btn {
+    height: 19px;
+    cursor: pointer;
+    opacity: 0.7;
+    user-select: none;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList .ship-add-btn:hover {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px #c8c5dc) hue-rotate(45deg);
+}
+
+#fleetBuilderBody .section.section-left ul#shipList .ship-add-btn img {
+    height: 100%;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList h4 {
+    position: relative;
+    text-align: right;
+    padding-bottom: 5px;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList h4:after {
+    position: absolute;
+    display: block;
+    content: "";
+    bottom: 0;
+    right: -25px;
+    height: 2px;
+    width: 250px;
+    background: linear-gradient(to right, transparent 0%, #c8c5dc 100%);
 }
 
 #fleetBuilderBody .section.section-right {

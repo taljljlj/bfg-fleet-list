@@ -985,7 +985,7 @@ class ShipSeeder extends Seeder
                 ],
                 //Heavy Cruisers
                 [
-                    "class" => "Styx Class Heavy Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 260,
+                    "class" => "Styx Class Heavy Cruiser", "type" => "Heavy Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 260,
                     "armaments" => [
                         ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3],
                         ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3],
@@ -1002,7 +1002,7 @@ class ShipSeeder extends Seeder
                     ]
                 ],
                 [
-                    "class" => "Hecate Class Heavy Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 230,
+                    "class" => "Hecate Class Heavy Cruiser", "type" => "Heavy Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 230,
                     "armaments" => [
                         ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2],
                         ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2],
@@ -1021,7 +1021,7 @@ class ShipSeeder extends Seeder
                     ]
                 ],
                 [
-                    "class" => "Hades Class Heavy Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 2, "points" => 200,
+                    "class" => "Hades Class Heavy Cruiser", "type" => "Heavy Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 2, "points" => 200,
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 10],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 10],
@@ -1038,7 +1038,7 @@ class ShipSeeder extends Seeder
                     ]
                 ],
                 [
-                    "class" => "Acheron Class Heavy Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 190,
+                    "class" => "Acheron Class Heavy Cruiser", "type" => "Heavy Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 190,
                     "armaments" => [
                         ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 2],
                         ["type" => "Lance Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 2],
