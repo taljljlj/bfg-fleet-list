@@ -38,6 +38,138 @@
         <div class="section-overlay" style="visibility: hidden">
             <img src="{{ asset('images/loading-icon.png') }}" alt="Loading Icon">
         </div>
+        <div class="card-ship">
+            <div class="card-header">
+                <div class="card-faction-img">
+                    <img src="{{ asset('images/factions/imperium-logo.png') }}" alt="Faction logo">
+                </div>
+                <div class="card-ship-class heading">Retribution Class Battleship</div>
+                <div class="card-ship-ld card-input heading">
+                    <label for="card-ship-ld">Ld:</label>
+                    <input type="text" name="card-ship-ld">
+                </div>
+                <div class="card-ship-pts heading">
+                    <label for="card-ship-pts">Pts:</label>
+                    <input type="text" name="card-ship-pts">
+                </div>
+                <div class="card-ship-remove-btn">&times;</div>
+            </div>
+            <div class="card-body">
+                <div class="card-section-t">
+                    <div class="card-subsec-l">
+                        <div class="card-ship-img">
+                            <img src="" alt="">
+                        </div>
+                        <div class="card-ship-hp">
+                            <div class="hp-row-1">
+                                <div class="hp-box"></div>
+                                <div class="hp-box"></div>
+                                <div class="hp-box"></div>
+                                <div class="hp-box"></div>
+                                <div class="hp-box"></div>
+                                <div class="hp-box"></div>
+                            </div>
+                            <div class="hp-row-2">
+                                <div class="hp-box"></div>
+                                <div class="hp-box"></div>
+                                <div class="hp-box"></div>
+                                <div class="hp-box"></div>
+                                <div class="hp-box"></div>
+                                <div class="hp-box"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-subsec-r">
+                        <input type="text" placeholder="Ship Name">
+                        <div class="card-ship-crits">
+                            <h4>Critical Damages</h4>
+                            <div class="card-ship-crits-container">
+                                <div class="crit-box">
+                                    <div class="crit-dmg-num">2</div>
+                                    <div class="crit-dmg-name">Dorsal</div>
+                                </div>
+                                <div class="crit-box">
+                                    <div class="crit-dmg-num">3</div>
+                                    <div class="crit-dmg-name">Starboard</div>
+                                </div>
+                                <div class="crit-box">
+                                    <div class="crit-dmg-num">4</div>
+                                    <div class="crit-dmg-name">Port</div>
+                                </div>
+                                <div class="crit-box">
+                                    <div class="crit-dmg-num">5</div>
+                                    <div class="crit-dmg-name">Prow</div>
+                                </div>
+                                <div class="crit-box">
+                                    <div class="crit-dmg-num">6</div>
+                                    <div class="crit-dmg-name">Engine</div>
+                                </div>
+                                <div class="crit-box">
+                                    <div class="crit-dmg-num">7</div>
+                                    <div class="crit-dmg-name">Fire</div>
+                                </div>
+                                <div class="crit-box">
+                                    <div class="crit-dmg-num">8</div>
+                                    <div class="crit-dmg-name">Thrusters</div>
+                                </div>
+                                <div class="crit-box">
+                                    <div class="crit-dmg-num">9</div>
+                                    <div class="crit-dmg-name">Bridge</div>
+                                </div>
+                                <div class="crit-box">
+                                    <div class="crit-dmg-num">10</div>
+                                    <div class="crit-dmg-name">Shields</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-ship-stats">
+                            <div class="stat-box">
+                                <div class="stat-name">Speed</div>
+                                <div class="stat-value">15cm</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-name">Turns</div>
+                                <div class="stat-value">45°</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-name">Shields</div>
+                                <div class="stat-value">4</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-name">Armour</div>
+                                <div class="stat-value">5+/F6+</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-name">Turrets</div>
+                                <div class="stat-value">4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-section-b">
+                    <div class="card-subsec-l">
+                        <div class="card-ship-additional">
+                            <div class="card-ship-special"></div>
+                            <div class="card-ship-options"></div>
+                        </div>
+                    </div>
+                    <div class="card-subsec-r">
+                        <table>
+                            <tr>
+                                <th>Armament</th>
+                                <th>Speed/Range</th>
+                                <th>Firepower</th>
+                            </tr>
+                            <tr>
+                                <td>Weapons Battey</td>
+                                <td>30cm</td>
+                                <td>6</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -209,7 +341,7 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    //TODO: 2 chained ajax request are going to be needed here, 1st to get ships data, then apply modifiersto data, 2nd get blade component populated with data return HTML. go straight for the 2nd request in initial implementation before developing custom fleet list logic, conditions and modifiers
+                    //TODO: 2 chained ajax request are going to be needed here, 1st to get ships data, then apply modifiers to data, 2nd get blade component populated with data return HTML. go straight for the 2nd request in initial implementation before developing custom fleet list logic, conditions and modifiers
 
                     //Remove loading overlay after data is processed
                     toggleLoadingOverlay(false);
