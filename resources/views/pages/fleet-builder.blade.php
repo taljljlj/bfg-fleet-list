@@ -38,27 +38,140 @@
         <div class="section-overlay" style="visibility: hidden">
             <img src="{{ asset('images/loading-icon.png') }}" alt="Loading Icon">
         </div>
+        <div id="shipCardContainer" class="ship-card-container">
         <div class="card-ship">
             <div class="card-header">
-                <div class="card-faction-img">
-                    <img src="{{ asset('images/factions/imperium-logo.png') }}" alt="Faction logo">
+                <div class="card-subsec-l">
+                    <div class="card-faction-img">
+                        <img src="{{ asset('images/factions/imperium-logo.png') }}" alt="Faction logo">
+                    </div>
+                    <div class="card-ship-class heading">Retribution Class Battleship</div>
                 </div>
-                <div class="card-ship-class heading">Retribution Class Battleship</div>
-                <div class="card-ship-ld card-input heading">
-                    <label for="card-ship-ld">Ld:</label>
-                    <input type="text" name="card-ship-ld">
+                <div class="card-subsec-r">
+                    <div class="card-ship-ld card-input heading">
+                        <label for="cardShipLd">Ld:</label>
+                        <input type="text" name="cardShipLd">
+                    </div>
+                    <div class="card-ship-pts card-input heading">
+                        <label for="cardShipPts">Pts:</label>
+                        <input type="text" name="cardShipPts">
+                    </div>
+                    <div class="card-ship-remove-btn">&times;</div>
                 </div>
-                <div class="card-ship-pts heading">
-                    <label for="card-ship-pts">Pts:</label>
-                    <input type="text" name="card-ship-pts">
-                </div>
-                <div class="card-ship-remove-btn">&times;</div>
             </div>
             <div class="card-body">
                 <div class="card-section-t">
                     <div class="card-subsec-l">
                         <div class="card-ship-img">
-                            <img src="" alt="">
+                            <img src="{{ asset('images/ships/emperor-class-battleship-1.png') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="card-subsec-r">
+                        <input type="text" placeholder="Enter Ship Name">
+                        <div class="card-ship-additional card-box-container">
+                            <div class="card-ship-special"></div>
+                            <div class="card-ship-options"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-section-b">
+                    <div class="card-subsec-l">
+                        <div class="card-ship-stats">
+                            <div class="stat-box card-box-container">
+                                <div class="stat-name">Hullpoints</div>
+                                <div class="stat-value">15cm</div>
+                            </div>
+                            <div class="stat-box card-box-container">
+                                <div class="stat-name">Speed</div>
+                                <div class="stat-value">15cm</div>
+                            </div>
+                            <div class="stat-box card-box-container">
+                                <div class="stat-name">Turns</div>
+                                <div class="stat-value">45°</div>
+                            </div>
+                            <div class="stat-box card-box-container">
+                                <div class="stat-name">Shields</div>
+                                <div class="stat-value">4</div>
+                            </div>
+                            <div class="stat-box card-box-container">
+                                <div class="stat-name">Armour</div>
+                                <div class="stat-value">5+/f:6+</div>
+                            </div>
+                            <div class="stat-box card-box-container">
+                                <div class="stat-name">Turrets</div>
+                                <div class="stat-value">4</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-subsec-r">
+                        <div class="card-ship-armaments card-box-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Armament</th>
+                                        <th>Speed/Range</th>
+                                        <th colspan="2">Firepower</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="firearc-lr">
+                                        <td>Weapons Battery</td>
+                                        <td>30cm</td>
+                                        <td>6</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr class="firearc-lfr">
+                                        <td>Lance Battery</td>
+                                        <td>30cm</td>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr class="firearc-f">
+                                        <td>Torpedoes</td>
+                                        <td>30cm</td>
+                                        <td colspan="2">9</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Launch Bays</td>
+                                        <td>30cm</td>
+                                        <td>4</td>
+                                        <td>4</td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!--
+        <div class="card-ship-export">
+            <div class="card-header">
+                <div class="card-subsec-l">
+                    <div class="card-faction-img">
+                        <img src="{{ asset('images/factions/imperium-logo.png') }}" alt="Faction logo">
+                    </div>
+                    <div class="card-ship-class heading">Retribution Class Battleship</div>
+                </div>
+                <div class="card-subsec-r">
+                    <div class="card-ship-ld card-input heading">
+                        <label for="cardShipLd">Ld:</label>
+                        <input type="text" name="cardShipLd">
+                    </div>
+                    <div class="card-ship-pts card-input heading">
+                        <label for="cardShipPts">Pts:</label>
+                        <input type="text" name="cardShipPts">
+                    </div>
+                    <div class="card-ship-remove-btn">&times;</div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-section-t">
+                    <div class="card-subsec-l">
+                        <div class="card-ship-img">
+                            <img src="{{ asset('images/ships/emperor-class-battleship.png') }}" alt="">
                         </div>
                         <div class="card-ship-hp">
                             <div class="hp-row-1">
@@ -123,23 +236,23 @@
                             </div>
                         </div>
                         <div class="card-ship-stats">
-                            <div class="stat-box">
+                            <div class="stat-box card-box-container">
                                 <div class="stat-name">Speed</div>
                                 <div class="stat-value">15cm</div>
                             </div>
-                            <div class="stat-box">
+                            <div class="stat-box card-box-container">
                                 <div class="stat-name">Turns</div>
                                 <div class="stat-value">45°</div>
                             </div>
-                            <div class="stat-box">
+                            <div class="stat-box card-box-container">
                                 <div class="stat-name">Shields</div>
                                 <div class="stat-value">4</div>
                             </div>
-                            <div class="stat-box">
+                            <div class="stat-box card-box-container">
                                 <div class="stat-name">Armour</div>
                                 <div class="stat-value">5+/F6+</div>
                             </div>
-                            <div class="stat-box">
+                            <div class="stat-box card-box-container">
                                 <div class="stat-name">Turrets</div>
                                 <div class="stat-value">4</div>
                             </div>
@@ -170,6 +283,7 @@
                 </div>
             </div>
         </div>
+        -->
     </div>
 @endsection
 

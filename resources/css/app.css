@@ -1,20 +1,29 @@
 /* =================== */
 /*      General        */
 /* =================== */
+@font-face {
+    font-family: 'Warsaw Gothic';
+    src: url('/fonts/WarsawGothicCond.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #mainBody {
     margin: 0;
     background-color: #4a5568;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-
-    font-family: "League Gothic", serif;
+    font-family: "League Gothic", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
     font-variation-settings:
         "wdth" 100;
     letter-spacing: 0.5px;
+}
+h3, h4 {
+    font-weight: 400;
 }
 
 /* =================== */
@@ -46,6 +55,13 @@
 #navbar {
     text-align: center;
     background-color: #c8c5dc;
+    font-family: "League Gothic", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+    letter-spacing: 0.5px;
 }
 #navbar .navbar-container {
     max-width: 1500px;
@@ -196,24 +212,14 @@
 
 #fleetBuilderBody .section.section-top .faction h3 {
     margin: 0;
-    font-optical-sizing: initial;
-    font-weight: 400;
-    font-style: normal;
-    font-variation-settings:
-        "wdth" 100;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     color: white;
-}
-
-#fleetBuilderBody .section.section-right {
-    min-height: 50vh;
 }
 
 #fleetBuilderBody .section.section-left {
     width: 300px;
     min-height: 50vh;
     float: left;
-    letter-spacing: 1px;
 }
 
 #fleetBuilderBody .section.section-left .section-subsection {
@@ -244,6 +250,8 @@
 #fleetBuilderBody .section.section-left h3 {
     margin-top: 10px;
     margin-bottom: 5px;
+    font-weight: 600;
+    letter-spacing: 2px;
 }
 
 #fleetBuilderBody .section .dropdown {
@@ -376,24 +384,53 @@
     display: flex;
 }
 
+#fleetBuilderBody .section.section-right .ship-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
 #fleetBuilderBody .section.section-right .card-ship {
     border: 3px solid #c8c5dc;
     border-radius: 5px;
-    width: 700px;
+    width: 600px;
+    backdrop-filter: blur(7px);
+    background: rgb(235 232 255 / 70%);
 }
 
 #fleetBuilderBody .section.section-right .card-ship .card-header {
-    background: #c8c5dc;
-    color: black;
+    background-color: rgba(54, 87, 115, 0.8);
+    color: #c8c5dc;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
     align-items: center;
+    justify-content: space-between;
 }
 
 #fleetBuilderBody .section.section-right .card-ship .card-faction-img {
-    filter: invert(100%);
-    height: 35px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-subsec-l {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    padding: 0 10px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-subsec-r {
+    display: flex;
+    align-self: flex-end;
+    align-items: center;
+    padding: 0 10px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-input {
+    padding: 0 10px;
 }
 
 #fleetBuilderBody .section.section-right .card-ship .card-faction-img img {
@@ -402,12 +439,216 @@
 
 #fleetBuilderBody .section.section-right .card-ship .heading {
     font-size: 22px;
+    font-weight: 400;
 }
 
 #fleetBuilderBody .section.section-right .card-ship input {
     border-radius: 5px;
+    border-color: #c8c5dc;
+    border-style: solid;
+    background-color: transparent;
+    outline: none;
     width: 50px;
-    height: 20px;
     margin: 0;
     padding: 0;
+    vertical-align: middle;
+    height: 30px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    color: #c8c5dc;
+}
+
+#fleetBuilderBody .section.section-right .card-ship input:focus-visible {
+    box-shadow: inset #c8c5dc 0 0 5px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-remove-btn {
+    font-size: 45px;
+    cursor: pointer;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-remove-btn:hover {
+    color: white;
+    text-shadow: 0 0 10px #c8c5dc;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-ld input {
+    width: 30px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-section-t,
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-section-b {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-section-b {
+    margin-top: 5px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-subsec-l,
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-subsec-r {
+    display: flex;
+    flex-direction: column;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-section-t .card-subsec-l,
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-section-t .card-subsec-r {
+    width: 50%;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-section-b .card-subsec-l {
+    width: 40%;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-section-b .card-subsec-r {
+    width: 60%;
+    align-self: center;
+    padding-right: 34px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-box-container {
+    border: 2px solid rgba(54, 87, 115, 0.8);
+    border-radius: 5px;
+    background-color: transparent;
+    color: rgba(54, 87, 115, 0.8);
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-img img {
+    width: 100%;
+    filter: drop-shadow(0 0 15px rgb(54, 87, 115));
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-hp .hp-row-1,
+#fleetBuilderBody .section.section-right .card-ship .card-ship-hp .hp-row-2 {
+    display: flex;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-hp .hp-box {
+    width: 25px;
+    height: 25px;
+    border: 2px solid rgba(54, 87, 115, 0.8);
+    border-radius: 5px;
+    margin: 2px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-hp .hp-row-2 .hp-box {
+    box-shadow: 0 0 5px inset rgba(54, 87, 115, 0.8);
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-section-t input {
+    box-sizing: border-box;
+    width: 100%;
+    border-color: rgba(54, 87, 115, 0.8);
+    background-color: transparent;
+    color: rgba(54, 87, 115, 0.8);
+    font-size: 18px;
+    font-weight: 400;
+    padding: 0 10px;
+    text-overflow: ellipsis;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-section-t input:focus-visible {
+    box-shadow: 0 0 5px inset rgba(54, 87, 115, 0.8);
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-section-t input::placeholder {
+    color: rgba(54, 87, 115, 0.8);
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-additional {
+    box-sizing: border-box;
+    width: 100%;
+    height: 120px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-stats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .stat-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5px;
+    width: 50px;
+    margin-bottom: 10px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .stat-value {
+    font-weight: 600;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-armaments {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    width: 100%;
+}
+
+#fleetBuilderBody .section.section-right .card-ship table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#fleetBuilderBody .section.section-right .card-ship table thead {
+    background-color: rgba(54, 87, 115, 0.8);
+    color: #c8c5dc;
+}
+
+#fleetBuilderBody .section.section-right .card-ship table thead th {
+    font-weight: 400;
+}
+
+#fleetBuilderBody .section.section-right .card-ship table tbody tr {
+    border-top: 2px solid rgba(54, 87, 115, 0.8);
+    position: relative;
+}
+
+#fleetBuilderBody .section.section-right .card-ship table tbody td {
+    border-right: 2px solid rgba(54, 87, 115, 0.8);
+}
+
+#fleetBuilderBody .section.section-right .card-ship table tbody td:last-child {
+    border-right: 0;
+}
+
+#fleetBuilderBody .section.section-right .card-ship table tbody tr:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -2px;
+    right: -30px;
+    width: 22px;
+    height: 22px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#fleetBuilderBody .section.section-right .card-ship table tbody tr.firearc-lr:after {
+    background-image: url('@images/fleet-builder/firearc-lr.png');
+}
+
+#fleetBuilderBody .section.section-right .card-ship table tbody tr.firearc-f:after {
+    background-image: url('@images/fleet-builder/firearc-f.png');
+}
+
+#fleetBuilderBody .section.section-right .card-ship table tbody tr.firearc-lfr:after {
+    background-image: url('@images/fleet-builder/firearc-lfr.png');
 }
