@@ -1219,8 +1219,9 @@ class ShipSeeder extends Seeder
 
         foreach ($shipList as $faction) {
             //Faction layer of array was used before, leaving it as is in case it becomes useful again
+            //$factionId = Faction::getByName($faction)->id;
             foreach ($faction as $shipData) {
-
+                //$shipData['faction_id'] = $factionId;
                 $armamentsData = $shipData['armaments'];
                 unset($shipData['armaments']);
                 $fleetListsData = $shipData['fleet_lists'];

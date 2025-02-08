@@ -21,7 +21,13 @@ class Ship extends Model
         return $this->belongsToMany(FleetList::class, 'fleetlist_ships');
     }
 
-    public function faction() {
-        return $this->belongsTo(Faction::class);
+//      Relation removed
+//    public function faction() {
+//        return $this->belongsTo(Faction::class);
+//    }
+
+    //Accessors
+    public function getArmourShortAttribute() {
+        return str_replace('front', 'f', $this->armour);
     }
 }
