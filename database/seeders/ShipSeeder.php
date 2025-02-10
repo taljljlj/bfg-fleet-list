@@ -21,7 +21,7 @@ class ShipSeeder extends Seeder
                 //Battleships
                 [
                     "class" => "Apocalypse Class Battleship", "type" => "Battleship", "hitpoints" => 12, "speed" => 15, "turns" => 45, "shields" => 4, "armour" => "6+ front / 5+", "turrets" => 4, "points" => 365,
-                                    "armaments" => [
+                    "armaments" => [
                         ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 6],
                         ["type" => "Lance Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 6],
                         ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 150, "firepower" => 1],
@@ -30,6 +30,10 @@ class ShipSeeder extends Seeder
                     "fleet_lists" => [
                         ["fleet_list_id" => 2, "is_reserve" => 0],
                         ["fleet_list_id" => 3, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive",
+                        "Lock On Lances"
                     ]
                 ],
                 [
@@ -48,6 +52,10 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 3, "is_reserve" => 0],
                         ["fleet_list_id" => 4, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive",
+                        "Prow Sensors"
                     ]
                 ],
                 [
@@ -63,6 +71,9 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 2, "is_reserve" => 0],
                         ["fleet_list_id" => 4, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive"
                     ]
                 ],
                 [
@@ -75,6 +86,9 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 4, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive"
                     ]
                 ],
                 [
@@ -92,6 +106,10 @@ class ShipSeeder extends Seeder
                     "fleet_lists" => [
                         ["fleet_list_id" => 3, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive",
+                        "Prow Sensors"
                     ]
                 ],
                 [
@@ -105,6 +123,9 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 4, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive"
                     ]
                 ],
                 //Grand Cruisers
@@ -122,6 +143,9 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 18, "is_reserve" => 0],
                         ["fleet_list_id" => 19, "is_reserve" => 0],
                         ["fleet_list_id" => 20, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Resilient Prow"
                     ]
                 ],
                 [
@@ -134,6 +158,9 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 2, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Resilient Prow"
                     ]
                 ],
                 [
@@ -144,6 +171,9 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 2, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Resilient Prow"
                     ]
                 ],
                 //Battlecruisers
@@ -186,6 +216,10 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 4, "is_reserve" => 1]
+                    ],
+                    "rules" => [
+                        "Sensor Array",
+                        "Resilient Prow"
                     ]
                 ],
                 [
@@ -200,6 +234,9 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 4, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Up-rated Engineering Plants"
                     ]
                 ],
                 [
@@ -328,6 +365,9 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 15, "is_reserve" => 0],
                         ["fleet_list_id" => 34, "is_reserve" => 1],
                         ["fleet_list_id" => 35, "is_reserve" => 1]
+                    ],
+                    "rules" => [
+                        "Resilient Mid-ship Corridor"
                     ]
                 ],
                 [
@@ -340,6 +380,9 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 4, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Resilient Mid-ship Corridor"
                     ]
                 ],
                 [
@@ -354,6 +397,9 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 2, "is_reserve" => 0],
                         ["fleet_list_id" => 3, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Resilient Mid-ship Corridor"
                     ]
                 ],
                 [
@@ -366,6 +412,9 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 4, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Resilient Mid-ship Corridor"
                     ]
                 ],
                 [
@@ -379,6 +428,9 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 2, "is_reserve" => 0],
                         ["fleet_list_id" => 3, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Resilient Mid-ship Corridor"
                     ]
                 ],
                 [
@@ -395,6 +447,9 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 14, "is_reserve" => 0],
                         ["fleet_list_id" => 34, "is_reserve" => 1],
                         ["fleet_list_id" => 35, "is_reserve" => 1]
+                    ],
+                    "rules" => [
+                        "Improved Thrusters"
                     ]
                 ],
                 [
@@ -409,6 +464,9 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 13, "is_reserve" => 0],
                         ["fleet_list_id" => 14, "is_reserve" => 0],
                         ["fleet_list_id" => 15, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Improved Thrusters"
                     ]
                 ],
                 //Escorts
@@ -496,7 +554,11 @@ class ShipSeeder extends Seeder
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 15, "firepower" => 2]
                     ],
-                    "fleet_lists" => [] //TODO [alpha]: implement some logic to have transport ships available for all fleet lists
+                    "fleet_lists" => [],
+                    "rules" => [
+                        "Transport Thrusters",
+                        "Reduced Ld"
+                    ]//TODO [alpha]: implement some logic to have transport ships available for all fleet lists
                 ],
             ],
             "Space Marines" => [
@@ -514,6 +576,9 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 5, "is_reserve" => 0],
                         ["fleet_list_id" => 6, "is_reserve" => 0],
                         ["fleet_list_id" => 7, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive"
                     ]
                 ],
                 [
@@ -530,11 +595,14 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 5, "is_reserve" => 0],
                         ["fleet_list_id" => 6, "is_reserve" => 0],
                         ["fleet_list_id" => 7, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive"
                     ]
                 ],
-                //Cruisers
+                //Light Cruisers
                 [
-                    "class" => "Strike Cruiser", "type" => "Cruiser", "hitpoints" => 6, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "6+", "turrets" => 2, "points" => 145,
+                    "class" => "Strike Cruiser", "type" => "Light Cruiser", "hitpoints" => 6, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "6+", "turrets" => 2, "points" => 145,
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 4],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 4],
@@ -605,6 +673,9 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 8, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive"
                     ]
                 ],
             ],
@@ -620,6 +691,10 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 9, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive",
+                        "Grey Knights"
                     ]
                 ],
                 [
@@ -632,6 +707,13 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 9, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive",
+                        "Blackship Crew 1",
+                        "Blackship Crew 2",
+                        "Gellar Field",
+                        "Prized Objective"
                     ]
                 ],
                 [
@@ -656,6 +738,10 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 9, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Improved Thrusters",
+                        "Grey Knights"
                     ]
                 ],
             ],
@@ -670,6 +756,11 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 15, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive",
+                        "Fra’al Targeting Matrix",
+                        "Xenotech Included 2"
                     ]
                 ],
                 [
@@ -699,6 +790,10 @@ class ShipSeeder extends Seeder
                     "fleet_lists" => [
                         ["fleet_list_id" => 13, "is_reserve" => 0],
                         ["fleet_list_id" => 14, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Transport Thrusters",
+                        "Heavy Transport"
                     ]
                 ],
                 [
@@ -727,10 +822,14 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 15, "is_reserve" => 0],
                         ["fleet_list_id" => 34, "is_reserve" => 0],
                         ["fleet_list_id" => 35, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Disruptor Cannon",
+                        "Xenotech Included 1"
                     ]
                 ],
                 [
-                    "class" => "Fra'al Raider", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 50,
+                    "class" => "Fra’al Raider", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 50,
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 2],
                         ["type" => "Lance Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1],
@@ -741,6 +840,10 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 15, "is_reserve" => 0],
                         ["fleet_list_id" => 34, "is_reserve" => 0],
                         ["fleet_list_id" => 35, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Fra’al Targeting Matrix",
+                        "Xenotech Included 2"
                     ]
                 ],
                 [
@@ -755,6 +858,10 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 15, "is_reserve" => 0],
                         ["fleet_list_id" => 34, "is_reserve" => 0],
                         ["fleet_list_id" => 35, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Whisperlance Cannon",
+                        "Xenotech Included 3"
                     ]
                 ],
                 [
@@ -782,6 +889,10 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 15, "is_reserve" => 0],
                         ["fleet_list_id" => 34, "is_reserve" => 0],
                         ["fleet_list_id" => 35, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Cargo Vessel",
+                        "Ordnance Vessel"
                     ]
                 ],
                 [
@@ -794,6 +905,10 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 13, "is_reserve" => 0],
                         ["fleet_list_id" => 14, "is_reserve" => 0],
                         ["fleet_list_id" => 15, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Ghost-Light",
+                        "Stryxis Movement",
                     ]
                 ],
             ],
@@ -815,6 +930,9 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 19, "is_reserve" => 0],
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive"
                     ]
                 ],
                 [
@@ -835,6 +953,9 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 19, "is_reserve" => 0],
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive"
                     ]
                 ],
                 [
@@ -850,6 +971,12 @@ class ShipSeeder extends Seeder
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 18, "is_reserve" => 0]
+                    ],
+                    "rules" => [
+                        "Massive",
+                        "Mark Of Tzeentch",
+                        "Vortex Of Chaos",
+                        "Vagaries Of Fate"
                     ]
                 ],
                 [

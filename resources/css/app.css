@@ -105,6 +105,8 @@ h3, h4 {
     background-image: url('@images/fleet-builder-bg-2.jpg');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     text-align: center;
 }
 
