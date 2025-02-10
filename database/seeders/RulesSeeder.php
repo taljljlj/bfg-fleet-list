@@ -16,7 +16,7 @@ class RulesSeeder extends Seeder
         $rules = [
             [
                 'name' => 'Massive',
-                'text' => 'Come To a New Heading disabled',
+                'text' => 'Come To A New Heading disabled',
                 'text_long' => 'Battleships are a slow and ponderous vessels and cannot use Come to New Heading special orders',
             ],
             [
@@ -165,30 +165,70 @@ class RulesSeeder extends Seeder
                 'text_long' => 'Vagaries of Fate: The Changer of Ways provides for command of the Fates, affording its auguries snatched glimpses of the future. The ship is gifted with an additional reroll added to that from the Mark of Tzeentch, but the daemons bound to the hull are easily enraged by a commander’s inability to use this foresight and inflict 1 damage if this ship’s or its Lord’s re-rolls fail for any reason',
             ],
             [
-                'name' => '',
-                'text' => '',
-                'text_long' => '',
+                'name' => 'Mark Of Slaanesh',
+                'text' => 'Mark Of Slaanesh',
+                'text_long' => 'Ship bears a Mark Of Slaanesh',
             ],
             [
-                'name' => '',
-                'text' => '',
-                'text_long' => '',
+                'name' => 'Palace Of Pleasure',
+                'text' => 'Emperor’s Children Chaos Space Marines',
+                'text_long' => 'Ship has Emperor’s Children Chaos Space Marines on board',
             ],
             [
-                'name' => '',
-                'text' => '',
-                'text_long' => '',
+                'name' => 'Mark Of Nurgle',
+                'text' => 'Mark Of Nurgle',
+                'text_long' => 'Ship bears a Mark Of Nurgle',
             ],
             [
-                'name' => '',
-                'text' => '',
-                'text_long' => '',
+                'name' => 'Miasma Of Pestilence',
+                'text' => 'Turrets no effect vs torpedoes; enemy <15cm no beneficial column shift',
+                'text_long' => 'Miasma of Pestilence: The Terminus Est is surrounded by vast swarming clouds of the same Warp-spawned flies which buzz and howl through its interior and first transformed Typhus into the Host of the Destroyer Hive. This miasma permeates outwards from the ship through blisters, boils and fractures in its surface or through corroded discharge tubes and weapon barrels. It replaces the ship’s turrets and works in exactly the same way as turrets against attack craft but has no effect against torpedoes. The miasma is so thick that it obscures and distorts the shape of the Terminus Est, meaning that vessels within 15cm do not benefit from a left column shift when firing at it',
             ],
             [
-                'name' => '',
-                'text' => '',
-                'text_long' => '',
+                'name' => 'Mark Of Khorne',
+                'text' => 'Mark Of Khorne',
+                'text_long' => 'Ship bears a Mark Of Khorne',
             ],
+            [
+                'name' => 'World Eaters Chaos Space Marines',
+                'text' => 'World Eaters Chaos Space Marines',
+                'text_long' => 'Ship has World Eaters Chaos Space Marines on board',
+            ],
+            [
+                'name' => 'Berzerker Horde',
+                'text' => 'Khorn Berzerkers: +2 boarding action',
+                'text_long' => 'Ship embarks a retinue of Khorne Berzerkers, giving it a boarding modifier of +2 in addition to its improved boarding value',
+            ],
+            [
+                'name' => 'Chosen Terminators',
+                'text' => 'Chosen Terminators: teleport hit & runs roll 2D6 - pick highest D6',
+                'text_long' => 'Ship is embarked with Chosen Terminators and may roll 2D6 and pick the highest D6 when conducting a teleport Hit and Run attack each turn',
+            ],
+            [
+                'name' => 'Long Range Targeting Matrix',
+                'text' => 'No range penalty for >30cm',
+                'text_long' => 'Does not suffer a column shift for firing over 30 cm',
+            ],
+//            [
+//                'name' => '',
+//                'text' => '',
+//                'text_long' => '',
+//            ],
+//            [
+//                'name' => '',
+//                'text' => '',
+//                'text_long' => '',
+//            ],
+//            [
+//                'name' => '',
+//                'text' => '',
+//                'text_long' => '',
+//            ],
+//            [
+//                'name' => '',
+//                'text' => '',
+//                'text_long' => '',
+//            ],
 
         ];
 

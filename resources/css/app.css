@@ -327,8 +327,6 @@ h3, h4 {
 }
 
 #fleetBuilderBody .section.section-left ul#shipList li {
-    display: flex;
-    justify-content: space-between;
     color: white;
     padding: 5px 0;
 }
@@ -367,9 +365,25 @@ h3, h4 {
     position: relative;
     text-align: right;
     padding-bottom: 5px;
+    color: #c8c5dc;
+    cursor: pointer;
+    margin: 0;
+    user-select: none;
 }
 
-#fleetBuilderBody .section.section-left ul#shipList h4:after {
+#fleetBuilderBody .section.section-left ul#shipList h4 .caret-icon {
+    vertical-align: sub;
+    padding-left: 10px;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList h4 .caret-icon img {
+    height: 22px;
+    opacity: 0.7;
+    rotate: 180deg;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList h4:after,
+#fleetBuilderBody .section.section-left ul#shipList .ship-type-container:after {
     position: absolute;
     display: block;
     content: "";
@@ -378,6 +392,23 @@ h3, h4 {
     height: 2px;
     width: 250px;
     background: linear-gradient(to right, transparent 0%, #c8c5dc 100%);
+}
+
+#fleetBuilderBody .section.section-left ul#shipList .ship-type-container {
+    position: relative;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList li.collapsed .ship-type-container {
+    height: 0;
+    overflow-y: hidden;
+}
+#fleetBuilderBody .section.section-left ul#shipList li.collapsed img {
+    rotate: 0deg;
+}
+
+#fleetBuilderBody .section.section-left ul#shipList .ship-type-container li {
+    display: flex;
+    justify-content: space-between;
 }
 
 #fleetBuilderBody .section.section-right {
@@ -656,4 +687,10 @@ h3, h4 {
 
 #fleetBuilderBody .section.section-right .card-ship table tbody tr.firearc-lfr:after {
     background-image: url('@images/fleet-builder/firearc-lfr.png');
+}
+
+#fleetBuilderBody .section.section-right .card-ship .ship-specials-container {
+    padding-left: 20px;
+    margin: 0;
+    text-align: left;
 }

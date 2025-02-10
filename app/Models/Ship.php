@@ -13,12 +13,16 @@ class Ship extends Model
 
     //Relations
     public function armaments() {
-        return $this->belongsToMany(Armament::class, 'ship_armaments')
+        return $this->belongsToMany(Armament::class, 'ship_armament')
                     ->withPivot('range_speed', 'firepower');
     }
 
     public function fleetLists() {
-        return $this->belongsToMany(FleetList::class, 'fleetlist_ships');
+        return $this->belongsToMany(FleetList::class, 'fleetlist_ship');
+    }
+
+    public function rules() {
+        return $this->belongsToMany(Rules::class, 'ship_rule', 'ship_id', 'rule_id');
     }
 
 //      Relation removed

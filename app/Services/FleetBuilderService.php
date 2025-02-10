@@ -6,7 +6,7 @@ use App\Models\Fleet;
 
 class FleetBuilderService
 {
-    private array $shipTypeOrder = [
+    public array $shipTypeOrder = [
         'Battleship' => 1,
         'Grand Cruiser' => 2,
         'Battlecruiser' => 3,

@@ -224,6 +224,9 @@
 
             //Ship list clear
             shipList.innerHTML = '';
+
+            //Ship profile cards clear
+            clearShipCards();
         }
 
         //Submit selected faction, get related fleet lists
@@ -284,6 +287,10 @@
 
         fleetListDropdown.addEventListener('click', function (e) {
             if(e.target.tagName === 'LI') {
+                toggleLoadingOverlay(true);
+
+                clearShipCards();
+
                 let fleetListId = e.target.getAttribute('data-id');
                 let fleetListName = e.target.getAttribute('data-name');
 
@@ -322,12 +329,16 @@
 
             let shipListHtml = '';
             let addShipIcon = '{{ asset('images/add-ship-icon.png') }}';
+            let caretIcon = '{{ asset('images/caret-icon.png') }}';
 
             Object.keys(shipsList).forEach(type => {
-                shipListHtml += `<h4>${type}</h4>`;
+                shipListHtml += '<li class="collapsed">';
+                shipListHtml += `<h4 class="ship-type-group">${type}s<span class="caret-icon"><img src="${caretIcon}" alt="caret-icon"></span></h4>`;
+                shipListHtml += '<ul class="ship-type-container">';
                 shipsList[type].forEach(ship => {
                     shipListHtml += `<li><span class="ship-class">${ship.class}</span> <span class="ship-pts">${ship.points}</span> <span class="ship-add-btn" data-ship-id="${ship.id}"><img src="${addShipIcon}" alt="Add Ship Icon"></span></li>`
                 })
+                shipListHtml += '</ul></li>';
             })
 
             shipList.innerHTML = shipListHtml;
@@ -335,9 +346,15 @@
 
         shipList.addEventListener('click', function (e) {
             if(e.target.parentElement.classList.contains('ship-add-btn')) {
+                toggleLoadingOverlay(true);
+
                 let shipId = e.target.parentElement.getAttribute('data-ship-id');
 
                 addShip(shipId);
+            } else if (e.target.classList.contains('ship-type-group')) {
+                e.target.parentElement.classList.toggle('collapsed');
+            } else if (e.target.parentElement.parentElement.classList.contains('ship-type-group')) {
+                e.target.parentElement.parentElement.parentElement.classList.toggle('collapsed');
             }
         })
 
@@ -364,6 +381,10 @@
                     //Remove loading overlay after running into errors
                     toggleLoadingOverlay(false);
                 });
+        }
+
+        function clearShipCards() {
+            shipCardContainer.innerHTML = '';
         }
     </script>
 @endpush

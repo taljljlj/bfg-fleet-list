@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             FactionSeeder::class,
             FleetListSeeder::class,
+            RulesSeeder::class,
             ShipSeeder::class,
         ]);
     }

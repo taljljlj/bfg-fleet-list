@@ -1,5 +1,5 @@
 @if($ship)
-<div class="card-ship">
+<div class="card-ship" style="order: {{ $shipOrder }}">
     <div class="card-header">
         <div class="card-subsec-l">
 {{--            <div class="card-faction-img">--}}
@@ -29,7 +29,13 @@
             <div class="card-subsec-r">
                 <input type="text" placeholder="Enter Ship Name">
                 <div class="card-ship-additional card-box-container">
-                    <div class="card-ship-special"></div>
+                    <div class="card-ship-special">
+                        <ul class="ship-specials-container">
+                            @foreach($ship->rules as $rule)
+                                <li data-special-type="rules">{{ $rule->text }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
                     <div class="card-ship-options"></div>
                 </div>
 

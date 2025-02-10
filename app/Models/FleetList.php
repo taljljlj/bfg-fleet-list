@@ -17,6 +17,6 @@ class FleetList extends Model
     }
 
     public function ships() {
-        return $this->belongsToMany(Ship::class, 'fleetlist_ships');
+        return $this->belongsToMany(Ship::class, 'fleetlist_ship');
     }
 }
