@@ -68,7 +68,8 @@ class FleetBuilderController extends Controller
 
         return response()->json([
             'message' => 'Ship added to fleet.',
-            'html' => View::make('components.fleet-builder.ship-profile-card', compact('ship', 'shipOrder'))->render()
+            'html' => View::make('components.fleet-builder.ship-profile-card', compact('ship', 'shipOrder'))->render(),
+            'points' => $ship->points
         ]);
     }
 }

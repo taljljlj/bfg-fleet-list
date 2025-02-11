@@ -1,5 +1,5 @@
 @if($ship)
-<div class="card-ship" style="order: {{ $shipOrder }}">
+<div class="card-ship" style="order: {{ $shipOrder }}" data-points="{{ $ship->points }}">
     <div class="card-header">
         <div class="card-subsec-l">
 {{--            <div class="card-faction-img">--}}
@@ -19,7 +19,7 @@
             <div class="card-ship-remove-btn">&times;</div>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body thin-font">
         <div class="card-section-t">
             <div class="card-subsec-l">
                 <div class="card-ship-img">
@@ -32,7 +32,8 @@
                     <div class="card-ship-special">
                         <ul class="ship-specials-container">
                             @foreach($ship->rules as $rule)
-                                <li data-special-type="rules">{{ $rule->text }}</li>
+                                <li class="ship-special" data-special-type="rules">{{ $rule->text }}<span class="tooltip">{{ $rule->text_long }}</span></li>
+
                             @endforeach
                         </ul>
                     </div>

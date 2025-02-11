@@ -193,6 +193,7 @@
         var fleetListDropdownSelected = document.getElementById('dropdownSelected');
         var shipList = document.getElementById('shipList');
         var shipCardContainer = document.getElementById('shipCardContainer');
+        var points = document.getElementById('points');
 
         //Faction selection event listener
         factions.forEach(faction => {
@@ -222,11 +223,8 @@
             fleetListDropdownSelected.innerHTML = '';
             clearFleetListDropdown();
 
-            //Ship list clear
-            shipList.innerHTML = '';
-
-            //Ship profile cards clear
-            clearShipCards();
+            //Clear ship list, remove all ship cards, reset total points
+            fleetListChangeClear();
         }
 
         //Submit selected faction, get related fleet lists
@@ -255,6 +253,7 @@
                 });
         }
 
+        //Toggle on or off the loading overlay
         function toggleLoadingOverlay(activate) {
             let loadingOverlays = document.querySelectorAll('.section-overlay');
 
@@ -267,10 +266,12 @@
             })
         }
 
+        //Reset fleet list selection dropdown
         function clearFleetListDropdown() {
             fleetListDropdown.innerHTML = '';
         }
 
+        //Populate fleet list selection dropdown based on faction selected
         function updateFleetListDropdown(fleetLists) {
             let fleetListHtml = '';
             fleetLists.forEach(fleetList => {
@@ -280,16 +281,18 @@
             fleetListDropdown.innerHTML = fleetListHtml;
         }
 
+        //Expand/collapse fleet selection dropdown
         fleetListDropdownBtn.addEventListener('click', function () {
             fleetListDropdownContent.style.display = fleetListDropdownContent.style.display === 'none' ? 'block' : 'none';
-            fleetListDropdownBtn.classList.toggle('extended');
+            fleetListDropdownBtn.classList.toggle('expanded');
         })
 
+        //Select fleet list from dropdown, lear ship cards, call ajax function
         fleetListDropdown.addEventListener('click', function (e) {
             if(e.target.tagName === 'LI') {
                 toggleLoadingOverlay(true);
 
-                clearShipCards();
+                fleetListChangeClear();
 
                 let fleetListId = e.target.getAttribute('data-id');
                 let fleetListName = e.target.getAttribute('data-name');
@@ -300,12 +303,25 @@
             }
         })
 
+        //Reset fleet builder content based on fleet list change
+        function fleetListChangeClear() {
+            //Ship list clear
+            shipList.innerHTML = '';
+
+            //Remove all ship cards
+            clearShipCards();
+
+            //Reset fleet total points
+            updatePoints(null, true);
+        }
+
+        //Submit selected fleet list, get ship list
         function submitFleetList(fleetListId) {
             fetch(`/api/fleet-list/${fleetListId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Assuming you're using Laravel with CSRF protection
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 }
             })
                 .then(response => response.json())
@@ -324,6 +340,7 @@
                 });
         }
 
+        //Update ship list with ships based on fleet list selected
         function updateShipList(data) {
             let shipsList = data.ships;
 
@@ -334,7 +351,7 @@
             Object.keys(shipsList).forEach(type => {
                 shipListHtml += '<li class="collapsed">';
                 shipListHtml += `<h4 class="ship-type-group">${type}s<span class="caret-icon"><img src="${caretIcon}" alt="caret-icon"></span></h4>`;
-                shipListHtml += '<ul class="ship-type-container">';
+                shipListHtml += '<ul class="ship-type-container thin-font">';
                 shipsList[type].forEach(ship => {
                     shipListHtml += `<li><span class="ship-class">${ship.class}</span> <span class="ship-pts">${ship.points}</span> <span class="ship-add-btn" data-ship-id="${ship.id}"><img src="${addShipIcon}" alt="Add Ship Icon"></span></li>`
                 })
@@ -344,6 +361,7 @@
             shipList.innerHTML = shipListHtml;
         }
 
+        //Add ship from ship list to fleet
         shipList.addEventListener('click', function (e) {
             if(e.target.parentElement.classList.contains('ship-add-btn')) {
                 toggleLoadingOverlay(true);
@@ -358,6 +376,7 @@
             }
         })
 
+        //Submit ship you want to add to fleet, get back full ship data with relations
         function addShip(shipId) {
             fetch(`/api/ship/${shipId}`, {
                 method: 'GET',
@@ -371,6 +390,9 @@
                     //TODO: 2 chained ajax request are going to be needed here, 1st to get ships data, then apply modifiers (based on fleet-list or faction) to data, 2nd get blade component populated with data return HTML. go straight for the 2nd request in initial implementation before developing custom fleet list logic, conditions and modifiers
                     shipCardContainer.innerHTML += data.html;
 
+                    //Update points counter with default ship points value
+                    updatePoints(data.points, false);
+
                     //Remove loading overlay after data is processed
                     toggleLoadingOverlay(false);
                 })
@@ -383,8 +405,35 @@
                 });
         }
 
+        //Reset ship cards container
         function clearShipCards() {
             shipCardContainer.innerHTML = '';
+        }
+
+        //Remove individual ship profile card
+        shipCardContainer.addEventListener('click', function (e) {
+            if (e.target.classList.contains('card-ship-remove-btn')) {
+                let shipProfileParentElement = e.target.parentElement.parentElement.parentElement;
+                let points = shipProfileParentElement.getAttribute('data-points');
+
+                //Update points, subtract current ship's point value from total
+                updatePoints(-points, false);
+
+                //Remove ship profile card
+                shipProfileParentElement.remove();
+            }
+        })
+
+        //Update fleet total points
+        function updatePoints(value, reset) {
+            if(reset) {
+                //Reset points
+                points.innerText = 0;
+            } else {
+                //Add/subtract points
+                let currentPoints = parseInt(points.innerText, 10);
+                points.innerText = currentPoints + value;
+            }
         }
     </script>
 @endpush
