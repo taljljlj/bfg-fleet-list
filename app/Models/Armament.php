@@ -13,8 +13,8 @@ class Armament extends Model
 
     //Relations
     public function ships() {
-        return $this->belongsToMany(Ship::class, 'ship_armaments')
-            ->withPivot('placement', 'fire_arc', 'range_speed', 'firepower');
+        return $this->belongsToMany(Ship::class, 'ship_armament')
+            ->withPivot('range_speed', 'firepower');
     }
 
     //Accessors

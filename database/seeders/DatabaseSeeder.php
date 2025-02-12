@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Refits;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
             FactionSeeder::class,
             FleetListSeeder::class,
             RulesSeeder::class,
+            RefitsSeeder::class,
             ShipSeeder::class,
         ]);
     }

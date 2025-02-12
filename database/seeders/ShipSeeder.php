@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Armament;
 use App\Models\Faction;
+use App\Models\Refits;
 use App\Models\Rules;
 use App\Models\Ship;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -35,7 +36,8 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Massive",
                         "Lock On Lances"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Emperor Class Battleship", "type" => "Battleship", "hitpoints" => 12, "speed" => 15, "turns" => 45, "shields" => 4, "armour" => "5+", "turrets" => 5, "points" => 365,
@@ -57,6 +59,9 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Massive",
                         "Prow Sensors"
+                    ],
+                    "refits" => [
+                        ["name" => "Shark Assault", "points" => 5, "firepower" => null, "range_speed" => null]
                     ]
                 ],
                 [
@@ -75,7 +80,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Massive"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Victory Class Battleship", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 4, "armour" => "6+ front / 5+", "turrets" => 4, "points" => 345,
@@ -90,6 +96,9 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Massive"
+                    ],
+                    "refits" => [
+                        ["name" => "Torpedoes>Nova Cannon", "points" => -10, "firepower" => 9, "range_speed" => null]
                     ]
                 ],
                 [
@@ -111,6 +120,9 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Massive",
                         "Prow Sensors"
+                    ],
+                    "refits" => [
+                        ["name" => "Shark Assault", "points" => 5, "firepower" => null, "range_speed" => null]
                     ]
                 ],
                 [
@@ -127,7 +139,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Massive"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 //Grand Cruisers
                 [
@@ -147,7 +160,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Resilient Prow"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Exorcist Class Grand Cruiser", "type" => "Grand Cruiser", "hitpoints" => 10, "speed" => 20, "turns" => 45, "shields" => 3, "armour" => "5+", "turrets" => 3, "points" => 230,
@@ -162,6 +176,10 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Resilient Prow"
+                    ],
+                    "refits" => [
+                        ["name" => "Shark Assault", "points" => 10, "firepower" => null, "range_speed" => null],
+                        ["name" => "Short Range Weapons Battery", "points" => 0, "firepower" => 10, "range_speed" => 30]
                     ]
                 ],
                 [
@@ -175,7 +193,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Resilient Prow"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 //Battlecruisers
                 [
@@ -193,7 +212,11 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 2, "is_reserve" => 0],
                         ["fleet_list_id" => 3, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => [
+                        ["name" => "Targeting Matrix", "points" => 15, "firepower" => null, "range_speed" => null],
+                        ["name" => "Turrets", "points" => 10, "firepower" => 1, "range_speed" => null]
+                    ]
                 ],
                 [
                     "class" => "Dominion Class Battlecruiser", "type" => "Battlecruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 260,
@@ -208,7 +231,8 @@ class ShipSeeder extends Seeder
                     "fleet_lists" => [
                         ["fleet_list_id" => 4, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Jovian Class Battlecruiser", "type" => "Battlecruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 260,
@@ -223,7 +247,8 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Sensor Array",
                         "Resilient Prow"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Mercury Class Battlecruiser", "type" => "Battlecruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 2, "points" => 255,
@@ -240,6 +265,10 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Up-rated Engineering Plants"
+                    ],
+                    "refits" => [
+                        ["name" => "Torpedoes>Nova Cannon", "points" => -20, "firepower" => 6, "range_speed" => null],
+                        ["name" => "Long Range Weapons Battery", "points" => 10, "firepower" => null, "range_speed" => 60]
                     ]
                 ],
                 [
@@ -257,7 +286,10 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 3, "is_reserve" => 0],
                         ["fleet_list_id" => 4, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => [
+                        ["name" => "Nova Cannon>Torpedoes", "points" => 20, "firepower" => null, "range_speed" => null]
+                    ]
                 ],
                 [
                     "class" => "Overlord Class Battlecruiser", "type" => "Battlecruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 2, "points" => 220,
@@ -271,7 +303,11 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 1, "is_reserve" => 0],
                         ["fleet_list_id" => 2, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => [
+                        ["name" => "Turrets", "points" => 10, "firepower" => 1, "range_speed" => null],
+                        ["name" => "Targeting Matrix", "points" => 15, "firepower" => null, "range_speed" => null]
+                    ]
                 ],
                 //Cruisers
                 [
@@ -289,7 +325,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 3, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Dominator Class Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 2, "points" => 190,
@@ -302,7 +339,10 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 1, "is_reserve" => 0],
                         ["fleet_list_id" => 4, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => [
+                        ["name" => "Long Range Weapons Battery", "points" => -5, "firepower" => 6, "range_speed" => 45]
+                    ]
                 ],
                 [
                     "class" => "Tyrant Class Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 2, "points" => 185,
@@ -319,7 +359,11 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 4, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => [
+                        ["name" => "Long Range Weapons Battery", "points" => 10, "firepower" => null, "range_speed" => 45],
+                        ["name" => "Nova Cannon>Torpedoes", "points" => 20, "firepower" => null, "range_speed" => null]
+                    ]
                 ],
                 [
                     "class" => "Gothic Class Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 2, "points" => 180,
@@ -335,7 +379,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 4, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Lunar Class Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 2, "points" => 180,
@@ -354,7 +399,10 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 8, "is_reserve" => 0],
                         ["fleet_list_id" => 14, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => [
+                        ["name" => "Nova Cannon>Torpedoes", "points" => 20, "firepower" => null, "range_speed" => null]
+                    ]
                 ],
                 //Light Cruisers
                 [
@@ -377,6 +425,9 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Resilient Mid-ship Corridor"
+                    ],
+                    "refits" => [
+                        ["name" => "Increased Front Armour", "points" => 0, "firepower" => null, "range_speed" => null]
                     ]
                 ],
                 [
@@ -392,6 +443,9 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Resilient Mid-ship Corridor"
+                    ],
+                    "refits" => [
+                        ["name" => "Increased Front Armour", "points" => 0, "firepower" => null, "range_speed" => null]
                     ]
                 ],
                 [
@@ -409,6 +463,9 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Resilient Mid-ship Corridor"
+                    ],
+                    "refits" => [
+                        ["name" => "Increased Front Armour", "points" => 0, "firepower" => null, "range_speed" => null]
                     ]
                 ],
                 [
@@ -424,6 +481,9 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Resilient Mid-ship Corridor"
+                    ],
+                    "refits" => [
+                        ["name" => "Increased Front Armour", "points" => 0, "firepower" => null, "range_speed" => null]
                     ]
                 ],
                 [
@@ -440,6 +500,9 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Resilient Mid-ship Corridor"
+                    ],
+                    "refits" => [
+                        ["name" => "Increased Front Armour", "points" => 0, "firepower" => null, "range_speed" => null]
                     ]
                 ],
                 [
@@ -459,6 +522,9 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Improved Thrusters"
+                    ],
+                    "refits" => [
+                        ["name" => "Torpedoes>Lance Battery", "points" => 0, "firepower" => 6, "range_speed" => null]
                     ]
                 ],
                 [
@@ -476,7 +542,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Improved Thrusters"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 //Escorts
                 [
@@ -493,7 +560,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 7, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Falchion Class Frigate", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 1, "points" => 35,
@@ -506,7 +574,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 7, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Havoc Class Frigate", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 35,
@@ -520,7 +589,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 14, "is_reserve" => 0],
                         ["fleet_list_id" => 15, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Sword Class Frigate", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 35,
@@ -536,7 +606,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 7, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Viper Class Destroyer", "type" => "Escort", "hitpoints" => 1, "speed" => 30, "turns" => 90, "shields" => 1, "armour" => "4+", "turrets" => 1, "points" => 35,
@@ -546,7 +617,8 @@ class ShipSeeder extends Seeder
                     "fleet_lists" => [
                         ["fleet_list_id" => 4, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Cobra Class Destroyer", "type" => "Escort", "hitpoints" => 1, "speed" => 30, "turns" => 90, "shields" => 1, "armour" => "4+", "turrets" => 1, "points" => 30,
@@ -562,7 +634,10 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 7, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => [
+                        ["name" => "Long Range Sensors", "points" => 0, "firepower" => null, "range_speed" => null]
+                    ]
                 ],
                 [
                     "class" => "Imperial Transport", "type" => "Escort", "hitpoints" => 1, "speed" => 15, "turns" => 45, "shields" => 1, "armour" => "5+", "turrets" => 1, "points" => 0,
@@ -573,7 +648,9 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Transport Thrusters",
                         "Reduced Ld"
-                    ]//TODO [alpha]: implement some logic to have transport ships available for all fleet lists
+                    ],
+                    "refits" => []
+                    //TODO [alpha]: implement some logic to have transport ships available for all fleet lists
                 ],
             ],
             "Space Marines" => [
@@ -594,7 +671,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Massive"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Battle Barge", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 3, "armour" => "6+", "turrets" => 3, "points" => 425,
@@ -613,7 +691,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Massive"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 //Light Cruisers
                 [
@@ -631,7 +710,13 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 7, "is_reserve" => 0],
                         ["fleet_list_id" => 15, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => [
+                        ["name" => "Torpedoes>Launch Bays", "points" => 0, "firepower" => 6, "range_speed" => 30],
+                        ["name" => "Bombardment Cannon>Launch Bays", "points" => 0, "firepower" => 5, "range_speed" => 30],
+                        ["name" => "Lance Battery>Bombardment Cannon", "points" => 20, "firepower" => 1, "range_speed" => 30],
+                        ["name" => "Shields", "points" => 15, "firepower" => 1, "range_speed" => null],
+                    ]
                 ],
                 //Escorts
                 [
@@ -647,7 +732,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 7, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Gladius Class Frigate", "type" => "Escort", "hitpoints" => 1, "speed" => 30, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 40,
@@ -661,7 +747,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 7, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Hunter Class Destroyer", "type" => "Escort", "hitpoints" => 1, "speed" => 35, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 1, "points" => 35,
@@ -676,7 +763,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 7, "is_reserve" => 0],
                         ["fleet_list_id" => 8, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
             ],
             "Adeptus Mechanicus" => [
@@ -695,6 +783,9 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Massive"
+                    ],
+                    "refits" => [
+                        ["name" => "Launch Bays>Lance Battery", "points" => 10, "firepower" => 2, "range_speed" => null],
                     ]
                 ],
             ],
@@ -714,7 +805,8 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Massive",
                         "Grey Knights"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Blackship", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 5, "armour" => "6+ Front / 5+", "turrets" => 5, "points" => 300,
@@ -733,7 +825,8 @@ class ShipSeeder extends Seeder
                         "Blackship Crew 2",
                         "Gellar Field",
                         "Prized Objective"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Inquisitorial Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "6+", "turrets" => 2, "points" => 270,
@@ -746,7 +839,13 @@ class ShipSeeder extends Seeder
                     "fleet_lists" => [
                         ["fleet_list_id" => 9, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [
+                        "Exterminatus"
+                    ],
+                    "refits" => [
+                        ["name" => "Torpedoes>Launch Bays", "points" => 0, "firepower" => 6, "range_speed" => 30],
+                        ["name" => "Lance Battery>Bombardment Cannon", "points" => 15, "firepower" => 2, "range_speed" => 45],
+                    ]
                 ],
                 [
                     "class" => "Grey Knights Strike Cruiser", "type" => "Cruiser", "hitpoints" => 6, "speed" => 25, "turns" => 90, "shields" => 2, "armour" => "6+", "turrets" => 2, "points" => 165,
@@ -762,6 +861,10 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Improved Thrusters",
                         "Grey Knights"
+                    ],
+                    "refits" => [
+                        ["name" => "Torpedoes>Launch Bays", "points" => 0, "firepower" => 6, "range_speed" => 30],
+                        ["name" => "Bombardment Cannon>Launch Bays", "points" => 0, "firepower" => 5, "range_speed" => 30],
                     ]
                 ],
             ],
@@ -781,7 +884,8 @@ class ShipSeeder extends Seeder
                         "Massive",
                         "Fra’al Targeting Matrix",
                         "Xenotech Included 2"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Rogue Trader Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ Front / 5+", "turrets" => 3, "points" => 185,
@@ -799,7 +903,10 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 34, "is_reserve" => 0],
                         ["fleet_list_id" => 35, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => [
+                        ["name" => "Rogue Trader Cruiser Class Refit", "points" => 0, "firepower" => null, "range_speed" => null],
+                    ]
                 ],
                 [
                     "class" => "Heavy Transport", "type" => "Light Cruiser", "hitpoints" => 6, "speed" => 15, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 2, "points" => 40,
@@ -815,6 +922,12 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Transport Thrusters",
                         "Heavy Transport"
+                    ],
+                    "refits" => [
+                        ["name" => "Xenotech Refit", "points" => 10, "firepower" => null, "range_speed" => null],
+                        ["name" => "Fuel Tanker", "points" => 0, "firepower" => null, "range_speed" => null],
+                        ["name" => "Repair Tender", "points" => 50, "firepower" => null, "range_speed" => null],
+                        ["name" => "Super-Heavy Transport", "points" => 50, "firepower" => null, "range_speed" => null],
                     ]
                 ],
                 [
@@ -830,7 +943,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 34, "is_reserve" => 0],
                         ["fleet_list_id" => 35, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Pthuxutl War Cruiser", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 3, "points" => 50,
@@ -848,7 +962,8 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Disruptor Cannon",
                         "Xenotech Included 1"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Fra’al Raider", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 50,
@@ -866,7 +981,8 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Fra’al Targeting Matrix",
                         "Xenotech Included 2"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Nekulli Whip", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 2, "armour" => "5+", "turrets" => 2, "points" => 50,
@@ -884,7 +1000,8 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Whisperlance Cannon",
                         "Xenotech Included 3"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Recommissioned Escort", "type" => "Escort", "hitpoints" => 1, "speed" => 30, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 1, "points" => 30,
@@ -899,7 +1016,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 34, "is_reserve" => 0],
                         ["fleet_list_id" => 35, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Cargo Vessel", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 45, "shields" => 1, "armour" => "5+", "turrets" => 1, "points" => 20,
@@ -916,6 +1034,9 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Cargo Vessel",
                         "Ordnance Vessel"
+                    ],
+                    "refits" => [
+                        ["name" => "Fast Clipper", "points" => 0, "firepower" => null, "range_speed" => null],
                     ]
                 ],
                 [
@@ -932,7 +1053,8 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Ghost-Light",
                         "Stryxis Movement",
-                    ]
+                    ],
+                    "refits" => []
                 ],
             ],
             "Chaos" => [
@@ -956,7 +1078,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Massive"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Chaos Battle Barge", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 4, "armour" => "5+", "turrets" => 4, "points" => 410,
@@ -979,6 +1102,15 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Massive"
+                    ],
+                    "refits" => [
+                        ["name" => "Chaos Lord", "points" => 25, "firepower" => 1, "range_speed" => null],
+                        ["name" => "Chaos Space Marines", "points" => 35, "firepower" => null, "range_speed" => null],
+                        ["name" => "Chosen Terminators", "points" => 10, "firepower" => null, "range_speed" => null],
+                        ["name" => "Short Range Weapons Battery", "points" => 0, "firepower" => 8, "range_speed" => 45],
+                        ["name" => "Short Range Weapons Battery", "points" => 0, "firepower" => 10, "range_speed" => 30],
+                        ["name" => "Torpedoes>Lance Battery", "points" => 10, "firepower" => 8, "range_speed" => 30],
+                        ["name" => "Short Range Lance Battery", "points" => 10, "firepower" => 4, "range_speed" => 45]
                     ]
                 ],
                 [
@@ -1000,7 +1132,8 @@ class ShipSeeder extends Seeder
                         "Mark Of Tzeentch",
                         "Vortex Of Chaos",
                         "Vagaries Of Fate"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Wage Of Sin, Emperor's Children Battle Barge", "type" => "Battleship", "hitpoints" => 12, "speed" => 25, "turns" => 45, "shields" => 4, "armour" => "5+", "turrets" => 4, "points" => 430,
@@ -1019,7 +1152,8 @@ class ShipSeeder extends Seeder
                         "Massive",
                         "Mark Of Slaanesh",
                         "Palace Of Pleasure"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Terminus Est, Death Guard Battle Barge", "type" => "Battleship", "hitpoints" => 13, "speed" => 20, "turns" => 45, "shields" => 4, "armour" => "5+", "turrets" => 4, "points" => 430,
@@ -1038,8 +1172,10 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Massive",
                         "Mark Of Nurgle",
-                        "Miasma Of Pestilence"
-                    ]
+                        "Miasma Of Pestilence",
+                        "Hives Of Nurgle",
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Slaverer, World Eaters Battle Barge", "type" => "Battleship", "hitpoints" => 12, "speed" => 25, "turns" => 45, "shields" => 4, "armour" => "5+", "turrets" => 4, "points" => 380,
@@ -1060,7 +1196,8 @@ class ShipSeeder extends Seeder
                         "World Eaters Chaos Space Marines",
                         "Berzerker Horde",
                         "Chosen Terminators"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Despoiler Class Battleship", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 4, "armour" => "5+", "turrets" => 4, "points" => 400,
@@ -1082,6 +1219,9 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Massive"
+                    ],
+                    "refits" => [
+                        ["name" => "Torpedoes>Lance Battery", "points" => 10, "firepower" => 8, "range_speed" => 30],
                     ]
                 ],
                 [
@@ -1102,7 +1242,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Massive"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 //Grand Cruisers
                 [
@@ -1124,6 +1265,9 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Resilient Prow"
+                    ],
+                    "refits" => [
+                        ["name" => "Improved Thrusters", "points" => 0, "firepower" => null, "range_speed" => null],
                     ]
                 ],
                 [
@@ -1142,7 +1286,11 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => [
+                        ["name" => "Long Range Lance Battery", "points" => 10, "firepower" => null, "range_speed" => 45],
+                        ["name" => "Shields", "points" => 15, "firepower" => 1, "range_speed" => null]
+                    ]
                 ],
                 [
                     "class" => "Executor Class Grand Cruiser", "type" => "Grand Cruiser", "hitpoints" => 10, "speed" => 20, "turns" => 45, "shields" => 3, "armour" => "5+", "turrets" => 3, "points" => 210,
@@ -1161,7 +1309,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Resilient Prow"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 //Heavy Cruisers
                 [
@@ -1180,7 +1329,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Hecate Class Heavy Cruiser", "type" => "Heavy Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 230,
@@ -1200,7 +1350,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Hades Class Heavy Cruiser", "type" => "Heavy Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 2, "points" => 200,
@@ -1218,7 +1369,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Acheron Class Heavy Cruiser", "type" => "Heavy Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 190,
@@ -1236,7 +1388,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 //Cruisers
                 [
@@ -1256,7 +1409,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Carnage Class Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 2, "points" => 180,
@@ -1276,7 +1430,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Inferno Class Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 2, "points" => 180,
@@ -1295,7 +1450,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Murder Class Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 2, "points" => 170,
@@ -1314,7 +1470,10 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => [
+                        ["name" => "Weapons Battery&Lance Battery>Weapons Battery", "points" => 0, "firepower" => null, "range_speed" => null],
+                    ]
                 ],
                 [
                     "class" => "Slaughter Class Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 30, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 2, "points" => 165,
@@ -1335,7 +1494,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Improved Thrusters"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 //Escorts
                 [
@@ -1354,7 +1514,8 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [
                         "Long Range Targeting Matrix"
-                    ]
+                    ],
+                    "refits" => []
                 ],
                 [
                     "class" => "Infidel Class Raider", "type" => "Escort", "hitpoints" => 1, "speed" => 30, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 1, "points" => 40,
@@ -1370,7 +1531,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Iconoclast Class Destroyer", "type" => "Escort", "hitpoints" => 1, "speed" => 30, "turns" => 90, "shields" => 1, "armour" => "4+", "turrets" => 1, "points" => 30,
@@ -1388,7 +1550,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 20, "is_reserve" => 0],
                         ["fleet_list_id" => 21, "is_reserve" => 0]
                     ],
-                    "rules" => []
+                    "rules" => [],
+                    "refits" => []
                 ],
                 [
                     "class" => "Chaos Transport", "type" => "Escort", "hitpoints" => 1, "speed" => 15, "turns" => 45, "shields" => 1, "armour" => "5+", "turrets" => 1, "points" => 0,
@@ -1399,7 +1562,8 @@ class ShipSeeder extends Seeder
                     "rules" => [
                         "Transport Thrusters",
                         "Reduced Ld"
-                    ]
+                    ],
+                    "refits" => []
                 ],
 
             ]
@@ -1428,6 +1592,8 @@ class ShipSeeder extends Seeder
                 unset($shipData['fleet_lists']);
                 $rulesData = $shipData['rules'];
                 unset($shipData['rules']);
+                $refitsData = $shipData['refits'];
+                unset($shipData['refits']);
 
                 $ship = Ship::create($shipData);
 
@@ -1454,6 +1620,16 @@ class ShipSeeder extends Seeder
                     $rule = Rules::getRuleByName($ruleName);
 
                     $ship->rules()->attach($rule->id);
+                }
+
+                foreach ($refitsData as $refitData) {
+                    $refit = Refits::getRuleByName($refitData['name']);
+
+                    $ship->refits()->attach($refit->id, [
+                        'points' => $refitData['points'],
+                        'firepower' => $refitData['firepower'],
+                        'range_speed' => $refitData['range_speed'],
+                    ]);
                 }
             }
         }

@@ -349,8 +349,8 @@
             let caretIcon = '{{ asset('images/caret-icon.png') }}';
 
             Object.keys(shipsList).forEach(type => {
-                shipListHtml += '<li class="collapsed">';
-                shipListHtml += `<h4 class="ship-type-group">${type}s<span class="caret-icon"><img src="${caretIcon}" alt="caret-icon"></span></h4>`;
+                shipListHtml += '<li class="ship-type-group collapsed">';
+                shipListHtml += `<h4 class="ship-type-group-title">${type}s<span class="caret-icon"><img src="${caretIcon}" alt="caret-icon"></span></h4>`;
                 shipListHtml += '<ul class="ship-type-container thin-font">';
                 shipsList[type].forEach(ship => {
                     shipListHtml += `<li><span class="ship-class">${ship.class}</span> <span class="ship-pts">${ship.points}</span> <span class="ship-add-btn" data-ship-id="${ship.id}"><img src="${addShipIcon}" alt="Add Ship Icon"></span></li>`
@@ -369,10 +369,8 @@
                 let shipId = e.target.parentElement.getAttribute('data-ship-id');
 
                 addShip(shipId);
-            } else if (e.target.classList.contains('ship-type-group')) {
-                e.target.parentElement.classList.toggle('collapsed');
-            } else if (e.target.parentElement.parentElement.classList.contains('ship-type-group')) {
-                e.target.parentElement.parentElement.parentElement.classList.toggle('collapsed');
+            } else if (e.target.closest('.ship-type-group-title')) {
+                e.target.closest('.ship-type-group').classList.toggle('collapsed');
             }
         })
 
@@ -421,6 +419,8 @@
 
                 //Remove ship profile card
                 shipProfileParentElement.remove();
+            } else if (e.target.closest('.card-ship-refit-btn')) {
+                console.log('i need to fix this part. card-ship-refit-btn is class of div container.');
             }
         })
 

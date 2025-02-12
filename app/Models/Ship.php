@@ -25,6 +25,11 @@ class Ship extends Model
         return $this->belongsToMany(Rules::class, 'ship_rule', 'ship_id', 'rule_id');
     }
 
+    public function refits() {
+        return $this->belongsToMany(Refits::class, 'ship_refit', 'ship_id', 'refit_id')
+            ->withPivot('points', 'firepower', 'range_speed');
+    }
+
 //      Relation removed
 //    public function faction() {
 //        return $this->belongsTo(Faction::class);

@@ -14,7 +14,7 @@
     font-style: normal;
     font-variation-settings:
         "wdth" 100;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 h3, h4 {
     font-weight: 400;
@@ -23,6 +23,11 @@ h3, h4 {
 .thin-font {
     font-family: "Calibri", sans-serif;
     letter-spacing: -1px;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 /* =================== */
@@ -86,12 +91,9 @@ h3, h4 {
     height: 100%;
 }
 #navbar a:hover {
-    color: black;
+    color: rgb(54, 87, 115);
 }
 #userDropdownBtn {
-    height: 100%;
-}
-#userDropdownBtn img {
     height: 100%;
 }
 
@@ -280,7 +282,6 @@ h3, h4 {
 }
 
 #fleetBuilderBody .section .dropdown .dropdown-select img {
-    height: 100%;
     float: right;
     opacity: 0.7;
 }
@@ -354,10 +355,6 @@ h3, h4 {
 #fleetBuilderBody .section.section-left ul#shipList .ship-add-btn:hover {
     opacity: 1;
     filter: drop-shadow(0 0 10px #c8c5dc) hue-rotate(45deg);
-}
-
-#fleetBuilderBody .section.section-left ul#shipList .ship-add-btn img {
-    height: 100%;
 }
 
 #fleetBuilderBody .section.section-left ul#shipList h4 {
@@ -456,6 +453,7 @@ h3, h4 {
     flex-grow: 1;
     align-items: center;
     padding: 0 10px;
+    position: relative;
 }
 
 #fleetBuilderBody .section.section-right .card-ship .card-subsec-r {
@@ -467,10 +465,6 @@ h3, h4 {
 
 #fleetBuilderBody .section.section-right .card-ship .card-input {
     padding: 0 10px;
-}
-
-#fleetBuilderBody .section.section-right .card-ship .card-faction-img img {
-    height: 100%;
 }
 
 #fleetBuilderBody .section.section-right .card-ship .heading {
@@ -560,8 +554,29 @@ h3, h4 {
 }
 
 #fleetBuilderBody .section.section-right .card-ship .card-ship-img img {
-    width: 100%;
     filter: drop-shadow(0 0 15px rgb(54, 87, 115));
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 30px;
+    width: 30px;
+    padding: 3px;
+    border: 2px solid rgba(54, 87, 115, 0.8);
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-btn:hover {
+    border-color: rgb(54, 87, 115);
+    box-shadow: 0 0 20px rgb(54, 87, 115);
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-btn:hover img {
+    filter: contrast(1.5) brightness(0.9);
 }
 
 #fleetBuilderBody .section.section-right .card-ship .card-ship-hp .hp-row-1,

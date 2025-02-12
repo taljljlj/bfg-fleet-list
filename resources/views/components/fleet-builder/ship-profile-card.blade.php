@@ -22,6 +22,9 @@
     <div class="card-body thin-font">
         <div class="card-section-t">
             <div class="card-subsec-l">
+                <div class="card-ship-refit-btn">
+                    <img src="{{ asset('images/fleet-builder/refit-icon.png') }}" alt="Refit Icon">
+                </div>
                 <div class="card-ship-img">
                     <img src="{{ asset('images/ships/emperor-class-battleship-1.png') }}" alt="">
                 </div>

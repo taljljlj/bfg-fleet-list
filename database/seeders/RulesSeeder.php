@@ -209,16 +209,16 @@ class RulesSeeder extends Seeder
                 'text' => 'No range penalty for >30cm',
                 'text_long' => 'Does not suffer a column shift for firing over 30 cm',
             ],
-//            [
-//                'name' => '',
-//                'text' => '',
-//                'text_long' => '',
-//            ],
-//            [
-//                'name' => '',
-//                'text' => '',
-//                'text_long' => '',
-//            ],
+            [
+                "name" => "Exterminatus",
+                "text" => "If torpedo refit is taken ship serves as Exterminatus: exterminate a planet on roll 3+",
+                "text_long" => "If the torpedo refit is taken, the ship does not have to be modified to serve as an Exterminatus vessel, as they are always equipped with virus bombs and cyclotronic warheads as standard. As such, when in position to exterminate a planet, it may do so on a roll of 3+ instead of 4+",
+            ],
+            [
+                'name' => 'Hives Of Nurgle',
+                'text' => 'May place 1 Blast along ship’s path after it moved',
+                'text_long' => '',
+            ],
 //            [
 //                'name' => '',
 //                'text' => '',
