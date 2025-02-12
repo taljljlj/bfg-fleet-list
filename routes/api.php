@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FleetBuilderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/faction/{faction}', [FleetBuilderController::class, 'getFleetListByFaction']);
+Route::get('/fleet-list/{fleetList}', [FleetBuilderController::class, 'getShipsByFleetList']);
+Route::get('/ship/{ship}', [FleetBuilderController::class, 'getShipById']);

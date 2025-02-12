@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Faction extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+
+    //Relations
+    public function fleetLists() {
+        return $this->hasMany(FleetList::class);
+    }
+    public function ships() {
+        return $this->hasMany(Ship::class)->with('armaments');
+    }
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public static function getByName(string $name) {
+        return self::where('name', $name)->first();
+    }
 }

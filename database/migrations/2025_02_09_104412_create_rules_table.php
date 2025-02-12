@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fleet_lists', function (Blueprint $table) {
+        Schema::create('rules', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('faction_id');
+            $table->string('name')->unique();
+            $table->string('text', 255);
+            $table->text('text_long');
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fleet_lists');
+        Schema::dropIfExists('rules');
     }
 };

@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ships', function (Blueprint $table) {
+        Schema::create('ship_refit', function (Blueprint $table) {
             $table->id();
-            $table->string('class');
-            $table->string('type');
-            $table->smallInteger('hitpoints');
-            $table->smallInteger('speed');
-            $table->smallInteger('turns');
-            $table->smallInteger('shields');
-            $table->string('armour');
-            $table->smallInteger('turrets');
+            $table->foreignId('ship_id')->constrained('ships');
+            $table->foreignId('refit_id')->constrained('refits');
             $table->smallInteger('points');
-
+            $table->smallInteger('firepower')->nullable();
+            $table->smallInteger('range_speed')->nullable();
         });
     }
 
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ships');
+        Schema::dropIfExists('ship_refit_pivot');
     }
 };

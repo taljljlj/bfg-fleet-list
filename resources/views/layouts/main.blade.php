@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    @stack('headers')
+
     <title>{{ config("app.name") }}</title>
 
     <link rel="icon" type="image/x-icon" href="{{ asset("images/favicon.png") }}">
@@ -21,26 +23,27 @@
     <!-- Styles -->
     @vite('resources/css/app.css')
 </head>
-<body id="main_body">
-<header id="bfg_header">
-    <div class="banner-container">
-        <a id="logo_home" href="{{ route('home') }}">
-            <img id="bfg_logo" src="{{ asset("images/bfg-logo.png") }}" alt="bfg logo">
-        </a>
+<body id="mainBody">
+    <header id="bfgHeader">
+        <div class="banner-container">
+            <a class="logo-home" href="{{ route('home') }}">
+                <img id="bfg-logo" src="{{ asset("images/bfg-logo.png") }}" alt="bfg logo">
+            </a>
+        </div>
+    </header>
+    <div id="navbar">
+        <div class="navbar-container">
+            <ul>
+                <li><a href="{{ route('builder.index') }}">Fleet Builder</a></li>
+                <li>
+                    <div id="userDropdownBtn"><img src="{{ asset("images/user-icon.png") }}" alt="user logo"></div>
+                </li>
+            </ul>
+        </div>
     </div>
-</header>
-<div id="navbar">
-    <div class="navbar-container">
-        <ul>
-            <li><a href="">Fleet List Editor</a></li>
-            <li>
-                <div id="user_dropdown_btn"><img src="{{ asset("images/user-icon.png") }}" alt="user logo"></div>
-            </li>
-        </ul>
-    </div>
-</div>
-<div id="page_content">
     @yield('content')
-</div>
+    <footer>
+        @stack('scripts')
+    </footer>
 </body>
 </html>
