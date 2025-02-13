@@ -10,6 +10,7 @@ use App\Models\Ship;
 use App\Services\FleetBuilderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
 class FleetBuilderController extends Controller
@@ -71,5 +72,26 @@ class FleetBuilderController extends Controller
             'html' => View::make('components.fleet-builder.ship-profile-card', compact('ship', 'shipOrder'))->render(),
             'points' => $ship->points
         ]);
+    }
+
+    public function fleetExport(Request $request) {
+        $factionId = $request->get('faction');
+        $faction = Faction::findOrFail($factionId);
+
+        $fleetListId = request()->get('fleet-list');
+        $fleetList = FleetList::findOrFail($fleetListId);
+
+        $shipIds = request()->get('ships');
+        $ships = collect();
+        foreach ($shipIds as $shipId) {
+            $ship = Ship::findOrFail($shipId);
+            if($ship) {
+                $ships->push($ship);
+            }
+        }
+
+        dd($ships->sum('points'));
+
+        return view('pages.fleet-export');
     }
 }

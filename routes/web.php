@@ -22,9 +22,7 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::group(['prefix' => 'fleet-builder'], function () {
         Route::get('/', [FleetBuilderController::class, 'index'])->name('builder.index');
-//        Route::post('/', [FleetBuilderController::class, 'submitFaction'])->name('builder.submit.faction');
-//        Route::get('/{faction}/', [FleetBuilderController::class, 'showFleetList'])->name('builder.fleet-list');
-//        Route::post('/{faction}/', [FleetBuilderController::class, 'submitFleetList'])->name('builder.submit.fleet-list');
-//        Route::get('/{faction}/{fleetList}/fleet/', [FleetBuilderController::class, 'showFleet'])->name('builder.fleet');
+        Route::get('/fleet-export', [FleetBuilderController::class, 'fleetExport'])->name('builder.export'); //TODO: remove; Test rout for developing export
+
     });
 });
