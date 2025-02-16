@@ -90,8 +90,6 @@ class FleetBuilderController extends Controller
             }
         }
 
-        dd($ships->sum('points'));
-
-        return view('pages.fleet-export');
+        return view('pages.fleet-export', compact('faction', 'fleetList', 'ships'));
     }
 }
