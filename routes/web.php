@@ -22,9 +22,6 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::group(['prefix' => 'fleet-builder'], function () {
         Route::get('/', [FleetBuilderController::class, 'index'])->name('builder.index');
-//        Route::post('/', [FleetBuilderController::class, 'submitFaction'])->name('builder.submit.faction');
-//        Route::get('/{faction}/', [FleetBuilderController::class, 'showFleetList'])->name('builder.fleet-list');
-//        Route::post('/{faction}/', [FleetBuilderController::class, 'submitFleetList'])->name('builder.submit.fleet-list');
-//        Route::get('/{faction}/{fleetList}/fleet/', [FleetBuilderController::class, 'showFleet'])->name('builder.fleet');
+        Route::get('test-export/{faction}/{fleetList}', [FleetBuilderController::class, 'testPdf'])->name('test.fleet.export-pdf'); //TODO: test route for testing pdf view; remove
     });
 });

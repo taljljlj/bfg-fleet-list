@@ -1,0 +1,205 @@
+body {
+    margin: auto;
+    padding: 50px 25px;
+    font-family: "League Gothic", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+    letter-spacing: 1px;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.content-wrapper {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-bottom: 2px solid black;
+    padding: 25px 0;
+}
+
+.header h1,
+.header h3 {
+    margin: 0;
+    text-align: center;
+}
+
+.ships-container {
+    padding: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.card-box-container {
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.card-ship .card-header {
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    padding: 10px 20px;
+    border-bottom: 2px solid black;
+    align-items: center;
+    font-size: 18px;
+}
+
+.card-ship .card-header .card-subsec-l {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.card-ship .card-header .card-subsec-r {
+    display: flex;
+    flex-direction: row;
+}
+
+.card-ship .card-header .card-input {
+    margin: 0 15px;
+}
+
+.card-ship .card-header .card-subsec-l .card-input {
+    margin-left: 15%;
+}
+
+.card-ship .card-header .card-input input {
+    height: 25px;
+    font-size: 20px;
+    vertical-align: middle;
+    font-weight: bold;
+    text-align: center;
+}
+
+.card-ship .card-header .card-subsec-l .card-input input {
+    width: 70%;
+}
+
+.card-ship .card-header .card-input.card-ship-ld input {
+    width: 30px;
+}
+
+.card-ship .card-header .card-input.card-ship-pts input {
+    width: 40px;
+}
+
+.card-ship .card-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-family: "Pathway Gothic One", sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.card-ship .card-body .card-section-t,
+.card-ship .card-body .card-section-b {
+    display: flex;
+    flex-direction: row;
+}
+
+.card-ship .card-body .card-section-t .card-subsec-r {
+    padding-right: 33px;
+}
+
+.card-ship .card-body .card-ship-img {
+    box-sizing: border-box;
+    width: 300px;
+    padding: 15px;
+}
+
+.card-ship .card-body .card-ship-stats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card-ship .card-body .card-ship-stats .stat-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3px;
+    width: 50px;
+    margin: 3px;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: center;
+}
+
+.card-ship .card-body .card-ship-stats .stat-box .stat-value {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.card-ship .card-body .card-ship-armaments {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    width: 100%;
+    margin-right: 50px;
+}
+
+.card-ship .card-body table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.card-ship .card-body table thead {
+    background-color: rgba(54, 87, 115, 0.8);
+    color: #c8c5dc;
+}
+
+.card-ship .card-body table thead th {
+    font-weight: 400;
+}
+
+.card-ship .card-body table tbody tr {
+    border-top: 2px solid rgba(54, 87, 115, 0.8);
+    position: relative;
+}
+
+.card-ship .card-body table tbody td {
+    border-right: 2px solid rgba(54, 87, 115, 0.8);
+}
+
+.card-ship .card-body table tbody td:last-child {
+    border-right: 0;
+}
+
+.card-ship .card-body table tbody tr:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -2px;
+    right: -30px;
+    width: 22px;
+    height: 22px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.card-ship .card-body table tbody tr.firearc-lr:after {
+    background-image: url('@images/fleet-builder/firearc-lr.png');
+}
+
+.card-ship .card-body table tbody tr.firearc-f:after {
+    background-image: url('@images/fleet-builder/firearc-f.png');
+}
+
+.card-ship .card-body table tbody tr.firearc-lfr:after {
+    background-image: url('@images/fleet-builder/firearc-lfr.png');
+}

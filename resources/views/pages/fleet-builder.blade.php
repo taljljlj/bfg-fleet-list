@@ -38,147 +38,16 @@
         <div class="section-overlay" style="visibility: hidden">
             <img src="{{ asset('images/loading-icon.png') }}" alt="Loading Icon">
         </div>
+        <div class="fleet-actions">
+{{-- TODO: <a> for pdf testing, remove after pdf export fully completed --}}
+            <a href="{{ route('test.fleet.export-pdf', ['faction' => 1, 'fleetList' => 1]) . '?ships%5B0%5D%5Bid%5D=2&ships%5B0%5D%5Border%5D=1&ships%5B0%5D%5Bname%5D=&ships%5B0%5D%5Bpoints%5D=365&ships%5B0%5D%5Bld%5D=&ships%5B1%5D%5Bid%5D=20&ships%5B1%5D%5Border%5D=4&ships%5B1%5D%5Bname%5D=&ships%5B1%5D%5Bpoints%5D=180&ships%5B1%5D%5Bld%5D=&ships%5B2%5D%5Bid%5D=20&ships%5B2%5D%5Border%5D=4&ships%5B2%5D%5Bname%5D=&ships%5B2%5D%5Bpoints%5D=180&ships%5B2%5D%5Bld%5D=&ships%5B3%5D%5Bid%5D=18&ships%5B3%5D%5Border%5D=4&ships%5B3%5D%5Bname%5D=&ships%5B3%5D%5Bpoints%5D=185&ships%5B3%5D%5Bld%5D=' }}">Test Pdf</a>
+            <button id="exportPdf" class="export-btn">Export PDF</button>
+            <button id="exportUrl" class="export-btn">Share URL</button>
+            <button id="exportStore" class="export-btn">Save</button>
+        </div>
         <div id="shipCardContainer" class="ship-card-container">
 
         </div>
-        <!--
-        <div class="card-ship export">
-            <div class="card-header">
-                <div class="card-subsec-l">
-                    <div class="card-faction-img">
-                        <img src="{{ asset('images/factions/imperium-logo.png') }}" alt="Faction logo">
-                    </div>
-                    <div class="card-ship-class heading">Retribution Class Battleship</div>
-                </div>
-                <div class="card-subsec-r">
-                    <div class="card-ship-ld card-input heading">
-                        <label for="cardShipLd">Ld:</label>
-                        <input type="text" name="cardShipLd">
-                    </div>
-                    <div class="card-ship-pts card-input heading">
-                        <label for="cardShipPts">Pts:</label>
-                        <input type="text" name="cardShipPts">
-                    </div>
-                    <div class="card-ship-remove-btn">&times;</div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="card-section-t">
-                    <div class="card-subsec-l">
-                        <div class="card-ship-img">
-                            <img src="{{ asset('images/ships/emperor-class-battleship.png') }}" alt="">
-                        </div>
-                        <div class="card-ship-hp">
-                            <div class="hp-row-1">
-                                <div class="hp-box"></div>
-                                <div class="hp-box"></div>
-                                <div class="hp-box"></div>
-                                <div class="hp-box"></div>
-                                <div class="hp-box"></div>
-                                <div class="hp-box"></div>
-                            </div>
-                            <div class="hp-row-2">
-                                <div class="hp-box"></div>
-                                <div class="hp-box"></div>
-                                <div class="hp-box"></div>
-                                <div class="hp-box"></div>
-                                <div class="hp-box"></div>
-                                <div class="hp-box"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-subsec-r">
-                        <input type="text" placeholder="Ship Name">
-                        <div class="card-ship-crits">
-                            <h4>Critical Damages</h4>
-                            <div class="card-ship-crits-container">
-                                <div class="crit-box">
-                                    <div class="crit-dmg-num">2</div>
-                                    <div class="crit-dmg-name">Dorsal</div>
-                                </div>
-                                <div class="crit-box">
-                                    <div class="crit-dmg-num">3</div>
-                                    <div class="crit-dmg-name">Starboard</div>
-                                </div>
-                                <div class="crit-box">
-                                    <div class="crit-dmg-num">4</div>
-                                    <div class="crit-dmg-name">Port</div>
-                                </div>
-                                <div class="crit-box">
-                                    <div class="crit-dmg-num">5</div>
-                                    <div class="crit-dmg-name">Prow</div>
-                                </div>
-                                <div class="crit-box">
-                                    <div class="crit-dmg-num">6</div>
-                                    <div class="crit-dmg-name">Engine</div>
-                                </div>
-                                <div class="crit-box">
-                                    <div class="crit-dmg-num">7</div>
-                                    <div class="crit-dmg-name">Fire</div>
-                                </div>
-                                <div class="crit-box">
-                                    <div class="crit-dmg-num">8</div>
-                                    <div class="crit-dmg-name">Thrusters</div>
-                                </div>
-                                <div class="crit-box">
-                                    <div class="crit-dmg-num">9</div>
-                                    <div class="crit-dmg-name">Bridge</div>
-                                </div>
-                                <div class="crit-box">
-                                    <div class="crit-dmg-num">10</div>
-                                    <div class="crit-dmg-name">Shields</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-ship-stats">
-                            <div class="stat-box card-box-container">
-                                <div class="stat-name">Speed</div>
-                                <div class="stat-value">15cm</div>
-                            </div>
-                            <div class="stat-box card-box-container">
-                                <div class="stat-name">Turns</div>
-                                <div class="stat-value">45°</div>
-                            </div>
-                            <div class="stat-box card-box-container">
-                                <div class="stat-name">Shields</div>
-                                <div class="stat-value">4</div>
-                            </div>
-                            <div class="stat-box card-box-container">
-                                <div class="stat-name">Armour</div>
-                                <div class="stat-value">5+/F6+</div>
-                            </div>
-                            <div class="stat-box card-box-container">
-                                <div class="stat-name">Turrets</div>
-                                <div class="stat-value">4</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-section-b">
-                    <div class="card-subsec-l">
-                        <div class="card-ship-additional">
-                            <div class="card-ship-special"></div>
-                            <div class="card-ship-options"></div>
-                        </div>
-                    </div>
-                    <div class="card-subsec-r">
-                        <table>
-                            <tr>
-                                <th>Armament</th>
-                                <th>Speed/Range</th>
-                                <th>Firepower</th>
-                            </tr>
-                            <tr>
-                                <td>Weapons Battey</td>
-                                <td>30cm</td>
-                                <td>6</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
     </div>
 @endsection
 
@@ -194,6 +63,12 @@
         var shipList = document.getElementById('shipList');
         var shipCardContainer = document.getElementById('shipCardContainer');
         var points = document.getElementById('points');
+        var exportPdfBtn = document.getElementById('exportPdf');
+
+        //Reset session on page load
+        document.addEventListener('DOMContentLoaded', function(){
+            sessionStorage.clear();
+        })
 
         //Faction selection event listener
         factions.forEach(faction => {
@@ -207,6 +82,7 @@
 
                 //Submit faction via ajax
                 let factionId = this.getAttribute('data-faction-id');
+                sessionStorage.setItem('factionId', factionId);
                 submitFaction(factionId);
             });
         });
@@ -299,6 +175,7 @@
 
                 fleetListDropdownSelected.innerHTML = fleetListName;
 
+                sessionStorage.setItem('fleetListId', fleetListId);
                 submitFleetList(fleetListId);
             }
         })
@@ -434,6 +311,77 @@
                 let currentPoints = parseInt(points.innerText, 10);
                 points.innerText = currentPoints + value;
             }
+        }
+
+        exportPdfBtn.addEventListener('click', function (e) {
+            let factionId = sessionStorage.getItem('factionId');
+            let fleetListId = sessionStorage.getItem('fleetListId');
+
+            if(factionId && fleetListId) {
+                //Prepare ship data
+                let shipElements = shipCardContainer.querySelectorAll('.card-ship');
+                let shipsData = [];
+
+                shipElements.forEach(ship => {
+                    let data = []
+                    data['id'] = ship.getAttribute('data-id');
+                    data['order'] = ship.style.order;
+                    data['name'] = ship.querySelector('[name="cardShipName"]').value;
+                    data['points'] = ship.querySelector('[name="cardShipPts"]').value;
+                    data['ld'] = ship.querySelector('[name="cardShipLd"]').value;
+
+                    shipsData.push(data);
+                });
+                let shipsParams = toQueryParams(shipsData);
+
+                //Export PDF Ajax
+                exportPdf(factionId, fleetListId, shipsParams);
+            } else {
+                console.log('Please select a Faction and Fleet List!');
+            }
+        })
+
+        function toQueryParams(array) {
+            const params = new URLSearchParams();
+
+            array.forEach((data, index) => {
+                Object.keys(data).forEach(key => {
+                    params.append(`ships[${index}][${key}]`, data[key]);
+                });
+            });
+
+            return params.toString();
+        }
+
+        function exportPdf(factionId, fleetListId, shipsParams) {
+            fetch(`/api/export/${factionId}/${fleetListId}?${shipsParams}`, {
+                method: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Assuming you're using Laravel with CSRF protection
+                }
+            })
+                .then(response => {
+                    if (response.status !== 200) {
+                        throw new Error('Failed to download PDF');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'fleet-builder.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Submission failed. Please check your input.');
+
+                    //Remove loading overlay after running into errors
+                    toggleLoadingOverlay(false);
+                });
         }
     </script>
 @endpush
