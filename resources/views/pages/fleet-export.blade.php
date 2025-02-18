@@ -117,7 +117,7 @@
         }
 
         .card-ship .card-header .card-subsec-l .card-input input {
-            width: 70%;
+            width: 300px;
         }
 
         .card-ship .card-header .card-input.card-ship-ld input {
@@ -165,7 +165,7 @@
             flex-direction: column;
             justify-content: center;
             padding: 3px;
-            width: 50px;
+            width: 60px;
             margin: 3px;
             border-radius: 5px;
             border: 2px solid black;
@@ -227,17 +227,17 @@
         }
 
         .card-ship .card-body table tbody tr.firearc-lr:after {
-            background-image: url('@images/fleet-builder/firearc-lr.png');
+            background-image: url('{{ asset('images/fleet-builder/firearc-lr.png') }}');
             filter: grayscale(1);
         }
 
         .card-ship .card-body table tbody tr.firearc-f:after {
-            background-image: url('@images/fleet-builder/firearc-f.png');
+            background-image: url('{{ asset('images/fleet-builder/firearc-f.png') }}');
             filter: grayscale(1);
         }
 
         .card-ship .card-body table tbody tr.firearc-lfr:after {
-            background-image: url('@images/fleet-builder/firearc-lfr.png');
+            background-image: url('{{ asset('/images/fleet-builder/firearc-lfr.png') }}');
             filter: grayscale(1);
         }
 
@@ -256,8 +256,8 @@
         }
 
         .card-ship .card-body .hp-box {
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
             border-radius: 5px;
             border: 2px solid black;
             margin: 1px 2px;
@@ -288,7 +288,6 @@
             margin: 0 1px;
             text-align: center;
             height: 100px;
-            padding: 0 2px;
             width: 40px;
         }
 
@@ -299,7 +298,15 @@
 
         .card-ship .card-body .card-ship-crits .crit-box .crit-dmg-name {
             letter-spacing: 0;
-            font-size: 12px;
+            font-size: 11px;
+        }
+
+        .card-ship .card-body .card-ship-crits .crit-box.lightgray-bg .crit-dmg-num {
+            background-color: lightgray;
+        }
+
+        .card-ship .card-body .card-ship-crits .crit-box.lightgray-bg .crit-dmg-name {
+            background-color: lightgray;
         }
 
         .card-ship .card-body .ship-specials-container {
@@ -325,7 +332,10 @@
         </div>
         <div class="ships-container">
             @foreach($ships as $ship)
-                <x-fleet-builder.ship-profile-card-export :ship="$ship">
+                <x-fleet-builder.ship-profile-card-export :ship="$ship" />
+                @if (($loop->index + 1) % 6 == 0 && !$loop->last)
+                    <div style="page-break-after: always;"></div>
+                @endif
             @endforeach
         </div>
     </div>

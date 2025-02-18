@@ -39,6 +39,8 @@
             <img src="{{ asset('images/loading-icon.png') }}" alt="Loading Icon">
         </div>
         <div class="fleet-actions">
+{{-- TODO: <a> for pdf testing, remove after pdf export fully completed --}}
+            <a href="{{ route('test.fleet.export-pdf', ['faction' => 1, 'fleetList' => 1]) . '?ships%5B0%5D%5Bid%5D=2&ships%5B0%5D%5Border%5D=1&ships%5B0%5D%5Bname%5D=&ships%5B0%5D%5Bpoints%5D=365&ships%5B0%5D%5Bld%5D=&ships%5B1%5D%5Bid%5D=20&ships%5B1%5D%5Border%5D=4&ships%5B1%5D%5Bname%5D=&ships%5B1%5D%5Bpoints%5D=180&ships%5B1%5D%5Bld%5D=&ships%5B2%5D%5Bid%5D=20&ships%5B2%5D%5Border%5D=4&ships%5B2%5D%5Bname%5D=&ships%5B2%5D%5Bpoints%5D=180&ships%5B2%5D%5Bld%5D=&ships%5B3%5D%5Bid%5D=18&ships%5B3%5D%5Border%5D=4&ships%5B3%5D%5Bname%5D=&ships%5B3%5D%5Bpoints%5D=185&ships%5B3%5D%5Bld%5D=' }}">Test Pdf</a>
             <button id="exportPdf" class="export-btn">Export PDF</button>
             <button id="exportUrl" class="export-btn">Share URL</button>
             <button id="exportStore" class="export-btn">Save</button>
@@ -358,9 +360,20 @@
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Assuming you're using Laravel with CSRF protection
                 }
             })
-                .then(response => response.blob())
+                .then(response => {
+                    if (response.status !== 200) {
+                        throw new Error('Failed to download PDF');
+                    }
+                    return response.blob();
+                })
                 .then(blob => {
-                    console.log('test');
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'fleet-builder.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
                 })
                 .catch(error => {
                     console.error('Error:', error);
