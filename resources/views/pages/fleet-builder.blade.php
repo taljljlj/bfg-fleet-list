@@ -38,6 +38,11 @@
         <div class="section-overlay" style="visibility: hidden">
             <img src="{{ asset('images/loading-icon.png') }}" alt="Loading Icon">
         </div>
+        <div class="fleet-actions">
+            <button id="exportPdf" class="export-btn">Export PDF</button>
+            <button id="exportUrl" class="export-btn">Share URL</button>
+            <button id="exportStore" class="export-btn">Save</button>
+        </div>
         <div id="shipCardContainer" class="ship-card-container">
 
         </div>
@@ -56,6 +61,12 @@
         var shipList = document.getElementById('shipList');
         var shipCardContainer = document.getElementById('shipCardContainer');
         var points = document.getElementById('points');
+        var exportPdfBtn = document.getElementById('exportPdf');
+
+        //Reset session on page load
+        document.addEventListener('DOMContentLoaded', function(){
+            sessionStorage.clear();
+        })
 
         //Faction selection event listener
         factions.forEach(faction => {
@@ -69,6 +80,7 @@
 
                 //Submit faction via ajax
                 let factionId = this.getAttribute('data-faction-id');
+                sessionStorage.setItem('factionId', factionId);
                 submitFaction(factionId);
             });
         });
@@ -161,6 +173,7 @@
 
                 fleetListDropdownSelected.innerHTML = fleetListName;
 
+                sessionStorage.setItem('fleetListId', fleetListId);
                 submitFleetList(fleetListId);
             }
         })
@@ -296,6 +309,66 @@
                 let currentPoints = parseInt(points.innerText, 10);
                 points.innerText = currentPoints + value;
             }
+        }
+
+        exportPdfBtn.addEventListener('click', function (e) {
+            let factionId = sessionStorage.getItem('factionId');
+            let fleetListId = sessionStorage.getItem('fleetListId');
+
+            if(factionId && fleetListId) {
+                //Prepare ship data
+                let shipElements = shipCardContainer.querySelectorAll('.card-ship');
+                let shipsData = [];
+
+                shipElements.forEach(ship => {
+                    let data = []
+                    data['id'] = ship.getAttribute('data-id');
+                    data['order'] = ship.style.order;
+                    data['name'] = ship.querySelector('[name="cardShipName"]').value;
+                    data['points'] = ship.querySelector('[name="cardShipPts"]').value;
+                    data['ld'] = ship.querySelector('[name="cardShipLd"]').value;
+
+                    shipsData.push(data);
+                });
+                let shipsParams = toQueryParams(shipsData);
+
+                //Export PDF Ajax
+                exportPdf(factionId, fleetListId, shipsParams);
+            } else {
+                console.log('Please select a Faction and Fleet List!');
+            }
+        })
+
+        function toQueryParams(array) {
+            const params = new URLSearchParams();
+
+            array.forEach((data, index) => {
+                Object.keys(data).forEach(key => {
+                    params.append(`ships[${index}][${key}]`, data[key]);
+                });
+            });
+
+            return params.toString();
+        }
+
+        function exportPdf(factionId, fleetListId, shipsParams) {
+            fetch(`/api/export/${factionId}/${fleetListId}?${shipsParams}`, {
+                method: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Assuming you're using Laravel with CSRF protection
+                }
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                    console.log('test');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Submission failed. Please check your input.');
+
+                    //Remove loading overlay after running into errors
+                    toggleLoadingOverlay(false);
+                });
         }
     </script>
 @endpush

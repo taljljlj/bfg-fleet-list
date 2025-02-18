@@ -22,7 +22,6 @@ Route::group(['middleware' => 'guest'], function () {
 
     Route::group(['prefix' => 'fleet-builder'], function () {
         Route::get('/', [FleetBuilderController::class, 'index'])->name('builder.index');
-        Route::get('/fleet-export', [FleetBuilderController::class, 'fleetExport'])->name('builder.export'); //TODO: remove; Test rout for developing export
-
+        Route::get('/{faction}/{fleetList}', [FleetBuilderController::class, 'testPdf'])->name('fleet.export-pdf'); //TODO: test route for testing pdf view; remove
     });
 });

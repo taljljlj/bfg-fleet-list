@@ -413,6 +413,37 @@ img {
     min-height: 50vh;
     float: right;
     display: flex;
+    flex-direction: column;
+}
+
+#fleetBuilderBody .section.section-right .fleet-actions {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 50px;
+    padding: 10px;
+    border: 2px solid #c8c5dc;
+    border-radius: 5px;
+    background-color: rgb(78, 108, 135);
+    backdrop-filter: blur(7px);
+    margin-bottom: 25px;
+}
+
+#fleetBuilderBody .section.section-right .fleet-actions button {
+    border-radius: 5px;
+    border-color: rgb(116, 166, 175);
+    font-family: "League Gothic", sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    background-color: #c8c5dc;
+    cursor: pointer;
+    width: 90px;
+}
+
+#fleetBuilderBody .section.section-right .fleet-actions button:hover {
+    color: rgb(54, 87, 115);
+    box-shadow: 0 0 10px #c8c5dc;
 }
 
 #fleetBuilderBody .section.section-right .ship-card-container {

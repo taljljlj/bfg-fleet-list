@@ -1,5 +1,5 @@
 @if($ship)
-<div class="card-ship" style="order: {{ $shipOrder }}" data-points="{{ $ship->points }}">
+<div class="card-ship" style="order: {{ $shipOrder }}" data-id="{{ $ship->id }}">
     <div class="card-header">
         <div class="card-subsec-l">
 {{--            <div class="card-faction-img">--}}
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="card-subsec-r">
-                <input type="text" placeholder="Enter Ship Name">
+                <input type="text" name="cardShipName" placeholder="Enter Ship Name">
                 <div class="card-ship-additional card-box-container">
                     <div class="card-ship-special">
                         <ul class="ship-specials-container">

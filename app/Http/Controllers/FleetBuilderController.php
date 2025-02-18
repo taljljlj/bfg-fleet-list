@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FleetBuilderFormRequest;
 use App\Models\Faction;
-use App\Models\Fleet;
 use App\Models\FleetList;
 use App\Models\Ship;
 use App\Services\FleetBuilderService;
@@ -12,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use Spatie\LaravelPdf\Facades\Pdf;
 
 class FleetBuilderController extends Controller
 {
@@ -74,22 +74,36 @@ class FleetBuilderController extends Controller
         ]);
     }
 
-    public function fleetExport(Request $request) {
-        $factionId = $request->get('faction');
-        $faction = Faction::findOrFail($factionId);
-
-        $fleetListId = request()->get('fleet-list');
-        $fleetList = FleetList::findOrFail($fleetListId);
-
-        $shipIds = request()->get('ships');
+    public function getFleetAsPdf(Faction $faction, FleetList $fleetList, Request $request)
+    {
+        $shipsData = $request->get('ships');
         $ships = collect();
-        foreach ($shipIds as $shipId) {
-            $ship = Ship::findOrFail($shipId);
+        foreach ($shipsData as $shipData) {
+            $ship = Ship::findOrFail($shipData['id']);
             if($ship) {
+                $ship->name = $shipData['name'];
+                $ship->order = $shipData['order'];
+                $ship->points = $shipData['points'];
+                $ship->ld = $shipData['ld'];
+
                 $ships->push($ship);
             }
         }
 
-        return view('pages.fleet-export', compact('faction', 'fleetList', 'ships'));
+        $ships->sortBy('order');
+
+//        return response()->json([
+//            'message' => 'Ship added to fleet.',
+//            'html' => View::make('components.fleet-builder.ship-profile-card', compact('ship', 'shipOrder'))->render(),
+//            'points' => $ship->points
+//        ]);
+
+        return Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList'))
+            ->format('a4')
+            ->name('fleet-builder.pdf')
+            ->download('fleet-builder.pdf');
+//
+//        return response($pdf, 200)
+//            ->header('Content-Type', 'application/pdf');
     }
 }
