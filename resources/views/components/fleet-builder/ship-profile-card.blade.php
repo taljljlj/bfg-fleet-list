@@ -26,7 +26,7 @@
                     <img src="{{ asset('images/fleet-builder/refit-icon.png') }}" alt="Refit Icon">
                 </div>
                 <div class="card-ship-img">
-                    <img src="{{ asset('images/ships/emperor-class-battleship-1.png') }}" alt="">
+                    <img src="{{ asset('images/ships/' . $ship->img_url . '.png') }}" alt="Ship Profile Image">
                 </div>
             </div>
             <div class="card-subsec-r">
