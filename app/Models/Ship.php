@@ -42,6 +42,6 @@ class Ship extends Model
     }
 
     public function getImgUrlAttribute() {
-        return Str::kebab($this->class);
+        return Str::kebab($this->class) . '.png';
     }
 }
