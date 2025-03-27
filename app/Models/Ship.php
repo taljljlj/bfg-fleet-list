@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Ship extends Model
 {
@@ -38,5 +39,9 @@ class Ship extends Model
     //Accessors
     public function getArmourShortAttribute() {
         return str_replace('front', 'f', $this->armour);
+    }
+
+    public function getImgUrlAttribute() {
+        return Str::kebab($this->class) . '.png';
     }
 }

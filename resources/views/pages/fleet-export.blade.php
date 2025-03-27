@@ -152,6 +152,7 @@
             box-sizing: border-box;
             width: 300px;
             padding: 15px;
+            filter: grayscale(1);
         }
 
         .card-ship .card-body .card-ship-stats {
