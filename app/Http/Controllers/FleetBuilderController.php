@@ -100,22 +100,12 @@ class FleetBuilderController extends Controller
 
             $ships = $ships->sortBy('order');
 
-//        return response()->json([
-//            'message' => 'Ship added to fleet.',
-//            'html' => View::make('components.fleet-builder.ship-profile-card', compact('ship', 'shipOrder'))->render(),
-//            'points' => $ship->points
-//        ]);
-
-//        $pdf = Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList'))
-//            ->format('a4')
-//            ->stream();
-//
-//        return response($pdf, 200)
-//            ->header('Content-Type', 'application/pdf')
-//            ->header('Content-Disposition', 'attachment; filename="fleet-builder.pdf"');
             return Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList'))
                 ->withBrowsershot(function (Browsershot $browsershot) {
-                    $browsershot->scale(0.55);
+                    $customCachePath = env('PUPPETEER_CACHE_PATH');
+
+                    $browsershot->scale(0.55)
+                        ->setOption('puppeteer:cacheDirectory', $customCachePath);
                 })
                 ->format('a4')
                 ->download('fleet-export.pdf');
