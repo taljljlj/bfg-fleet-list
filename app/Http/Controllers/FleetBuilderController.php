@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FleetBuilderFormRequest;
 use App\Models\Faction;
+use App\Models\Fleet;
 use App\Models\FleetList;
 use App\Models\Ship;
 use App\Services\FleetBuilderService;
@@ -28,6 +29,12 @@ class FleetBuilderController extends Controller
      */
     public function index()
     {
+        $fleet = $this->fleetBuilderService->createFleetInitial();
+
+        return redirect()->route('builder.edit', ['fleet' => $fleet]);
+    }
+
+    public function edit(Fleet $fleet) {
         $factions = Faction::all();
 
         return view('pages.fleet-builder', compact('factions'));

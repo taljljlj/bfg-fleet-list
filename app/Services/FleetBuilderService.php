@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Faction;
 use App\Models\Fleet;
 
 class FleetBuilderService
@@ -22,5 +23,20 @@ class FleetBuilderService
         return $ships->sortKeysUsing(function ($key1, $key2) use ($customOrder) {
             return $customOrder[$key1] - $customOrder[$key2];
         });
+    }
+
+    public function createFleetInitial () {
+        $fleet = new Fleet();
+        $fleet->name = 'Fleet #' . $fleet->id;
+        $fleet->save();
+
+        return $fleet;
+    }
+
+    public function hotpickFaction(Fleet $fleet, $factionId) {
+        $fleet->factionId = $factionId;
+        $fleet->save();
+
+        return $fleet;
     }
 }
