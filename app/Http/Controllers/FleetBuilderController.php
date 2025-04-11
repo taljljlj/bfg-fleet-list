@@ -34,10 +34,18 @@ class FleetBuilderController extends Controller
         return redirect()->route('builder.edit', ['fleet' => $fleet]);
     }
 
-    public function edit(Fleet $fleet) {
+    public function hotpickIndex(Faction $faction)
+    {
+        $fleet = $this->fleetBuilderService->createFleetInitial();
+        $fleet = $this->fleetBuilderService->hotpickFaction($fleet, $faction->id);
+
+        return redirect()->route('builder.edit', ['fleet' => $fleet]);
+    }
+
+    public function edit(Fleet $fleet, Faction $factionHotpick) {
         $factions = Faction::all();
 
-        return view('pages.fleet-builder', compact('factions'));
+        return view('pages.fleet-builder', compact('factions', 'fleet', 'factionHotpick'));
     }
 
     /**

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('points')->default(0);
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->tinyInteger('is_public')->default(1);
-            $table->foreignId('factions_id')->nullable()->constrained('factions');
-            $table->foreignId('fleet_lists_id')->nullable()->constrained('fleet_lists');
+            $table->foreignId('faction_id')->nullable()->constrained('factions');
+            $table->foreignId('fleet_list_id')->nullable()->constrained('fleet_lists');
             $table->text('notes')->nullable();
         });
     }

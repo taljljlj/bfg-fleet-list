@@ -34,7 +34,7 @@ class FleetBuilderService
     }
 
     public function hotpickFaction(Fleet $fleet, $factionId) {
-        $fleet->factionId = $factionId;
+        $fleet->faction_id = $factionId;
         $fleet->save();
 
         return $fleet;

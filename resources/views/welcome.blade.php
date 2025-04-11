@@ -1,8 +1,13 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="quick-get-started">
+    <div class="hotpick-faction">
         <h1>Build your fleet!</h1>
+        <div class="faction-container">
+            @foreach($factions as $faction)
+                <a href="{{ route('builder.index-hotpick', ['faction' => $faction]) }}"><img src="{{ asset('images/factions/hotpick/' . $faction->hotpick_faction_img_url) }}" alt="Faction Hotpick Image"></a>
+            @endforeach
+        </div>
         <!-- TODO: use gw2skills landing page for reference -->
     </div>
     <div class="explore-fleets">
