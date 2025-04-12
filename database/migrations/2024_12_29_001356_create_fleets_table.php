@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('fleets', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name');
+            $table->string('name')->default('New Fleet');
             $table->integer('points')->default(0);
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->tinyInteger('is_public')->default(1);

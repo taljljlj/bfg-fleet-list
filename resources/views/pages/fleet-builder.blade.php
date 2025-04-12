@@ -55,6 +55,10 @@
     {{--Faction selection script--}}
     <script>
         //Global vars
+        const pageData = {
+            fleetId: {{ $fleet->id }},
+            csrf: @json(csrf_token())
+        };
         var factions = document.querySelectorAll('.faction');
         var fleetListDropdown = document.getElementById('fleetListDropdown');
         var fleetListDropdownBtn = document.getElementById('fleetListDropdownBtn');
@@ -106,11 +110,14 @@
         //Submit selected faction, get related fleet lists
         function submitFaction(factionId) {
             fetch(`/api/faction/${factionId}`, {
-                method: 'GET',
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
+                    'X-CSRF-TOKEN': pageData.csrf
+                },
+                body: JSON.stringify({
+                    fleetId: pageData.fleetId,
+                })
             })
                 .then(response => response.json())
                 .then(data => {
@@ -122,7 +129,7 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Submission failed. Please check your input.');
+                    alert('A disruption in the sacred data-rites has occurred. Twisted forces of the Warp have cast their afflictions upon your fleet. Reinstate your will and attempt anew, lest chaos consume this endeavor.');
 
                     //Remove loading overlay after request is processed
                     toggleLoadingOverlay(false);

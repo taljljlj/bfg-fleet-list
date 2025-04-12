@@ -20,21 +20,32 @@ class FleetBuilderController extends Controller
 {
     private FleetBuilderService $fleetBuilderService;
 
+    /**
+     * @param FleetBuilderService $fleetBuilderService
+     */
     public function __construct(FleetBuilderService $fleetBuilderService) {
         $this->fleetBuilderService = $fleetBuilderService;
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * First step in opening fleet builder - creating a new fleet
+     * Redirects to fleet builder page
+     * @return RedirectResponse
      */
-    public function index()
+    public function index() : RedirectResponse
     {
         $fleet = $this->fleetBuilderService->createFleetInitial();
 
         return redirect()->route('builder.edit', ['fleet' => $fleet]);
     }
 
-    public function hotpickIndex(Faction $faction)
+    /**
+     * First step in opening fleet builder if faction hotpick was selected - create new fleet, prefill fleet-faction relation
+     * Redirects to fleet builder page
+     * @param Faction $faction
+     * @return RedirectResponse
+     */
+    public function hotpickIndex(Faction $faction) : RedirectResponse
     {
         $fleet = $this->fleetBuilderService->createFleetInitial();
         $fleet = $this->fleetBuilderService->hotpickFaction($fleet, $faction->id);
@@ -42,7 +53,14 @@ class FleetBuilderController extends Controller
         return redirect()->route('builder.edit', ['fleet' => $fleet]);
     }
 
-    public function edit(Fleet $fleet, Faction $factionHotpick) {
+    /**
+     * Returns Fleet Builder page blank or prefilled with params
+     * @param Fleet $fleet
+     * @param Faction $factionHotpick
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
+    public function edit(Fleet $fleet, Faction $factionHotpick)
+    {
         $factions = Faction::all();
 
         return view('pages.fleet-builder', compact('factions', 'fleet', 'factionHotpick'));
@@ -50,11 +68,16 @@ class FleetBuilderController extends Controller
 
     /**
      * @param FleetBuilderFormRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param Faction $faction
+     * @return JsonResponse
      */
-    public function getFleetListByFaction(Faction $faction) : JsonResponse
+    public function getFleetListByFaction(FleetBuilderFormRequest $request, Faction $faction) : JsonResponse
     {
         $fleetLists = $faction->fleetLists()->get();
+
+        $fleet = Fleet::findOrFail($request->input('fleetId'));
+        $fleet->faction_id = $faction->id;
+        $fleet->save();
 
         return response()->json([
             'message' => 'Faction selected.',
