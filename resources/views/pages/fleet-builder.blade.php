@@ -25,6 +25,11 @@
                 </div>
                 <div class="dropdown-content" style="display: none">
                     <ul id="fleetListDropdown">
+                        @if($fleetLists)
+                            @foreach($fleetLists as $fleetList)
+                                <li data-id="{{ $fleetList->id }}" data-name="{{ $fleetList->name }}">{{ $fleetList->name }}</li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>

@@ -63,7 +63,13 @@ class FleetBuilderController extends Controller
     {
         $factions = Faction::all();
 
-        return view('pages.fleet-builder', compact('factions', 'fleet', 'factionHotpick'));
+        $fleetLists = null;
+
+        if ($fleet->faction_id) {
+            $fleetLists = FleetList::getByFactionId($fleet->faction_id);
+        }
+
+        return view('pages.fleet-builder', compact('factions', 'fleet', 'fleetLists'));
     }
 
     /**
