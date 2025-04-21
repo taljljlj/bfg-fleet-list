@@ -207,11 +207,14 @@
         //Submit selected fleet list, get ship list
         function submitFleetList(fleetListId) {
             fetch(`/api/fleet-list/${fleetListId}`, {
-                method: 'GET',
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
+                },
+                body: JSON.stringify({
+                    fleetId: pageData.fleetId,
+                })
             })
                 .then(response => response.json())
                 .then(data => {

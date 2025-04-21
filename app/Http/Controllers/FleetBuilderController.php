@@ -77,12 +77,13 @@ class FleetBuilderController extends Controller
      * @param Faction $faction
      * @return JsonResponse
      */
-    public function getFleetListByFaction(FleetBuilderFormRequest $request, Faction $faction) : JsonResponse
+    public function upsertFaction(FleetBuilderFormRequest $request, Faction $faction) : JsonResponse
     {
         $fleetLists = $faction->fleetLists()->get();
 
         $fleet = Fleet::findOrFail($request->input('fleetId'));
-        $fleet->faction_id = $faction->id;
+        $fleet->faction()->associate($faction);
+        $fleet->fleetList()->dissociate();
         $fleet->save();
 
         return response()->json([
@@ -96,10 +97,14 @@ class FleetBuilderController extends Controller
      * @param FleetBuilderFormRequest $request
      * @return JsonResponse
      */
-    public function getShipsByFleetList(FleetList $fleetList) : JsonResponse
+    public function upsertFleetList(FleetBuilderFormRequest $request, FleetList $fleetList) : JsonResponse
     {
         $ships = $fleetList->ships()->with('armaments')->get()->groupBy('type');
         $shipsSorted = $this->fleetBuilderService->sortShips($ships);
+
+        $fleet = Fleet::findOrFail($request->input('fleetId'));
+        $fleet->fleetList()->associate($fleetList);
+        $fleet->save();
 
         return response()->json([
             'message' => 'Fleet List selected.',
