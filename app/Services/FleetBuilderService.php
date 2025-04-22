@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Faction;
 use App\Models\Fleet;
+use App\Models\FleetList;
 
 class FleetBuilderService
 {
@@ -17,7 +18,7 @@ class FleetBuilderService
         'Escort' => 6,
         'Defence' => 7
     ];
-    public function sortShips($ships)
+    private function sortShips($ships)
     {
         $customOrder = $this->shipTypeOrder;
         return $ships->sortKeysUsing(function ($key1, $key2) use ($customOrder) {
@@ -38,5 +39,11 @@ class FleetBuilderService
         $fleet->save();
 
         return $fleet;
+    }
+
+    public function getShipsByFleetList(FleetList $fleetList) {
+        $ships = $fleetList->getRelatedShips();
+
+        return $this->sortShips($ships);
     }
 }

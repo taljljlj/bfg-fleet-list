@@ -56,20 +56,33 @@ class FleetBuilderController extends Controller
     /**
      * Returns Fleet Builder page blank or prefilled with params
      * @param Fleet $fleet
-     * @param Faction $factionHotpick
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
-    public function edit(Fleet $fleet, Faction $factionHotpick)
+    public function edit(Fleet $fleet)
     {
         $factions = Faction::all();
 
+        //If fleet has selected faction (hotpick and edit fleet)
         $fleetLists = null;
-
         if ($fleet->faction_id) {
             $fleetLists = FleetList::getByFactionId($fleet->faction_id);
         }
 
-        return view('pages.fleet-builder', compact('factions', 'fleet', 'fleetLists'));
+        //If fleet has selected fleet list (edit fleet)
+        $selectedFleetList = null;
+        $shipList = null;
+        if ($fleet->fleet_list_id) {
+            $selectedFleetList = FleetList::findOrFail($fleet->fleet_list_id);
+            $shipList = $this->fleetBuilderService->getShipsByFleetList($selectedFleetList);
+        }
+
+        return view('pages.fleet-builder', compact(
+            'fleet',
+            'factions',
+            'fleetLists',
+            'selectedFleetList',
+            'shipList'
+        ));
     }
 
     /**
@@ -99,8 +112,7 @@ class FleetBuilderController extends Controller
      */
     public function upsertFleetList(FleetBuilderFormRequest $request, FleetList $fleetList) : JsonResponse
     {
-        $ships = $fleetList->ships()->with('armaments')->get()->groupBy('type');
-        $shipsSorted = $this->fleetBuilderService->sortShips($ships);
+        $ships = $this->fleetBuilderService->getShipsByFleetList($fleetList);
 
         $fleet = Fleet::findOrFail($request->input('fleetId'));
         $fleet->fleetList()->associate($fleetList);
@@ -109,7 +121,7 @@ class FleetBuilderController extends Controller
         return response()->json([
             'message' => 'Fleet List selected.',
             'fleetList' => $fleetList,
-            'ships' => $shipsSorted
+            'ships' => $ships
         ]);
     }
 

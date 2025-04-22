@@ -24,4 +24,8 @@ class FleetList extends Model
     public static function getByFactionId(int $factionId) : Collection {
         return self::where('faction_id', $factionId)->get();
     }
+
+    public function getRelatedShips() {
+        return $this->ships()->with('armaments')->get()->groupBy('type');
+    }
 }

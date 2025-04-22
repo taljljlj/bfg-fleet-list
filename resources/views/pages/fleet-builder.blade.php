@@ -20,7 +20,7 @@
             <h3>Fleet List:</h3>
             <div id="fleetListDropdownBtn" class="dropdown">
                 <div class="dropdown-select">
-                    <span id="dropdownSelected"></span>
+                    <span id="dropdownSelected">{{ $selectedFleetList ? $selectedFleetList->name : '' }}</span>
                     <span class="dropdown-caret"><img src="{{ asset('images/caret-icon.png') }}" alt="Caret"></span>
                 </div>
                 <div class="dropdown-content" style="display: none">
@@ -36,6 +36,19 @@
         </div>
         <div class="section-subsection last">
             <ul id="shipList">
+                @if($shipList)
+                    @foreach($shipList as $type=>$ships)
+                        <li class="ship-type-group collapsed">
+                            <h4 class="ship-type-group-title">{{ $type }}s<span class="caret-icon"><img src="{{ asset('images/caret-icon.png') }}" alt="caret-icon"></span></h4>
+                            <ul class="ship-type-container thin-font">
+                                @foreach($ships as $ship)
+                                    <li><span class="ship-class">{{ $ship->class }}</span> <span class="ship-pts">{{ $ship->points }}</span> <span class="ship-add-btn" data-ship-id="{{ $ship->id }}"><img src="{{ asset('images/add-ship-icon.png') }}" alt="Add Ship Icon"></span></li>
+                                @endforeach
+                            </ul>
+                        </li>
+
+                    @endforeach
+                @endif
             </ul>
         </div>
     </div>
