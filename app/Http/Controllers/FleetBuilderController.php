@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FleetBuilderFormRequest;
 use App\Models\Faction;
+use App\Models\Fleet;
 use App\Models\FleetList;
 use App\Models\Ship;
 use App\Services\FleetBuilderService;
@@ -19,27 +20,98 @@ class FleetBuilderController extends Controller
 {
     private FleetBuilderService $fleetBuilderService;
 
+    /**
+     * @param FleetBuilderService $fleetBuilderService
+     */
     public function __construct(FleetBuilderService $fleetBuilderService) {
         $this->fleetBuilderService = $fleetBuilderService;
     }
 
     /**
+     * First step in opening fleet builder - creating a new fleet
+     * Redirects to fleet builder page
+     * @return RedirectResponse
+     */
+    public function index() : RedirectResponse
+    {
+        $fleet = $this->fleetBuilderService->createFleetInitial();
+
+        return redirect()->route('builder.edit', ['fleet' => $fleet]);
+    }
+
+    /**
+     * First step in opening fleet builder if faction hotpick was selected - create new fleet, prefill fleet-faction relation
+     * Redirects to fleet builder page
+     * @param Faction $faction
+     * @return RedirectResponse
+     */
+    public function hotpickIndex(Faction $faction) : RedirectResponse
+    {
+        $fleet = $this->fleetBuilderService->createFleetInitial();
+        $fleet = $this->fleetBuilderService->hotpickFaction($fleet, $faction->id);
+
+        return redirect()->route('builder.edit', ['fleet' => $fleet]);
+    }
+
+    /**
+     * Returns Fleet Builder page blank or prefilled with params
+     * @param Fleet $fleet
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
-    public function index()
+    public function edit(Fleet $fleet)
     {
         $factions = Faction::all();
 
-        return view('pages.fleet-builder', compact('factions'));
+        //If fleet has selected faction (hotpick and edit fleet)
+        $fleetLists = null;
+        if ($fleet->faction_id) {
+            $fleetLists = FleetList::getByFactionId($fleet->faction_id);
+        }
+
+        //If fleet has selected fleet list
+        $selectedFleetList = null;
+        $shipList = null;
+        if ($fleet->fleet_list_id) {
+            $selectedFleetList = FleetList::findOrFail($fleet->fleet_list_id);
+            $shipList = $this->fleetBuilderService->getShipsByFleetList($selectedFleetList);
+        }
+
+        //If fleet has attached ships return full list and assign order for frontend
+        $ships = null;
+        if ($fleet->ships()->exists()) {
+            $ships = $fleet->ships()->with(['armaments', 'rules'])->withPivot('id')->get();
+            $shipOrder = $this->fleetBuilderService->shipTypeOrder;
+
+            foreach ($ships as $ship) {
+                $ship->order = $shipOrder[$ship->type];
+                $ship->pivot_id = $ship->pivot->id;
+            }
+        }
+
+        return view('pages.fleet-builder', compact(
+            'fleet',
+            'factions',
+            'fleetLists',
+            'selectedFleetList',
+            'shipList',
+            'ships',
+        ));
     }
 
     /**
      * @param FleetBuilderFormRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param Faction $faction
+     * @return JsonResponse
      */
-    public function getFleetListByFaction(Faction $faction) : JsonResponse
+    public function setFaction(Fleet $fleet, Faction $faction) : JsonResponse
     {
         $fleetLists = $faction->fleetLists()->get();
+
+        $fleet->points = 0;
+        $fleet->faction()->associate($faction);
+        $fleet->fleetList()->dissociate();
+        $fleet->ships()->detach();
+        $fleet->save();
 
         return response()->json([
             'message' => 'Faction selected.',
@@ -52,27 +124,83 @@ class FleetBuilderController extends Controller
      * @param FleetBuilderFormRequest $request
      * @return JsonResponse
      */
-    public function getShipsByFleetList(FleetList $fleetList) : JsonResponse
+    public function setFleetList(Fleet $fleet, FleetList $fleetList) : JsonResponse
     {
-        $ships = $fleetList->ships()->with('armaments')->get()->groupBy('type');
-        $shipsSorted = $this->fleetBuilderService->sortShips($ships);
+        $shipList = $this->fleetBuilderService->getShipsByFleetList($fleetList);
+
+        $fleet->fleetList()->associate($fleetList);
+        $fleet->save();
+
+        $msg = "Fleet list selected.";
+
+        $excludedShipsData = null;
+        if ($fleet->ships()->exists()) {
+            $syncShips = $fleet->ships()->sync($fleet->shipsInFleetList($fleetList)->pluck('ships.id')->toArray());
+
+            if ($syncShips['detached']) {
+                $msg .= " Some ships have been removed as they are not compatible with selected fleet list.";
+
+                $fleet->points = $fleet->ships()->sum('fleet_ship.points');
+                $fleet->save();
+
+                $excludedShipsData = [
+                    'points' => $fleet->points,
+                    'shipIds' => collect($syncShips['detached'])->unique()->values()->toArray(),
+                ];
+            }
+        }
 
         return response()->json([
-            'message' => 'Fleet List selected.',
+            'message' => $msg,
             'fleetList' => $fleetList,
-            'ships' => $shipsSorted
+            'shipList' => $shipList,
+            'excludedShipsData' => $excludedShipsData,
         ]);
     }
 
-    public function getShipById(Ship $ship) : JsonResponse
+    public function attachShipToFleet(Fleet $fleet, Ship $ship) : JsonResponse
     {
         $ship->load(['armaments', 'rules']);
         $shipOrder = $this->fleetBuilderService->shipTypeOrder[$ship->type];
+        $shipPoints = $ship->points;
+
+        $fleet->ships()->attach($ship, ['points' => $shipPoints]);
+        $fleet->points = $this->fleetBuilderService->calculateFleetPoints($fleet, $shipPoints);
+        $fleet->save();
+
+        //Get last attached ship id for frontend data attribute
+        $shipPivot = $fleet->ships()->newPivotStatement()
+            ->select('id')
+            ->where('ship_id', $ship->id)
+            ->latest('id')
+            ->first();
+        $ship->pivot_id = $shipPivot->id;
+
 
         return response()->json([
             'message' => 'Ship added to fleet.',
             'html' => View::make('components.fleet-builder.ship-profile-card', compact('ship', 'shipOrder'))->render(),
-            'points' => $ship->points
+            'points' => $fleet->points
+        ]);
+    }
+
+    public function detachShipFromFleet(Fleet $fleet, int $shipPivotId) : JsonResponse
+    {
+        $shipPivot = $fleet->ships()->newPivotStatement()
+            ->where('id', $shipPivotId)
+            ->first();
+
+        $shipPoints = $shipPivot->points;
+        $fleet->points = $this->fleetBuilderService->calculateFleetPoints($fleet, -($shipPoints));
+        $fleet->save();
+
+        $fleet->ships()->newPivotStatement()
+            ->where('id', $shipPivotId)
+            ->delete();
+
+        return response()->json([
+            'message' => 'Ship removed from fleet.',
+            'points' => $fleet->points
         ]);
     }
 
@@ -100,22 +228,12 @@ class FleetBuilderController extends Controller
 
             $ships = $ships->sortBy('order');
 
-//        return response()->json([
-//            'message' => 'Ship added to fleet.',
-//            'html' => View::make('components.fleet-builder.ship-profile-card', compact('ship', 'shipOrder'))->render(),
-//            'points' => $ship->points
-//        ]);
-
-//        $pdf = Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList'))
-//            ->format('a4')
-//            ->stream();
-//
-//        return response($pdf, 200)
-//            ->header('Content-Type', 'application/pdf')
-//            ->header('Content-Disposition', 'attachment; filename="fleet-builder.pdf"');
             return Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList'))
                 ->withBrowsershot(function (Browsershot $browsershot) {
-                    $browsershot->scale(0.55);
+                    $customCachePath = env('PUPPETEER_CACHE_PATH');
+
+                    $browsershot->scale(0.55)
+                        ->setOption('puppeteer:cacheDirectory', $customCachePath);
                 })
                 ->format('a4')
                 ->download('fleet-export.pdf');

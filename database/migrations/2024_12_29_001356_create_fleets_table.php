@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('fleets', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name');
-            $table->integer('points');
-            $table->integer('user_id')->nullable();
-            $table->tinyInteger('public')->default(1);
-            $table->integer('fleet_lists_id');
-            $table->string('fleet_id')->unique();
+            $table->string('name')->default('New Fleet');
+            $table->integer('points')->default(0);
+            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->tinyInteger('is_public')->default(1);
+            $table->foreignId('faction_id')->nullable()->constrained('factions');
+            $table->foreignId('fleet_list_id')->nullable()->constrained('fleet_lists');
             $table->text('notes')->nullable();
         });
     }

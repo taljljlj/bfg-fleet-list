@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class FleetBuilderFormRequest extends FormRequest
 {
@@ -22,37 +24,16 @@ class FleetBuilderFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        $step = $this->input('step');
-        $this->validateStep($step);
-
-        $rules = [];
-
-        switch ($step) {
-            case 'faction':
-                $rules = [
-                    'faction' => 'required|integer|exists:factions,id',
-                ];
-                break;
-            case 'fleet-list':
-                $rules = [
-                    'fleetList' =>  'required|integer|exists:fleet_lists,id',
-                ];
-                break;
-            case 'ship':
-                $rules = [
-                    'shipId' => 'required|integer|exists:ships,id',
-                ];
-                break;
-            default:
-        }
-
-        return $rules;
+        return [
+            'fleetId' =>  'required|integer|exists:fleets,id',
+        ];
     }
 
-    private function validateStep($step)
+    protected function failedValidation(Validator $validator)
     {
-        if (!$step || !in_array($step, ['faction', 'fleet-list', 'ship'])) {
-            abort(422, 'Invalid step provided');
-        }
+        throw new HttpResponseException(response()->json([
+            'message' => 'Validation failed.',
+            'errors' => $validator->errors(),
+        ], 422)); // HTTP 422: Unprocessable Entity
     }
 }

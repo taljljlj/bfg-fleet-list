@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/faction/{faction}', [FleetBuilderController::class, 'getFleetListByFaction']);
-Route::get('/fleet-list/{fleetList}', [FleetBuilderController::class, 'getShipsByFleetList']);
-Route::get('/ship/{ship}', [FleetBuilderController::class, 'getShipById']);
-Route::get('/export/{faction}/{fleetList}', [FleetBuilderController::class, 'getFleetAsPdf'])->name('fleet.export-pdf');
+Route::prefix('{fleet}')->group(function () {
+    Route::patch('/faction/{faction}', [FleetBuilderController::class, 'setFaction']);
+    Route::patch('/fleet-list/{fleetList}', [FleetBuilderController::class, 'setFleetList']);
+    Route::patch('/ship-add/{ship}', [FleetBuilderController::class, 'attachShipToFleet']);
+    Route::patch('/ship-remove/{shipPivotId}', [FleetBuilderController::class, 'detachShipFromFleet']);
+    Route::get('/export/{faction}/{fleetList}', [FleetBuilderController::class, 'getFleetAsPdf'])->name('fleet.export-pdf');
+});

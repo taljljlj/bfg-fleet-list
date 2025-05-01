@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ship_refit', function (Blueprint $table) {
+        Schema::create('fleet_ship', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('fleet_id')->constrained('fleets');
             $table->foreignId('ship_id')->constrained('ships');
-            $table->foreignId('refit_id')->constrained('refits');
             $table->smallInteger('points');
-            $table->smallInteger('firepower')->nullable();
-            $table->smallInteger('range_speed')->nullable();
+            //TODO: probably need to extend this pivot table with other attributes from ship table,
+            // at least those that can be modified with refits and similar
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ship_refit');
+        Schema::dropIfExists('fleet_ship');
     }
 };

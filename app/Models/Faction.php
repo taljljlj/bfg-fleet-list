@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Faction extends Model
 {
@@ -16,6 +17,11 @@ class Faction extends Model
     }
     public function ships() {
         return $this->hasMany(Ship::class)->with('armaments');
+    }
+
+    //Accessors
+    public function getHotpickFactionImgUrlAttribute() {
+        return Str::kebab($this->name) . '-hotpick.png';
     }
 
     /**
