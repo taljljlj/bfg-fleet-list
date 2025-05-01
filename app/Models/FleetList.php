@@ -21,11 +21,21 @@ class FleetList extends Model
         return $this->belongsToMany(Ship::class, 'fleetlist_ship');
     }
 
+
+    /**
+     * Get fleet list objects by faction_id
+     * @param int $factionId
+     * @return Collection
+     */
     public static function getByFactionId(int $factionId) : Collection {
         return self::where('faction_id', $factionId)->get();
     }
 
-    public function getRelatedShips() {
-        return $this->ships()->with('armaments')->get()->groupBy('type');
+    /**
+     * Get related ships grouped by ship type. Used for ship sorting.
+     * @return Collection
+     */
+    public function getShipsGroupedByType() {
+        return $this->ships()->get()->groupBy('type');
     }
 }

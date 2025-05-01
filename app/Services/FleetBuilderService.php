@@ -42,8 +42,12 @@ class FleetBuilderService
     }
 
     public function getShipsByFleetList(FleetList $fleetList) {
-        $ships = $fleetList->getRelatedShips();
+        $ships = $fleetList->getShipsGroupedByType();
 
         return $this->sortShips($ships);
+    }
+
+    public function calculateFleetPoints (Fleet $fleet, int $pointModifier) {
+        return ($fleet->points + $pointModifier);
     }
 }

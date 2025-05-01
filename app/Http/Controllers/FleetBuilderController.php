@@ -68,7 +68,7 @@ class FleetBuilderController extends Controller
             $fleetLists = FleetList::getByFactionId($fleet->faction_id);
         }
 
-        //If fleet has selected fleet list (edit fleet)
+        //If fleet has selected fleet list
         $selectedFleetList = null;
         $shipList = null;
         if ($fleet->fleet_list_id) {
@@ -76,12 +76,25 @@ class FleetBuilderController extends Controller
             $shipList = $this->fleetBuilderService->getShipsByFleetList($selectedFleetList);
         }
 
+        //If fleet has attached ships return full list and assign order for frontend
+        $ships = null;
+        if ($fleet->ships()->exists()) {
+            $ships = $fleet->ships()->with(['armaments', 'rules'])->withPivot('id')->get();
+            $shipOrder = $this->fleetBuilderService->shipTypeOrder;
+
+            foreach ($ships as $ship) {
+                $ship->order = $shipOrder[$ship->type];
+                $ship->pivot_id = $ship->pivot->id;
+            }
+        }
+
         return view('pages.fleet-builder', compact(
             'fleet',
             'factions',
             'fleetLists',
             'selectedFleetList',
-            'shipList'
+            'shipList',
+            'ships',
         ));
     }
 
@@ -90,13 +103,14 @@ class FleetBuilderController extends Controller
      * @param Faction $faction
      * @return JsonResponse
      */
-    public function upsertFaction(FleetBuilderFormRequest $request, Faction $faction) : JsonResponse
+    public function setFaction(Fleet $fleet, Faction $faction) : JsonResponse
     {
         $fleetLists = $faction->fleetLists()->get();
 
-        $fleet = Fleet::findOrFail($request->input('fleetId'));
+        $fleet->points = 0;
         $fleet->faction()->associate($faction);
         $fleet->fleetList()->dissociate();
+        $fleet->ships()->detach();
         $fleet->save();
 
         return response()->json([
@@ -110,30 +124,83 @@ class FleetBuilderController extends Controller
      * @param FleetBuilderFormRequest $request
      * @return JsonResponse
      */
-    public function upsertFleetList(FleetBuilderFormRequest $request, FleetList $fleetList) : JsonResponse
+    public function setFleetList(Fleet $fleet, FleetList $fleetList) : JsonResponse
     {
-        $ships = $this->fleetBuilderService->getShipsByFleetList($fleetList);
+        $shipList = $this->fleetBuilderService->getShipsByFleetList($fleetList);
 
-        $fleet = Fleet::findOrFail($request->input('fleetId'));
         $fleet->fleetList()->associate($fleetList);
         $fleet->save();
 
+        $msg = "Fleet list selected.";
+
+        $excludedShipsData = null;
+        if ($fleet->ships()->exists()) {
+            $syncShips = $fleet->ships()->sync($fleet->shipsInFleetList($fleetList)->pluck('ships.id')->toArray());
+
+            if ($syncShips['detached']) {
+                $msg .= " Some ships have been removed as they are not compatible with selected fleet list.";
+
+                $fleet->points = $fleet->ships()->sum('fleet_ship.points');
+                $fleet->save();
+
+                $excludedShipsData = [
+                    'points' => $fleet->points,
+                    'shipIds' => collect($syncShips['detached'])->unique()->values()->toArray(),
+                ];
+            }
+        }
+
         return response()->json([
-            'message' => 'Fleet List selected.',
+            'message' => $msg,
             'fleetList' => $fleetList,
-            'ships' => $ships
+            'shipList' => $shipList,
+            'excludedShipsData' => $excludedShipsData,
         ]);
     }
 
-    public function getShipById(Ship $ship) : JsonResponse
+    public function attachShipToFleet(Fleet $fleet, Ship $ship) : JsonResponse
     {
         $ship->load(['armaments', 'rules']);
         $shipOrder = $this->fleetBuilderService->shipTypeOrder[$ship->type];
+        $shipPoints = $ship->points;
+
+        $fleet->ships()->attach($ship, ['points' => $shipPoints]);
+        $fleet->points = $this->fleetBuilderService->calculateFleetPoints($fleet, $shipPoints);
+        $fleet->save();
+
+        //Get last attached ship id for frontend data attribute
+        $shipPivot = $fleet->ships()->newPivotStatement()
+            ->select('id')
+            ->where('ship_id', $ship->id)
+            ->latest('id')
+            ->first();
+        $ship->pivot_id = $shipPivot->id;
+
 
         return response()->json([
             'message' => 'Ship added to fleet.',
             'html' => View::make('components.fleet-builder.ship-profile-card', compact('ship', 'shipOrder'))->render(),
-            'points' => $ship->points
+            'points' => $fleet->points
+        ]);
+    }
+
+    public function detachShipFromFleet(Fleet $fleet, int $shipPivotId) : JsonResponse
+    {
+        $shipPivot = $fleet->ships()->newPivotStatement()
+            ->where('id', $shipPivotId)
+            ->first();
+
+        $shipPoints = $shipPivot->points;
+        $fleet->points = $this->fleetBuilderService->calculateFleetPoints($fleet, -($shipPoints));
+        $fleet->save();
+
+        $fleet->ships()->newPivotStatement()
+            ->where('id', $shipPivotId)
+            ->delete();
+
+        return response()->json([
+            'message' => 'Ship removed from fleet.',
+            'points' => $fleet->points
         ]);
     }
 
