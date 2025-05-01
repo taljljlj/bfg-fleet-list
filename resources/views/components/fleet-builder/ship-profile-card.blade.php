@@ -22,9 +22,18 @@
     <div class="card-body thin-font">
         <div class="card-section-t">
             <div class="card-subsec-l">
+                @if($ship->refits)
                 <div class="card-ship-refit-btn">
                     <img src="{{ asset('images/fleet-builder/refit-icon.png') }}" alt="Refit Icon">
                 </div>
+                <div class="card-ship-refit-container collapsed">
+                    <ul>
+                    @foreach($ship->refits as $refit)
+                        <li>{{$refit->name}}</li>
+                    @endforeach
+                    </ul>
+                </div>
+                @endif
                 <div class="card-ship-img">
                     <img src="{{ asset('images/ships/' . $ship->img_url) }}" alt="Ship Profile Image">
                 </div>

@@ -74,7 +74,7 @@
 @endsection
 
 @push('scripts')
-    {{--Faction selection script--}}
+    {{--Fleet Builder Main Script--}}
     <script>
         //Global vars
         const pageData = {
@@ -324,8 +324,9 @@
             shipCardContainer.innerHTML = '';
         }
 
-        //Remove individual ship from fleet
+        //Ship card events and functions
         shipCardContainer.addEventListener('click', function (e) {
+            //Remove individual ship from fleet
             if (e.target.classList.contains('card-ship-remove-btn')) {
                 toggleLoadingOverlay(true);
 
@@ -333,8 +334,15 @@
                 let shipPivotId = shipProfileElement.getAttribute('data-pivot-id');
 
                 removeShip(shipPivotId, shipProfileElement)
-            } else if (e.target.closest('.card-ship-refit-btn')) {
-                console.log('i need to fix this part. card-ship-refit-btn is class of div container.');
+            }
+            //Toggle ship's refits panel
+            else if (e.target.closest('.card-ship-refit-btn')) {
+                let refitsBtn = e.target.closest('.card-ship-refit-btn');
+                let refitsContainer = refitsBtn.nextElementSibling;
+
+                if(refitsContainer && refitsContainer.classList.contains('card-ship-refit-container')) {
+                    refitsContainer.classList.toggle('collapsed');
+                }
             }
         })
 

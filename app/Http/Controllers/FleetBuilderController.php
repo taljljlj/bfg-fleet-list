@@ -79,7 +79,7 @@ class FleetBuilderController extends Controller
         //If fleet has attached ships return full list and assign order for frontend
         $ships = null;
         if ($fleet->ships()->exists()) {
-            $ships = $fleet->ships()->with(['armaments', 'rules'])->withPivot('id')->get();
+            $ships = $fleet->ships()->with(['armaments', 'rules', 'refits'])->withPivot('id')->get();
             $shipOrder = $this->fleetBuilderService->shipTypeOrder;
 
             foreach ($ships as $ship) {
