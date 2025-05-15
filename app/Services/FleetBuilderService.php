@@ -18,7 +18,7 @@ class FleetBuilderService
         'Escort' => 6,
         'Defence' => 7
     ];
-    private function sortShips($ships)
+    public function sortShips($ships)
     {
         $customOrder = $this->shipTypeOrder;
         return $ships->sortKeysUsing(function ($key1, $key2) use ($customOrder) {

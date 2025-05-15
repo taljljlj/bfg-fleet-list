@@ -23,6 +23,7 @@ Route::group(['middleware' => 'guest'], function () {
         Route::get('/', [FleetBuilderController::class, 'index'])->name('builder.index');
         Route::get('/{fleet}', [FleetBuilderController::class, 'edit'])->name('builder.edit');
         Route::get('/hotpick/{faction}', [FleetBuilderController::class, 'hotpickIndex'])->name('builder.index-hotpick');
-        Route::get('test-export/{faction}/{fleetList}', [FleetBuilderController::class, 'testPdf'])->name('test.fleet.export-pdf'); //TODO: test route for testing pdf view; remove
+        Route::get('test-export/{fleet}', [FleetBuilderController::class, 'testPdf'])->name('test.fleet.export-pdf'); //TODO: test route for testing pdf view; remove
+        Route::get('{fleet}/export-pdf/', [FleetBuilderController::class, 'getFleetAsPdf'])->name('pdf-export.test'); //TODO: test route for testing pdf generation
     });
 });

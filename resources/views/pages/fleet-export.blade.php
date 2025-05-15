@@ -327,16 +327,18 @@
                 <h3>{{ $fleetList->name }}</h3>
             </div>
             <div class="header-r">
-                <h1>{{ $ships->sum('points') }}</h1>
+                <h1>{{ $fleet->points }}</h1>
                 <h3>Pts</h3>
             </div>
         </div>
         <div class="ships-container">
-            @foreach($ships as $ship)
-                <x-fleet-builder.ship-profile-card-export :ship="$ship" />
-                @if (($loop->index + 1) % 6 == 0 && !$loop->last)
-                    <div style="page-break-after: always;"></div>
-                @endif
+            @foreach($shipsGrouped as $type=>$ships)
+                @foreach($ships as $ship)
+                    <x-fleet-builder.ship-profile-card-export :ship="$ship" />
+                    @if (($loop->index + 1) % 6 == 0 && !$loop->last)
+                        <div style="page-break-after: always;"></div>
+                    @endif
+                @endforeach
             @endforeach
         </div>
     </div>

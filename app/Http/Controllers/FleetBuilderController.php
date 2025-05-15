@@ -11,6 +11,7 @@ use App\Services\FleetBuilderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Spatie\Browsershot\Browsershot;
@@ -204,39 +205,34 @@ class FleetBuilderController extends Controller
         ]);
     }
 
-    public function getFleetAsPdf(Faction $faction, FleetList $fleetList, Request $request)
+    public function getFleetAsPdf(Fleet $fleet)
     {
         try {
-            $shipsData = $request->get('ships');
+            $shipsGrouped = $fleet->ships()->withPivot('points')->with(['armaments', 'rules'])->get()->groupBy('type');
+            $shipsGrouped = $this->fleetBuilderService->sortShips($shipsGrouped);
 
-            if (!is_array($shipsData)) {
-                return response()->json(['error' => 'Invalid ships data'], 400);
+            $faction = $fleet->faction()->first();
+            $fleetList = $fleet->fleetList()->first();
+
+            $response = Http::get(route('pdf-export.test', ['fleet' => $fleet->id]));
+
+            if ($response->successful()) {
+                $html = $response->body();
+            } else {
+                \Log::error('Failed to fetch fleet export page: ' . $response->status());
+                return response()->json(['error' => 'Failed to retrieve fleet export page'], 500);
             }
 
-            $ships = collect();
-            foreach ($shipsData as $shipData) {
-                $ship = Ship::findOrFail($shipData['id']);
-                if ($ship) {
-                    $ship->name = $shipData['name'];
-                    $ship->order = $shipData['order'];
-                    $ship->points = $shipData['points'];
-                    $ship->ld = $shipData['ld'];
-
-                    $ships->push($ship);
-                }
-            }
-
-            $ships = $ships->sortBy('order');
-
-            return Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList'))
-                ->withBrowsershot(function (Browsershot $browsershot) {
-                    $customCachePath = env('PUPPETEER_CACHE_PATH');
-
-                    $browsershot->scale(0.55)
-                        ->setOption('puppeteer:cacheDirectory', $customCachePath);
-                })
+            $pdf = Pdf::html($html)
+                ->withBrowsershot(fn(Browsershot $browsershot) =>
+                $browsershot->scale(0.55)
+                    ->setOption('executablePath', config('fleet-builder.browsershot.executablePath'))
+                    ->setOption('waitUntil', 'networkidle2') // Ensure Puppeteer waits for full page load
+                )
                 ->format('a4')
-                ->download('fleet-export.pdf');
+                ->download('fleet-export-' . $fleet->id . '.pdf');
+
+            return $pdf;
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['error' => 'An error occurred while generating the PDF.'], 500);
@@ -244,24 +240,14 @@ class FleetBuilderController extends Controller
     }
 
     //TODO: for pdf testing, remove after pdf export fully completed
-    public function testPdf(Faction $faction, FleetList $fleetList, Request $request)
+    public function testPdf(Fleet $fleet)
     {
-        $shipsData = $request->get('ships');
-        $ships = collect();
-        foreach ($shipsData as $shipData) {
-            $ship = Ship::findOrFail($shipData['id']);
-            if($ship) {
-                $ship->name = $shipData['name'];
-                $ship->order = $shipData['order'];
-                $ship->points = $shipData['points'];
-                $ship->ld = $shipData['ld'];
+        $shipsGrouped = $fleet->ships()->withPivot('points')->with(['armaments', 'rules'])->get()->groupBy('type');
+        $shipsGrouped = $this->fleetBuilderService->sortShips($shipsGrouped);
 
-                $ships->push($ship);
-            }
-        }
+        $faction = $fleet->faction()->first();
+        $fleetList = $fleet->fleetList()->first();
 
-        $ships->sortBy('order');
-
-        return view('pages.fleet-export', compact('faction', 'ships', 'fleetList'));
+        return view('pages.fleet-export', compact('faction', 'shipsGrouped', 'fleetList', 'fleet'));
     }
 }
