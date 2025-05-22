@@ -6,14 +6,14 @@ use Illuminate\Support\ServiceProvider;
 return [
     /*
     |--------------------------------------------------------------------------
-    | Puppeteer Cache Path
+    | Puppeteer config
     |--------------------------------------------------------------------------
     |
-    | Path where puppeteer stores temp fleet pdf export files
+    | Path to chrome/chromium
     |
     */
 
-    'browsershot' => [
-        'executablePath' => env('CHROME_CACHE_PATH'),
+    'puppeteer' => [
+        'chromePath' => env('PUPPETEER_EXECUTABLE_PATH', null),
     ]
 ];

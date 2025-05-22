@@ -214,20 +214,10 @@ class FleetBuilderController extends Controller
             $faction = $fleet->faction()->first();
             $fleetList = $fleet->fleetList()->first();
 
-            $response = Http::get(route('pdf-export.test', ['fleet' => $fleet->id]));
-
-            if ($response->successful()) {
-                $html = $response->body();
-            } else {
-                \Log::error('Failed to fetch fleet export page: ' . $response->status());
-                return response()->json(['error' => 'Failed to retrieve fleet export page'], 500);
-            }
-
-            $pdf = Pdf::html($html)
+            $pdf = Pdf::view('pages.fleet-export', compact('faction', 'shipsGrouped', 'fleetList', 'fleet'))
                 ->withBrowsershot(fn(Browsershot $browsershot) =>
-                $browsershot->scale(0.55)
-                    ->setOption('executablePath', config('fleet-builder.browsershot.executablePath'))
-                    ->setOption('waitUntil', 'networkidle2') // Ensure Puppeteer waits for full page load
+                    $browsershot->scale(0.55)
+                        ->noSandbox() //PDF generation stalls with sandbox on Windows. Might be redundant if hosted on Linux but security implications are low as there is no backdoor to inject malicious html
                 )
                 ->format('a4')
                 ->download('fleet-export-' . $fleet->id . '.pdf');
@@ -235,7 +225,8 @@ class FleetBuilderController extends Controller
             return $pdf;
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['error' => 'An error occurred while generating the PDF.'], 500);
+            Log::error($e->getTraceAsString());
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
