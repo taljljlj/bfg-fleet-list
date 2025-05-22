@@ -11,6 +11,7 @@ use App\Services\FleetBuilderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Spatie\Browsershot\Browsershot;
@@ -204,64 +205,40 @@ class FleetBuilderController extends Controller
         ]);
     }
 
-    public function getFleetAsPdf(Faction $faction, FleetList $fleetList, Request $request)
+    public function getFleetAsPdf(Fleet $fleet)
     {
         try {
-            $shipsData = $request->get('ships');
+            $shipsGrouped = $fleet->ships()->withPivot('points')->with(['armaments', 'rules'])->get()->groupBy('type');
+            $shipsGrouped = $this->fleetBuilderService->sortShips($shipsGrouped);
 
-            if (!is_array($shipsData)) {
-                return response()->json(['error' => 'Invalid ships data'], 400);
-            }
+            $faction = $fleet->faction()->first();
+            $fleetList = $fleet->fleetList()->first();
 
-            $ships = collect();
-            foreach ($shipsData as $shipData) {
-                $ship = Ship::findOrFail($shipData['id']);
-                if ($ship) {
-                    $ship->name = $shipData['name'];
-                    $ship->order = $shipData['order'];
-                    $ship->points = $shipData['points'];
-                    $ship->ld = $shipData['ld'];
-
-                    $ships->push($ship);
-                }
-            }
-
-            $ships = $ships->sortBy('order');
-
-            return Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList'))
-                ->withBrowsershot(function (Browsershot $browsershot) {
-                    $customCachePath = env('PUPPETEER_CACHE_PATH');
-
+            $pdf = Pdf::view('pages.fleet-export', compact('faction', 'shipsGrouped', 'fleetList', 'fleet'))
+                ->withBrowsershot(fn(Browsershot $browsershot) =>
                     $browsershot->scale(0.55)
-                        ->setOption('puppeteer:cacheDirectory', $customCachePath);
-                })
+                        ->noSandbox() //PDF generation stalls with sandbox on Windows. Might be redundant if hosted on Linux but security implications are low as there is no backdoor to inject malicious html
+                )
                 ->format('a4')
-                ->download('fleet-export.pdf');
+                ->download('fleet-export-' . $fleet->id . '.pdf');
+
+            return $pdf;
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['error' => 'An error occurred while generating the PDF.'], 500);
+            Log::error($e->getTraceAsString());
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
     //TODO: for pdf testing, remove after pdf export fully completed
-    public function testPdf(Faction $faction, FleetList $fleetList, Request $request)
+    public function testPdf(Fleet $fleet)
     {
-        $shipsData = $request->get('ships');
-        $ships = collect();
-        foreach ($shipsData as $shipData) {
-            $ship = Ship::findOrFail($shipData['id']);
-            if($ship) {
-                $ship->name = $shipData['name'];
-                $ship->order = $shipData['order'];
-                $ship->points = $shipData['points'];
-                $ship->ld = $shipData['ld'];
+        $shipsGrouped = $fleet->ships()->withPivot('points')->with(['armaments', 'rules'])->get()->groupBy('type');
+        $shipsGrouped = $this->fleetBuilderService->sortShips($shipsGrouped);
 
-                $ships->push($ship);
-            }
-        }
+        $faction = $fleet->faction()->first();
+        $fleetList = $fleet->fleetList()->first();
 
-        $ships->sortBy('order');
-
-        return view('pages.fleet-export', compact('faction', 'ships', 'fleetList'));
+        return view('pages.fleet-export', compact('faction', 'shipsGrouped', 'fleetList', 'fleet'));
     }
 }
