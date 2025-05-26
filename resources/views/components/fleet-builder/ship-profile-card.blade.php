@@ -100,8 +100,10 @@
                                     <td>{{ ($armament->placement === 'Port' ? 'Pt|Sb' : $armament->placement) . ' ' . $armament->type }}</td>
                                     @if($armament->pivot->range_speed)
                                         <td>{{ $armament->pivot->range_speed }}cm</td>
+                                    @elseif($armament->pivot->misc)
+                                        <td style="font-size: 14px">{{ $armament->pivot->misc }}</td>
                                     @else
-                                        <td style="font-size: 14px">Fighter, Bomber</td>
+                                        <td>N/A</td>
                                     @endif
                                     @if($armament->placement === 'Port')
                                         <td>{{ $armament->pivot->firepower }}</td>
