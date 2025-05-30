@@ -16,8 +16,8 @@ class Refits extends Model
             ->withPivot('points', 'firepower', 'range_speed');
     }
 
-    public static function getRuleByName($name)
+    public static function getRefitsByName($name)
     {
-        return self::where('name', $name)->first();
+        return self::where('name', $name)->get();
     }
 }

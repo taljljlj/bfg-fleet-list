@@ -476,14 +476,14 @@ class RefitsSeeder extends Seeder
             ],
             [
                 "name" => "improved_thrusters",
-                "text" => "Improved Trusters: All Ahead Full +1D6",
+                "text" => "Improved Thrusters: All Ahead Full +1D6",
                 "text_long" => "Can be equipped with improved thrusters and may move 5D6 cm when on All Ahead Full orders",
                 "data" => [
                     [
                         "type" => "rule",
                         "module" => null,
                         "action" => "add",
-                        "value" => "Improved Trusters: All Ahead Full +1D6",
+                        "value" => "Improved Thrusters: All Ahead Full +1D6",
                     ],
                 ]
             ],
@@ -514,7 +514,7 @@ class RefitsSeeder extends Seeder
                 ]
             ],
             [
-                "name" => "weapons_battery_lance_battery_weapons_battery",
+                "name" => "weapons_battery_and_lance_battery_over_weapons_battery",
                 "text" => "Replace Weapons Battery with Weapons/Lance Battery",
                 "text_long" => "Can replace its weapons batteries with weapons-lance batteries combo",
                 "data" => [
@@ -577,20 +577,37 @@ class RefitsSeeder extends Seeder
                         "type" => "rule",
                         "module" => null,
                         "action" => "add",
-                        "value" => "Chosen Terminators: Teleport attack roll 2 dice, select one to count",
+                        "value" => "Chosen Terminators: Teleport attacks roll 2 dice, select one to count",
                     ],
                 ]
-            ],
+            ]
+
+            /* refits seeder template
             [
                 "name" => "",
                 "text" => "",
                 "text_long" => "",
-                "module1" => "",
+                "data" => [
+                    "type" => "",
+                    "module" => "",
+                    "action" => "",
+                    "value" => "",
+                ],
             ],
+            */
         ];
 
         foreach ($refits as $refit) {
-            Refits::create($refit);
+            foreach ($refit['data'] as $refitRow) {
+                $refitRow['name'] = $refit['name'];
+                $refitRow['text'] = $refit['text'];
+                $refitRow['text_long'] = $refit['text_long'];
+
+                Refits::create($refitRow);
+            }
+
+            // dd($refit);
+            // dd($refit->data);
         }
     }
 }

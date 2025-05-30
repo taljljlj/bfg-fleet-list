@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('refits', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
+            $table->string('name', 75);
             $table->string('text', 75);
             $table->text('text_long')->nullable();
             $table->string('type', 50);
             $table->string('module', 50)->nullable();
             $table->string('action', 50)->nullable();
-            $table->string('value', 50)->nullable();
+            $table->string('value', 255)->nullable();
         });
     }
 

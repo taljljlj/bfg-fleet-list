@@ -18,6 +18,7 @@ return new class extends Migration
             $table->smallInteger('points');
             $table->smallInteger('firepower')->nullable();
             $table->smallInteger('range_speed')->nullable();
+            $table->string('misc')->nullable();
         });
     }
 
