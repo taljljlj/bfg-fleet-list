@@ -61,12 +61,13 @@ class ShipSeeder extends Seeder
                         "Prow Sensors"
                     ],
                     "refits" => [
-                        ["name" => "shark_assault", "points" => 5, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => null, "misc" => null
-                            ],
-                            [
-                                "firepower" => null, "range_speed" => null, "misc" => "Fighter,Bomber,Assault"
+                        ["name" => "shark_assault", "points" => 5, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ],
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => "Fighter,Bomber,Assault"
+                                ]
                             ]
                         ]
                     ]
@@ -105,9 +106,10 @@ class ShipSeeder extends Seeder
                         "Massive"
                     ],
                     "refits" => [
-                        ["name" => "torpedoes_over_nova_cannon", "points" => -10, "pivots" =>
-                            [
-                                "firepower" => 9, "range_speed" => 30
+                        ["name" => "torpedoes_over_nova_cannon", "points" => -10, "pivots" => [
+                                [
+                                    "firepower" => 9, "range_speed" => 30, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -133,12 +135,13 @@ class ShipSeeder extends Seeder
                         "Prow Sensors"
                     ],
                     "refits" => [
-                        ["name" => "shark_assault", "points" => 5, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => null, "misc" => null
-                            ],
-                            [
-                                "firepower" => null, "range_speed" => null, "misc" => "Fighter,Bomber,Assault"
+                        ["name" => "shark_assault", "points" => 5, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ],
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => "Fighter,Bomber,Assault"
+                                ]
                             ]
                         ]
                     ]
@@ -196,17 +199,19 @@ class ShipSeeder extends Seeder
                         "Resilient Prow"
                     ],
                     "refits" => [
-                        ["name" => "shark_assault", "points" => 10, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => null, "misc" => null
-                            ],
-                            [
-                                "firepower" => null, "range_speed" => null, "misc" => "Fighter,Bomber,Assault"
+                        ["name" => "shark_assault", "points" => 10, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ],
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => "Fighter,Bomber,Assault"
+                                ]
                             ]
                         ],
-                        ["name" => "short_range_weapons_battery", "points" => 0, "pivots" =>
-                            [
-                                "firepower" => 10, "range_speed" => 30
+                        ["name" => "short_range_weapons_battery", "points" => 0, "pivots" => [
+                                [
+                                    "firepower" => 10, "range_speed" => 30, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -243,14 +248,16 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [],
                     "refits" => [
-                        ["name" => "targeting_matrix", "points" => 15, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => null
+                        ["name" => "targeting_matrix", "points" => 15, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ]
                             ]
                         ],
-                        ["name" => "turrets", "points" => 10, "pivots" =>
-                            [
-                                "firepower" => 3, "range_speed" => null
+                        ["name" => "turrets", "points" => 10, "pivots" => [
+                                [
+                                    "firepower" => 3, "range_speed" => null, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -304,14 +311,16 @@ class ShipSeeder extends Seeder
                         "Up-rated Engineering Plants"
                     ],
                     "refits" => [
-                        ["name" => "torpedoes_over_nova_cannon", "points" => -20, "pivots" =>
-                            [
-                                "firepower" => 6, "range_speed" => 30
+                        ["name" => "torpedoes_over_nova_cannon", "points" => -20, "pivots" => [
+                                [
+                                    "firepower" => 6, "range_speed" => 30, "misc" => null
+                                ]
                             ]
                         ],
-                        ["name" => "long_range_weapons_battery", "points" => 10, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => 60
+                        ["name" => "long_range_weapons_battery", "points" => 10, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => 60, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -333,9 +342,10 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [],
                     "refits" => [
-                        ["name" => "nova_cannon_over_torpedoes", "points" => 20, "pivots" =>
-                            [
-                                "firepower" => 1, "range_speed" => null, "misc" => "30-150cm"
+                        ["name" => "nova_cannon_over_torpedoes", "points" => 20, "pivots" => [
+                                [
+                                    "firepower" => 1, "range_speed" => null, "misc" => "30-150cm"
+                                ]
                             ]
                         ],
                     ]
@@ -354,14 +364,16 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [],
                     "refits" => [
-                        ["name" => "turrets", "points" => 10, "pivots" =>
-                            [
-                                "firepower" => 3, "range_speed" => null
+                        ["name" => "turrets", "points" => 10, "pivots" => [
+                                [
+                                    "firepower" => 3, "range_speed" => null, "misc" => null
+                                ]
                             ]
                         ],
-                        ["name" => "targeting_matrix", "points" => 15, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => null
+                        ["name" => "targeting_matrix", "points" => 15, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -398,9 +410,10 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [],
                     "refits" => [
-                        ["name" => "long_range_weapons_battery", "points" => -5, "pivots" =>
-                            [
-                                "firepower" => 6, "range_speed" => 45
+                        ["name" => "long_range_weapons_battery", "points" => -5, "pivots" => [
+                                [
+                                    "firepower" => 6, "range_speed" => 45, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -422,14 +435,16 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [],
                     "refits" => [
-                        ["name" => "long_range_weapons_battery", "points" => 10, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => 45
+                        ["name" => "long_range_weapons_battery", "points" => 10, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => 45, "misc" => null
+                                ]
                             ]
                         ],
-                        ["name" => "nova_cannon_over_torpedoes", "points" => 20, "pivots" =>
-                            [
-                                "firepower" => 1, "range_speed" => null, "misc" => "30-150cm"
+                        ["name" => "nova_cannon_over_torpedoes", "points" => 20, "pivots" => [
+                                [
+                                    "firepower" => 1, "range_speed" => null, "misc" => "30-150cm"
+                                ]
                             ]
                         ]
                     ]
@@ -470,9 +485,10 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [],
                     "refits" => [
-                        ["name" => "nova_cannon_over_torpedoes", "points" => 20, "pivots" =>
-                            [
-                                "firepower" => 1, "range_speed" => null, "misc" => "30-150cm"
+                        ["name" => "nova_cannon_over_torpedoes", "points" => 20, "pivots" => [
+                                [
+                                    "firepower" => 1, "range_speed" => null, "misc" => "30-150cm"
+                                ]
                             ]
                         ],
                     ]
@@ -500,12 +516,13 @@ class ShipSeeder extends Seeder
                         "Resilient Mid-ship Corridor"
                     ],
                     "refits" => [
-                        ["name" => "increased_front_armour", "points" => 0, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => null, "misc" => "6+ front / 5+"
-                            ],
-                            [
-                                "firepower" => 45, "range_speed" => null
+                        ["name" => "increased_front_armour", "points" => 0, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => "6+ front / 5+"
+                                ],
+                                [
+                                    "firepower" => 45, "range_speed" => null, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -525,12 +542,13 @@ class ShipSeeder extends Seeder
                         "Resilient Mid-ship Corridor"
                     ],
                     "refits" => [
-                        ["name" => "increased_front_armour", "points" => 0, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => null, "misc" => "6+ front / 5+"
-                            ],
-                            [
-                                "firepower" => 45, "range_speed" => null
+                        ["name" => "increased_front_armour", "points" => 0, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => "6+ front / 5+"
+                                ],
+                                [
+                                    "firepower" => 45, "range_speed" => null, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -552,12 +570,13 @@ class ShipSeeder extends Seeder
                         "Resilient Mid-ship Corridor"
                     ],
                     "refits" => [
-                        ["name" => "increased_front_armour", "points" => 0, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => null, "misc" => "6+ front / 5+"
-                            ],
-                            [
-                                "firepower" => 45, "range_speed" => null
+                        ["name" => "increased_front_armour", "points" => 0, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => "6+ front / 5+"
+                                ],
+                                [
+                                    "firepower" => 45, "range_speed" => null, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -577,12 +596,13 @@ class ShipSeeder extends Seeder
                         "Resilient Mid-ship Corridor"
                     ],
                     "refits" => [
-                        ["name" => "increased_front_armour", "points" => 0, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => null, "misc" => "6+ front / 5+"
-                            ],
-                            [
-                                "firepower" => 45, "range_speed" => null
+                        ["name" => "increased_front_armour", "points" => 0, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => "6+ front / 5+"
+                                ],
+                                [
+                                    "firepower" => 45, "range_speed" => null, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -603,12 +623,13 @@ class ShipSeeder extends Seeder
                         "Resilient Mid-ship Corridor"
                     ],
                     "refits" => [
-                        ["name" => "increased_front_armour", "points" => 0, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => null, "misc" => "6+ front / 5+"
-                            ],
-                            [
-                                "firepower" => 45, "range_speed" => null
+                        ["name" => "increased_front_armour", "points" => 0, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => "6+ front / 5+"
+                                ],
+                                [
+                                    "firepower" => 45, "range_speed" => null, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -632,9 +653,10 @@ class ShipSeeder extends Seeder
                         "Improved Thrusters"
                     ],
                     "refits" => [
-                        ["name" => "torpedoes_over_lance_battery", "points" => 0, "pivots" =>
-                            [
-                                "firepower" => 6, "range_speed" => 30
+                        ["name" => "torpedoes_over_lance_battery", "points" => 0, "pivots" => [
+                                [
+                                    "firepower" => 6, "range_speed" => 30, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -748,12 +770,13 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [],
                     "refits" => [
-                        ["name" => "long_range_sensors", "points" => 0, "pivots" =>
-                            [
-                                "firepower" => null, "range_speed" => null
-                            ],
-                            [
-                                "firepower" => null, "range_speed" => null
+                        ["name" => "long_range_sensors", "points" => 0, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ],
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ]
                             ]
                         ]
                     ]
@@ -831,24 +854,28 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [],
                     "refits" => [
-                        ["name" => "torpedoes_over_launch_bays", "points" => 0, "pivots" =>
-                            [
-                                "firepower" => 6, "range_speed" => 30
+                        ["name" => "torpedoes_over_launch_bays", "points" => 0, "pivots" => [
+                                [
+                                    "firepower" => 6, "range_speed" => 30, "misc" => null
+                                ]
                             ]
                         ],
-                        ["name" => "bombardment_cannon_over_launch_bays", "points" => 0, "pivots" =>
-                            [
-                                "firepower" => 5, "range_speed" => 30
+                        ["name" => "bombardment_cannon_over_launch_bays", "points" => 0, "pivots" => [
+                                [
+                                    "firepower" => 5, "range_speed" => 30, "misc" => null
+                                ]
                             ]
                         ],
-                        ["name" => "lance_battery_over_bombardment_cannon", "points" => 20, "pivots" =>
-                            [
-                                "firepower" => 1, "range_speed" => 30
+                        ["name" => "lance_battery_over_bombardment_cannon", "points" => 20, "pivots" => [
+                                [
+                                    "firepower" => 1, "range_speed" => 30, "misc" => null
+                                ]
                             ]
                         ],
-                        ["name" => "shields", "points" => 15, "pivots" =>
-                            [
-                                "firepower" => 2, "range_speed" => null
+                        ["name" => "shields", "points" => 15, "pivots" => [
+                                [
+                                    "firepower" => 2, "range_speed" => null, "misc" => null
+                                ]
                             ]
                         ],
                     ]
@@ -920,12 +947,13 @@ class ShipSeeder extends Seeder
                         "Massive"
                     ],
                     "refits" => [
-                        ["name" => "launch_bays_over_lance_battery", "points" => 10, "pivots" =>
-                            [
-                                "firepower" => 2, "range_speed" => null, "misc" => "Fighter,Bomber"
-                            ],
-                            [
-                                "firepower" => 2, "range_speed" => null, "misc" => "Fighter,Bomber"
+                        ["name" => "launch_bays_over_lance_battery", "points" => 10, "pivots" => [
+                                [
+                                    "firepower" => 2, "range_speed" => null, "misc" => "Fighter,Bomber"
+                                ],
+                                [
+                                    "firepower" => 2, "range_speed" => null, "misc" => "Fighter,Bomber"
+                                ]
                             ]
                         ],
                     ]
@@ -987,13 +1015,13 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "torpedoes_over_launch_bays", "points" => 0, "pivots" => [
                                 [
-                                    "firepower" => 6, "range_speed" => 30
+                                    "firepower" => 6, "range_speed" => 30, "misc" => null
                                 ]
                             ]
                         ],
                         ["name" => "lance_battery_over_bombardment_cannon", "points" => 15, "pivots" => [
                                 [
-                                    "firepower" => 2, "range_speed" => 45
+                                    "firepower" => 2, "range_speed" => 45, "misc" => null
                                 ]
                             ]
                         ],
@@ -1017,13 +1045,13 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "torpedoes_over_launch_bays", "points" => 0, "pivots" => [
                                 [
-                                    "firepower" => 6, "range_speed" => 30
+                                    "firepower" => 6, "range_speed" => 30, "misc" => null
                                 ]
                             ]
                         ],
                         ["name" => "bombardment_cannon_over_launch_bays", "points" => 0, "pivots" => [
                                 [
-                                    "firepower" => 5, "range_speed" => 30
+                                    "firepower" => 5, "range_speed" => 30, "misc" => null
                                 ]
                             ]
                         ],
@@ -1067,18 +1095,39 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [],
                     "refits" => [
-                        ["name" => "rogue_trader_cruiser_class_refit", "points" => 0, "firepower" => null, "range_speed" => null, "children-refits" => [
+                        ["name" => "rogue_trader_cruiser_class_refit", "points" => 0, "pivots" => [
                                 [
-                                    "name" => "class_refit_lunar", "points" => 10
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ]
+                            ],
+                            "children-refits" => [
+                                [
+                                    "name" => "class_refit_lunar", "points" => 10, "pivots" => [
+                                        [
+                                            "firepower" => null, "range_speed" => null, "misc" => null
+                                        ]
+                                    ]
                                 ],
                                 [
-                                    "name" => "class_refit_tyrant", "points" => 0
+                                    "name" => "class_refit_tyrant", "points" => 0, "pivots" => [
+                                        [
+                                            "firepower" => null, "range_speed" => null, "misc" => null
+                                        ]
+                                    ]
                                 ],
                                 [
-                                    "name" => "class_refit_carnage", "points" => 10
+                                    "name" => "class_refit_carnage", "points" => 10, "pivots" => [
+                                        [
+                                            "firepower" => null, "range_speed" => null, "misc" => null
+                                        ]
+                                    ]
                                 ],
                                 [
-                                    "name" => "class_refit_murder", "points" => 0
+                                    "name" => "class_refit_murder", "points" => 0, "pivots" => [
+                                        [
+                                            "firepower" => null, "range_speed" => null, "misc" => null
+                                        ]
+                                    ]
                                 ]
                             ]
                         ],
@@ -1102,49 +1151,49 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "xenotech_refit", "points" => 10, "pivots" => [
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ],
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ]
                             ],
                             "children-refits" => [
                                 ["name" => "xenotech_long_range_sensors", "points" => 10, "pivots" => [
                                         [
-                                            "firepower" => null, "range_speed" => null
+                                            "firepower" => null, "range_speed" => null, "misc" => null
                                         ]
                                     ]
                                 ],
                                 ["name" => "xenotech_targeting_matrix", "points" => 10, "pivots" => [
                                         [
-                                            "firepower" => null, "range_speed" => null
+                                            "firepower" => null, "range_speed" => null, "misc" => null
                                         ]
                                     ]
                                 ],
                                 ["name" => "shields", "points" => 10, "pivots" => [
                                         [
-                                            "firepower" => 3, "range_speed" => null
+                                            "firepower" => 3, "range_speed" => null, "misc" => null
                                         ]
                                     ]
                                 ],
                                 ["name" => "turrets", "points" => 10, "pivots" => [
                                         [
-                                            "firepower" => 3, "range_speed" => null
+                                            "firepower" => 3, "range_speed" => null, "misc" => null
                                         ]
                                     ]
                                 ],
                                 ["name" => "advanced_drive_technology", "points" => 10, "pivots" => [
                                         [
-                                            "firepower" => 20, "range_speed" => null
+                                            "firepower" => 20, "range_speed" => null, "misc" => null
                                         ],
                                         [
-                                            "firepower" => null, "range_speed" => null
+                                            "firepower" => null, "range_speed" => null, "misc" => null
                                         ]
                                     ]
                                 ],
                                 ["name" => "gravitic_thrusters", "points" => 10, "pivots" => [
                                         [
-                                            "firepower" => 90, "range_speed" => null
+                                            "firepower" => 90, "range_speed" => null, "misc" => null
                                         ]
                                     ]
                                 ],
@@ -1152,20 +1201,26 @@ class ShipSeeder extends Seeder
                         ],
                         ["name" => "fuel_tanker", "points" => 0, "pivots" => [
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ]
                             ]
                         ],
                         ["name" => "repair_tender", "points" => 50, "pivots" => [
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ]
                             ]
                         ],
                         ["name" => "super_heavy_transport", "points" => 50, "pivots" => [
                                 [
-                                    "firepower" => null, "range_speed" => null
-                                ]
+                                    "firepower" => 10, "range_speed" => null, "misc" => null
+                                ],
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ],
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ],
                             ]
                         ]
                     ]
@@ -1278,22 +1333,22 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "fast_clipper", "points" => 0, "pivots" => [
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ],
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ],
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ]
                             ],
                             "children-refits" => [
                                 ["name" => "advanced_drive_technology", "points" => 0, "pivots" => [
                                         [
-                                            "firepower" => 30, "range_speed" => null
+                                            "firepower" => 30, "range_speed" => null, "misc" => null
                                         ],
                                         [
-                                            "firepower" => null, "range_speed" => null
+                                            "firepower" => null, "range_speed" => null, "misc" => null
                                         ]
                                     ]
                                 ]
@@ -1368,24 +1423,24 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "chaos_lord", "points" => 25, "pivots" => [
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ]
                             ]
                         ],
                         ["name" => "chaos_space_marines", "points" => 35, "pivots" => [
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ],
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ],
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ],
                                 "children-refits" => [
                                     ["name" => "chosen_terminators", "points" => 10, "pivots" => [
                                             [
-                                                "firepower" => null, "range_speed" => null
+                                                "firepower" => null, "range_speed" => null, "misc" => null
                                             ]
                                         ]
                                     ]
@@ -1394,25 +1449,25 @@ class ShipSeeder extends Seeder
                         ],
                         ["name" => "short_range_weapons_battery", "points" => 0, "pivots" => [
                                 [
-                                    "firepower" => 8, "range_speed" => 45
+                                    "firepower" => 8, "range_speed" => 45, "misc" => null
                                 ]
                             ]
                         ],
                         ["name" => "short_range_weapons_battery", "points" => 0, "pivots" => [
                                 [
-                                    "firepower" => 10, "range_speed" => 30
+                                    "firepower" => 10, "range_speed" => 30, "misc" => null
                                 ]
                             ]
                         ],
                         ["name" => "torpedoes_over_lance_battery", "points" => 10, "pivots" => [
                                 [
-                                    "firepower" => 8, "range_speed" => 30
+                                    "firepower" => 8, "range_speed" => 30, "misc" => null
                                 ]
                             ]
                         ],
                         ["name" => "short_range_lance_battery", "points" => 10, "pivots" => [
                                 [
-                                    "firepower" => 4, "range_speed" => 45
+                                    "firepower" => 4, "range_speed" => 45, "misc" => null
                                 ]
                             ]
                         ]
@@ -1528,7 +1583,7 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "torpedoes_over_lance_battery", "points" => 10, "pivots" => [
                                 [
-                                    "firepower" => 8, "range_speed" => 30
+                                    "firepower" => 8, "range_speed" => 30, "misc" => null
                                 ]
                             ]
                         ],
@@ -1579,7 +1634,7 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "improved_thrusters", "points" => 0, "pivots" => [
                                 [
-                                    "firepower" => null, "range_speed" => null
+                                    "firepower" => null, "range_speed" => null, "misc" => null
                                 ]
                             ]
                         ],
@@ -1605,13 +1660,13 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "long_range_lance_battery", "points" => 10, "pivots" => [
                                 [
-                                    "firepower" => null, "range_speed" => 45
+                                    "firepower" => null, "range_speed" => 45, "misc" => null
                                 ]
                             ]
                         ],
                         ["name" => "shields", "points" => 15, "pivots" => [
                                 [
-                                    "firepower" => 3, "range_speed" => null
+                                    "firepower" => 3, "range_speed" => null, "misc" => null
                                 ]
                             ]
                         ]
@@ -1641,8 +1696,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Styx Class Heavy Cruiser", "type" => "Heavy Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 260,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "misc" => "Fighter,Bomber,Assault", "firepower" => 3, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "misc" => "Fighter,Bomber,Assault", "firepower" => 3, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 6, "misc" => null],
                     ],
@@ -1799,10 +1854,10 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "weapons_battery_and_lance_battery_over_weapons_battery", "points" => 0, "pivots" => [
                                 [
-                                    "firepower" => 4, "range_speed" => 45
+                                    "firepower" => 4, "range_speed" => 45, "misc" => null
                                 ],
                                 [
-                                    "firepower" => 2, "range_speed" => 45
+                                    "firepower" => 2, "range_speed" => 45, "misc" => null
                                 ],
                             ]
                         ],
@@ -1957,17 +2012,23 @@ class ShipSeeder extends Seeder
                 }
 
                 foreach ($refitsData as $refitData) {
-                    $refits = Refits::getRefitsByName($refitData['name']);
+                    try {
 
-                    for ($i = 0; $i < $refits; $i++) {
 
+                        $refits = Refits::getRefitsByName($refitData['name']);
+
+                        for ($i = 0; $i < count($refits); $i++) {
+                            $ship->refits()->attach($refits[$i]->id, [
+                                'points' => $refitData['points'],
+                                'firepower' => $refitData['pivots'][$i]['firepower'],
+                                'range_speed' => $refitData['pivots'][$i]['range_speed'],
+                                'misc' => $refitData['pivots'][$i]['misc'],
+                            ]);
+                        }
+                    } catch (\Exception $exception) {
+                        $this->command->getOutput()->error($exception->getMessage());
+                        $this->command->getOutput()->error($refitData['name'] . ' ship: ' . $ship->class);
                     }
-
-                    $ship->refits()->attach($refit->id, [
-                        'points' => $refitData['points'],
-                        'firepower' => $refitData['firepower'],
-                        'range_speed' => $refitData['range_speed'],
-                    ]);
                 }
             }
         }

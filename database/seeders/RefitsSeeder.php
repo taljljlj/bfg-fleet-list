@@ -605,9 +605,6 @@ class RefitsSeeder extends Seeder
 
                 Refits::create($refitRow);
             }
-
-            // dd($refit);
-            // dd($refit->data);
         }
     }
 }
