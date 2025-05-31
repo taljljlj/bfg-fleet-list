@@ -15,7 +15,7 @@ class Ship extends Model
     //Relations
     public function armaments() {
         return $this->belongsToMany(Armament::class, 'ship_armament')
-                    ->withPivot('range_speed', 'firepower');
+                    ->withPivot('range_speed', 'firepower', 'misc');
     }
 
     public function fleetLists() {
@@ -28,8 +28,16 @@ class Ship extends Model
 
     public function refits() {
         return $this->belongsToMany(Refits::class, 'ship_refit', 'ship_id', 'refit_id')
-            ->withPivot('points', 'firepower', 'range_speed');
+            ->withPivot('points', 'firepower', 'range_speed', 'misc');
     }
+
+    public function distinctRefits() {
+        return $this->refits()
+            ->distinct()
+            ->select(['name', 'text', 'text_long'])
+            ->groupBy('name', 'text', 'text_long');
+    }
+
 
 //      Relation removed
 //    public function faction() {

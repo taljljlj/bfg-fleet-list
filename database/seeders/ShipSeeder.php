@@ -410,7 +410,7 @@ class ShipSeeder extends Seeder
                     ],
                     "rules" => [],
                     "refits" => [
-                        ["name" => "long_range_weapons_battery", "points" => -5, "pivots" => [
+                        ["name" => "long_range_weapons_battery_low_firepower", "points" => -5, "pivots" => [
                                 [
                                     "firepower" => 6, "range_speed" => 45, "misc" => null
                                 ]
@@ -1855,6 +1855,9 @@ class ShipSeeder extends Seeder
                         ["name" => "weapons_battery_and_lance_battery_over_weapons_battery", "points" => 0, "pivots" => [
                                 [
                                     "firepower" => 4, "range_speed" => 45, "misc" => null
+                                ],
+                                [
+                                    "firepower" => 2, "range_speed" => 45, "misc" => null
                                 ],
                                 [
                                     "firepower" => 2, "range_speed" => 45, "misc" => null

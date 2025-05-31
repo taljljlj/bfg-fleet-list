@@ -83,6 +83,7 @@ class FleetBuilderController extends Controller
             $shipOrder = $this->fleetBuilderService->shipTypeOrder;
 
             foreach ($ships as $ship) {
+                $ship = $this->fleetBuilderService->getShipWithDistinctRefits($ship);
                 $ship->order = $shipOrder[$ship->type];
                 $ship->pivot_id = $ship->pivot->id;
             }
@@ -161,6 +162,7 @@ class FleetBuilderController extends Controller
     public function attachShipToFleet(Fleet $fleet, Ship $ship) : JsonResponse
     {
         $ship->load(['armaments', 'rules']);
+        $ship = $this->fleetBuilderService->getShipWithDistinctRefits($ship);
         $shipOrder = $this->fleetBuilderService->shipTypeOrder[$ship->type];
         $shipPoints = $ship->points;
 

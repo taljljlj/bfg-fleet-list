@@ -22,17 +22,23 @@
     <div class="card-body thin-font">
         <div class="card-section-t">
             <div class="card-subsec-l">
-                @if($ship->refits)
-                <div class="card-ship-refit-btn">
-                    <img src="{{ asset('images/fleet-builder/refit-icon.png') }}" alt="Refit Icon">
-                </div>
-                <div class="card-ship-refit-container collapsed">
-                    <ul>
-                    @foreach($ship->refits as $refit)
-                        <li>{{$refit->name}}</li>
-                    @endforeach
-                    </ul>
-                </div>
+                @if($ship->refits->isNotEmpty())
+                    <div class="card-ship-refit-btn">
+                        <img src="{{ asset('images/fleet-builder/refit-icon.png') }}" alt="Refit Icon">
+                    </div>
+                    <div class="card-ship-refit-container collapsed">
+                        <ul>
+                        @foreach($ship->refits as $refit)
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="{{ $refit->name }}">
+                                    {{$refit->text}}
+                                    <span> ({{ $refit->pivot->points }}pts)</span>
+                                </label>
+                            </li>
+                        @endforeach
+                        </ul>
+                    </div>
                 @endif
                 <div class="card-ship-img">
                     <img src="{{ asset('images/ships/' . $ship->img_url) }}" alt="Ship Profile Image">
@@ -101,7 +107,7 @@
                                     @if($armament->pivot->range_speed)
                                         <td>{{ $armament->pivot->range_speed }}cm</td>
                                     @elseif($armament->pivot->misc)
-                                        <td style="font-size: 14px">{{ $armament->pivot->misc }}</td>
+                                        <td>{{ $armament->pivot->misc }}</td>
                                     @else
                                         <td>N/A</td>
                                     @endif

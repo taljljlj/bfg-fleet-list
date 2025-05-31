@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Faction;
 use App\Models\Fleet;
 use App\Models\FleetList;
+use App\Models\Ship;
 
 class FleetBuilderService
 {
@@ -18,6 +18,7 @@ class FleetBuilderService
         'Escort' => 6,
         'Defence' => 7
     ];
+
     private function sortShips($ships)
     {
         $customOrder = $this->shipTypeOrder;
@@ -26,7 +27,8 @@ class FleetBuilderService
         });
     }
 
-    public function createFleetInitial () {
+    public function createFleetInitial()
+    {
         $fleet = new Fleet();
         $fleet->name = 'Fleet #' . $fleet->id;
         $fleet->save();
@@ -34,20 +36,46 @@ class FleetBuilderService
         return $fleet;
     }
 
-    public function hotpickFaction(Fleet $fleet, $factionId) {
+    public function hotpickFaction(Fleet $fleet, $factionId)
+    {
         $fleet->faction_id = $factionId;
         $fleet->save();
 
         return $fleet;
     }
 
-    public function getShipsByFleetList(FleetList $fleetList) {
+    public function getShipsByFleetList(FleetList $fleetList)
+    {
         $ships = $fleetList->getShipsGroupedByType();
 
         return $this->sortShips($ships);
     }
 
-    public function calculateFleetPoints (Fleet $fleet, int $pointModifier) {
+    public function calculateFleetPoints(Fleet $fleet, int $pointModifier)
+    {
         return ($fleet->points + $pointModifier);
     }
+
+    /**
+     * Recreate refits relation with refits distinct by name. Return ship object
+     *
+     * @param Ship $ship
+     * @return Ship
+     */
+    public function getShipWithDistinctRefits(Ship $ship) : Ship
+    {
+        $distinctRefits = collect();
+        $processedNames = [];
+
+        foreach ($ship->refits as $refit) {
+            if (!in_array($refit->name, $processedNames)) {
+                $distinctRefits->push($refit);
+                $processedNames[] = $refit->name;
+            }
+        }
+        $ship->unsetRelation('refits');
+        $ship->setRelation('refits', $distinctRefits);
+        return $ship;
+    }
+
 }

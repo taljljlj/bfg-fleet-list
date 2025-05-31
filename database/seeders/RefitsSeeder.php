@@ -35,8 +35,8 @@ class RefitsSeeder extends Seeder
             ],
             [
                 "name" => "torpedoes_over_nova_cannon",
-                "text" => "Nova Cannon replaced by Torpedoes",
-                "text_long" => "Can replace Nova Cannon with torpedo launchers",
+                "text" => "Replace Nova Cannon with Torpedoes",
+                "text_long" => "Can replace Prow Nova Cannon with Torpedo launchers",
                 "data" => [
                     [
                         "type" => "arm",
@@ -99,9 +99,22 @@ class RefitsSeeder extends Seeder
                 ]
             ],
             [
+                "name" => "long_range_weapons_battery_low_firepower",
+                "text" => "Weapons Battery range++ firepower--",
+                "text_long" => "Can be refitted with long range weapons batteries. It's firepower is reduced",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => "Weapons Battery",
+                        "action" => "modify",
+                        "value" => null,
+                    ],
+                ]
+            ],
+            [
                 "name" => "nova_cannon_over_torpedoes",
-                "text" => "Torpedoes replaced by Nova Cannon",
-                "text_long" => "May replace its prow torpedoes for a Nova Cannon",
+                "text" => "Replace Torpedoes with Nova Cannon",
+                "text_long" => "May replace its Prow Torpedoes for a Nova Cannon",
                 "data" => [
                     [
                         "type" => "arm",
@@ -132,8 +145,8 @@ class RefitsSeeder extends Seeder
             ],
             [
                 "name" => "torpedoes_over_lance_battery",
-                "text" => "Lance Battery replaced by torpedoes",
-                "text_long" => "Can replace their prow lances with prow torpedoes",
+                "text" => "Replace Lance Battery with Torpedoes",
+                "text_long" => "Can replace their Prow Lances with Torpedoes",
                 "data" => [
                     [
                         "type" => "arm",
@@ -164,8 +177,8 @@ class RefitsSeeder extends Seeder
             ],
             [
                 "name" => "torpedoes_over_launch_bays",
-                "text" => "Launch bays replaced by torpedoes",
-                "text_long" => "May replace its prow launch bays for torpedo tubes",
+                "text" => "Replace Launch Bays with Torpedoes",
+                "text_long" => "May replace its Prow Launch Bays for Torpedo tubes",
                 "data" => [
                     [
                         "type" => "arm",
@@ -177,8 +190,8 @@ class RefitsSeeder extends Seeder
             ],
             [
                 "name" => "bombardment_cannon_over_launch_bays",
-                "text" => "Launch bays replaced by bombardment cannon battery",
-                "text_long" => "May replace its launch bays for a bombardment cannon battery",
+                "text" => "Replace Launch Bays with Bombardment Cannon Battery",
+                "text_long" => "May replace its Launch Bays for a Bombardment Cannon Battery",
                 "data" => [
                     [
                         "type" => "arm",
@@ -190,8 +203,8 @@ class RefitsSeeder extends Seeder
             ],
             [
                 "name" => "lance_battery_over_bombardment_cannon",
-                "text" => "Bombardment cannon replaced by lance battery",
-                "text_long" => "May replace its prow bombardment cannon for a lance battery",
+                "text" => "Replace Bombardment Cannon with Lance Battery",
+                "text_long" => "May replace its Prow Bombardment Cannon for a Lance Battery",
                 "data" => [
                     [
                         "type" => "arm",
@@ -216,8 +229,8 @@ class RefitsSeeder extends Seeder
             ],
             [
                 "name" => "launch_bays_over_lance_battery",
-                "text" => "Lance battery replaced by launch bays",
-                "text_long" => "May exchange its broadside lance batteries for launch bays",
+                "text" => "Replace Lance Battery with Launch Bays",
+                "text_long" => "May exchange its broadside Lance Batteries for Launch Bays",
                 "data" => [
                     [
                         "type" => "arm",
@@ -516,7 +529,7 @@ class RefitsSeeder extends Seeder
             [
                 "name" => "weapons_battery_and_lance_battery_over_weapons_battery",
                 "text" => "Replace Weapons Battery with Weapons/Lance Battery",
-                "text_long" => "Can replace its weapons batteries with weapons-lance batteries combo",
+                "text_long" => "Can replace its Weapons Batteries with Weapons-Lance Batteries combo",
                 "data" => [
                     [
                         "type" => "arm",
@@ -528,8 +541,14 @@ class RefitsSeeder extends Seeder
                         "type" => "arm",
                         "module" => null,
                         "action" => "add",
-                        "value" => "Pt|Sb Lance Battery",
+                        "value" => "Port Lance Battery",
                     ],
+                    [
+                        "type" => "arm",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => "Starboard Lance Battery",
+                    ]
                 ]
             ],
             [
