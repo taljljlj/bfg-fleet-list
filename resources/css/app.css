@@ -613,10 +613,10 @@ img {
 
 #fleetBuilderBody .section.section-right .card-ship .card-ship-refit-container {
     position: absolute;
-    top: 17px;
+    top: 30px;
     left: 15px;
     width: 565px;
-    height: 250px;
+    height: 235px;
     z-index: 10;
     border: 2px solid rgba(54, 87, 115, 0.8);
     border-radius: 5px;
@@ -629,6 +629,28 @@ img {
 #fleetBuilderBody .section.section-right .card-ship .card-ship-refit-container.collapsed {
     width: 1px;
     height: 1px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-container ul {
+    list-style: none;
+    padding: 20px 20px 20px 35px;
+    margin: 0;
+    text-align: left;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-container label {
+    cursor: pointer;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-body .card-section-t .card-ship-refit-container input {
+    display: inline-block;
+    width: 20px;
+    margin-right: 10px;
+    padding: 5px;
+    border: 2px solid rgba(54, 87, 115, 0.8);
+    border-radius: 5px;
+    background-color: transparent;
+    color: rgba(54, 87, 115, 0.8);
 }
 
 #fleetBuilderBody .section.section-right .card-ship .card-ship-hp .hp-row-1,

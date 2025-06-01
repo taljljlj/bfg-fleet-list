@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Fleet;
 use App\Models\FleetList;
 use App\Models\Ship;
+use Illuminate\Support\Collection;
 
 class FleetBuilderService
 {
@@ -57,12 +58,10 @@ class FleetBuilderService
     }
 
     /**
-     * Recreate refits relation with refits distinct by name. Return ship object
-     *
      * @param Ship $ship
      * @return Ship
      */
-    public function getShipWithDistinctRefits(Ship $ship) : Ship
+    public function handleShipRefits(Ship $ship) : Ship
     {
         $distinctRefits = collect();
         $processedNames = [];
@@ -73,9 +72,21 @@ class FleetBuilderService
                 $processedNames[] = $refit->name;
             }
         }
+
+        foreach ($ship->refits as $refit) {
+            if ($refit->type == 'group') {
+                $childrenNames = json_decode($refit->value, false);
+                $refitChildren = $ship->refits->whereIn('name', $childrenNames);
+
+                $parentRefit = $distinctRefits->where('name', $refit->name)->first();
+                $parentRefit->setRelation('children', $refitChildren);
+
+                $distinctRefits = $distinctRefits->reject(fn($item) => in_array($item->name, $childrenNames));
+            }
+        }
         $ship->unsetRelation('refits');
         $ship->setRelation('refits', $distinctRefits);
+
         return $ship;
     }
-
 }

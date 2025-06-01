@@ -931,7 +931,7 @@ class ShipSeeder extends Seeder
             ],
             "Adeptus Mechanicus" => [
                 [
-                    "class" => "Omnissiah's Victory, Ark Mechanicus", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 4, "armour" => "6+ Front / 5+", "turrets" => 4, "points" => 415,
+                    "class" => "Omnissiah's Victory, Ark Mechanicus", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 4, "armour" => "6+ front / 5+", "turrets" => 4, "points" => 415,
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 10, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 10, "misc" => null],
@@ -979,7 +979,7 @@ class ShipSeeder extends Seeder
                     "refits" => []
                 ],
                 [
-                    "class" => "Blackship", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 5, "armour" => "6+ Front / 5+", "turrets" => 5, "points" => 300,
+                    "class" => "Blackship", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 5, "armour" => "6+ front / 5+", "turrets" => 5, "points" => 300,
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 10, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 10, "misc" => null],
@@ -1078,7 +1078,7 @@ class ShipSeeder extends Seeder
                     "refits" => []
                 ],
                 [
-                    "class" => "Rogue Trader Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ Front / 5+", "turrets" => 3, "points" => 185,
+                    "class" => "Rogue Trader Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 185,
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 6, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 6, "misc" => null],
@@ -1105,11 +1105,17 @@ class ShipSeeder extends Seeder
                                     "name" => "class_refit_lunar", "points" => 10, "pivots" => [
                                         [
                                             "firepower" => null, "range_speed" => null, "misc" => null
+                                        ],
+                                        [
+                                            "firepower" => null, "range_speed" => null, "misc" => null
                                         ]
                                     ]
                                 ],
                                 [
                                     "name" => "class_refit_tyrant", "points" => 0, "pivots" => [
+                                        [
+                                            "firepower" => null, "range_speed" => null, "misc" => null
+                                        ],
                                         [
                                             "firepower" => null, "range_speed" => null, "misc" => null
                                         ]
@@ -1119,11 +1125,17 @@ class ShipSeeder extends Seeder
                                     "name" => "class_refit_carnage", "points" => 10, "pivots" => [
                                         [
                                             "firepower" => null, "range_speed" => null, "misc" => null
+                                        ],
+                                        [
+                                            "firepower" => null, "range_speed" => null, "misc" => null
                                         ]
                                     ]
                                 ],
                                 [
                                     "name" => "class_refit_murder", "points" => 0, "pivots" => [
+                                        [
+                                            "firepower" => null, "range_speed" => null, "misc" => null
+                                        ],
                                         [
                                             "firepower" => null, "range_speed" => null, "misc" => null
                                         ]
@@ -1437,11 +1449,11 @@ class ShipSeeder extends Seeder
                                 [
                                     "firepower" => null, "range_speed" => null, "misc" => null
                                 ],
-                                "children-refits" => [
-                                    ["name" => "chosen_terminators", "points" => 10, "pivots" => [
-                                            [
-                                                "firepower" => null, "range_speed" => null, "misc" => null
-                                            ]
+                            ],
+                            "children-refits" => [
+                                ["name" => "chosen_terminators", "points" => 10, "pivots" => [
+                                        [
+                                            "firepower" => null, "range_speed" => null, "misc" => null
                                         ]
                                     ]
                                 ]
@@ -2016,8 +2028,6 @@ class ShipSeeder extends Seeder
 
                 foreach ($refitsData as $refitData) {
                     try {
-
-
                         $refits = Refits::getRefitsByName($refitData['name']);
 
                         for ($i = 0; $i < count($refits); $i++) {
@@ -2027,7 +2037,26 @@ class ShipSeeder extends Seeder
                                 'range_speed' => $refitData['pivots'][$i]['range_speed'],
                                 'misc' => $refitData['pivots'][$i]['misc'],
                             ]);
+
+                            if ($refits[$i]->type == 'group') {
+                                $childrenRefitNames = json_decode($refits[$i]->value, false);
+                                for ($j = 0; $j < count($childrenRefitNames); $j++) {
+                                    $childrenRefits = Refits::getRefitsByName($childrenRefitNames[$j]);
+                                    $childrenRefitData = $refitData['children-refits'][$j];
+
+                                    for ($k = 0; $k < count($childrenRefits); $k++) {
+                                        $ship->refits()->attach($childrenRefits[$k]->id, [
+                                            'points' => $childrenRefitData['points'],
+                                            'firepower' => $childrenRefitData['pivots'][$k]['firepower'],
+                                            'range_speed' => $childrenRefitData['pivots'][$k]['range_speed'],
+                                            'misc' => $childrenRefitData['pivots'][$k]['misc'],
+                                        ]);
+                                    }
+                                }
+                            }
                         }
+
+
                     } catch (\Exception $exception) {
                         $this->command->getOutput()->error($exception->getMessage());
                         $this->command->getOutput()->error($refitData['name'] . ' ship: ' . $ship->class);

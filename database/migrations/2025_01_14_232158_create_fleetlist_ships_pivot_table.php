@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fleetlist_ship', function (Blueprint $table) {
+        Schema::create('fleet_list_ship', function (Blueprint $table) {
             $table->id();
             $table->foreignId('fleet_list_id')->constrained('fleet_lists');
             $table->foreignId('ship_id')->constrained('ships');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ship_armaments_pivot');
+        Schema::dropIfExists('fleet_list_ship');
     }
 };

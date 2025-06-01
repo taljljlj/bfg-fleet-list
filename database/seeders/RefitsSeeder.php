@@ -253,7 +253,12 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "group",
-                        "value" => "{'children_refits': ['class_refit_lunar', 'class_refit_tyrant', 'class_refit_carnage', 'class_refit_murder']}",
+                        "value" => json_encode([
+                            'class_refit_lunar',
+                            'class_refit_tyrant',
+                            'class_refit_carnage',
+                            'class_refit_murder'
+                        ]),
                     ],
                 ]
             ],
@@ -342,7 +347,14 @@ class RefitsSeeder extends Seeder
                         "type" => "group",
                         "module" => null,
                         "action" => null,
-                        "value" => "{'children_refits': ['xenotech_long_range_sensors', 'xenotech_targeting_matrix', 'shields', 'turrets', 'advanced_drive_technology', 'gravitic_thrusters']}",
+                        "value" => json_encode([
+                            'xenotech_long_range_sensors',
+                            'xenotech_targeting_matrix',
+                            'shields',
+                            'turrets',
+                            'advanced_drive_technology',
+                            'gravitic_thrusters'
+                        ]),
                     ],
                     [
                         "type" => "rule",
@@ -470,7 +482,7 @@ class RefitsSeeder extends Seeder
                         "type" => "group",
                         "module" => null,
                         "action" => null,
-                        "value" => "{'children_refits': ['advanced_drive_technology']}",
+                        "value" => json_encode(['advanced_drive_technology']),
                     ],
                     [
                         "type" => "rule",
@@ -583,7 +595,7 @@ class RefitsSeeder extends Seeder
                     ],
                     [
                         "type" => "group",
-                        "value" => "{'children_refits': ['chosen_terminators']}",
+                        "value" => json_encode(['chosen_terminators']),
                     ]
                 ]
             ],

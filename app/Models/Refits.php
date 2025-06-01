@@ -16,7 +16,11 @@ class Refits extends Model
             ->withPivot('points', 'firepower', 'range_speed');
     }
 
-    public static function getRefitsByName($name)
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public static function getRefitsByName(string $name)
     {
         return self::where('name', $name)->get();
     }

@@ -83,7 +83,7 @@ class FleetBuilderController extends Controller
             $shipOrder = $this->fleetBuilderService->shipTypeOrder;
 
             foreach ($ships as $ship) {
-                $ship = $this->fleetBuilderService->getShipWithDistinctRefits($ship);
+                $ship = $this->fleetBuilderService->handleShipRefits($ship);
                 $ship->order = $shipOrder[$ship->type];
                 $ship->pivot_id = $ship->pivot->id;
             }
@@ -161,13 +161,17 @@ class FleetBuilderController extends Controller
 
     public function attachShipToFleet(Fleet $fleet, Ship $ship) : JsonResponse
     {
+        //Prepare Ship object
         $ship->load(['armaments', 'rules']);
-        $ship = $this->fleetBuilderService->getShipWithDistinctRefits($ship);
+        $ship = $this->fleetBuilderService->handleShipRefits($ship);
+
+        //Prepare ship profile vars
         $shipOrder = $this->fleetBuilderService->shipTypeOrder[$ship->type];
         $shipPoints = $ship->points;
 
+        //Update fleet
         $fleet->ships()->attach($ship, ['points' => $shipPoints]);
-        $fleet->points = $this->fleetBuilderService->calculateFleetPoints($fleet, $shipPoints);
+        $fleet->points = $this->fleetBuilderService->calculateFleetPoints($fleet, $shipPoints); //TODO: move this to some helper function as calculatePoints()
         $fleet->save();
 
         //Get last attached ship id for frontend data attribute

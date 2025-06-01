@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ship_armaments_pivot');
+        Schema::dropIfExists('ship_armament');
     }
 };
