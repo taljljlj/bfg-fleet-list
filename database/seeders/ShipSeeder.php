@@ -190,8 +190,8 @@ class ShipSeeder extends Seeder
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 8, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 8, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 2, "is_reserve" => 0]
@@ -1478,7 +1478,7 @@ class ShipSeeder extends Seeder
                                 ]
                             ]
                         ],
-                        ["name" => "short_range_lance_battery", "points" => 10, "pivots" => [
+                        ["name" => "short_range_dorsal_lance_battery", "points" => 10, "pivots" => [
                                 [
                                     "firepower" => 4, "range_speed" => 45, "misc" => null
                                 ]

@@ -35,13 +35,31 @@
                                     {{$refit->text}}
                                     <span class="tooltip">{{ $refit->text_long }}
                                     @foreach($refit->modifications as $mod)
-                                        @if($mod->type == 'arm' && $mod->action == 'modify')
-                                            <br>[{{ $mod->module }}: firepower({{ $mod->pivot->firepower ?: 'N/A' }}) range({{ $mod->pivot->range_speed ?: ($mod->pivot->misc ?: 'N/A') }})]
+                                        @if($mod->type == 'arm')
+                                            @if($mod->action == 'modify')
+                                                <br>[{{ $mod->module }}: firepower({{ $mod->pivot->firepower ?: 'N/A' }}) range({{ $mod->pivot->range_speed ?: ($mod->pivot->misc ?: 'N/A') }})]
+                                            @elseif($mod->action == 'replace' || $mod->action == 'add')
+                                                <br>[{{ $mod->value }}: firepower({{ $mod->pivot->firepower ?: 'N/A' }}) range({{ $mod->pivot->range_speed ?: ($mod->pivot->misc ?: 'N/A') }})]
+                                            @endif
                                         @endif
                                     @endforeach
                                     </span>
                                     <span> ({{ $refit->pivot->points }}pts)</span>
                                 </label>
+                                @if($refit->children->isNotEmpty())
+                                    <ul class="ship-refits-children">
+                                        @foreach($refit->children as $child)
+                                            <li class="ship-refit">
+                                                <label>
+                                                    <input type="checkbox" name="{{ $child->name }}">
+                                                    {{ $child->text }}
+                                                    <span class="tooltip">{{ $child->text_long }}</span>
+                                                    <span> ({{ $child->pivot->points }}pts)</span>
+                                                </label>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
                             </li>
                         @endforeach
                         </ul>

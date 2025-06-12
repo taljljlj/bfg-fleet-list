@@ -621,7 +621,7 @@ img {
     border: 2px solid rgba(54, 87, 115, 0.8);
     border-radius: 5px;
     background: #c8d5f7;
-    overflow: hidden;
+    overflow: auto;
     color: rgba(54, 87, 115, 0.8);
     transition: all 0.5s ease-out;
 }
@@ -804,7 +804,15 @@ img {
     z-index: 1;
 }
 
+#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-container .ship-refit .tooltip {
+    width: 450px;
+}
+
 #fleetBuilderBody .section.section-right .card-ship .ship-specials-container .ship-special:hover .tooltip,
-#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-container .ship-refit:hover .tooltip {
+#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-container .ship-refit label:hover .tooltip {
     visibility: visible;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-container .ship-refit .ship-refits-children {
+    padding: 0 0 0 35px;
 }

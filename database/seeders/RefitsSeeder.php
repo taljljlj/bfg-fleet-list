@@ -235,15 +235,9 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Port Lance Battery",
+                        "module" => "Pt|Sb Lance Battery",
                         "action" => "replace",
-                        "value" => "Port Launch Bays",
-                    ],
-                    [
-                        "type" => "arm",
-                        "module" => "Starboard Lance Battery",
-                        "action" => "replace",
-                        "value" => "Starboard Launch Bays",
+                        "value" => "Pt|Sb Launch Bays",
                     ]
                 ]
             ],
@@ -514,13 +508,13 @@ class RefitsSeeder extends Seeder
                 ]
             ],
             [
-                "name" => "short_range_lance_battery",
+                "name" => "short_range_dorsal_lance_battery",
                 "text" => "Lance Battery: range-- firepower++",
                 "text_long" => "Can be fitted with shorter range but more powerful lance batteries. Reduce the range of the lance batteries and increase their firepower",
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Lance Battery",
+                        "module" => "Dorsal Lance Battery",
                         "action" => "modify",
                         "value" => null,
                     ],
@@ -554,13 +548,7 @@ class RefitsSeeder extends Seeder
                         "type" => "arm",
                         "module" => null,
                         "action" => "add",
-                        "value" => "Port Lance Battery",
-                    ],
-                    [
-                        "type" => "arm",
-                        "module" => null,
-                        "action" => "add",
-                        "value" => "Starboard Lance Battery",
+                        "value" => "Pt|Sb Lance Battery",
                     ]
                 ]
             ],
