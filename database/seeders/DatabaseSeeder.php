@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Refits;
+use App\Models\Refit;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

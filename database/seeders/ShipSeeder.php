@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Armament;
 use App\Models\Faction;
-use App\Models\Refits;
+use App\Models\Modification;
+use App\Models\Refit;
 use App\Models\Rules;
 use App\Models\Ship;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -2000,6 +2001,7 @@ class ShipSeeder extends Seeder
 
                 $ship = Ship::create($shipData);
 
+                //Create armaments and attach them to ship
                 foreach ($armamentsData as $armamentData) {
                     $armament = Armament::firstOrCreate([
                         "type" => $armamentData['type'],
@@ -2014,42 +2016,75 @@ class ShipSeeder extends Seeder
                     ]);
                 }
 
+                //Attach fleet list to ship
                 foreach ($fleetListsData as $fleetListData) {
                     $ship->fleetLists()->attach($fleetListData['fleet_list_id'], [
                         'is_reserve' => $fleetListData['is_reserve'],
                     ]);
                 }
 
+                //Attach rules to ship
                 foreach ($rulesData as $ruleName) {
                     $rule = Rules::getRuleByName($ruleName);
 
                     $ship->rules()->attach($rule->id);
                 }
 
+                //Attach refits and modifications to ship
                 foreach ($refitsData as $refitData) {
                     try {
-                        $refits = Refits::getRefitsByName($refitData['name']);
+                        //Attach refit to ship
+                        $refit = Refit::getByName($refitData['name']);
 
-                        for ($i = 0; $i < count($refits); $i++) {
-                            $ship->refits()->attach($refits[$i]->id, [
-                                'points' => $refitData['points'],
+                        $ship->refits()->attach($refit->id, [
+                            'points' => $refitData['points']
+                        ]);
+
+                        $lastPivot = $ship->refits()->newPivotStatement()
+                            ->select('id')
+                            ->where('ship_id', $ship->id)
+                            ->where('refit_id', $refit->id)
+                            ->latest('id')
+                            ->first();
+
+                        //Attach modification to ship
+                        $modifications = Modification::byRefitName($refitData['name'])->get();
+
+                        for ($i = 0; $i < count($modifications); $i++) {
+                            $ship->modifications()->attach($modifications[$i]->id, [
+                                'ship_refit_id' => $lastPivot->id,
                                 'firepower' => $refitData['pivots'][$i]['firepower'],
                                 'range_speed' => $refitData['pivots'][$i]['range_speed'],
                                 'misc' => $refitData['pivots'][$i]['misc'],
                             ]);
 
-                            if ($refits[$i]->type == 'group') {
-                                $childrenRefitNames = json_decode($refits[$i]->value, false);
-                                for ($j = 0; $j < count($childrenRefitNames); $j++) {
-                                    $childrenRefits = Refits::getRefitsByName($childrenRefitNames[$j]);
-                                    $childrenRefitData = $refitData['children-refits'][$j];
+                            //If one of the modifications is of type group that means refit has children. Attach refit children to ship
+                            if ($modifications[$i]->type == 'group') {
+                                $childrenRefitsData = $refitData['children-refits'];
+                                for ($j = 0; $j < count($childrenRefitsData); $j++) {
+                                    $childrenRefit = Refit::getByName($childrenRefitsData[$j]['name']);
 
-                                    for ($k = 0; $k < count($childrenRefits); $k++) {
-                                        $ship->refits()->attach($childrenRefits[$k]->id, [
-                                            'points' => $childrenRefitData['points'],
-                                            'firepower' => $childrenRefitData['pivots'][$k]['firepower'],
-                                            'range_speed' => $childrenRefitData['pivots'][$k]['range_speed'],
-                                            'misc' => $childrenRefitData['pivots'][$k]['misc'],
+                                    $ship->refits()->attach($childrenRefit->id, [
+                                        'points' => $childrenRefitsData[$j]['points']
+                                    ]);
+
+                                    $lastChildPivot = $ship->refits()->newPivotStatement()
+                                        ->select('id')
+                                        ->where('ship_id', $ship->id)
+                                        ->where('refit_id', $childrenRefit->id)
+                                        ->latest('id')
+                                        ->first();
+
+                                    //Attach modification for children refits to ship
+                                    $childrenModifications = Modification::byRefitName($childrenRefitsData[$j]['name'])->get();
+                                    $childrenModsData = $childrenRefitsData[$j]['pivots'];
+
+                                    for ($k = 0; $k < count($childrenModifications); $k++) {
+                                        $ship->modifications()->attach($childrenModifications[$k]->id, [
+                                            'ship_refit_id' => $lastChildPivot->id,
+                                            'firepower' => $childrenModsData[$k]['firepower'],
+                                            'range_speed' => $childrenModsData[$k]['range_speed'],
+                                            'misc' => $childrenModsData[$k]['misc'],
                                         ]);
                                     }
                                 }

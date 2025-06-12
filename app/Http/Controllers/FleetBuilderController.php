@@ -11,6 +11,7 @@ use App\Services\FleetBuilderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Spatie\Browsershot\Browsershot;
@@ -79,7 +80,7 @@ class FleetBuilderController extends Controller
         //If fleet has attached ships return full list and assign order for frontend
         $ships = null;
         if ($fleet->ships()->exists()) {
-            $ships = $fleet->ships()->with(['armaments', 'rules', 'refits'])->withPivot('id')->get();
+            $ships = $fleet->ships()->with(['armaments', 'rules', 'refitParents', 'modifications'])->withPivot('id')->get();
             $shipOrder = $this->fleetBuilderService->shipTypeOrder;
 
             foreach ($ships as $ship) {
@@ -162,7 +163,7 @@ class FleetBuilderController extends Controller
     public function attachShipToFleet(Fleet $fleet, Ship $ship) : JsonResponse
     {
         //Prepare Ship object
-        $ship->load(['armaments', 'rules']);
+        $ship->load(['armaments', 'rules', 'refitParents', 'modifications']);
         $ship = $this->fleetBuilderService->handleShipRefits($ship);
 
         //Prepare ship profile vars

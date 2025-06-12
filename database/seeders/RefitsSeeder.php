@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Refits;
+use App\Models\Modification;
+use App\Models\Refit;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -62,7 +63,7 @@ class RefitsSeeder extends Seeder
             [
                 "name" => "targeting_matrix",
                 "text" => "Weapons Battery left column shift",
-                "text_long" => "Can be retrofitted with a targeting matrix. It gives its weapons batteries a left column shift on the Gunnery table",
+                "text_long" => "Can be retrofitted with a targeting matrix. It gives it`s weapons batteries a left column shift on the Gunnery table",
                 "data" => [
                     [
                         "type" => "rule",
@@ -247,22 +248,6 @@ class RefitsSeeder extends Seeder
                 ]
             ],
             [
-                "name" => "rogue_trader_cruiser_class_refit",
-                "text" => "Cruiser class refit",
-                "text_long" => "Rogue Trader cruisers in an Exploration fleet may also be of the following Imperial or Chaos ship classes: Lunar, Tyrant, Carnage or Murder (even if used as a loyalist ship), for their normal point cost, +15 points if the ship is equipped with lances or 60 cm weapons due to the additional expense maintaining such weapons, as reflected in the fleet list. Chaos vessels used as loyalist ships must be painted as such, and no special variants in the notes of these ships' profiles can be used. For example, the Tyrant can't take boosted batteries or a Nova Cannon, etc",
-                "data" => [
-                    [
-                        "type" => "group",
-                        "value" => json_encode([
-                            'class_refit_lunar',
-                            'class_refit_tyrant',
-                            'class_refit_carnage',
-                            'class_refit_murder'
-                        ]),
-                    ],
-                ]
-            ],
-            [
                 "name" => "class_refit_lunar",
                 "text" => "Refit cruiser to Lunar class",
                 "text_long" => "Refit ship to Lunar class cruiser. Only default ship profile will be available",
@@ -339,28 +324,18 @@ class RefitsSeeder extends Seeder
                 ]
             ],
             [
-                "name" => "xenotech_refit",
-                "text" => "Add Xenotech refit from the table",
-                "text_long" => "When included in a Rogue Trader fleet in a campaign or one-off game, they may take one refit from the Xenotech systems table",
+                "name" => "rogue_trader_cruiser_class_refit",
+                "text" => "Cruiser class refit",
+                "text_long" => "Rogue Trader cruisers in an Exploration fleet may also be of the following Imperial or Chaos ship classes: Lunar, Tyrant, Carnage or Murder (even if used as a loyalist ship), for their normal point cost, +15 points if the ship is equipped with lances or 60 cm weapons due to the additional expense maintaining such weapons, as reflected in the fleet list. Chaos vessels used as loyalist ships must be painted as such, and no special variants in the notes of these ships' profiles can be used. For example, the Tyrant can't take boosted batteries or a Nova Cannon, etc",
                 "data" => [
                     [
                         "type" => "group",
-                        "module" => null,
-                        "action" => null,
                         "value" => json_encode([
-                            'xenotech_long_range_sensors',
-                            'xenotech_targeting_matrix',
-                            'shields',
-                            'turrets',
-                            'advanced_drive_technology',
-                            'gravitic_thrusters'
+                            'class_refit_lunar',
+                            'class_refit_tyrant',
+                            'class_refit_carnage',
+                            'class_refit_murder'
                         ]),
-                    ],
-                    [
-                        "type" => "rule",
-                        "module" => null,
-                        "action" => "add",
-                        "value" => "Xenotech refit used",
                     ],
                 ]
             ],
@@ -419,6 +394,32 @@ class RefitsSeeder extends Seeder
                         "module" => "turns",
                         "action" => "modify",
                         "value" => null,
+                    ],
+                ]
+            ],
+            [
+                "name" => "xenotech_refit",
+                "text" => "Add Xenotech refit from the table",
+                "text_long" => "When included in a Rogue Trader fleet in a campaign or one-off game, they may take one refit from the Xenotech systems table",
+                "data" => [
+                    [
+                        "type" => "group",
+                        "module" => null,
+                        "action" => null,
+                        "value" => json_encode([
+                            'xenotech_long_range_sensors',
+                            'xenotech_targeting_matrix',
+                            'shields',
+                            'turrets',
+                            'advanced_drive_technology',
+                            'gravitic_thrusters'
+                        ]),
+                    ],
+                    [
+                        "type" => "rule",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => "Xenotech refit used",
                     ],
                 ]
             ],
@@ -577,6 +578,19 @@ class RefitsSeeder extends Seeder
                 ]
             ],
             [
+                "name" => "chosen_terminators",
+                "text" => "Chosen Terminators",
+                "text_long" => "Ship with Chosen Terminator crew can roll 2 dice when conducting a Hit&Run Teleport attack and select which one they wish to count. All other Hit&Rum bonuses are applied",
+                "data" => [
+                    [
+                        "type" => "rule",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => "Chosen Terminators: Teleport attacks roll 2 dice, select one to count",
+                    ],
+                ]
+            ],
+            [
                 "name" => "chaos_space_marines",
                 "text" => "Add Chaos Space Marines crew",
                 "text_long" => "Can embark Chaos Space Marines crew. They add +1Ld, increase ship max Ld to 10. Boarding bonus +2. Hit&Run bonus +1, enemy conducting Hit&Run against ship -1",
@@ -599,19 +613,6 @@ class RefitsSeeder extends Seeder
                     ]
                 ]
             ],
-            [
-                "name" => "chosen_terminators",
-                "text" => "Chosen Terminators",
-                "text_long" => "Ship with Chosen Terminator crew can roll 2 dice when conducting a Hit&Run Teleport attack and select which one they wish to count. All other Hit&Rum bonuses are applied",
-                "data" => [
-                    [
-                        "type" => "rule",
-                        "module" => null,
-                        "action" => "add",
-                        "value" => "Chosen Terminators: Teleport attacks roll 2 dice, select one to count",
-                    ],
-                ]
-            ]
 
             /* refits seeder template
             [
@@ -629,12 +630,18 @@ class RefitsSeeder extends Seeder
         ];
 
         foreach ($refits as $refit) {
-            foreach ($refit['data'] as $refitRow) {
-                $refitRow['name'] = $refit['name'];
-                $refitRow['text'] = $refit['text'];
-                $refitRow['text_long'] = $refit['text_long'];
+            $modifications = $refit['data'];
+            unset($refit['data']);
+            $refitObj = Refit::create($refit);
+            foreach ($modifications as $modification) {
+                $modification['refit_id'] = $refitObj->id;
+                Modification::create($modification);
 
-                Refits::create($refitRow);
+                if ($modification['type'] == 'group') {
+                    $names = json_decode($modification['value'], false);
+                    $children = Refit::getByNames($names);
+                    $refitObj->children()->attach($children->pluck('id'));
+                }
             }
         }
     }

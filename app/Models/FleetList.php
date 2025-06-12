@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class FleetList extends Model
 {
-    use HasFactory;
-
     public $timestamps = false;
 
     //Relations

@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Armament extends Model
 {
-    use HasFactory;
-
     public $timestamps = false;
 
     //Relations

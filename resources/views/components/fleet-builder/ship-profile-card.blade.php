@@ -22,17 +22,24 @@
     <div class="card-body thin-font">
         <div class="card-section-t">
             <div class="card-subsec-l">
-                @if($ship->refits->isNotEmpty())
+                @if($ship->refitParents->isNotEmpty())
                     <div class="card-ship-refit-btn">
                         <img src="{{ asset('images/fleet-builder/refit-icon.png') }}" alt="Refit Icon">
                     </div>
                     <div class="card-ship-refit-container collapsed">
                         <ul>
-                        @foreach($ship->refits as $refit)
-                            <li>
+                        @foreach($ship->refitParents as $refit)
+                            <li class="ship-refit">
                                 <label>
                                     <input type="checkbox" name="{{ $refit->name }}">
                                     {{$refit->text}}
+                                    <span class="tooltip">{{ $refit->text_long }}
+                                    @foreach($refit->modifications as $mod)
+                                        @if($mod->type == 'arm' && $mod->action == 'modify')
+                                            <br>[{{ $mod->module }}: firepower({{ $mod->pivot->firepower ?: 'N/A' }}) range({{ $mod->pivot->range_speed ?: ($mod->pivot->misc ?: 'N/A') }})]
+                                        @endif
+                                    @endforeach
+                                    </span>
                                     <span> ({{ $refit->pivot->points }}pts)</span>
                                 </label>
                             </li>

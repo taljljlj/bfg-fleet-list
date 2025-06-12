@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Pivots\ShipModification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Ship extends Model
 {
-    use HasFactory;
-
     public $timestamps = false;
 
     //Relations
@@ -26,17 +25,25 @@ class Ship extends Model
         return $this->belongsToMany(Rules::class, 'ship_rule', 'ship_id', 'rule_id');
     }
 
-    public function refits() {
-        return $this->belongsToMany(Refits::class, 'ship_refit', 'ship_id', 'refit_id')
-            ->withPivot('points', 'firepower', 'range_speed', 'misc');
+    public function modifications() {
+        return $this->belongsToMany(Modification::class, 'ship_modification')
+            ->withPivot('ship_refit_id', 'firepower', 'range_speed', 'misc');
     }
 
-    public function distinctRefits() {
-        return $this->refits()
-            ->distinct()
-            ->select(['name', 'text', 'text_long'])
-            ->groupBy('name', 'text', 'text_long');
+    public function refits() {
+        return $this->belongsToMany(Refit::class, 'ship_refit', 'ship_id', 'refit_id')
+            ->withPivot('id', 'points');
     }
+
+    public function refitParents() {
+        return $this->belongsToMany(Refit::class, 'ship_refit', 'ship_id', 'refit_id')
+            ->whereDoesntHave('parents')
+            ->with('children')
+            ->withPivot('id', 'points');
+    }
+
+
+
 
 
 //      Relation removed

@@ -63,30 +63,35 @@ class FleetBuilderService
      */
     public function handleShipRefits(Ship $ship) : Ship
     {
-        $distinctRefits = collect();
-        $processedNames = [];
+        //Extract modification to var and unset relation
+        $modifications = $ship->modifications;
+        $ship->unsetRelation('modifications');
 
-        foreach ($ship->refits as $refit) {
-            if (!in_array($refit->name, $processedNames)) {
-                $distinctRefits->push($refit);
-                $processedNames[] = $refit->name;
+
+        foreach ($ship->refitParents as $refit) {
+            //Find and set points pivot for children refits manually due to limitations of eloquent
+            if(!empty($refit->children)) {
+                foreach ($refit->children as $child) {
+                    $childObj = $ship->refits->where('name', $child->name)->first();
+                    $child->pivot->points = $childObj->pivot->points;
+                    $childShipRefitId = $childObj->pivot->id;
+                    $childRefitModifications = $this->filterModifications($modifications, $childShipRefitId);
+                    $child->setRelation('modifications', $childRefitModifications);
+                }
             }
+
+            //Map modifications under their respective refits manually due to limitations of eloquent and many-to-many through relationships
+            $shipRefitId = $refit->pivot->id;
+            $refitModifications = $this->filterModifications($modifications, $shipRefitId);
+            $refit->setRelation('modifications', $refitModifications);
         }
-
-        foreach ($ship->refits as $refit) {
-            if ($refit->type == 'group') {
-                $childrenNames = json_decode($refit->value, false);
-                $refitChildren = $ship->refits->whereIn('name', $childrenNames);
-
-                $parentRefit = $distinctRefits->where('name', $refit->name)->first();
-                $parentRefit->setRelation('children', $refitChildren);
-
-                $distinctRefits = $distinctRefits->reject(fn($item) => in_array($item->name, $childrenNames));
-            }
-        }
-        $ship->unsetRelation('refits');
-        $ship->setRelation('refits', $distinctRefits);
 
         return $ship;
+    }
+
+    private function filterModifications($modifications, $shipRefitId) {
+        return $modifications->filter(function ($modification) use ($shipRefitId) {
+            return $modification->pivot->ship_refit_id == $shipRefitId;
+        });
     }
 }

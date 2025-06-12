@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 
 class Faction extends Model
 {
-    use HasFactory;
     public $timestamps = false;
 
     //Relations

@@ -15,10 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ship_id')->constrained('ships');
             $table->foreignId('refit_id')->constrained('refits');
-            $table->smallInteger('points');
-            $table->smallInteger('firepower')->nullable();
-            $table->smallInteger('range_speed')->nullable();
-            $table->string('misc')->nullable();
+            $table->integer('points');
         });
     }
 

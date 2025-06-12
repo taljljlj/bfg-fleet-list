@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('refits', function (Blueprint $table) {
+        Schema::create('refit_refit', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 75)->unique();
-            $table->string('text', 75);
-            $table->text('text_long')->nullable();
+            $table->foreignId('parent_id')->constrained('refits');
+            $table->foreignId('child_id')->constrained('refits');
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('refits');
+        Schema::dropIfExists('refit_refit');
     }
 };
