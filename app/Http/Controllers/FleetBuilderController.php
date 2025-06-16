@@ -6,6 +6,7 @@ use App\Http\Requests\FleetBuilderFormRequest;
 use App\Models\Faction;
 use App\Models\Fleet;
 use App\Models\FleetList;
+use App\Models\Pivots\FleetShip;
 use App\Models\Ship;
 use App\Services\FleetBuilderService;
 use Illuminate\Http\JsonResponse;
@@ -209,6 +210,23 @@ class FleetBuilderController extends Controller
             'message' => 'Ship removed from fleet.',
             'points' => $fleet->points
         ]);
+    }
+
+    public function refitShip(Fleet $fleet, FleetShip $fleetShip, Request $request) : JsonResponse
+    {
+        $selectedRefits = $request->get('selected-refits');
+
+        foreach ($selectedRefits as $selectedRefit) {
+            $fleetShip->appliedRefits()->attach(
+                $fleetShip->id,
+                [
+                    'ship_refit_id' => $selectedRefit['id'],
+                    'name' => $selectedRefit['name'],
+                ]
+            );
+        }
+
+        dd($fleetShip);
     }
 
     public function getFleetAsPdf(Faction $faction, FleetList $fleetList, Request $request)

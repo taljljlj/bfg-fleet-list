@@ -1171,7 +1171,7 @@ class ShipSeeder extends Seeder
                                 ]
                             ],
                             "children-refits" => [
-                                ["name" => "xenotech_long_range_sensors", "points" => 10, "pivots" => [
+                                ["name" => "xenotech_long_range_sensors", "points" => 0, "pivots" => [
                                         [
                                             "firepower" => null, "range_speed" => null, "misc" => null
                                         ]

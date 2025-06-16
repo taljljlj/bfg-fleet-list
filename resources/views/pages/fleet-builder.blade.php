@@ -326,22 +326,30 @@
 
         //Ship card events and functions
         shipCardContainer.addEventListener('click', function (e) {
+            let shipProfileElement = e.target.closest('.card-ship');
+            let shipPivotId = shipProfileElement.getAttribute('data-pivot-id');
             //Remove individual ship from fleet
             if (e.target.classList.contains('card-ship-remove-btn')) {
                 toggleLoadingOverlay(true);
 
-                let shipProfileElement = e.target.parentElement.parentElement.parentElement;
-                let shipPivotId = shipProfileElement.getAttribute('data-pivot-id');
-
                 removeShip(shipPivotId, shipProfileElement)
             }
-            //Toggle ship's refits panel
+            //Ship's refits panel
             else if (e.target.closest('.card-ship-refit-btn')) {
                 let refitsBtn = e.target.closest('.card-ship-refit-btn');
                 let refitsContainer = refitsBtn.nextElementSibling;
 
                 if(refitsContainer && refitsContainer.classList.contains('card-ship-refit-container')) {
+                    //Process and apply refits to ship
+                    if(!refitsContainer.classList.contains('collapsed')) {
+                        let selectedRefits = processRefits(refitsContainer);
+
+                        applyRefits(shipPivotId, selectedRefits);
+                    }
+
+                    //Toggle refits panel
                     refitsContainer.classList.toggle('collapsed');
+                    refitsBtn.classList.toggle('collapsed');
                 }
             }
         })
@@ -363,6 +371,45 @@
                     updatePoints(data.points, false);
 
                     //Remove loading overlay after data is processed
+                    toggleLoadingOverlay(false);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Submission failed. Please check your input.');
+
+                    //Remove loading overlay after running into errors
+                    toggleLoadingOverlay(false);
+                });
+        }
+
+        function processRefits(refitsContainer) {
+            let refitInputs = refitsContainer.querySelectorAll('input');
+            let selectedRefits = [];
+
+            for(let i=0; i<refitInputs.length; i++) {
+                if(refitInputs[i].checked) {
+                    let refitData = {
+                        'name' : refitInputs[i].name,
+                        'id' : refitInputs[i].getAttribute('data-refit-pivot-id')
+                    };
+                    selectedRefits.push(refitData);
+                }
+            }
+
+            return selectedRefits;
+        }
+
+        function applyRefits(shipPivotId, selectedRefits) {
+            fetch(`/api/${pageData.fleetId}/ship-refit/${shipPivotId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': pageData.csrf
+                },
+                body: JSON.stringify({ 'selected-refits': selectedRefits })
+            })
+                .then(response => response.json())
+                .then(data => {
                     toggleLoadingOverlay(false);
                 })
                 .catch(error => {

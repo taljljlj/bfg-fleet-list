@@ -631,6 +631,15 @@ img {
     height: 1px;
 }
 
+#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-btn.collapsed .apply-icon,
+#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-btn .refit-icon {
+    display: none;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-refit-btn.collapsed .refit-icon {
+    display: block;
+}
+
 #fleetBuilderBody .section.section-right .card-ship .card-ship-refit-container ul {
     list-style: none;
     padding: 20px 20px 20px 35px;
