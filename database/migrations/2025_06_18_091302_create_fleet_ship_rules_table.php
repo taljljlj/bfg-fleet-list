@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('modifications', function (Blueprint $table) {
+        Schema::create('fleet_ship_rules', function (Blueprint $table) {
             $table->id();
-            $table->string('type', 50);
-            $table->string('module', 255)->nullable();
-            $table->string('action', 50)->nullable();
-            $table->string('value', 255)->nullable();
-            $table->foreignId('refit_id')->constrained('refits');
+            $table->foreignId('fleet_ship_id')->constrained('fleet_ship');
+            $table->string('text', 255);
+            $table->text('text_long');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('modifications');
+        Schema::dropIfExists('fleet_ship_rules');
     }
 };

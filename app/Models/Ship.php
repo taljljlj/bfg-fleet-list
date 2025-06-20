@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Pivots\ShipModification;
+use App\Models\FleetBuilder\ShipModification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -14,7 +14,7 @@ class Ship extends Model
     //Relations
     public function armaments() {
         return $this->belongsToMany(Armament::class, 'ship_armament')
-                    ->withPivot('range_speed', 'firepower', 'misc');
+                    ->withPivot('id', 'range_speed', 'firepower', 'misc');
     }
 
     public function fleetLists() {

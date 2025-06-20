@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Pivots;
+namespace App\Models\FleetBuilder;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 

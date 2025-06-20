@@ -28,7 +28,11 @@ class RefitsSeeder extends Seeder
                     ],
                     [
                       "type" => "arm",
-                      "module" => "Launch Bays",
+                      "module" => json_encode([
+                          "type" => "Launch Bays",
+                          "placement" => null,
+                          "fire_arc" => null,
+                      ]),
                       "action" => "modify",
                       "value" => null,
                     ],
@@ -41,9 +45,17 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Prow Nova Cannon",
+                        "module" => json_encode([
+                            "type" => "Nova Cannon",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
                         "action" => "replace",
-                        "value" => "Prow Torpedoes",
+                        "value" => json_encode([
+                            "type" => "Torpedoes",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
                     ],
                 ]
             ],
@@ -54,7 +66,11 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Weapons Battery",
+                        "module" => json_encode([
+                            "type" => "Weapons Battery",
+                            "placement" => null,
+                            "fire_arc" => null,
+                        ]),
                         "action" => "modify",
                         "value" => null,
                     ],
@@ -93,7 +109,11 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Weapons Battery",
+                        "module" => json_encode([
+                            "type" => "Weapons Battery",
+                            "placement" => null,
+                            "fire_arc" => null,
+                        ]),
                         "action" => "modify",
                         "value" => null,
                     ],
@@ -106,7 +126,11 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Weapons Battery",
+                        "module" => json_encode([
+                            "type" => "Weapons Battery",
+                            "placement" => null,
+                            "fire_arc" => null,
+                        ]),
                         "action" => "modify",
                         "value" => null,
                     ],
@@ -119,9 +143,17 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Prow Torpedoes",
+                        "module" => json_encode([
+                            "type" => "Torpedoes",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
                         "action" => "replace",
-                        "value" => "Prow Nova Cannon",
+                        "value" => json_encode([
+                            "type" => "Nova Cannon",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
                     ],
                 ]
             ],
@@ -151,9 +183,17 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Prow Lance Battery",
+                        "module" => json_encode([
+                            "type" => "Lance Battery",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
                         "action" => "replace",
-                        "value" => "Prow Torpedoes",
+                        "value" => json_encode([
+                            "type" => "Torpedoes",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
                     ],
                 ]
             ],
@@ -170,7 +210,11 @@ class RefitsSeeder extends Seeder
                     ],
                     [
                         "type" => "arm",
-                        "module" => "Weapons Battery",
+                        "module" => json_encode([
+                            "type" => "Weapons Battery",
+                            "placement" => null,
+                            "fire_arc" => null,
+                        ]),
                         "action" => "remove",
                         "value" => null,
                     ]
@@ -183,9 +227,17 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Prow Launch Bays",
+                        "module" => json_encode([
+                            "type" => "Launch Bays",
+                            "placement" => "Prow",
+                            "fire_arc" => null,
+                        ]),
                         "action" => "replace",
-                        "value" => "Prow Torpedoes",
+                        "value" => json_encode([
+                            "type" => "Torpedoes",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
                     ],
                 ]
             ],
@@ -196,9 +248,17 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Prow Launch Bays",
+                        "module" => json_encode([
+                            "type" => "Launch Bays",
+                            "placement" => "Prow",
+                            "fire_arc" => null,
+                        ]),
                         "action" => "replace",
-                        "value" => "Prow Bombardment Cannon",
+                        "value" => json_encode([
+                            "type" => "Bombardment Cannon",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
                     ],
                 ]
             ],
@@ -209,9 +269,17 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Prow Bombardment Cannon",
+                        "module" => json_encode([
+                            "type" => "Bombardment Cannon",
+                            "placement" => "Prow",
+                            "fire_arc" => "Left/Front/Right",
+                        ]),
                         "action" => "replace",
-                        "value" => "Prow Lance Battery",
+                        "value" => json_encode([
+                            "type" => "Lance Battery",
+                            "placement" => "Prow",
+                            "fire_arc" => "Left/Front/Right",
+                        ]),
                     ],
                 ]
             ],
@@ -235,9 +303,31 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Pt|Sb Lance Battery",
+                        "module" => json_encode([
+                            "type" => "Lance Battery",
+                            "placement" => "Port",
+                            "fire_arc" => "Left",
+                        ]),
                         "action" => "replace",
-                        "value" => "Pt|Sb Launch Bays",
+                        "value" => json_encode([
+                            "type" => "Launch Bays",
+                            "placement" => "Port",
+                            "fire_arc" => null,
+                        ]),
+                    ],
+                    [
+                        "type" => "arm",
+                        "module" => json_encode([
+                            "type" => "Lance Battery",
+                            "placement" => "Starboard",
+                            "fire_arc" => "Right",
+                        ]),
+                        "action" => "replace",
+                        "value" => json_encode([
+                            "type" => "Launch Bays",
+                            "placement" => "Starboard",
+                            "fire_arc" => null,
+                        ]),
                     ]
                 ]
             ],
@@ -487,7 +577,11 @@ class RefitsSeeder extends Seeder
                     ],
                     [
                         "type" => "arm",
-                        "module" => "Weapons Battery",
+                        "module" => json_encode([
+                            "type" => "Weapons Battery",
+                            "placement" => null,
+                            "fire_arc" => null,
+                        ]),
                         "action" => "remove",
                         "value" => null,
                     ],
@@ -514,7 +608,11 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Dorsal Lance Battery",
+                        "module" => json_encode([
+                            "type" => "Lance Battery",
+                            "placement" => "Dorsal",
+                            "fire_arc" => "Left/Front/Right",
+                        ]),
                         "action" => "modify",
                         "value" => null,
                     ],
@@ -527,7 +625,11 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Lance Battery",
+                        "module" => json_encode([
+                            "type" => "Lance Battery",
+                            "placement" => null,
+                            "fire_arc" => null,
+                        ]),
                         "action" => "modify",
                         "value" => null,
                     ],
@@ -540,7 +642,11 @@ class RefitsSeeder extends Seeder
                 "data" => [
                     [
                         "type" => "arm",
-                        "module" => "Weapons Battery",
+                        "module" => json_encode([
+                            "type" => "Weapons Battery",
+                            "placement" => null,
+                            "fire_arc" => null,
+                        ]),
                         "action" => "modify",
                         "value" => null,
                     ],
@@ -548,7 +654,21 @@ class RefitsSeeder extends Seeder
                         "type" => "arm",
                         "module" => null,
                         "action" => "add",
-                        "value" => "Pt|Sb Lance Battery",
+                        "value" => json_encode([
+                            "type" => "Lance Battery",
+                            "placement" => "Port",
+                            "fire_arc" => "Left",
+                        ]),
+                    ],
+                    [
+                        "type" => "arm",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => json_encode([
+                            "type" => "Lance Battery",
+                            "placement" => "Starboard",
+                            "fire_arc" => "Right",
+                        ]),
                     ]
                 ]
             ],

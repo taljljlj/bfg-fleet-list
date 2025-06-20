@@ -6,9 +6,10 @@ use App\Http\Requests\FleetBuilderFormRequest;
 use App\Models\Faction;
 use App\Models\Fleet;
 use App\Models\FleetList;
-use App\Models\Pivots\FleetShip;
+use App\Models\FleetBuilder\FleetShip;
 use App\Models\Ship;
 use App\Services\FleetBuilderService;
+use App\Services\RefitService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,12 +22,14 @@ use Spatie\LaravelPdf\Facades\Pdf;
 class FleetBuilderController extends Controller
 {
     private FleetBuilderService $fleetBuilderService;
+    private RefitService $refitService;
 
     /**
      * @param FleetBuilderService $fleetBuilderService
      */
-    public function __construct(FleetBuilderService $fleetBuilderService) {
+    public function __construct(FleetBuilderService $fleetBuilderService, RefitService $refitService) {
         $this->fleetBuilderService = $fleetBuilderService;
+        $this->refitService = $refitService;
     }
 
     /**
@@ -85,7 +88,7 @@ class FleetBuilderController extends Controller
             $shipOrder = $this->fleetBuilderService->shipTypeOrder;
 
             foreach ($ships as $ship) {
-                $ship = $this->fleetBuilderService->handleShipRefits($ship);
+                $ship = $this->refitService->buildRefitRelation($ship);
                 $ship->order = $shipOrder[$ship->type];
                 $ship->pivot_id = $ship->pivot->id;
             }
@@ -165,15 +168,25 @@ class FleetBuilderController extends Controller
     {
         //Prepare Ship object
         $ship->load(['armaments', 'rules', 'refitParents', 'modifications']);
-        $ship = $this->fleetBuilderService->handleShipRefits($ship);
+        $ship = $this->refitService->buildRefitRelation($ship);
 
         //Prepare ship profile vars
         $shipOrder = $this->fleetBuilderService->shipTypeOrder[$ship->type];
         $shipPoints = $ship->points;
 
         //Update fleet
-        $fleet->ships()->attach($ship, ['points' => $shipPoints]);
-        $fleet->points = $this->fleetBuilderService->calculateFleetPoints($fleet, $shipPoints); //TODO: move this to some helper function as calculatePoints()
+        $fleet->ships()->attach(
+            $ship,
+            [
+                'points' => $shipPoints,
+                'speed' => $ship->speed,
+                'turns' => $ship->turns,
+                'shields' => $ship->shields,
+                'armour' => $ship->armour,
+                'turrets' => $ship->turrets
+            ]
+        );
+        $fleet->points = $this->fleetBuilderService->calculatePoints($fleet, $shipPoints);
         $fleet->save();
 
         //Get last attached ship id for frontend data attribute
@@ -199,7 +212,7 @@ class FleetBuilderController extends Controller
             ->first();
 
         $shipPoints = $shipPivot->points;
-        $fleet->points = $this->fleetBuilderService->calculateFleetPoints($fleet, -($shipPoints));
+        $fleet->points = $this->fleetBuilderService->calculatePoints($fleet, -($shipPoints));
         $fleet->save();
 
         $fleet->ships()->newPivotStatement()
@@ -216,17 +229,11 @@ class FleetBuilderController extends Controller
     {
         $selectedRefits = $request->get('selected-refits');
 
-        foreach ($selectedRefits as $selectedRefit) {
-            $fleetShip->appliedRefits()->attach(
-                $fleetShip->id,
-                [
-                    'ship_refit_id' => $selectedRefit['id'],
-                    'name' => $selectedRefit['name'],
-                ]
-            );
-        }
+        $syncResult = $fleetShip->appliedRefits()->sync($selectedRefits);
 
-        dd($fleetShip);
+        $this->refitService->handleAppliedRefits($syncResult, $fleetShip, $fleet);
+
+        dd($syncResult);
     }
 
     public function getFleetAsPdf(Faction $faction, FleetList $fleetList, Request $request)

@@ -388,11 +388,12 @@
 
             for(let i=0; i<refitInputs.length; i++) {
                 if(refitInputs[i].checked) {
-                    let refitData = {
-                        'name' : refitInputs[i].name,
-                        'id' : refitInputs[i].getAttribute('data-refit-pivot-id')
-                    };
-                    selectedRefits.push(refitData);
+                    // let refitData = {
+                    //     'name' : refitInputs[i].name,
+                    //     'id' : refitInputs[i].getAttribute('data-refit-pivot-id')
+                    // };
+                    selectedRefits.push(parseInt(refitInputs[i].getAttribute('data-refit-pivot-id'), 10));
+
                 }
             }
 

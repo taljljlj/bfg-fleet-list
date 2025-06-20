@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Fleet;
 use App\Models\FleetList;
+use App\Models\FleetBuilder\FleetShip;
 use App\Models\Ship;
 use Illuminate\Support\Collection;
 
@@ -52,46 +53,13 @@ class FleetBuilderService
         return $this->sortShips($ships);
     }
 
-    public function calculateFleetPoints(Fleet $fleet, int $pointModifier)
-    {
-        return ($fleet->points + $pointModifier);
-    }
-
     /**
-     * @param Ship $ship
-     * @return Ship
+     * @param FleetShip|Fleet $object
+     * @param int $pointModifier
+     * @return int|mixed
      */
-    public function handleShipRefits(Ship $ship) : Ship
+    public function calculatePoints(FleetShip|Fleet $object, int $pointModifier)
     {
-        //Extract modification to var and unset relation
-        $modifications = $ship->modifications;
-        $ship->unsetRelation('modifications');
-
-
-        foreach ($ship->refitParents as $refit) {
-            //Find and set points pivot for children refits manually due to limitations of eloquent
-            if(!empty($refit->children)) {
-                foreach ($refit->children as $child) {
-                    $childObj = $ship->refits->where('name', $child->name)->first();
-                    $child->pivot->points = $childObj->pivot->points;
-                    $childShipRefitId = $childObj->pivot->id;
-                    $childRefitModifications = $this->filterModifications($modifications, $childShipRefitId);
-                    $child->setRelation('modifications', $childRefitModifications);
-                }
-            }
-
-            //Map modifications under their respective refits manually due to limitations of eloquent and many-to-many through relationships
-            $shipRefitId = $refit->pivot->id;
-            $refitModifications = $this->filterModifications($modifications, $shipRefitId);
-            $refit->setRelation('modifications', $refitModifications);
-        }
-
-        return $ship;
-    }
-
-    private function filterModifications($modifications, $shipRefitId) {
-        return $modifications->filter(function ($modification) use ($shipRefitId) {
-            return $modification->pivot->ship_refit_id == $shipRefitId;
-        });
+        return ($object->points + $pointModifier);
     }
 }
