@@ -11,6 +11,7 @@ use App\Models\Ship;
 use App\Services\ArmamentService;
 use App\Services\FleetBuilderService;
 use App\Services\RefitService;
+use App\Services\RuleService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,14 +26,19 @@ class FleetBuilderController extends Controller
     private FleetBuilderService $fleetBuilderService;
     private RefitService $refitService;
     private ArmamentService $armamentService;
+    private RuleService $ruleService;
 
     /**
      * @param FleetBuilderService $fleetBuilderService
+     * @param RefitService $refitService
+     * @param ArmamentService $armamentService
+     * @param RuleService $ruleService
      */
-    public function __construct(FleetBuilderService $fleetBuilderService, RefitService $refitService, ArmamentService $armamentService) {
+    public function __construct(FleetBuilderService $fleetBuilderService, RefitService $refitService, ArmamentService $armamentService, RuleService $ruleService) {
         $this->fleetBuilderService = $fleetBuilderService;
         $this->refitService = $refitService;
         $this->armamentService = $armamentService;
+        $this->ruleService = $ruleService;
     }
 
     /**
@@ -96,6 +102,7 @@ class FleetBuilderController extends Controller
             foreach ($ships as $ship) {
                 $ship = $this->refitService->rebuildRefitRelation($ship);
                 $ship = $this->armamentService->rebuildArmRelation($ship);
+                $ship = $this->ruleService->rebuildRuleRelation($ship);
                 $ship->order = $shipOrder[$ship->type];
             }
         }

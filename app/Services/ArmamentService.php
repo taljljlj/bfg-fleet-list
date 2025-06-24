@@ -10,6 +10,12 @@ use Illuminate\Support\Collection;
 
 class ArmamentService
 {
+    /**
+     * Rebuild ship's armament relation by adding/replacing/modifying/removing armaments based on refits
+     *
+     * @param Ship $ship
+     * @return Ship
+     */
     public function rebuildArmRelation(Ship $ship) : Ship
     {
         $refittedArms = FleetShipArmament::where('fleet_ship_id', $ship->pivot->id)->get();
@@ -38,6 +44,13 @@ class ArmamentService
         return $ship;
     }
 
+    /**
+     * Remove armament from collection of ship's armaments
+     *
+     * @param Collection $shipArms
+     * @param int $shipArmId
+     * @return Collection
+     */
     private function removeArmament(Collection $shipArms, int $shipArmId) : Collection
     {
         return $shipArms->reject(function ($item) use ($shipArmId) {
@@ -46,6 +59,13 @@ class ArmamentService
 
     }
 
+    /**
+     * Replace or modify ship's default armament with refitted armament
+     *
+     * @param Collection $armaments
+     * @param FleetShipArmament $refittedArm
+     * @return Collection
+     */
     private function overrideArmWithRefit(Collection $armaments, FleetShipArmament $refittedArm) : Collection
     {
         return $armaments->transform(function ($item) use ($refittedArm) {
@@ -63,6 +83,12 @@ class ArmamentService
         });
     }
 
+    /**
+     * Construct Armament object to be appended to collection of ship's default armaments
+     *
+     * @param FleetShipArmament $refittedArm
+     * @return Armament
+     */
     private function constructArmObjFromRefit(FleetShipArmament $refittedArm) : Armament
     {
         $armament = new Armament();

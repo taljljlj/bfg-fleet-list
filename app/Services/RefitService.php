@@ -20,6 +20,13 @@ class RefitService
         $this->fleetBuilderService = $fleetBuilderService;
     }
 
+    /**
+     * Due to limitations of eloquent relations rebuilding the ship's Refit relation with parent-child hierarchy
+     * containing related Modifications
+     *
+     * @param Ship $ship
+     * @return Ship
+     */
     public function rebuildRefitRelation(Ship $ship) : Ship
     {
         //Extract modification to var and unset relation
