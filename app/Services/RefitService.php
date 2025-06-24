@@ -13,7 +13,14 @@ use Illuminate\Support\Facades\Log;
 
 class RefitService
 {
-    public function buildRefitRelation(Ship $ship) : Ship
+    private FleetBuilderService $fleetBuilderService;
+
+    public function __construct(FleetBuilderService $fleetBuilderService)
+    {
+        $this->fleetBuilderService = $fleetBuilderService;
+    }
+
+    public function rebuildRefitRelation(Ship $ship) : Ship
     {
         //Extract modification to var and unset relation
         $modifications = $ship->modifications;
@@ -59,21 +66,34 @@ class RefitService
      *
      * @param array $syncResult
      * @param FleetShip $fleetShip
-     * @return void
+     * @param Fleet $fleet
+     * @return Collection
      */
-    public function handleAppliedRefits(array $syncResult, FleetShip $fleetShip, Fleet $fleet) {
-        if(!empty($syncResult['attached'])) {
-            $this->handleAttachedRefits($syncResult['attached'], $fleetShip, $fleet);
-        }
-        if(!empty($syncResult['detached'])) {
-            $this->handleDetachedRefits($syncResult['detached'], $fleetShip, $fleet);
-        }
+    public function handleAppliedRefits(array $syncResult, FleetShip $fleetShip, Fleet $fleet): Collection
+    {
+
+        $resAttached = $this->handleAttachedRefits($syncResult['attached'], $fleetShip);
+        $resDetached = $this->handleDetachedRefits($syncResult['detached'], $fleetShip);
+
+        $pointsModifier = $resAttached['pointsModifier'] - $resDetached['pointsModifier'];
+        $fleetShip->points = $this->fleetBuilderService->calculatePoints($fleetShip, $pointsModifier);
+        $fleetShip->save();
+        $fleet->points = $this->fleetBuilderService->calculatePoints($fleet, $pointsModifier);
+        $fleet->save();
+
+        $shipModified = ($resAttached['shipModified'] ?: $resDetached['shipModified']) ?: false;
+        $armModified = ($resAttached['armModified'] ?: $resDetached['armModified']) ?: false;
+        $ruleModified = ($resAttached['ruleModified'] ?: $resDetached['ruleModified']) ?: false;
+
+
+        return collect(compact('shipModified', 'armModified', 'ruleModified'));
     }
 
-    private function handleAttachedRefits(array $attachedRefits, FleetShip $fleetShip, Fleet $fleet) {
+    private function handleAttachedRefits(array $attachedRefits, FleetShip $fleetShip) {
         $ship = Ship::findOrFail($fleetShip->ship_id);
 
         $pointsModifier = $this->getRefitsPointCost($attachedRefits, $ship);
+        $shipModified = $armModified = $ruleModified = false;
 
         foreach ($attachedRefits as $shipRefitId) {
             $modifications = $ship->modifications()
@@ -84,28 +104,36 @@ class RefitService
                 switch ($modification->type) {
                     case 'ship':
                         $this->applyShipRefit($modification, $fleetShip);
+                        $shipModified = true;
                         break;
                     case 'arm':
                         $this->applyArmamentRefit($modification, $fleetShip);
+                        $armModified = true;
                         break;
                     case 'rule':
                         $this->applyRuleRefit($modification, $fleetShip);
+                        $ruleModified = true;
+                        break;
+                    case 'group':
                         break;
                     default:
+                        //TODO: handle what happens when Exception is caught and returned
                         $message = "Something went wrong. Refit type unknown, cannot process. fleet_ship_id: " . $fleetShip->id . "; ship_refit_id: " . $shipRefitId . ";";
                         Log::error($message);
                         return response()->json(['error' => $message], 500);
                 }
             }
         }
-
-        dd($pointsModifier);
+        return collect(compact('pointsModifier', 'shipModified', 'armModified', 'ruleModified'));
     }
 
-    private function handleDetachedRefits($detachedRefits, FleetShip $fleetShip, Fleet $fleet) {
+    private function handleDetachedRefits($detachedRefits, FleetShip $fleetShip) {
         $ship = Ship::findOrFail($fleetShip->ship_id);
 
         $pointsModifier = $this->getRefitsPointCost($detachedRefits, $ship);
+        $shipModified = $armModified = $ruleModified = false;
+
+        return collect(compact('pointsModifier', 'shipModified', 'armModified', 'ruleModified'));
     }
 
     private function getRefitsPointCost(array $refitIds, Ship $ship) {

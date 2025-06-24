@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\FleetBuilder\FleetShip;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +18,7 @@ class Fleet extends Model
     }
 
     public function ships() {
-        return $this->belongsToMany(Ship::class)->withTimestamps();
+        return $this->belongsToMany(Ship::class)->using(FleetShip::class)->withTimestamps();
     }
 
     public function shipsInFleetList(FleetList $fleetList) {

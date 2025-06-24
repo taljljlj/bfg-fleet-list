@@ -8,6 +8,7 @@ use App\Models\Fleet;
 use App\Models\FleetList;
 use App\Models\FleetBuilder\FleetShip;
 use App\Models\Ship;
+use App\Services\ArmamentService;
 use App\Services\FleetBuilderService;
 use App\Services\RefitService;
 use Illuminate\Http\JsonResponse;
@@ -23,13 +24,15 @@ class FleetBuilderController extends Controller
 {
     private FleetBuilderService $fleetBuilderService;
     private RefitService $refitService;
+    private ArmamentService $armamentService;
 
     /**
      * @param FleetBuilderService $fleetBuilderService
      */
-    public function __construct(FleetBuilderService $fleetBuilderService, RefitService $refitService) {
+    public function __construct(FleetBuilderService $fleetBuilderService, RefitService $refitService, ArmamentService $armamentService) {
         $this->fleetBuilderService = $fleetBuilderService;
         $this->refitService = $refitService;
+        $this->armamentService = $armamentService;
     }
 
     /**
@@ -84,13 +87,16 @@ class FleetBuilderController extends Controller
         //If fleet has attached ships return full list and assign order for frontend
         $ships = null;
         if ($fleet->ships()->exists()) {
-            $ships = $fleet->ships()->with(['armaments', 'rules', 'refitParents', 'modifications'])->withPivot('id')->get();
+            $ships = $fleet->ships()
+                ->with(['armaments', 'rules', 'refitParents', 'modifications'])
+                ->withPivot('id', 'points', 'speed', 'turns', 'shields', 'armour', 'turrets')
+                ->get();
             $shipOrder = $this->fleetBuilderService->shipTypeOrder;
 
             foreach ($ships as $ship) {
-                $ship = $this->refitService->buildRefitRelation($ship);
+                $ship = $this->refitService->rebuildRefitRelation($ship);
+                $ship = $this->armamentService->rebuildArmRelation($ship);
                 $ship->order = $shipOrder[$ship->type];
-                $ship->pivot_id = $ship->pivot->id;
             }
         }
 
@@ -168,7 +174,7 @@ class FleetBuilderController extends Controller
     {
         //Prepare Ship object
         $ship->load(['armaments', 'rules', 'refitParents', 'modifications']);
-        $ship = $this->refitService->buildRefitRelation($ship);
+        $ship = $this->refitService->rebuildRefitRelation($ship);
 
         //Prepare ship profile vars
         $shipOrder = $this->fleetBuilderService->shipTypeOrder[$ship->type];

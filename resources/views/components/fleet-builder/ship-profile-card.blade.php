@@ -1,5 +1,5 @@
 @if($ship)
-<div class="card-ship" style="order: {{ $shipOrder }}" data-id="{{ $ship->id }}" data-pivot-id="{{ $ship->pivot_id }}">
+<div class="card-ship" style="order: {{ $shipOrder }}" data-id="{{ $ship->id }}" data-pivot-id="{{ $ship->pivot->id }}">
     <div class="card-header">
         <div class="card-subsec-l">
 {{--            <div class="card-faction-img">--}}
