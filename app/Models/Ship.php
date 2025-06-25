@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\FleetBuilder\FleetShip;
 use App\Models\FleetBuilder\ShipModification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,9 +42,9 @@ class Ship extends Model
             ->with('children')
             ->withPivot('id', 'points');
     }
-
-
-
+    public function fleets() {
+        return $this->belongsToMany(Fleet::class, 'fleet_ship')->using(FleetShip::class)->withTimestamps();
+    }
 
 
 //      Relation removed

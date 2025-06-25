@@ -14,7 +14,7 @@
             </div>
             <div class="card-ship-pts card-input heading">
                 <label for="cardShipPts">Pts:</label>
-                <input type="text" name="cardShipPts" value="{{ $ship->points }}">
+                <input type="text" name="cardShipPts" value="{{ $ship->pivot->points ?? $ship->points }}">
             </div>
             <div class="card-ship-remove-btn">&times;</div>
         </div>
@@ -101,23 +101,23 @@
                     </div>
                     <div class="stat-box card-box-container">
                         <div class="stat-name">Speed</div>
-                        <div class="stat-value">{{ $ship->speed }}cm</div>
+                        <div class="stat-value">{{ $ship->pivot->speed ?? $ship->speed }}cm</div>
                     </div>
                     <div class="stat-box card-box-container">
                         <div class="stat-name">Turns</div>
-                        <div class="stat-value">{{ $ship->turns }}°</div>
+                        <div class="stat-value">{{ $ship->pivot->turns ?? $ship->turns }}°</div>
                     </div>
                     <div class="stat-box card-box-container">
                         <div class="stat-name">Shields</div>
-                        <div class="stat-value">{{ $ship->shields }}</div>
+                        <div class="stat-value">{{ $ship->pivot->shields ?? $ship->shields }}</div>
                     </div>
                     <div class="stat-box card-box-container">
                         <div class="stat-name">Armour</div>
-                        <div class="stat-value">{{ $ship->armour_short }}</div>
+                        <div class="stat-value">{{ $ship->pivot->armour_short ??  $ship->armour_short }}</div>
                     </div>
                     <div class="stat-box card-box-container">
                         <div class="stat-name">Turrets</div>
-                        <div class="stat-value">{{ $ship->turrets }}</div>
+                        <div class="stat-value">{{ $ship->pivot->turrets ?? $ship->turrets }}</div>
                     </div>
                 </div>
             </div>

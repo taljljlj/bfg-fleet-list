@@ -18,4 +18,8 @@ class FleetShip extends Pivot
     public function armamentRefits() {
         return $this->hasMany(FleetShipArmament::class, 'fleet_ship_id');
     }
+
+    public function getArmourShortAttribute() {
+        return str_replace('front', 'f', $this->armour);
+    }
 }

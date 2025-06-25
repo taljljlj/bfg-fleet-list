@@ -208,8 +208,7 @@ class FleetBuilderController extends Controller
             ->where('ship_id', $ship->id)
             ->latest('id')
             ->first();
-        $ship->pivot_id = $shipPivot->id;
-
+        $ship->setRelation('pivot', $shipPivot);
 
         return response()->json([
             'message' => 'Ship added to fleet.',
@@ -244,9 +243,24 @@ class FleetBuilderController extends Controller
 
         $syncResult = $fleetShip->appliedRefits()->sync($selectedRefits);
 
-        $this->refitService->handleAppliedRefits($syncResult, $fleetShip, $fleet);
+        $refittedSections = $this->refitService->handleAppliedRefits($syncResult, $fleetShip, $fleet);
 
-        dd($syncResult);
+        $htmlData = [];
+        if ($refittedSections['shipModified']) {
+            //render the ship stats component and return to the frontend
+//            $htmlData['shipStats'] = View::make('components.fleet-builder.ship-stats', compact('fleetShip'))->render(); example TODO: split ship profile into components
+        }
+        if ($refittedSections['armModified']) {
+            //render the armament table component and return to the frontend
+        }
+        if ($refittedSections['ruleModified']) {
+            //render the rule list component and return to the frontend
+        }
+
+        return response()->json([
+            'htmlData' => $htmlData,
+            'refittedSections' => $refittedSections,
+        ]);
     }
 
     public function getFleetAsPdf(Faction $faction, FleetList $fleetList, Request $request)
