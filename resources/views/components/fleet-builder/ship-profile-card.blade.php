@@ -79,82 +79,18 @@
             <div class="card-subsec-r">
                 <input type="text" name="cardShipName" placeholder="Enter Ship Name">
                 <div class="card-ship-additional card-box-container">
-                    <div class="card-ship-special">
-                        <ul class="ship-specials-container">
-                            @foreach($ship->rules as $rule)
-                                <li class="ship-special" data-special-type="rules">{{ $rule->text }}<span class="tooltip">{{ $rule->text_long }}</span></li>
-
-                            @endforeach
-                        </ul>
+                    <div class="card-ship-special ship-rules-section-container">
+                        <x-fleet-builder.ship-profile-sections.ship-profile-rules-section :rules="$ship->rules" />
                     </div>
-                    <div class="card-ship-options"></div>
                 </div>
-
             </div>
         </div>
         <div class="card-section-b">
-            <div class="card-subsec-l">
-                <div class="card-ship-stats">
-                    <div class="stat-box card-box-container">
-                        <div class="stat-name">HP</div>
-                        <div class="stat-value">{{ $ship->hitpoints }}</div>
-                    </div>
-                    <div class="stat-box card-box-container">
-                        <div class="stat-name">Speed</div>
-                        <div class="stat-value">{{ $ship->pivot->speed ?? $ship->speed }}cm</div>
-                    </div>
-                    <div class="stat-box card-box-container">
-                        <div class="stat-name">Turns</div>
-                        <div class="stat-value">{{ $ship->pivot->turns ?? $ship->turns }}°</div>
-                    </div>
-                    <div class="stat-box card-box-container">
-                        <div class="stat-name">Shields</div>
-                        <div class="stat-value">{{ $ship->pivot->shields ?? $ship->shields }}</div>
-                    </div>
-                    <div class="stat-box card-box-container">
-                        <div class="stat-name">Armour</div>
-                        <div class="stat-value">{{ $ship->pivot->armour_short ??  $ship->armour_short }}</div>
-                    </div>
-                    <div class="stat-box card-box-container">
-                        <div class="stat-name">Turrets</div>
-                        <div class="stat-value">{{ $ship->pivot->turrets ?? $ship->turrets }}</div>
-                    </div>
-                </div>
+            <div class="card-subsec-l ship-stats-section-container">
+                <x-fleet-builder.ship-profile-sections.ship-profile-stats-section :ship="$ship" />
             </div>
-            <div class="card-subsec-r">
-                <div class="card-ship-armaments card-box-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Armament</th>
-                                <th>Speed/Range</th>
-                                <th colspan="2">Firepower</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($ship->armaments as $armament)
-                            @if($armament->placement != 'Starboard')
-                                <tr class="firearc-{{ $armament->fire_arc_short }}">
-                                    <td>{{ ($armament->placement === 'Port' ? 'Pt|Sb' : $armament->placement) . ' ' . $armament->type }}</td>
-                                    @if($armament->pivot->range_speed)
-                                        <td>{{ $armament->pivot->range_speed }}cm</td>
-                                    @elseif($armament->pivot->misc)
-                                        <td>{{ $armament->pivot->misc }}</td>
-                                    @else
-                                        <td>N/A</td>
-                                    @endif
-                                    @if($armament->placement === 'Port')
-                                        <td>{{ $armament->pivot->firepower }}</td>
-                                        <td>{{ $armament->pivot->firepower }}</td>
-                                    @else
-                                        <td colspan="2">{{ $armament->pivot->firepower }}</td>
-                                    @endif
-                                </tr>
-                            @endif
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
+            <div class="card-subsec-r ship-armaments-section-container">
+                <x-fleet-builder.ship-profile-sections.ship-profile-armaments-section :armaments="$ship->armaments" />
             </div>
         </div>
     </div>

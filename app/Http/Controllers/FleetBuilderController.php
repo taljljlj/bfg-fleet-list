@@ -245,16 +245,37 @@ class FleetBuilderController extends Controller
 
         $refittedSections = $this->refitService->handleAppliedRefits($syncResult, $fleetShip, $fleet);
 
+        $ship = $fleet->ships()
+            ->wherePivot('fleet_ship_id', $fleetShip->id)
+            ->with(['armaments', 'rules', 'refitParents', 'modifications'])
+            ->withPivot('id', 'points', 'speed', 'turns', 'shields', 'armour', 'turrets')
+            ->get();
+
+        $ship = $this->refitService->rebuildRefitRelation($ship);
+        $ship = $this->armamentService->rebuildArmRelation($ship);
+        $ship = $this->ruleService->rebuildRuleRelation($ship);
+
         $htmlData = [];
         if ($refittedSections['shipModified']) {
             //render the ship stats component and return to the frontend
-//            $htmlData['shipStats'] = View::make('components.fleet-builder.ship-stats', compact('fleetShip'))->render(); example TODO: split ship profile into components
+            $htmlData['shipStats'] = View::make(
+                'components.fleet-builder.ship-profile-sections.ship-profile-stats-section',
+                [ 'ship' => $ship ]
+            )->render();
         }
         if ($refittedSections['armModified']) {
             //render the armament table component and return to the frontend
+            $htmlData['shipArmaments'] = View::make(
+                'components.fleet-builder.ship-profile-sections.ship-profile-armaments-section',
+                [ 'ship' => $fleetShip ]
+            )->render();
         }
         if ($refittedSections['ruleModified']) {
             //render the rule list component and return to the frontend
+            $htmlData['shipStats'] = View::make(
+                'components.fleet-builder.ship-profile-sections.ship-profile-stats-section',
+                [ 'ship' => $fleetShip ]
+            )->render();
         }
 
         return response()->json([
