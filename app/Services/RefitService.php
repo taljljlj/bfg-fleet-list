@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\FleetBuilderUtils;
 use App\Models\Fleet;
 use App\Models\FleetList;
 use App\Models\Modification;
@@ -13,13 +14,6 @@ use Illuminate\Support\Facades\Log;
 
 class RefitService
 {
-    private FleetBuilderService $fleetBuilderService;
-
-    public function __construct(FleetBuilderService $fleetBuilderService)
-    {
-        $this->fleetBuilderService = $fleetBuilderService;
-    }
-
     /**
      * Due to limitations of eloquent relations rebuilding the ship's Refit relation with parent-child hierarchy
      * containing related Modifications
@@ -83,9 +77,9 @@ class RefitService
         $resDetached = $this->handleDetachedRefits($syncResult['detached'], $fleetShip);
 
         $pointsModifier = $resAttached['pointsModifier'] - $resDetached['pointsModifier'];
-        $fleetShip->points = $this->fleetBuilderService->calculatePoints($fleetShip, $pointsModifier);
+        $fleetShip->points = FleetBuilderUtils::calculatePoints($fleetShip, $pointsModifier);
         $fleetShip->save();
-        $fleet->points = $this->fleetBuilderService->calculatePoints($fleet, $pointsModifier);
+        $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $pointsModifier);
         $fleet->save();
 
         $shipModified = ($resAttached['shipModified'] ?: $resDetached['shipModified']) ?: false;

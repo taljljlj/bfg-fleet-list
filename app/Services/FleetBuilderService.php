@@ -6,10 +6,20 @@ use App\Models\Fleet;
 use App\Models\FleetList;
 use App\Models\FleetBuilder\FleetShip;
 use App\Models\Ship;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 
 class FleetBuilderService
 {
+    private RefitService $refitService;
+    private ArmamentService $armamentService;
+    private RuleService $ruleService;
+
+    public function __construct(RefitService $refitService, ArmamentService $armamentService, RuleService $ruleService) {
+        $this->refitService = $refitService;
+        $this->armamentService = $armamentService;
+        $this->ruleService = $ruleService;
+    }
     public array $shipTypeOrder = [
         'Battleship' => 1,
         'Grand Cruiser' => 2,
@@ -54,12 +64,50 @@ class FleetBuilderService
     }
 
     /**
-     * @param FleetShip|Fleet $object
-     * @param int $pointModifier
-     * @return int|mixed
+     * Load and prepare ship data with all necessary relations and modifications
+     *
+     * @param BelongsToMany $shipsRelation Base fleet relation to work with
+     * @param bool $applyOrder Whether to apply ship type ordering, used to loading fleet builder page
+     * @param bool $single Whether to return a single ship instance, used for applying ship refits
+     * @return Collection|Ship|null
      */
-    public function calculatePoints(FleetShip|Fleet $object, int $pointModifier)
+    public function loadAndPrepareShips(BelongsToMany $shipsRelation, bool $applyOrder = false, bool $single = false): Collection|Ship|null
     {
-        return ($object->points + $pointModifier);
+        $query = $shipsRelation
+            ->with(['armaments', 'rules', 'refitParents', 'modifications'])
+            ->withPivot('id', 'points', 'speed', 'turns', 'shields', 'armour', 'turrets');
+
+        $ships = $single ? $query->first() : $query->get();
+
+        if (!$ships) {
+            return null;
+        }
+
+        if ($single) {
+            return $this->prepareShip($ships, $applyOrder);
+        }
+
+        return $ships->map(fn($ship) => $this->prepareShip($ship, $applyOrder));
     }
+
+    /**
+     * Prepare a single ship instance with all relations and modifications
+     *
+     * @param Ship $ship
+     * @param bool $applyOrder
+     * @return Ship
+     */
+    private function prepareShip(Ship $ship, bool $applyOrder): Ship
+    {
+        $ship = $this->refitService->rebuildRefitRelation($ship);
+        $ship = $this->armamentService->rebuildArmRelation($ship);
+        $ship = $this->ruleService->rebuildRuleRelation($ship);
+
+        if ($applyOrder) {
+            $ship->order = $this->shipTypeOrder[$ship->type];
+        }
+
+        return $ship;
+    }
+
 }

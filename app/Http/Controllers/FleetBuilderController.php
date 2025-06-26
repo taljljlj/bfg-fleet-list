@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FleetBuilderUtils;
 use App\Http\Requests\FleetBuilderFormRequest;
 use App\Models\Faction;
 use App\Models\Fleet;
 use App\Models\FleetList;
 use App\Models\FleetBuilder\FleetShip;
 use App\Models\Ship;
-use App\Services\ArmamentService;
 use App\Services\FleetBuilderService;
 use App\Services\RefitService;
-use App\Services\RuleService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Spatie\Browsershot\Browsershot;
@@ -25,24 +23,17 @@ class FleetBuilderController extends Controller
 {
     private FleetBuilderService $fleetBuilderService;
     private RefitService $refitService;
-    private ArmamentService $armamentService;
-    private RuleService $ruleService;
 
     /**
      * @param FleetBuilderService $fleetBuilderService
      * @param RefitService $refitService
-     * @param ArmamentService $armamentService
-     * @param RuleService $ruleService
      */
-    public function __construct(FleetBuilderService $fleetBuilderService, RefitService $refitService, ArmamentService $armamentService, RuleService $ruleService) {
+    public function __construct(FleetBuilderService $fleetBuilderService, RefitService $refitService) {
         $this->fleetBuilderService = $fleetBuilderService;
-        $this->refitService = $refitService;
-        $this->armamentService = $armamentService;
-        $this->ruleService = $ruleService;
-    }
+        $this->refitService = $refitService;}
 
     /**
-     * First step in opening fleet builder - creating a new fleet
+     * The first step in opening fleet builder - creating a new fleet
      * Redirects to fleet builder page
      * @return RedirectResponse
      */
@@ -93,18 +84,7 @@ class FleetBuilderController extends Controller
         //If fleet has attached ships return full list and assign order for frontend
         $ships = null;
         if ($fleet->ships()->exists()) {
-            $ships = $fleet->ships()
-                ->with(['armaments', 'rules', 'refitParents', 'modifications'])
-                ->withPivot('id', 'points', 'speed', 'turns', 'shields', 'armour', 'turrets')
-                ->get();
-            $shipOrder = $this->fleetBuilderService->shipTypeOrder;
-
-            foreach ($ships as $ship) {
-                $ship = $this->refitService->rebuildRefitRelation($ship);
-                $ship = $this->armamentService->rebuildArmRelation($ship);
-                $ship = $this->ruleService->rebuildRuleRelation($ship);
-                $ship->order = $shipOrder[$ship->type];
-            }
+            $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true);
         }
 
         return view('pages.fleet-builder', compact(
@@ -199,7 +179,7 @@ class FleetBuilderController extends Controller
                 'turrets' => $ship->turrets
             ]
         );
-        $fleet->points = $this->fleetBuilderService->calculatePoints($fleet, $shipPoints);
+        $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $shipPoints);
         $fleet->save();
 
         //Get last attached ship id for frontend data attribute
@@ -224,7 +204,7 @@ class FleetBuilderController extends Controller
             ->first();
 
         $shipPoints = $shipPivot->points;
-        $fleet->points = $this->fleetBuilderService->calculatePoints($fleet, -($shipPoints));
+        $fleet->points = FleetBuilderUtils::calculatePoints($fleet, -($shipPoints));
         $fleet->save();
 
         $fleet->ships()->newPivotStatement()
@@ -245,15 +225,7 @@ class FleetBuilderController extends Controller
 
         $refittedSections = $this->refitService->handleAppliedRefits($syncResult, $fleetShip, $fleet);
 
-        $ship = $fleet->ships()
-            ->wherePivot('fleet_ship_id', $fleetShip->id)
-            ->with(['armaments', 'rules', 'refitParents', 'modifications'])
-            ->withPivot('id', 'points', 'speed', 'turns', 'shields', 'armour', 'turrets')
-            ->get();
-
-        $ship = $this->refitService->rebuildRefitRelation($ship);
-        $ship = $this->armamentService->rebuildArmRelation($ship);
-        $ship = $this->ruleService->rebuildRuleRelation($ship);
+        $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('fleet_ship_id', $fleetShip->id), false, true);
 
         $htmlData = [];
         if ($refittedSections['shipModified']) {
