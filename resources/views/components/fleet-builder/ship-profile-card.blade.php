@@ -32,7 +32,7 @@
                         @foreach($ship->refitParents as $refit)
                             <li class="ship-refit">
                                 <label>
-                                    <input type="checkbox" name="{{ $refit->name }}" data-refit-pivot-id="{{ $refit->pivot->id }}">
+                                    <input type="checkbox" name="{{ $refit->name }}" data-refit-pivot-id="{{ $refit->pivot->id }}" {{ (!empty($ship->appliedRefits) && $ship->appliedRefits->contains('ship_refit_id', $refit->pivot->id)) ? 'checked' : '' }}>
                                     {{$refit->text}}
                                     <span class="tooltip">{{ $refit->text_long }}
                                     @foreach($refit->modifications as $mod)
@@ -73,7 +73,7 @@
                     </div>
                 @endif
                 <div class="card-ship-img">
-                    <img src="{{ asset('images/ships/' . $ship->img_url) }}" alt="Ship Profile Image">
+                    <img src="{{ asset(file_exists(public_path('images/ships/' . $ship->img_url)) ? ('images/ships/' . $ship->img_url) : ('images/ships/ship-no-image.png')) }}" alt="Ship Profile Image">
                 </div>
             </div>
             <div class="card-subsec-r">

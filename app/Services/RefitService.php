@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\FleetBuilderUtils;
 use App\Models\Fleet;
+use App\Models\FleetBuilder\AppliedRefit;
 use App\Models\FleetList;
 use App\Models\Modification;
 use App\Models\FleetBuilder\FleetShip;
@@ -90,6 +91,13 @@ class RefitService
         return collect(compact('shipModified', 'armModified', 'ruleModified'));
     }
 
+    /**
+     * Process attached refits that are applied to ship, store data in fleet_ship tables
+     *
+     * @param array $attachedRefits ship_refit_id array
+     * @param FleetShip $fleetShip
+     * @return \Illuminate\Http\JsonResponse|Collection
+     */
     private function handleAttachedRefits(array $attachedRefits, FleetShip $fleetShip) {
         $ship = Ship::findOrFail($fleetShip->ship_id);
 
@@ -118,7 +126,7 @@ class RefitService
                     case 'group':
                         break;
                     default:
-                        //TODO: handle what happens when Exception is caught and returned
+                        //TODO: handle what happens when Exception is caught and returned. Extract this to callable function because of duplication
                         $message = "Something went wrong. Refit type unknown, cannot process. fleet_ship_id: " . $fleetShip->id . "; ship_refit_id: " . $shipRefitId . ";";
                         Log::error($message);
                         return response()->json(['error' => $message], 500);
@@ -128,15 +136,51 @@ class RefitService
         return collect(compact('pointsModifier', 'shipModified', 'armModified', 'ruleModified'));
     }
 
-    private function handleDetachedRefits($detachedRefits, FleetShip $fleetShip) {
+    /**
+     *  Process detached refits that are applied to ship, drop data from fleet_ship tables
+     *
+     * @param array $detachedRefits ship_refit_id array
+     * @param FleetShip $fleetShip
+     * @return Collection
+     */
+    private function handleDetachedRefits(array $detachedRefits, FleetShip $fleetShip) {
         $ship = Ship::findOrFail($fleetShip->ship_id);
 
         $pointsModifier = $this->getRefitsPointCost($detachedRefits, $ship);
         $shipModified = $armModified = $ruleModified = false;
 
+        foreach ($detachedRefits as $shipRefitId) {
+            $modifications = $ship->modifications()
+                ->wherePivot('ship_refit_id', $shipRefitId)
+                ->get();
+
+            foreach ($modifications as $modification) {
+                switch ($modification->type) {
+                    case 'ship':
+                        $this->removeShipRefit($modification, $fleetShip, $ship);
+                        $shipModified = true;
+                    case 'arm':
+                        $this->removeArmRefit($modification, $fleetShip);
+                        $armModified = true;
+                        break;
+                    case 'rule':
+                        $this->removeRuleRefit($modification, $fleetShip);
+                        $ruleModified = true;
+                        break;
+                }
+            }
+        }
+
         return collect(compact('pointsModifier', 'shipModified', 'armModified', 'ruleModified'));
     }
 
+    /**
+     * Get total sum of point cost of refits applied
+     *
+     * @param array $refitIds
+     * @param Ship $ship
+     * @return int|mixed
+     */
     private function getRefitsPointCost(array $refitIds, Ship $ship) {
         $pointsModifier = 0;
 
@@ -153,6 +197,13 @@ class RefitService
         return $pointsModifier;
     }
 
+    /**
+     * Create and store refit that overrides ship's default stats
+     *
+     * @param Modification $modification
+     * @param FleetShip $fleetShip
+     * @return \Illuminate\Http\JsonResponse|void
+     */
     private function applyShipRefit(Modification $modification, FleetShip $fleetShip) {
         switch ($modification->action) {
             case 'modify':
@@ -166,6 +217,13 @@ class RefitService
         }
     }
 
+    /**
+     * Create and store refit that overrides/extends ship's default armaments
+     *
+     * @param Modification $modification
+     * @param FleetShip $fleetShip
+     * @return \Illuminate\Http\JsonResponse|void
+     */
     private function applyArmamentRefit(Modification $modification, FleetShip $fleetShip) {
         switch ($modification->action) {
             case 'add':
@@ -250,6 +308,13 @@ class RefitService
         return $targetArmsQuery->get();
     }
 
+    /**
+     * Create and store refit that extends ship's default rules
+     *
+     * @param Modification $modification
+     * @param FleetShip $fleetShip
+     * @return \Illuminate\Http\JsonResponse|void
+     */
     private function applyRuleRefit(Modification $modification, FleetShip $fleetShip) {
         switch ($modification->action) {
             case 'add':
@@ -265,5 +330,139 @@ class RefitService
                 Log::error($message);
                 return response()->json(['error' => $message], 500);
         }
+    }
+
+    /**
+     * Remove refit that overrides ship's default stats
+     *
+     * @param FleetShip $fleetShip
+     * @param Modification $modification
+     * @param Ship $ship
+     * @return void
+     */
+    private function removeShipRefit(Modification $modification, FleetShip $fleetShip, Ship $ship): void
+    {
+        switch ($modification->action) {
+            case 'modify':
+                $fleetShip->{$modification->module} = $ship->{$modification->module};
+                $fleetShip->save();
+                break;
+            default:
+                $message = "Something went wrong. Refit cannot be applied, unknown refit action. fleet_ship_id: " . $fleetShip->id . "; modification_id: " . $modification->id . ";";
+                Log::error($message);
+                response()->json(['error' => $message], 500);
+        }
+    }
+
+    /**
+     * Remove refit that overrides/extends ship's default armaments
+     *
+     * @param FleetShip $fleetShip
+     * @param Modification $modification
+     * @param Ship $ship
+     * @return void
+     */
+    private function removeArmRefit(Modification $modification, FleetShip $fleetShip): void
+    {
+        switch ($modification->action) {
+            case 'add':
+                $resultArmData = json_decode($modification->value, true);
+
+                $fleetShip->armamentRefits()
+                    ->whereNull('ship_armament_id')
+                    ->where([
+                        'type' => $resultArmData['type'],
+                        'placement' => $resultArmData['placement'],
+                    ])
+                    ->delete();
+                break;
+            case 'remove':
+                $targetArmData = json_decode($modification->module, true);
+                $targetArms = $this->getTargetArmaments($fleetShip, $targetArmData);
+
+                foreach ($targetArms as $targetArm) {
+                    $fleetShip->armamentRefits()
+                        ->where([
+                            'ship_armament_id' => $targetArm->pivot->id,
+                            'type' => '_removed',
+                        ])
+                        ->delete();
+                }
+                break;
+            case 'modify':
+                $targetArmData = json_decode($modification->module, true);
+                $targetArms = $this->getTargetArmaments($fleetShip, $targetArmData);
+
+                foreach ($targetArms as $targetArm) {
+                    $fleetShip->armamentRefits()
+                        ->where([
+                            'ship_armament_id' => $targetArm->pivot->id,
+                            'type' => $targetArm->type,
+                            'placement' => $targetArm->placement,
+                        ])
+                        ->delete();
+                }
+                break;
+            case 'replace':
+                $targetArmData = json_decode($modification->module, true);
+                $resultArmData = json_decode($modification->value, true);
+                $targetArms = $this->getTargetArmaments($fleetShip, $targetArmData);
+
+                foreach ($targetArms as $targetArm) {
+                    $fleetShip->armamentRefits()
+                        ->where([
+                            'ship_armament_id' => $targetArm->pivot->id,
+                            'type' => $resultArmData['type'],
+                            'placement' => $resultArmData['placement'],
+                        ])
+                        ->delete();
+                }
+                break;
+            default:
+                $message = "Something went wrong. Refit cannot be applied, unknown refit action. fleet_ship_id: " . $fleetShip->id . "; modification_id: " . $modification->id . ";";
+                Log::error($message);
+                response()->json(['error' => $message], 500);
+        }
+    }
+
+    /**
+     * Remove refit that extends ship's default rules
+     *
+     * @param Modification $modification
+     * @param FleetShip $fleetShip
+     * @return \Illuminate\Http\JsonResponse|void
+     */
+    private function removeRuleRefit(Modification $modification, FleetShip $fleetShip) {
+        switch ($modification->action) {
+            case 'add':
+                $refit = Refit::findOrFail($modification->refit_id);
+
+                $fleetShip->additionalRules()
+                    ->where([
+                        'text' => $modification->value,
+                        'text_long' => $refit->text_long,
+                    ])
+                    ->delete();
+                break;
+            default:
+                $message = "Something went wrong. Refit cannot be applied, unknown refit action. fleet_ship_id: " . $fleetShip->id . "; modification_id: " . $modification->id . ";";
+                Log::error($message);
+                return response()->json(['error' => $message], 500);
+        }
+    }
+
+    /**
+     * Fetch applied refits based on fleet_ship_id and set it as relation for Ship object
+     *
+     * @param Ship $ship
+     * @return Ship
+     */
+    public function loadAppliedRefits(Ship $ship): Ship // TODO: research if this can be eager loaded somehow through eloquent relations to remove this method
+    {
+        $appliedRefits = AppliedRefit::where('fleet_ship_id', $ship->pivot->id)->get();
+
+        $ship->setRelation('appliedRefits', $appliedRefits);
+
+        return $ship;
     }
 }

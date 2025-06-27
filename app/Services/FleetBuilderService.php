@@ -100,6 +100,7 @@ class FleetBuilderService
     private function prepareShip(Ship $ship, bool $applyOrder): Ship
     {
         $ship = $this->refitService->rebuildRefitRelation($ship);
+        $ship = $this->refitService->loadAppliedRefits($ship);
         $ship = $this->armamentService->rebuildArmRelation($ship);
         $ship = $this->ruleService->rebuildRuleRelation($ship);
 
