@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rules extends Model
 {
-    use HasFactory;
     public $timestamps = false;
 
     //Relations

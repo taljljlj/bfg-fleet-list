@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class FleetList extends Model
 {
-    use HasFactory;
-
     public $timestamps = false;
 
     //Relations
@@ -18,7 +16,7 @@ class FleetList extends Model
     }
 
     public function ships() {
-        return $this->belongsToMany(Ship::class, 'fleetlist_ship');
+        return $this->belongsToMany(Ship::class, 'fleet_list_ship');
     }
 
 

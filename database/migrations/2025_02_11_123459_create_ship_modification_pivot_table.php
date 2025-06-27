@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fleet_list_ship', function (Blueprint $table) {
+        Schema::create('ship_modification', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('fleet_list_id')->constrained('fleet_lists');
             $table->foreignId('ship_id')->constrained('ships');
-            $table->boolean('is_reserve')->default(false);
+            $table->foreignId('modification_id')->constrained('modifications');
+            $table->foreignId('ship_refit_id')->constrained('ship_refit');
+            $table->smallInteger('firepower')->nullable();
+            $table->smallInteger('range_speed')->nullable();
+            $table->string('misc')->nullable();
         });
     }
 
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fleet_list_ship');
+        Schema::dropIfExists('ship_modification');
     }
 };

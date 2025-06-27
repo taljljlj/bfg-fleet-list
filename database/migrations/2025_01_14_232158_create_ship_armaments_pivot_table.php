@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('armament_id')->constrained('armaments');
             $table->integer('range_speed')->nullable();
             $table->integer('firepower');
+            $table->string('misc')->nullable();
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ship_armaments_pivot');
+        Schema::dropIfExists('ship_armament');
     }
 };

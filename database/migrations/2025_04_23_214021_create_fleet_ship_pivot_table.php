@@ -16,8 +16,11 @@ return new class extends Migration
             $table->foreignId('fleet_id')->constrained('fleets');
             $table->foreignId('ship_id')->constrained('ships');
             $table->smallInteger('points');
-            //TODO: probably need to extend this pivot table with other attributes from ship table,
-            // at least those that can be modified with refits and similar
+            $table->smallInteger('speed')->nullable();
+            $table->smallInteger('turns')->nullable();
+            $table->smallInteger('shields')->nullable();
+            $table->string('armour')->nullable();
+            $table->smallInteger('turrets')->nullable();
             $table->timestamps();
         });
     }

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FleetBuilderUtils;
 use App\Http\Requests\FleetBuilderFormRequest;
 use App\Models\Faction;
 use App\Models\Fleet;
 use App\Models\FleetList;
+use App\Models\FleetBuilder\FleetShip;
 use App\Models\Ship;
 use App\Services\FleetBuilderService;
+use App\Services\RefitService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,16 +23,18 @@ use Spatie\LaravelPdf\Facades\Pdf;
 class FleetBuilderController extends Controller
 {
     private FleetBuilderService $fleetBuilderService;
+    private RefitService $refitService;
 
     /**
      * @param FleetBuilderService $fleetBuilderService
+     * @param RefitService $refitService
      */
-    public function __construct(FleetBuilderService $fleetBuilderService) {
+    public function __construct(FleetBuilderService $fleetBuilderService, RefitService $refitService) {
         $this->fleetBuilderService = $fleetBuilderService;
-    }
+        $this->refitService = $refitService;}
 
     /**
-     * First step in opening fleet builder - creating a new fleet
+     * The first step in opening fleet builder - creating a new fleet
      * Redirects to fleet builder page
      * @return RedirectResponse
      */
@@ -80,13 +85,7 @@ class FleetBuilderController extends Controller
         //If fleet has attached ships return full list and assign order for frontend
         $ships = null;
         if ($fleet->ships()->exists()) {
-            $ships = $fleet->ships()->with(['armaments', 'rules'])->withPivot('id')->get();
-            $shipOrder = $this->fleetBuilderService->shipTypeOrder;
-
-            foreach ($ships as $ship) {
-                $ship->order = $shipOrder[$ship->type];
-                $ship->pivot_id = $ship->pivot->id;
-            }
+            $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true);
         }
 
         return view('pages.fleet-builder', compact(
@@ -161,12 +160,27 @@ class FleetBuilderController extends Controller
 
     public function attachShipToFleet(Fleet $fleet, Ship $ship) : JsonResponse
     {
-        $ship->load(['armaments', 'rules']);
+        //Prepare Ship object
+        $ship->load(['armaments', 'rules', 'refitParents', 'modifications']);
+        $ship = $this->refitService->rebuildRefitRelation($ship);
+
+        //Prepare ship profile vars
         $shipOrder = $this->fleetBuilderService->shipTypeOrder[$ship->type];
         $shipPoints = $ship->points;
 
-        $fleet->ships()->attach($ship, ['points' => $shipPoints]);
-        $fleet->points = $this->fleetBuilderService->calculateFleetPoints($fleet, $shipPoints);
+        //Update fleet
+        $fleet->ships()->attach(
+            $ship,
+            [
+                'points' => $shipPoints,
+                'speed' => $ship->speed,
+                'turns' => $ship->turns,
+                'shields' => $ship->shields,
+                'armour' => $ship->armour,
+                'turrets' => $ship->turrets
+            ]
+        );
+        $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $shipPoints);
         $fleet->save();
 
         //Get last attached ship id for frontend data attribute
@@ -175,8 +189,7 @@ class FleetBuilderController extends Controller
             ->where('ship_id', $ship->id)
             ->latest('id')
             ->first();
-        $ship->pivot_id = $shipPivot->id;
-
+        $ship->setRelation('pivot', $shipPivot);
 
         return response()->json([
             'message' => 'Ship added to fleet.',
@@ -192,7 +205,7 @@ class FleetBuilderController extends Controller
             ->first();
 
         $shipPoints = $shipPivot->points;
-        $fleet->points = $this->fleetBuilderService->calculateFleetPoints($fleet, -($shipPoints));
+        $fleet->points = FleetBuilderUtils::calculatePoints($fleet, -($shipPoints));
         $fleet->save();
 
         $fleet->ships()->newPivotStatement()
@@ -205,7 +218,53 @@ class FleetBuilderController extends Controller
         ]);
     }
 
+    public function refitShip(Fleet $fleet, FleetShip $fleetShip, Request $request) : JsonResponse
+    {
+        $selectedRefits = $request->get('selected-refits');
+
+        $syncResult = $fleetShip->appliedRefits()->sync($selectedRefits);
+
+        $refittedSections = $this->refitService->handleAppliedRefits($syncResult, $fleetShip, $fleet);
+
+        $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $fleetShip->id), false, true);
+
+        $htmlData = [];
+        if ($refittedSections['shipModified']) {
+            //render the ship stats component and return to the frontend
+            $htmlData['stats'] = View::make(
+                'components.fleet-builder.ship-profile-sections.ship-profile-stats-section',
+                [ 'ship' => $ship ]
+            )->render();
+        }
+        if ($refittedSections['armModified']) {
+            //render the armament table component and return to the frontend
+            $htmlData['armaments'] = View::make(
+                'components.fleet-builder.ship-profile-sections.ship-profile-armaments-section',
+                [ 'armaments' => $ship->armaments ]
+            )->render();
+        }
+        if ($refittedSections['ruleModified']) {
+            //render the rule list component and return to the frontend
+            $htmlData['rules'] = View::make(
+                'components.fleet-builder.ship-profile-sections.ship-profile-rules-section',
+                [ 'rules' => $ship->rules ]
+            )->render();
+        }
+
+        $points = [
+            'fleet' => $fleet->points,
+            'ship' => $ship->pivot->points,
+        ];
+
+        return response()->json([
+            'htmlData' => $htmlData,
+            'refittedSections' => $refittedSections,
+            'pointsData' => $points
+        ]);
+    }
+
     public function getFleetAsPdf(Fleet $fleet)
+
     {
         try {
             $shipsGrouped = $fleet->ships()->withPivot('points')->with(['armaments', 'rules'])->get()->groupBy('type');
