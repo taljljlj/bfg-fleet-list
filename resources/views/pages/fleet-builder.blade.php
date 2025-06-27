@@ -448,6 +448,14 @@
             }
         }
 
+        //update ship points
+        function updateShipPoints(shipProfileElement, value) {
+            console.log(shipProfileElement);
+            let pointsInput = shipProfileElement.querySelector('input[name=cardShipPts]');
+            pointsInput.value = value;
+            console.log(pointsInput);
+        }
+
         exportPdfBtn.addEventListener('click', function () {
             //Export PDF Ajax
             exportPdf();

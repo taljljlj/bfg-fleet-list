@@ -31,7 +31,7 @@ class FleetBuilderService
         'Defence' => 7
     ];
 
-    private function sortShips($ships)
+    public function sortShips($ships)
 
     {
         $customOrder = $this->shipTypeOrder;
