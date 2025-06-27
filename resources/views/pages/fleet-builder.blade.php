@@ -58,7 +58,7 @@
         </div>
         <div class="fleet-actions">
 {{-- TODO: <a> for pdf testing, remove after pdf export fully completed --}}
-            <a href="{{ route('test.fleet.export-pdf', ['faction' => 1, 'fleetList' => 1]) . '?ships%5B0%5D%5Bid%5D=2&ships%5B0%5D%5Border%5D=1&ships%5B0%5D%5Bname%5D=&ships%5B0%5D%5Bpoints%5D=365&ships%5B0%5D%5Bld%5D=&ships%5B1%5D%5Bid%5D=20&ships%5B1%5D%5Border%5D=4&ships%5B1%5D%5Bname%5D=&ships%5B1%5D%5Bpoints%5D=180&ships%5B1%5D%5Bld%5D=&ships%5B2%5D%5Bid%5D=20&ships%5B2%5D%5Border%5D=4&ships%5B2%5D%5Bname%5D=&ships%5B2%5D%5Bpoints%5D=180&ships%5B2%5D%5Bld%5D=&ships%5B3%5D%5Bid%5D=18&ships%5B3%5D%5Border%5D=4&ships%5B3%5D%5Bname%5D=&ships%5B3%5D%5Bpoints%5D=185&ships%5B3%5D%5Bld%5D=' }}">Test Pdf</a>
+            <a href="{{ route('test.fleet.export-pdf', $fleet) }}">Test Pdf</a>
             <button id="exportPdf" class="export-btn">Export PDF</button>
             <button id="exportUrl" class="export-btn">Share URL</button>
             <button id="exportStore" class="export-btn">Save</button>
@@ -91,11 +91,6 @@
         var points = document.getElementById('points');
         var exportPdfBtn = document.getElementById('exportPdf');
 
-        //Reset session on page load
-        document.addEventListener('DOMContentLoaded', function(){
-            sessionStorage.clear();
-        })
-
         //Faction selection event listener
         factions.forEach(faction => {
             faction.addEventListener('click', function () {
@@ -108,7 +103,6 @@
 
                 //Submit faction via ajax
                 let factionId = this.getAttribute('data-faction-id');
-                sessionStorage.setItem('factionId', factionId);
                 submitFaction(factionId);
             });
         });
@@ -207,7 +201,6 @@
 
                 fleetListDropdownSelected.innerHTML = fleetListName;
 
-                sessionStorage.setItem('fleetListId', fleetListId);
                 submitFleetList(fleetListId);
             }
         })
@@ -455,59 +448,16 @@
             }
         }
 
-        //update ship points
-        function updateShipPoints(shipProfileElement, value) {
-            console.log(shipProfileElement);
-            let pointsInput = shipProfileElement.querySelector('input[name=cardShipPts]');
-            pointsInput.value = value;
-            console.log(pointsInput);
-        }
-
-        exportPdfBtn.addEventListener('click', function (e) {
-            let factionId = sessionStorage.getItem('factionId');
-            let fleetListId = sessionStorage.getItem('fleetListId');
-
-            if(factionId && fleetListId) {
-                //Prepare ship data
-                let shipElements = shipCardContainer.querySelectorAll('.card-ship');
-                let shipsData = [];
-
-                shipElements.forEach(ship => {
-                    let data = []
-                    data['id'] = ship.getAttribute('data-id');
-                    data['order'] = ship.style.order;
-                    data['name'] = ship.querySelector('[name="cardShipName"]').value;
-                    data['points'] = ship.querySelector('[name="cardShipPts"]').value;
-                    data['ld'] = ship.querySelector('[name="cardShipLd"]').value;
-
-                    shipsData.push(data);
-                });
-                let shipsParams = toQueryParams(shipsData);
-
-                //Export PDF Ajax
-                exportPdf(factionId, fleetListId, shipsParams);
-            } else {
-                console.log('Please select a Faction and Fleet List!');
-            }
+        exportPdfBtn.addEventListener('click', function () {
+            //Export PDF Ajax
+            exportPdf();
         })
 
-        function toQueryParams(array) {
-            const params = new URLSearchParams();
-
-            array.forEach((data, index) => {
-                Object.keys(data).forEach(key => {
-                    params.append(`ships[${index}][${key}]`, data[key]);
-                });
-            });
-
-            return params.toString();
-        }
-
-        function exportPdf(factionId, fleetListId, shipsParams) {
-            fetch(`/api/export/${factionId}/${fleetListId}?${shipsParams}`, {
+        function exportPdf() {
+            fetch(`/api/${pageData.fleetId}/export-pdf/`, {
                 method: 'GET',
                 headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': pageData.csrf
                 }
             })
                 .then(response => {
