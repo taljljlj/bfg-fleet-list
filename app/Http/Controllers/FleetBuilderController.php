@@ -225,34 +225,40 @@ class FleetBuilderController extends Controller
 
         $refittedSections = $this->refitService->handleAppliedRefits($syncResult, $fleetShip, $fleet);
 
-        $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('fleet_ship_id', $fleetShip->id), false, true);
+        $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $fleetShip->id), false, true);
 
         $htmlData = [];
         if ($refittedSections['shipModified']) {
             //render the ship stats component and return to the frontend
-            $htmlData['shipStats'] = View::make(
+            $htmlData['stats'] = View::make(
                 'components.fleet-builder.ship-profile-sections.ship-profile-stats-section',
                 [ 'ship' => $ship ]
             )->render();
         }
         if ($refittedSections['armModified']) {
             //render the armament table component and return to the frontend
-            $htmlData['shipArmaments'] = View::make(
+            $htmlData['armaments'] = View::make(
                 'components.fleet-builder.ship-profile-sections.ship-profile-armaments-section',
-                [ 'ship' => $fleetShip ]
+                [ 'armaments' => $ship->armaments ]
             )->render();
         }
         if ($refittedSections['ruleModified']) {
             //render the rule list component and return to the frontend
-            $htmlData['shipStats'] = View::make(
-                'components.fleet-builder.ship-profile-sections.ship-profile-stats-section',
-                [ 'ship' => $fleetShip ]
+            $htmlData['rules'] = View::make(
+                'components.fleet-builder.ship-profile-sections.ship-profile-rules-section',
+                [ 'rules' => $ship->rules ]
             )->render();
         }
+
+        $points = [
+            'fleet' => $fleet->points,
+            'ship' => $ship->pivot->points,
+        ];
 
         return response()->json([
             'htmlData' => $htmlData,
             'refittedSections' => $refittedSections,
+            'pointsData' => $points
         ]);
     }
 

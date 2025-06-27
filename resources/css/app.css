@@ -703,6 +703,8 @@ img {
     box-sizing: border-box;
     width: 100%;
     height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #fleetBuilderBody .section.section-right .card-ship .card-ship-stats {

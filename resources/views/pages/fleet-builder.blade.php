@@ -129,7 +129,7 @@
             clearShipCards();
 
             //Reset fleet total points
-            updatePoints(null, true);
+            updateFleetPoints(null, true);
 
             //Clear ship list
             fleetListChangeClear();
@@ -233,7 +233,7 @@
                     updateShipList(data);
 
                     if(data.excludedShipsData) {
-                        updatePoints(data.excludedShipsData.points, false);
+                        updateFleetPoints(data.excludedShipsData.points, false);
 
                         let excludedShipIds = data.excludedShipsData.shipIds;
                         for(let i=0;i<excludedShipIds.length;i++) {
@@ -301,11 +301,10 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    //TODO: 2 chained ajax request are going to be needed here, 1st to get ships data, then apply modifiers (based on fleet-list or faction) to data, 2nd get blade component populated with data return HTML. go straight for the 2nd request in initial implementation before developing custom fleet list logic, conditions and modifiers
                     shipCardContainer.innerHTML += data.html;
 
                     //Update points counter with default ship points value
-                    updatePoints(data.points, false);
+                    updateFleetPoints(data.points, false);
 
                     //Remove loading overlay after data is processed
                     toggleLoadingOverlay(false);
@@ -342,9 +341,10 @@
                 if(refitsContainer && refitsContainer.classList.contains('card-ship-refit-container')) {
                     //Process and apply refits to ship
                     if(!refitsContainer.classList.contains('collapsed')) {
+                        toggleLoadingOverlay(true);
                         let selectedRefits = processRefits(refitsContainer);
 
-                        applyRefits(shipPivotId, selectedRefits);
+                        applyRefits(shipPivotId, selectedRefits, shipProfileElement);
                     }
 
                     //Toggle refits panel
@@ -368,7 +368,7 @@
                     shipProfileElement.remove();
 
                     //Update points, subtract current ship's point value from total
-                    updatePoints(data.points, false);
+                    updateFleetPoints(data.points, false);
 
                     //Remove loading overlay after data is processed
                     toggleLoadingOverlay(false);
@@ -400,7 +400,7 @@
             return selectedRefits;
         }
 
-        function applyRefits(shipPivotId, selectedRefits) {
+        function applyRefits(shipPivotId, selectedRefits, shipProfileElement) {
             fetch(`/api/${pageData.fleetId}/ship-refit/${shipPivotId}`, {
                 method: 'PATCH',
                 headers: {
@@ -411,6 +411,28 @@
             })
                 .then(response => response.json())
                 .then(data => {
+                    let refittedSections = data.refittedSections;
+                    let htmlData = data.htmlData;
+                    let pointsData = data.pointsData;
+                    console.log(pointsData);
+
+                    // Reload component if section is flagged as modified
+                    if(refittedSections.shipModified) {
+                        let statsSection = shipProfileElement.querySelector('.ship-stats-section-container');
+                        statsSection.innerHTML =  htmlData.stats;
+                    }
+                    if(refittedSections.armModified) {
+                        let armsSection = shipProfileElement.querySelector('.ship-armaments-section-container');
+                        armsSection.innerHTML =  htmlData.armaments;
+                    }
+                    if(refittedSections.ruleModified) {
+                        let rulesSection = shipProfileElement.querySelector('.ship-rules-section-container');
+                        rulesSection.innerHTML =  htmlData.rules;
+                    }
+
+                    updateShipPoints(shipProfileElement, pointsData.ship);
+                    updateFleetPoints(pointsData.fleet, false);
+
                     toggleLoadingOverlay(false);
                 })
                 .catch(error => {
@@ -423,14 +445,22 @@
         }
 
         //Update fleet total points
-        function updatePoints(value, reset) {
+        function updateFleetPoints(value, reset = false) {
             if(reset) {
                 //Reset points
                 points.innerText = 0;
             } else {
-                //Add/subtract points
+                //Set points value
                 points.innerText = value;
             }
+        }
+
+        //update ship points
+        function updateShipPoints(shipProfileElement, value) {
+            console.log(shipProfileElement);
+            let pointsInput = shipProfileElement.querySelector('input[name=cardShipPts]');
+            pointsInput.value = value;
+            console.log(pointsInput);
         }
 
         exportPdfBtn.addEventListener('click', function (e) {
