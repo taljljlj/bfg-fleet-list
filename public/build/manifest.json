@@ -1,0 +1,33 @@
+{
+  "public/images/fleet-builder-bg-2.jpg": {
+    "file": "assets/fleet-builder-bg-2-xhXNMud3.jpg",
+    "src": "public/images/fleet-builder-bg-2.jpg"
+  },
+  "public/images/fleet-builder/firearc-f.png": {
+    "file": "assets/firearc-f-BAQF4mJ7.png",
+    "src": "public/images/fleet-builder/firearc-f.png"
+  },
+  "public/images/fleet-builder/firearc-lfr.png": {
+    "file": "assets/firearc-lfr-mhTrzfoE.png",
+    "src": "public/images/fleet-builder/firearc-lfr.png"
+  },
+  "public/images/fleet-builder/firearc-lr.png": {
+    "file": "assets/firearc-lr-BceOqqnT.png",
+    "src": "public/images/fleet-builder/firearc-lr.png"
+  },
+  "public/images/header-bg.jpg": {
+    "file": "assets/header-bg-Djej8BmF.jpg",
+    "src": "public/images/header-bg.jpg"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-A2PdKRW3.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-Xaw6OIO1.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}
