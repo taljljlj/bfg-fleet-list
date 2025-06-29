@@ -30,6 +30,14 @@ img {
     max-height: 100%;
 }
 
+input[type="checkbox"]:disabled {
+    cursor: not-allowed;
+}
+
+label:has(> input[type="checkbox"]:disabled) {
+    cursor: not-allowed !important;
+}
+
 /* =================== */
 /*      BFG Header     */
 /* =================== */

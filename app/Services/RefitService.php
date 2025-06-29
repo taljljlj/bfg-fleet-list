@@ -34,7 +34,7 @@ class RefitService
             if(!empty($refit->children)) {
                 foreach ($refit->children as $child) {
                     $childObj = $ship->refits->where('name', $child->name)->first();
-                    $child->pivot->points = $childObj->pivot->points;
+                    $child->setRelation('pivot', $childObj->pivot);
                     $childShipRefitId = $childObj->pivot->id;
                     $childRefitModifications = $this->filterModifications($modifications, $childShipRefitId);
                     $child->setRelation('modifications', $childRefitModifications);
