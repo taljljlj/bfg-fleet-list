@@ -161,7 +161,7 @@ class FleetBuilderController extends Controller
     public function attachShipToFleet(Fleet $fleet, Ship $ship) : JsonResponse
     {
         //Prepare Ship object
-        $ship->load(['armaments', 'rules', 'refitParents', 'modifications']);
+        $ship->load(['armaments', 'rules', 'refits', 'modifications']);
         $ship = $this->refitService->rebuildRefitRelation($ship);
 
         //Prepare ship profile vars
