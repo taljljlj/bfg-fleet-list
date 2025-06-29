@@ -28,15 +28,22 @@ class RefitService
         $modifications = $ship->modifications;
         $ship->unsetRelation('modifications');
 
+        $refits = $ship->refits;
 
-        foreach ($ship->refitParents as $refit) {
-            //Find and set points pivot for children refits manually due to limitations of eloquent
+        foreach ($refits as $refit) {
+            //Find and set pivot for children refits manually due to limitations of eloquent
             if(!empty($refit->children)) {
                 foreach ($refit->children as $child) {
-                    $childObj = $ship->refits->where('name', $child->name)->first();
-                    $child->setRelation('pivot', $childObj->pivot);
-                    $childShipRefitId = $childObj->pivot->id;
-                    $childRefitModifications = $this->filterModifications($modifications, $childShipRefitId);
+                    $childFromShipRefits = $refits->where('id', $child->id)->first();
+                    $refits = $refits->reject(function ($refit) use ($childFromShipRefits) {
+                        return $childFromShipRefits->id === $refit->id;
+                    });
+
+
+                    $child->setRelation('pivot', $childFromShipRefits->pivot);
+
+
+                    $childRefitModifications = $this->filterModifications($modifications, $child->pivot->id);
                     $child->setRelation('modifications', $childRefitModifications);
                 }
             }
@@ -46,6 +53,9 @@ class RefitService
             $refitModifications = $this->filterModifications($modifications, $shipRefitId);
             $refit->setRelation('modifications', $refitModifications);
         }
+
+        $ship->setRelation('refits', $refits);
+
 
         return $ship;
     }
@@ -159,6 +169,7 @@ class RefitService
                     case 'ship':
                         $this->removeShipRefit($modification, $fleetShip, $ship);
                         $shipModified = true;
+                        break;
                     case 'arm':
                         $this->removeArmRefit($modification, $fleetShip);
                         $armModified = true;

@@ -33,6 +33,7 @@ class Ship extends Model
 
     public function refits() {
         return $this->belongsToMany(Refit::class, 'ship_refit', 'ship_id', 'refit_id')
+            ->with('children')
             ->withPivot('id', 'points');
     }
 

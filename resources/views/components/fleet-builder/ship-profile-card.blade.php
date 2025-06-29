@@ -22,14 +22,14 @@
     <div class="card-body thin-font">
         <div class="card-section-t">
             <div class="card-subsec-l">
-                @if($ship->refitParents->isNotEmpty())
+                @if($ship->refits->isNotEmpty())
                     <div class="card-ship-refit-btn collapsed">
                         <img class="refit-icon" src="{{ asset('images/fleet-builder/refit-icon.png') }}" alt="Refit Icon">
                         <img class="apply-icon" src="{{ asset('images/fleet-builder/apply-icon.png') }}" alt="Refit Icon">
                     </div>
                     <div class="card-ship-refit-container collapsed">
                         <ul>
-                        @foreach($ship->refitParents as $refit)
+                        @foreach($ship->refits as $refit)
                             <li class="ship-refit">
                                 <label>
                                     <input type="checkbox" name="{{ $refit->name }}" data-refit-pivot-id="{{ $refit->pivot->id }}" {{ (!empty($ship->appliedRefits) && $ship->appliedRefits->contains('ship_refit_id', $refit->pivot->id)) ? 'checked' : '' }}>
