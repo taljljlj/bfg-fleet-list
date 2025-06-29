@@ -36,22 +36,9 @@ class Ship extends Model
             ->with('children')
             ->withPivot('id', 'points');
     }
-
-    public function refitParents() {
-        return $this->belongsToMany(Refit::class, 'ship_refit', 'ship_id', 'refit_id')
-            ->whereDoesntHave('parents')
-            ->with('children')
-            ->withPivot('id', 'points');
-    }
     public function fleets() {
         return $this->belongsToMany(Fleet::class, 'fleet_ship')->using(FleetShip::class)->withTimestamps();
     }
-
-
-//      Relation removed
-//    public function faction() {
-//        return $this->belongsTo(Faction::class);
-//    }
 
     //Accessors
     public function getArmourShortAttribute() {
