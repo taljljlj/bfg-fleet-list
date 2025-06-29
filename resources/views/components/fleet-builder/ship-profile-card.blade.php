@@ -58,7 +58,7 @@
                                         @foreach($refit->children as $child)
                                             <li class="ship-refit">
                                                 <label>
-                                                    <input type="checkbox" name="{{ $child->name }}">
+                                                    <input type="checkbox" name="{{ $child->name }}" data-refit-pivot-id="{{ $child->pivot->id }}" {{ (!empty($ship->appliedRefits) && $ship->appliedRefits->contains('ship_refit_id', $child->pivot->id)) ? 'checked' : '' }} {{ (!empty($ship->appliedRefits) && $ship->appliedRefits->contains('ship_refit_id', $refit->pivot->id)) ? '' : 'disabled' }}>
                                                     {{ $child->text }}
                                                     <span class="tooltip">{{ $child->text_long }}</span>
                                                     <span> ({{ $child->pivot->points }}pts)</span>

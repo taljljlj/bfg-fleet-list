@@ -437,6 +437,29 @@
                 });
         }
 
+        // Disable/enable & uncheck refit children checkboxes if parent is (un)checked
+        document.addEventListener('change', function (event) {
+            let parentCheckbox = event.target;
+
+            // Check if this is a parent checkbox
+            if (parentCheckbox.matches('.ship-refit > label > input[type="checkbox"]')) {
+                let childList = parentCheckbox.closest('li.ship-refit')?.querySelector('.ship-refits-children');
+                if (childList) {
+                    let isChecked = parentCheckbox.checked;
+
+                    childList.querySelectorAll('input[type="checkbox"]').forEach(child => {
+                        // Toggle disabled attribute on child
+                        child.disabled = !isChecked;
+
+                        // Uncheck child if parent is unchecked
+                        if(!isChecked) {
+                            child.checked = false;
+                        }
+                    });
+                }
+            }
+        });
+
         //Update fleet total points
         function updateFleetPoints(value, reset = false) {
             if(reset) {
