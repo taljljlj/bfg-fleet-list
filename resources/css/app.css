@@ -38,6 +38,22 @@ label:has(> input[type="checkbox"]:disabled) {
     cursor: not-allowed !important;
 }
 
+input {
+    font-family: "Pathway Gothic One", sans-serif;
+}
+
+/* Chrome, Safari, Edge */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 /* =================== */
 /*      BFG Header     */
 /* =================== */
@@ -509,6 +525,7 @@ label:has(> input[type="checkbox"]:disabled) {
 #fleetBuilderBody .section.section-right .card-ship .heading {
     font-size: 22px;
     font-weight: 400;
+    z-index: 1;
 }
 
 #fleetBuilderBody .section.section-right .card-ship input {
@@ -542,8 +559,51 @@ label:has(> input[type="checkbox"]:disabled) {
     text-shadow: 0 0 10px #c8c5dc;
 }
 
-#fleetBuilderBody .section.section-right .card-ship .card-ship-ld input {
-    width: 30px;
+#fleetBuilderBody .section.section-right .card-ship .card-ship-ld input,
+#fleetBuilderBody .section.section-right .card-ship .card-ship-amount input {
+    width: 25px;
+}
+
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-ld .ship-escort-ld {
+    width: 100px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-amount {
+    position: absolute;
+    align-items: center;
+    background: linear-gradient(to bottom, transparent 0%, #506d88 30%);
+    z-index: -1;
+    border-radius: 5px;
+    top: 24px;
+    left: 90px;
+    padding: 3px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-amount p {
+    font-size: 32px;
+    padding: 0;
+    margin: 0;
+    line-height: 13px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-amount input {
+    height: 18px;
+    width: 20px;
+    font-size: 18px;
+}
+
+#fleetBuilderBody .section.section-right .card-ship .card-ship-amount button {
+    background: transparent;
+    border: none;
+    color: #c8c5dc;
+    cursor: pointer;
+    width: 12px;
+    height: 18px;
+    padding: 0;
+    font-size: 18px;
+    font-family: League Gothic, sans-serif;
+    font-weight: 800;
 }
 
 #fleetBuilderBody .section.section-right .card-ship .card-body {

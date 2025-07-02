@@ -37,12 +37,12 @@
         <div class="section-subsection last">
             <ul id="shipList">
                 @if($shipList)
-                    @foreach($shipList as $type=>$shipsLi)
+                    @foreach($shipList as $type=>$shipGroup)
                         <li class="ship-type-group collapsed">
                             <h4 class="ship-type-group-title">{{ $type }}s<span class="caret-icon"><img src="{{ asset('images/caret-icon.png') }}" alt="caret-icon"></span></h4>
                             <ul class="ship-type-container thin-font">
-                                @foreach($shipsLi as $shipLi)
-                                    <li><span class="ship-class">{{ $shipLi->class }}</span> <span class="ship-pts">{{ $shipLi->points }}</span> <span class="ship-add-btn" data-ship-id="{{ $shipLi->id }}"><img src="{{ asset('images/add-ship-icon.png') }}" alt="Add Ship Icon"></span></li>
+                                @foreach($shipGroup as $shipItem)
+                                    <li><span class="ship-class">{{ $shipItem->class }}{{ $shipItem->type === 'Escort' ? ' Squadron' : '' }}</span> <span class="ship-pts">{{ $shipItem->points }}</span> <span class="ship-add-btn" data-ship-id="{{ $shipItem->id }}"><img src="{{ asset('images/add-ship-icon.png') }}" alt="Add Ship Icon"></span></li>
                                 @endforeach
                             </ul>
                         </li>

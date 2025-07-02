@@ -11,6 +11,7 @@ class FleetShip extends Pivot
         static::deleting(function ($fleetShip) {
             $fleetShip->armamentRefits()->delete();
             $fleetShip->additionalRules()->delete();
+            $fleetShip->appliedRefits()->detach();
         });
 
     }
