@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Fleet;
+use App\Models\FleetBuilder\FleetShipArmament;
+use App\Models\FleetBuilder\FleetShipRule;
 use App\Models\FleetList;
 use App\Models\FleetBuilder\FleetShip;
 use App\Models\Ship;
@@ -111,5 +113,4 @@ class FleetBuilderService
 
         return $ship;
     }
-
 }
