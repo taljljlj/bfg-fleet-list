@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class FleetShip extends Pivot
 {
+    protected static function booted() {
+        // Cascade delete related objects
+        static::deleting(function ($fleetShip) {
+            $fleetShip->armamentRefits()->delete();
+            $fleetShip->additionalRules()->delete();
+        });
+
+    }
+
     //Relations
     public function appliedRefits() {
         return $this->belongsToMany(AppliedRefit::class, 'applied_refits', 'fleet_ship_id', 'ship_refit_id')->withTimestamps();

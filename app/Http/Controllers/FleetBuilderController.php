@@ -200,17 +200,14 @@ class FleetBuilderController extends Controller
 
     public function detachShipFromFleet(Fleet $fleet, int $shipPivotId) : JsonResponse
     {
-        $shipPivot = $fleet->ships()->newPivotStatement()
-            ->where('id', $shipPivotId)
-            ->first();
+        $fleetShip = FleetShip::findOrFail($shipPivotId);
 
-        $shipPoints = $shipPivot->points;
+        $shipPoints = $fleetShip->points;
+
+        $fleetShip->delete();
+
         $fleet->points = FleetBuilderUtils::calculatePoints($fleet, -($shipPoints));
         $fleet->save();
-
-        $fleet->ships()->newPivotStatement()
-            ->where('id', $shipPivotId)
-            ->delete();
 
         return response()->json([
             'message' => 'Ship removed from fleet.',
