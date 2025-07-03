@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\FleetBuilderUtils;
-use App\Http\Requests\FleetBuilderFormRequest;
 use App\Models\Faction;
 use App\Models\Fleet;
 use App\Models\FleetList;
@@ -12,9 +11,9 @@ use App\Models\Ship;
 use App\Services\FleetBuilderService;
 use App\Services\RefitService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Spatie\Browsershot\Browsershot;
@@ -99,7 +98,7 @@ class FleetBuilderController extends Controller
     }
 
     /**
-     * @param FleetBuilderFormRequest $request
+     * @param Fleet $fleet
      * @param Faction $faction
      * @return JsonResponse
      */
@@ -121,7 +120,8 @@ class FleetBuilderController extends Controller
     }
 
     /**
-     * @param FleetBuilderFormRequest $request
+     * @param Fleet $fleet
+     * @param FleetList $fleetList
      * @return JsonResponse
      */
     public function setFleetList(Fleet $fleet, FleetList $fleetList) : JsonResponse
@@ -158,6 +158,11 @@ class FleetBuilderController extends Controller
         ]);
     }
 
+    /**
+     * @param Fleet $fleet
+     * @param Ship $ship
+     * @return JsonResponse
+     */
     public function attachShipToFleet(Fleet $fleet, Ship $ship) : JsonResponse
     {
         //Prepare Ship object
@@ -177,16 +182,15 @@ class FleetBuilderController extends Controller
                 'turns' => $ship->turns,
                 'shields' => $ship->shields,
                 'armour' => $ship->armour,
-                'turrets' => $ship->turrets
+                'turrets' => $ship->turrets,
+                'squadron_counter' => ($ship->type == 'Escort') ? 1 : null
             ]
         );
         $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $shipPoints);
         $fleet->save();
 
         //Get last attached ship id for frontend data attribute
-        $shipPivot = $fleet->ships()->newPivotStatement()
-            ->select('id')
-            ->where('ship_id', $ship->id)
+        $shipPivot = FleetShip::where('ship_id', $ship->id)
             ->latest('id')
             ->first();
         $ship->setRelation('pivot', $shipPivot);
@@ -198,11 +202,20 @@ class FleetBuilderController extends Controller
         ]);
     }
 
+    /**
+     * @param Fleet $fleet
+     * @param int $shipPivotId
+     * @return JsonResponse
+     */
     public function detachShipFromFleet(Fleet $fleet, int $shipPivotId) : JsonResponse
     {
         $fleetShip = FleetShip::findOrFail($shipPivotId);
 
-        $shipPoints = $fleetShip->points;
+        if ($fleetShip->ships()->first()->type == 'Escort') {
+            $shipPoints = $fleetShip->squadron_points;
+        } else {
+            $shipPoints = $fleetShip->points;
+        }
 
         $fleetShip->delete();
 
@@ -215,6 +228,12 @@ class FleetBuilderController extends Controller
         ]);
     }
 
+    /**
+     * @param Fleet $fleet
+     * @param FleetShip $fleetShip
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function refitShip(Fleet $fleet, FleetShip $fleetShip, Request $request) : JsonResponse
     {
         $selectedRefits = $request->get('selected-refits');
@@ -260,8 +279,64 @@ class FleetBuilderController extends Controller
         ]);
     }
 
-    public function getFleetAsPdf(Fleet $fleet)
+    /**
+     * @param Fleet $fleet
+     * @param FleetShip $fleetShip
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateSquadronCounter(Fleet $fleet, FleetShip $fleetShip, Request $request) : JsonResponse
+    {
+        $counterValue = $request->get('squadron-counter');
 
+        $counterDiff = $counterValue - $fleetShip->squadron_counter;
+
+        $fleetShip->squadron_counter = $counterValue;
+        $fleetShip->save();
+
+        $pointDiff = $counterDiff * $fleetShip->points;
+        $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $pointDiff);
+        $fleet->save();
+
+        $points = [
+            'fleet' => $fleet->points,
+            'ship' => $fleetShip->squadron_points,
+        ];
+
+        return response()->json([
+            'pointsData' => $points
+        ]);
+    }
+
+    /**
+     * @param Fleet $fleet
+     * @param FleetShip $fleetShip
+     * @param Request $request
+     * @return Response|JsonResponse
+     */
+    public function updateShipCustomAttribute(Fleet $fleet, FleetShip $fleetShip, Request $request) : Response|JsonResponse
+    {
+        $attr = $request->get('attr');
+        $value = $request->get('value');
+        $shipPoints = $fleetShip->points;
+
+        $fleetShip->{$attr} = $value;
+        $fleetShip->save();
+
+        if ($attr == 'points') {
+            $pointDiff = $value - $shipPoints;
+            $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $pointDiff);
+            $fleet->save();
+
+            return response()->json([
+                'points' => $fleet->points
+            ]);
+        }
+
+        return response()->noContent();
+    }
+
+    public function getFleetAsPdf(Fleet $fleet)
     {
         try {
             $shipsGrouped = $fleet->ships()->withPivot('points')->with(['armaments', 'rules'])->get()->groupBy('type');

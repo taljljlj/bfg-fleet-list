@@ -37,12 +37,12 @@
         <div class="section-subsection last">
             <ul id="shipList">
                 @if($shipList)
-                    @foreach($shipList as $type=>$shipsLi)
+                    @foreach($shipList as $type=>$shipGroup)
                         <li class="ship-type-group collapsed">
                             <h4 class="ship-type-group-title">{{ $type }}s<span class="caret-icon"><img src="{{ asset('images/caret-icon.png') }}" alt="caret-icon"></span></h4>
                             <ul class="ship-type-container thin-font">
-                                @foreach($shipsLi as $shipLi)
-                                    <li><span class="ship-class">{{ $shipLi->class }}</span> <span class="ship-pts">{{ $shipLi->points }}</span> <span class="ship-add-btn" data-ship-id="{{ $shipLi->id }}"><img src="{{ asset('images/add-ship-icon.png') }}" alt="Add Ship Icon"></span></li>
+                                @foreach($shipGroup as $shipItem)
+                                    <li><span class="ship-class">{{ $shipItem->class }}{{ $shipItem->type === 'Escort' ? ' Squadron' : '' }}</span> <span class="ship-pts">{{ $shipItem->points }}</span> <span class="ship-add-btn" data-ship-id="{{ $shipItem->id }}"><img src="{{ asset('images/add-ship-icon.png') }}" alt="Add Ship Icon"></span></li>
                                 @endforeach
                             </ul>
                         </li>
@@ -316,7 +316,7 @@
             shipCardContainer.innerHTML = '';
         }
 
-        //Ship card events and functions
+        //Ship card click events and functions
         shipCardContainer.addEventListener('click', function (e) {
             let shipProfileElement = e.target.closest('.card-ship');
             let shipPivotId = shipProfileElement.getAttribute('data-pivot-id');
@@ -347,6 +347,7 @@
             }
         })
 
+        //Remove ship and it's data from db, update points
         function removeShip(shipPivotId, shipProfileElement) {
             fetch(`/api/${pageData.fleetId}/ship-remove/${shipPivotId}`, {
                 method: 'PATCH',
@@ -375,24 +376,21 @@
                 });
         }
 
+        //Handle selected refits for ship
         function processRefits(refitsContainer) {
             let refitInputs = refitsContainer.querySelectorAll('input');
             let selectedRefits = [];
 
             for(let i=0; i<refitInputs.length; i++) {
                 if(refitInputs[i].checked) {
-                    // let refitData = {
-                    //     'name' : refitInputs[i].name,
-                    //     'id' : refitInputs[i].getAttribute('data-refit-pivot-id')
-                    // };
                     selectedRefits.push(parseInt(refitInputs[i].getAttribute('data-refit-pivot-id'), 10));
-
                 }
             }
 
             return selectedRefits;
         }
 
+        //Apply and persist refits on backend, update points and ship profile sections with refitted data
         function applyRefits(shipPivotId, selectedRefits, shipProfileElement) {
             fetch(`/api/${pageData.fleetId}/ship-refit/${shipPivotId}`, {
                 method: 'PATCH',
@@ -407,7 +405,6 @@
                     let refittedSections = data.refittedSections;
                     let htmlData = data.htmlData;
                     let pointsData = data.pointsData;
-                    console.log(pointsData);
 
                     // Reload component if section is flagged as modified
                     if(refittedSections.shipModified) {
@@ -437,15 +434,18 @@
                 });
         }
 
-        // Disable/enable & uncheck refit children checkboxes if parent is (un)checked
-        document.addEventListener('change', function (event) {
-            let parentCheckbox = event.target;
+        //Ship card input change events and functions
+        document.addEventListener('change', function (e) {
+            // Disable/enable & uncheck refit children checkboxes if parent is (un)checked
+            let eventTarget = e.target;
+            let shipProfileElement = eventTarget.closest('.card-ship');
+            let shipPivotId = shipProfileElement.getAttribute('data-pivot-id');
 
             // Check if this is a parent checkbox
-            if (parentCheckbox.matches('.ship-refit > label > input[type="checkbox"]')) {
-                let childList = parentCheckbox.closest('li.ship-refit')?.querySelector('.ship-refits-children');
+            if (eventTarget.matches('.ship-refit > label > input[type="checkbox"]')) {
+                let childList = eventTarget.closest('li.ship-refit')?.querySelector('.ship-refits-children');
                 if (childList) {
-                    let isChecked = parentCheckbox.checked;
+                    let isChecked = eventTarget.checked;
 
                     childList.querySelectorAll('input[type="checkbox"]').forEach(child => {
                         // Toggle disabled attribute on child
@@ -458,7 +458,94 @@
                     });
                 }
             }
+            //Squadron counter listener
+            if(eventTarget.matches('.squadron-counter-input input[name="squadronCounter"]')) {
+                toggleLoadingOverlay(true);
+                let counterValue = eventTarget.value;
+                updateSquadronCounter(shipPivotId, counterValue, shipProfileElement);
+            }
+            //Ship/squadron name listener
+            if(eventTarget.matches('input[name="cardShipName"]')) {
+                toggleLoadingOverlay(true);
+                let value = eventTarget.value;
+                let attr = 'name';
+                updateShipCustomAttribute(shipPivotId, value, attr);
+            }
+
+            //Ship points listener
+            if(eventTarget.matches('input[name="cardShipPts"]')) {
+                toggleLoadingOverlay(true);
+                let value = eventTarget.value;
+                let attr = 'points';
+                updateShipCustomAttribute(shipPivotId, value, attr);
+            }
+
+            //Ship leadership listener
+            if(eventTarget.matches('input[name="cardShipLd"]')) {
+                toggleLoadingOverlay(true);
+                let value = eventTarget.value;
+                let attr = 'leadership';
+                updateShipCustomAttribute(shipPivotId, value, attr);
+            }
         });
+
+        //Update squadron counter and points
+        function updateSquadronCounter(shipPivotId, counterValue, shipProfileElement) {
+            console.log(shipPivotId);
+            fetch(`/api/${pageData.fleetId}/ship-squadron-counter/${shipPivotId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': pageData.csrf
+                },
+                body: JSON.stringify({ 'squadron-counter': counterValue })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    let pointsData = data.pointsData;
+
+                    updateShipPoints(shipProfileElement, pointsData.ship);
+                    updateFleetPoints(pointsData.fleet, false);
+
+                    toggleLoadingOverlay(false);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Submission failed. Please check your input.');
+
+                    //Remove loading overlay after running into errors
+                    toggleLoadingOverlay(false);
+                });
+        }
+
+        //Update ship/squadron name, points or leadership values
+        async function updateShipCustomAttribute(shipPivotId, value, attr) {
+            try {
+                const response = await fetch(`/api/${pageData.fleetId}/ship-custom-attribute/${shipPivotId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': pageData.csrf
+                    },
+                    body: JSON.stringify({
+                        'attr': attr,
+                        'value': value
+                    })
+                });
+
+                if (response.status === 204) {
+                    return; // Just exit if no content returned
+                }
+
+                const data = await response.json();
+                updateFleetPoints(data.points, false);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Submission failed. Please check your input.');
+            } finally {
+                toggleLoadingOverlay(false);
+            }
+        }
 
         //Update fleet total points
         function updateFleetPoints(value, reset = false) {
@@ -471,7 +558,7 @@
             }
         }
 
-        //update ship points
+        //Update ship points
         function updateShipPoints(shipProfileElement, value) {
             console.log(shipProfileElement);
             let pointsInput = shipProfileElement.querySelector('input[name=cardShipPts]');
