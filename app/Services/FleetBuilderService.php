@@ -78,7 +78,7 @@ class FleetBuilderService
     {
         $query = $shipsRelation
             ->with(['armaments', 'rules', 'refits', 'modifications'])
-            ->withPivot('id', 'points', 'speed', 'turns', 'shields', 'armour', 'turrets');
+            ->withPivot('id', 'points', 'speed', 'turns', 'shields', 'armour', 'turrets', 'squadron_counter', 'name', 'leadership');
 
         $ships = $single ? $query->first() : $query->get();
 

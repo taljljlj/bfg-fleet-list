@@ -2,6 +2,7 @@
 
 namespace App\Models\FleetBuilder;
 
+use App\Models\Ship;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class FleetShip extends Pivot
@@ -29,7 +30,20 @@ class FleetShip extends Pivot
         return $this->hasMany(FleetShipArmament::class, 'fleet_ship_id');
     }
 
+    public function ships() {
+        return $this->hasOne(Ship::class, 'id', 'ship_id');
+    }
+
+    //Accessors
     public function getArmourShortAttribute() {
         return str_replace('front', 'f', $this->armour);
+    }
+
+    public function getSquadronPointsAttribute() {
+        if ($this->squadron_counter) {
+            return $this->points * $this->squadron_counter;
+        } else {
+            return null;
+        }
     }
 }

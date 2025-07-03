@@ -15,12 +15,15 @@ return new class extends Migration
             $table->id();
             $table->foreignId('fleet_id')->constrained('fleets');
             $table->foreignId('ship_id')->constrained('ships');
+            $table->string('name')->nullable();
             $table->smallInteger('points');
             $table->smallInteger('speed')->nullable();
             $table->smallInteger('turns')->nullable();
             $table->smallInteger('shields')->nullable();
             $table->string('armour')->nullable();
             $table->smallInteger('turrets')->nullable();
+            $table->smallInteger('leadership')->nullable();
+            $table->smallInteger('squadron_counter')->nullable();
             $table->timestamps();
         });
     }

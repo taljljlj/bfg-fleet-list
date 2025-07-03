@@ -10,10 +10,10 @@
                     {{ ' Squadron' }}
                     <div class="card-ship-amount">
                         <p>&times;</p>
-                        <div class="squadron-amount-btn">
-                            <button onclick="this.nextElementSibling.stepDown()"><</button>
-                            <input type="number" min="1" max="6" title="Number Of Ships" value="1">
-                            <button onclick="this.previousElementSibling.stepUp()">></button>
+                        <div class="squadron-counter-input">
+                            <button onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change', { bubbles: true}));"><</button>
+                            <input type="number" name="squadronCounter" min="1" max="6" title="Number of ships (2-6)" value="{{ $ship->pivot->squadron_counter }}">
+                            <button onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change', { bubbles: true}));">></button>
                         </div>
                     </div>
                 @endif
@@ -22,11 +22,25 @@
         <div class="card-subsec-r">
             <div class="card-ship-ld card-input heading">
                 <label for="cardShipLd">Ld:</label>
-                <input type="text" name="cardShipLd" title="Leadership" {{ $ship->type == 'Escort' ? 'maxlength=1 class=ship-escort-ld' : '' }}>
+                <input type="text"
+                    name="cardShipLd"
+                    @if ($ship->type == 'Escort')
+                        title="Leadership: for squadrons enter Ld values for each individual ship in this field separated by - (dash)"
+                        maxlength="11"
+                        class="ship-escort-ld"
+                    @else
+                        title="Leadership"
+                        maxlength="2"
+                    @endif
+                    value="{{ $ship->pivot->leadership }}"
+                >
             </div>
             <div class="card-ship-pts card-input heading">
                 <label for="cardShipPts">Pts:</label>
-                <input type="text" name="cardShipPts" title="Ship Points Value" value="{{ $ship->pivot->points ?? $ship->points }}">
+                <input type="number"
+                   name="cardShipPts"
+                   value="{{ $ship->type == 'Escort' ? $ship->pivot->squadron_points : ($ship->pivot->points ?? $ship->points) }}"
+                >
             </div>
             <div class="card-ship-remove-btn">&times;</div>
         </div>
@@ -89,7 +103,7 @@
                 </div>
             </div>
             <div class="card-subsec-r">
-                <input type="text" name="cardShipName" placeholder="Enter {{ $ship->type == 'Escort' ? 'Squadron' : 'Ship' }} Name">
+                <input type="text" name="cardShipName" placeholder="Enter {{ $ship->type == 'Escort' ? 'Squadron' : 'Ship' }} Name" value="{{ $ship->pivot->name ?? '' }}">
                 <div class="card-ship-additional card-box-container">
                     <div class="card-ship-special ship-rules-section-container">
                         <x-fleet-builder.ship-profile-sections.ship-profile-rules-section :rules="$ship->rules" />
