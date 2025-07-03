@@ -22,7 +22,7 @@ return new class extends Migration
             $table->smallInteger('shields')->nullable();
             $table->string('armour')->nullable();
             $table->smallInteger('turrets')->nullable();
-            $table->smallInteger('leadership')->nullable();
+            $table->mediumInteger('leadership')->nullable();
             $table->smallInteger('squadron_counter')->nullable();
             $table->timestamps();
         });

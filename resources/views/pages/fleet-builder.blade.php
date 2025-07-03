@@ -519,38 +519,32 @@
         }
 
         //Update ship/squadron name, points or leadership values
-        function updateShipCustomAttribute(shipPivotId, value, attr) {
-            fetch(`/api/${pageData.fleetId}/ship-custom-attribute/${shipPivotId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': pageData.csrf
-                },
-                body: JSON.stringify({
-                    'attr'  : attr,
-                    'value' : value
-                })
-            })
-                .then(response => {
-                    if (response.status === 204) {
-                        toggleLoadingOverlay(false);
-                        return null;
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    let points = data.points;
-                    updateFleetPoints(points, false);
-
-                    toggleLoadingOverlay(false);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Submission failed. Please check your input.');
-
-                    //Remove loading overlay after running into errors
-                    toggleLoadingOverlay(false);
+        async function updateShipCustomAttribute(shipPivotId, value, attr) {
+            try {
+                const response = await fetch(`/api/${pageData.fleetId}/ship-custom-attribute/${shipPivotId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': pageData.csrf
+                    },
+                    body: JSON.stringify({
+                        'attr': attr,
+                        'value': value
+                    })
                 });
+
+                if (response.status === 204) {
+                    return; // Just exit if no content returned
+                }
+
+                const data = await response.json();
+                updateFleetPoints(data.points, false);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Submission failed. Please check your input.');
+            } finally {
+                toggleLoadingOverlay(false);
+            }
         }
 
         //Update fleet total points

@@ -46,4 +46,22 @@ class FleetShip extends Pivot
             return null;
         }
     }
+
+    public function getLeadershipAttribute() {
+        if ($this->ships()->first()->type === 'Escort') {
+            return implode('-' ,str_split($this->attributes['leadership']));
+        } else {
+            return $this->attributes['leadership'];
+        }
+    }
+
+    //Mutators
+    public function setLeadershipAttribute($value)
+    {
+        if ($this->ships()->first()->type === 'Escort') {
+            $this->attributes['leadership'] = preg_replace('/\D/', '', $value);
+        } else {
+            $this->attributes['leadership'] = $value;
+        }
+    }
 }
