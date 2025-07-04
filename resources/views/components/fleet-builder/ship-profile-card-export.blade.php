@@ -8,17 +8,17 @@
                 <div class="card-ship-class heading">{{ $ship->class }}</div>
                 <div class="card-input">
                     <label for="ship-name">Ship Name:</label>
-                    <input type="text" name="ship-name" placeholder="{{ $ship->name }}">
+                    <input type="text" name="ship-name" value="{{ $ship->pivot->name ?: '' }}">
                 </div>
             </div>
             <div class="card-subsec-r">
                 <div class="card-ship-ld card-input heading">
                     <label for="cardShipLd">Ld:</label>
-                    <input type="text" name="cardShipLd" placeholder="{{ $ship->ld }}">
+                    <input type="text" name="cardShipLd" value="{{ $ship->pivot->leadership ?: '' }}">
                 </div>
                 <div class="card-ship-pts card-input heading">
                     <label for="cardShipPts">Pts:</label>
-                    <input type="text" name="cardShipPts" placeholder="{{ $ship->points }}">
+                    <input type="text" name="cardShipPts" placeholder="{{ $ship->pivot->points }}">
                 </div>
             </div>
         </div>
@@ -26,30 +26,30 @@
             <div class="card-section-t">
                 <div class="card-subsec-l">
                     <div class="card-ship-img">
-                        <img src="{{ asset('images/ships/' . $ship->img_url) }}" alt="Ship Profile Image">
+                        <img src="{{ asset(file_exists(public_path('images/ships/' . $ship->img_url)) ? ('images/ships/' . $ship->img_url) : ('images/ships/ship-no-image.png')) }}" alt="Ship Profile Image">
                     </div>
                 </div>
                 <div class="card-subsec-r">
                     <div class="card-ship-stats">
                         <div class="stat-box card-box-container">
                             <div class="stat-name">Speed</div>
-                            <div class="stat-value">{{ $ship->speed }}cm</div>
+                            <div class="stat-value">{{ $ship->pivot->speed ?? $ship->speed }}cm</div>
                         </div>
                         <div class="stat-box card-box-container">
                             <div class="stat-name">Turns</div>
-                            <div class="stat-value">{{ $ship->turns }}°</div>
+                            <div class="stat-value">{{ $ship->pivot->turns ?? $ship->turns }}°</div>
                         </div>
                         <div class="stat-box card-box-container">
                             <div class="stat-name">Shields</div>
-                            <div class="stat-value">{{ $ship->shields }}</div>
+                            <div class="stat-value">{{ $ship->pivot->shields ?? $ship->shields }}</div>
                         </div>
                         <div class="stat-box card-box-container">
                             <div class="stat-name">Armour</div>
-                            <div class="stat-value">{{ $ship->armour_short }}</div>
+                            <div class="stat-value">{{ $ship->pivot->armour_short ?? $ship->armour_short }}</div>
                         </div>
                         <div class="stat-box card-box-container">
                             <div class="stat-name">Turrets</div>
-                            <div class="stat-value">{{ $ship->turrets }}</div>
+                            <div class="stat-value">{{ $ship->pivot->turrets ?? $ship->turrets }}</div>
                         </div>
                     </div>
                     <div class="card-ship-armaments card-box-container">
@@ -68,8 +68,10 @@
                                         <td>{{ ($armament->placement === 'Port' ? 'Pt|Sb' : $armament->placement) . ' ' . $armament->type }}</td>
                                         @if($armament->pivot->range_speed)
                                             <td>{{ $armament->pivot->range_speed }}cm</td>
+                                        @elseif($armament->pivot->misc)
+                                            <td>{{ $armament->pivot->misc }}</td>
                                         @else
-                                            <td style="font-size: 14px">Fighter, Bomber</td>
+                                            <td>N/A</td>
                                         @endif
                                         @if($armament->placement === 'Port')
                                             <td>{{ $armament->pivot->firepower }}</td>
@@ -101,22 +103,6 @@
                                 </div>
                             @endif
                         @endfor
-{{--                        <div class="hp-row-1">--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                        </div>--}}
-{{--                        <div class="hp-row-2">--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                            <div class="hp-box"></div>--}}
-{{--                        </div>--}}
                     </div>
                     <div class="card-ship-crits">
                         <h4>Critical Damages</h4>
@@ -165,7 +151,6 @@
                         <ul class="ship-specials-container card-box-container">
                             @foreach($ship->rules as $rule)
                                 <li class="ship-special" data-special-type="rules">{{ $rule->text }}</li>
-
                             @endforeach
                         </ul>
                     </div>

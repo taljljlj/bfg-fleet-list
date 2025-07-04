@@ -339,13 +339,12 @@ class FleetBuilderController extends Controller
     public function getFleetAsPdf(Fleet $fleet)
     {
         try {
-            $shipsGrouped = $fleet->ships()->withPivot('points')->with(['armaments', 'rules'])->get()->groupBy('type');
-            $shipsGrouped = $this->fleetBuilderService->sortShips($shipsGrouped);
+            $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true, false, true)->sortBy('order');
 
             $faction = $fleet->faction()->first();
             $fleetList = $fleet->fleetList()->first();
 
-            $pdf = Pdf::view('pages.fleet-export', compact('faction', 'shipsGrouped', 'fleetList', 'fleet'))
+            $pdf = Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList', 'fleet'))
                 ->withBrowsershot(fn(Browsershot $browsershot) =>
                     $browsershot->scale(0.55)
                         ->noSandbox() //PDF generation stalls with sandbox on Windows. Might be redundant if hosted on Linux but security implications are low as there is no backdoor to inject malicious html
@@ -364,12 +363,11 @@ class FleetBuilderController extends Controller
     //TODO: for pdf testing, remove after pdf export fully completed
     public function testPdf(Fleet $fleet)
     {
-        $shipsGrouped = $fleet->ships()->withPivot('points')->with(['armaments', 'rules'])->get()->groupBy('type');
-        $shipsGrouped = $this->fleetBuilderService->sortShips($shipsGrouped);
+        $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true, false, true)->sortBy('order');
 
         $faction = $fleet->faction()->first();
         $fleetList = $fleet->fleetList()->first();
 
-        return view('pages.fleet-export', compact('faction', 'shipsGrouped', 'fleetList', 'fleet'));
+        return view('pages.fleet-export', compact('faction', 'ships', 'fleetList', 'fleet'));
     }
 }

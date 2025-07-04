@@ -34,7 +34,6 @@ class FleetBuilderService
     ];
 
     public function sortShips($ships)
-
     {
         $customOrder = $this->shipTypeOrder;
         return $ships->sortKeysUsing(function ($key1, $key2) use ($customOrder) {
@@ -74,11 +73,14 @@ class FleetBuilderService
      * @param bool $single Whether to return a single ship instance, used for applying ship refits
      * @return Collection|Ship|null
      */
-    public function loadAndPrepareShips(BelongsToMany $shipsRelation, bool $applyOrder = false, bool $single = false): Collection|Ship|null
+    public function loadAndPrepareShips(BelongsToMany $shipsRelation, bool $applyOrder = false, bool $single = false, bool $export = false): Collection|Ship|null
     {
         $query = $shipsRelation
-            ->with(['armaments', 'rules', 'refits', 'modifications'])
+            ->with(['armaments', 'rules'])
             ->withPivot('id', 'points', 'speed', 'turns', 'shields', 'armour', 'turrets', 'squadron_counter', 'name', 'leadership');
+        if (!$export) {
+            $query = $query->with(['refits', 'modifications']);
+        }
 
         $ships = $single ? $query->first() : $query->get();
 
@@ -87,10 +89,10 @@ class FleetBuilderService
         }
 
         if ($single) {
-            return $this->prepareShip($ships, $applyOrder);
+            return $this->prepareShip($ships, $applyOrder, $export);
         }
 
-        return $ships->map(fn($ship) => $this->prepareShip($ship, $applyOrder));
+        return $ships->map(fn($ship) => $this->prepareShip($ship, $applyOrder, $export));
     }
 
     /**
@@ -100,10 +102,12 @@ class FleetBuilderService
      * @param bool $applyOrder
      * @return Ship
      */
-    private function prepareShip(Ship $ship, bool $applyOrder): Ship
+    private function prepareShip(Ship $ship, bool $applyOrder, bool $export): Ship
     {
-        $ship = $this->refitService->rebuildRefitRelation($ship);
-        $ship = $this->refitService->loadAppliedRefits($ship);
+        if (!$export) {
+            $ship = $this->refitService->rebuildRefitRelation($ship);
+            $ship = $this->refitService->loadAppliedRefits($ship);
+        }
         $ship = $this->armamentService->rebuildArmRelation($ship);
         $ship = $this->ruleService->rebuildRuleRelation($ship);
 

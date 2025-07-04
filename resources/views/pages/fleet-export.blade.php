@@ -65,6 +65,11 @@
             flex-direction: column;
             justify-content: space-evenly;
         }
+
+        .ships-container .new-page {
+            margin-top: 100px;
+        }
+
         .card-box-container {
             border: 2px solid black;
             border-radius: 5px;
@@ -332,13 +337,12 @@
             </div>
         </div>
         <div class="ships-container">
-            @foreach($shipsGrouped as $type=>$ships)
-                @foreach($ships as $ship)
-                    <x-fleet-builder.ship-profile-card-export :ship="$ship" />
-                    @if (($loop->index + 1) % 6 == 0 && !$loop->last)
-                        <div style="page-break-after: always;"></div>
-                    @endif
-                @endforeach
+            @foreach($ships as $ship)
+                <x-fleet-builder.ship-profile-card-export :ship="$ship" />
+                @if (($loop->index + 1) % 6 == 0 && !$loop->last)
+                    <div style="page-break-after: always;"></div>
+                    <div class="new-page"></div>
+                @endif
             @endforeach
         </div>
     </div>
