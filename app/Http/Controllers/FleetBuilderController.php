@@ -195,10 +195,13 @@ class FleetBuilderController extends Controller
             ->first();
         $ship->setRelation('pivot', $shipPivot);
 
+        // Add order to the ship for frontend
+        $ship->order = $shipOrder;
+
         return response()->json([
             'message' => 'Ship added to fleet.',
-            'html' => View::make('components.fleet-builder.ship-profile-card', compact('ship', 'shipOrder'))->render(),
-            'points' => $fleet->points
+            'ship' => $ship,
+            'fleetPoints' => $fleet->points
         ]);
     }
 
@@ -244,38 +247,11 @@ class FleetBuilderController extends Controller
 
         $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $fleetShip->id), false, true);
 
-        $htmlData = [];
-        if ($refittedSections['shipModified']) {
-            //render the ship stats component and return to the frontend
-            $htmlData['stats'] = View::make(
-                'components.fleet-builder.ship-profile-sections.ship-profile-stats-section',
-                [ 'ship' => $ship ]
-            )->render();
-        }
-        if ($refittedSections['armModified']) {
-            //render the armament table component and return to the frontend
-            $htmlData['armaments'] = View::make(
-                'components.fleet-builder.ship-profile-sections.ship-profile-armaments-section',
-                [ 'armaments' => $ship->armaments ]
-            )->render();
-        }
-        if ($refittedSections['ruleModified']) {
-            //render the rule list component and return to the frontend
-            $htmlData['rules'] = View::make(
-                'components.fleet-builder.ship-profile-sections.ship-profile-rules-section',
-                [ 'rules' => $ship->rules ]
-            )->render();
-        }
-
-        $points = [
-            'fleet' => $fleet->points,
-            'ship' => $ship->pivot->points,
-        ];
-
         return response()->json([
-            'htmlData' => $htmlData,
+            'message' => 'Ship refitted.',
+            'ship' => $ship,  // Auto-serialized with all relations
             'refittedSections' => $refittedSections,
-            'pointsData' => $points
+            'fleetPoints' => $fleet->points
         ]);
     }
 
