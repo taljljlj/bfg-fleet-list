@@ -12,23 +12,15 @@ const props = defineProps({
 
 const emit = defineEmits(['ship-selected']);
 
-const collapsedGroups = ref(new Set());
-
 const handleShipAdd = (shipId) => {
     emit('ship-selected', shipId);
 };
 
-const toggleGroup = (shipType) => {
-    if (collapsedGroups.value.has(shipType)) {
-        collapsedGroups.value.delete(shipType);
-    } else {
-        collapsedGroups.value.add(shipType);
-    }
-};
+const toggleGroup = (event) => {
+    event.currentTarget.parentElement.classList.toggle('collapsed');
+}
 
-const isGroupCollapsed = (shipType) => {
-    return collapsedGroups.value.has(shipType);
-};
+
 </script>
 
 <template>
@@ -37,30 +29,29 @@ const isGroupCollapsed = (shipType) => {
             <li
                 v-for="(shipGroup, shipType) in shipList"
                 :key="shipType"
-                class="ship-type-group"
-                :class="{ collapsed: isGroupCollapsed(shipType) }"
+                class="ship-type-group collapsed"
             >
                 <h4
                     class="ship-type-group-title"
-                    @click="toggleGroup(shipType)"
+                    @click="toggleGroup"
                 >
                     {{ shipType }}s
                     <span class="caret-icon">
-            <img :src="caretIcon" alt="caret-icon">
-          </span>
+                        <img :src="caretIcon" alt="caret-icon">
+                    </span>
                 </h4>
                 <ul class="ship-type-container thin-font">
                     <li v-for="ship in shipGroup" :key="ship.id">
-            <span class="ship-class">
-              {{ ship.class }}{{ ship.type === 'Escort' ? ' Squadron' : '' }}
-            </span>
-                        <span class="ship-pts">{{ ship.points }}</span>
+                        <span class="ship-class">
+                          {{ ship.class }}{{ ship.type === 'Escort' ? ' Squadron' : '' }}
+                        </span>
+                        <span class="ship-pts thin-font">{{ ship.points }}</span>
                         <span
                             class="ship-add-btn"
                             @click="handleShipAdd(ship.id)"
                         >
-              <img :src="addShipIcon" alt="Add Ship Icon">
-            </span>
+                            <img :src="addShipIcon" alt="Add Ship Icon">
+                        </span>
                     </li>
                 </ul>
             </li>
@@ -70,84 +61,90 @@ const isGroupCollapsed = (shipType) => {
 
 <style scoped>
 .ship-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
 }
 
-.ship-type-group {
-  margin-bottom: 0.5rem;
-}
-
-.ship-type-group-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  background: #e9ecef;
-  border-radius: 4px;
-  cursor: pointer;
-  margin: 0;
-  font-size: 1rem;
-  text-align: right;
-}
-
-.ship-type-group-title:hover {
-  background: #dee2e6;
-}
-
-.ship-type-container {
-  padding-left: 1rem;
-  transition: max-height 0.3s ease;
-}
-
-.ship-type-group.collapsed .ship-type-container {
-  display: none;
-}
-
-.ship-type-container li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
+.ship-list li {
+    color: white;
+    padding: 5px 0;
 }
 
 .ship-class {
-  flex-grow: 1;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.ship-add-btn,
+.ship-pts {
+    text-align: right;
 }
 
 .ship-pts {
-  margin-right: 0.5rem;
-  font-weight: bold;
+    margin: 0 10px;
 }
 
 .ship-add-btn {
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+    height: 19px;
+    cursor: pointer;
+    opacity: 0.7;
+    user-select: none;
 }
 
 .ship-add-btn:hover {
-  background: #f0f0f0;
+    opacity: 1;
+    filter: drop-shadow(0 0 10px #c8c5dc) hue-rotate(45deg);
 }
 
-.ship-add-btn img {
-  width: 16px;
-  height: 16px;
+.ship-type-group-title {
+    position: relative;
+    text-align: right;
+    padding-bottom: 5px;
+    color: #c8c5dc;
+    cursor: pointer;
+    margin: 0;
+    user-select: none;
+    font-size: 18px;
+}
+
+.caret-icon {
+    vertical-align: sub;
+    padding-left: 10px;
 }
 
 .caret-icon img {
-  width: 12px;
-  height: 12px;
-  transition: transform 0.2s ease;
+    height: 22px;
+    opacity: 0.7;
+    rotate: 180deg;
+}
+
+.ship-type-group-title::after,
+.ship-type-container:after {
+    position: absolute;
+    display: block;
+    content: "";
+    bottom: 0;
+    right: -25px;
+    height: 2px;
+    width: 250px;
+    background: linear-gradient(to right, transparent 0%, #c8c5dc 100%);
+}
+
+.ship-type-container {
+    position: relative;
+}
+
+.ship-type-group.collapsed .ship-type-container {
+    height: 0;
+    overflow-y: hidden;
 }
 
 .ship-type-group.collapsed .caret-icon img {
-  transform: rotate(-90deg);
+    rotate: 0deg;
 }
 
-.thin-font {
-  font-weight: 300;
+.ship-type-container li {
+    display: flex;
+    justify-content: space-between;
 }
 </style>

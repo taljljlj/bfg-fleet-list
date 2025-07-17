@@ -60,64 +60,76 @@ const handleFleetListSelect = (fleetList) => {
 
 <style scoped>
 .fleet-list-selector {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    letter-spacing: 2px;
 }
 
 .dropdown {
-  position: relative;
+    position: relative;
+}
+
+.dropdown * {
+    user-select: none;
 }
 
 .dropdown-select {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  background: #f8f9fa;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 35px;
+    padding: 5px 15px;
+    border: 2px solid #c8c5dc;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1;
 }
 
 .dropdown-select:hover {
-  background: #e9ecef;
-}
-
-.dropdown-content {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: white;
-  border: 1px solid #ccc;
-  border-top: none;
-  border-radius: 0 0 4px 4px;
-  z-index: 1000;
-}
-
-.dropdown-content ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.dropdown-content li {
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-  border-bottom: 1px solid #eee;
-}
-
-.dropdown-content li:hover {
-  background: #e9ecef;
-}
-
-.dropdown-content li:last-child {
-  border-bottom: none;
+    box-shadow: inset #c8c5dc 0 0 10px;
 }
 
 .dropdown-caret img {
-  width: 12px;
-  height: 12px;
-  transition: transform 0.2s ease;
+    float: right;
+    opacity: 0.7;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    width: 100%;
+    border: 2px solid #c8c5dc;
+    border-top: none;
+    backdrop-filter: blur(7px);
+    background-color: rgb(54, 87, 115);
+    z-index: 10;
+    border-radius: 5px;
+    box-shadow: #1a202c 0 0 30px, inset #c8c5dc 0 0 30px;
+}
+
+.dropdown-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.dropdown-content li {
+    padding: 2px 7px;
+    cursor: pointer;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+}
+
+.dropdown-content li:hover {
+    color: white;
+    border-color: #c8c5dc;
 }
 
 .dropdown.expanded .dropdown-caret img {

@@ -36,21 +36,50 @@ const handleFactionClick = (factionId) => {
 
 <style scoped>
 .faction-selector {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    user-select: none;
 }
 
 .faction {
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.faction.selected {
-  /* Your selected faction styles */
+    transition: all 0.2s ease;
+    margin: 10px 5px;
+    opacity: 70%;
+    cursor: pointer;
+    position: relative;
 }
 
 .faction:hover {
-  /* Your hover styles */
+    opacity: 1;
+    filter: drop-shadow(0 0 10px #c8c5dc) hue-rotate(45deg);
+}
+
+.faction.selected {
+    opacity: 1;
+}
+
+.faction.selected:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: calc(50% - 10px);
+    border-top: 20px solid white;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    bottom: -25px;
+}
+
+.faction img {
+    height: 60px;
+}
+
+.faction h3 {
+    margin: 0;
+    letter-spacing: 1px;
+    color: white;
 }
 </style>
