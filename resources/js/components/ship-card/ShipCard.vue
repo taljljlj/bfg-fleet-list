@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, nextTick, inject } from 'vue';
 import ShipStatsSection from './ShipStatsSection.vue';
 import ShipArmamentsSection from './ShipArmamentsSection.vue';
 import ShipRulesSection from './ShipRulesSection.vue';
@@ -15,6 +15,8 @@ const props = defineProps({
 const emit = defineEmits(['ship-removed', 'ship-updated']);
 
 const showRefitsModal = ref(false);
+const refitButtonRef = ref(null);
+const hasRefits = computed(() => props.ship.refits && props.ship.refits.length > 0);
 
 const shipPoints = computed(() => {
   return props.ship.type === 'Escort'
@@ -26,8 +28,62 @@ const handleRemoveShip = () => {
   emit('ship-removed', props.ship.pivot.id);
 };
 
-const handleShowRefits = () => {
-  showRefitsModal.value = true;
+const handleShowRefits = async () => {
+  if (!showRefitsModal.value) {
+    // Opening the modal
+    showRefitsModal.value = true;
+    await nextTick();
+
+    // Toggle CSS classes for animation
+    const container = document.querySelector('.card-ship-refit-container');
+    const button = refitButtonRef.value;
+
+    if (container && button) {
+      container.classList.remove('collapsed');
+      button.classList.remove('collapsed');
+    }
+  } else {
+    // Closing the modal and applying refits
+    await handleApplyRefits();
+    showRefitsModal.value = false;
+
+    await nextTick();
+
+    const container = document.querySelector('.card-ship-refit-container');
+    const button = refitButtonRef.value;
+
+    if (container && button) {
+      container.classList.add('collapsed');
+      button.classList.add('collapsed');
+    }
+  }
+};
+
+const handleApplyRefits = async () => {
+  // Get all checked refits from the container
+  const checkedRefits = [];
+  const checkboxes = document.querySelectorAll('.card-ship-refit-container input[type="checkbox"]:checked');
+  checkboxes.forEach(checkbox => {
+    checkedRefits.push(parseInt(checkbox.dataset.refitPivotId));
+  });
+
+  try {
+    const fleetData = inject('fleetData');
+    const response = await fetch(`/api/${fleetData.fleet.id}/ship-refit/${props.ship.pivot.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': fleetData.csrfToken
+      },
+      body: JSON.stringify({ 'selected-refits': checkedRefits })
+    });
+
+    const data = await response.json();
+    emit('ship-updated', data);
+  } catch (error) {
+    console.error('Error applying refits:', error);
+    alert('Failed to apply refits. Please try again.');
+  }
 };
 
 const handleRefitsApplied = (updatedShip) => {
@@ -62,17 +118,10 @@ const handleUpdateAttribute = (attribute, value) => {
             </div>
         </div>
         <div v-else class="card-ship-class heading">{{ ship.class }}</div>
-<!-- TODO: move this to appropriate section          -->
-<!--        <input-->
-<!--          type="text"-->
-<!--          :value="ship.pivot.name || ship.class"-->
-<!--          @input="handleUpdateAttribute('name', $event.target.value)"-->
-<!--          name="cardShipName"-->
-<!--        />-->
       </div>
       <div class="card-subsec-r">
         <div class="card-ship-ld card-input heading">
-            <label for="cardShipLd">Ld:</label>
+            <label for="cardShipLd">Ld: </label>
             <input v-if="ship.type === 'Escort'"
                 title="Leadership: for squadrons enter Ld values for each individual ship in this field separated by - (dash)"
                 maxlength="11"
@@ -92,7 +141,7 @@ const handleUpdateAttribute = (attribute, value) => {
             />
         </div>
         <div class="card-ship-pts card-input heading">
-            <label for="cardShipPts">Pts:</label>
+            <label for="cardShipPts">Pts: </label>
             <input
             type="number"
             :value="shipPoints"
@@ -100,14 +149,6 @@ const handleUpdateAttribute = (attribute, value) => {
             name="cardShipPts"
             />
         </div>
-<!--          TODO: move this to appropriate section -->
-<!--        <button-->
-<!--          class="card-ship-refit-btn"-->
-<!--          @click="handleShowRefits"-->
-<!--          v-if="ship.refits && ship.refits.length > 0"-->
-<!--        >-->
-<!--          R-->
-<!--        </button>-->
         <div class="card-ship-remove-btn" @click="handleRemoveShip">×</div>
       </div>
     </div>
@@ -115,25 +156,25 @@ const handleUpdateAttribute = (attribute, value) => {
     <div class="card-ship-body thin-font">
         <div class="card-section-t">
             <div class="card-subsec-l">
-                <div v-if="ship.refits && ship.refits.length > 0">
-                    <div class="card-ship-refit-btn collapsed" @click="handleShowRefits">
+                <div v-if="hasRefits">
+                    <div ref="refitButtonRef" class="card-ship-refit-btn collapsed" @click="handleShowRefits">
                         <img class="refit-icon" src="/images/fleet-builder/refit-icon.png" alt="Refit Icon">
                         <img class="apply-icon" src="/images/fleet-builder/apply-icon.png" alt="Refit Icon">
                     </div>
                 </div>
+
+                <ShipRefitsModal
+                    v-if="showRefitsModal && hasRefits"
+                    :ship="ship"
+                    @close="showRefitsModal = false"
+                    @refits-applied="handleRefitsApplied"
+                />
             </div>
         </div>
       <ShipStatsSection :ship="ship" @update-attribute="handleUpdateAttribute" />
       <ShipArmamentsSection :armaments="ship.armaments" />
       <ShipRulesSection :rules="ship.rules" />
     </div>
-
-    <ShipRefitsModal
-      v-if="showRefitsModal"
-      :ship="ship"
-      @close="showRefitsModal = false"
-      @refits-applied="handleRefitsApplied"
-    />
   </div>
 </template>
 

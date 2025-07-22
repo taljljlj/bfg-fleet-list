@@ -11,37 +11,37 @@ const props = defineProps({
 const emit = defineEmits(['close', 'refits-applied']);
 
 const fleetData = inject('fleetData');
-const selectedRefits = ref([]);
-const parentRefitStates = reactive({});
 
-const handleParentRefitChange = (parentRefit, isChecked) => {
-  parentRefitStates[parentRefit.id] = isChecked;
-
-  if (!isChecked) {
-    // Remove all children from selected refits
-    if (parentRefit.children) {
-      parentRefit.children.forEach(child => {
-        const index = selectedRefits.value.indexOf(child.pivot.id);
-        if (index > -1) {
-          selectedRefits.value.splice(index, 1);
-        }
-      });
-    }
-  }
+// Helper function to format module data (same as discussed earlier)
+const formatModuleData = (data) => {
+  const fireArc = data.fire_arc ? ` (${data.fire_arc})` : '';
+  return `${data.placement} ${data.type}${fireArc}`;
 };
 
-const handleChildRefitChange = (childRefit, isChecked) => {
-  if (isChecked) {
-    selectedRefits.value.push(childRefit.pivot.id);
-  } else {
-    const index = selectedRefits.value.indexOf(childRefit.pivot.id);
-    if (index > -1) {
-      selectedRefits.value.splice(index, 1);
-    }
-  }
+// Helper function to check if refit is applied
+const isRefitApplied = (refit) => {
+  return props.ship.appliedRefits &&
+         props.ship.appliedRefits.some(appliedRefit =>
+           appliedRefit.ship_refit_id === refit.pivot.id
+         );
+};
+
+// Helper function to check if parent refit is applied (for child enabling/disabling)
+const isParentRefitApplied = (parentRefit) => {
+  return props.ship.appliedRefits &&
+         props.ship.appliedRefits.some(appliedRefit =>
+           appliedRefit.ship_refit_id === parentRefit.pivot.id
+         );
 };
 
 const handleApplyRefits = async () => {
+  // Get all checked refits
+  const checkedRefits = [];
+  const checkboxes = document.querySelectorAll('.card-ship-refit-container input[type="checkbox"]:checked');
+  checkboxes.forEach(checkbox => {
+    checkedRefits.push(parseInt(checkbox.dataset.refitPivotId));
+  });
+
   try {
     const response = await fetch(`/api/${fleetData.fleet.id}/ship-refit/${props.ship.pivot.id}`, {
       method: 'PATCH',
@@ -49,7 +49,7 @@ const handleApplyRefits = async () => {
         'Content-Type': 'application/json',
         'X-CSRF-TOKEN': fleetData.csrfToken
       },
-      body: JSON.stringify({ 'selected-refits': selectedRefits.value })
+      body: JSON.stringify({ 'selected-refits': checkedRefits })
     });
 
     const data = await response.json();
@@ -60,187 +60,72 @@ const handleApplyRefits = async () => {
   }
 };
 
-const handleClose = () => {
-  emit('close');
+// Handle the refit button click (toggle and apply)
+const handleRefitButtonClick = () => {
+  const container = document.querySelector('.card-ship-refit-container');
+  const button = document.querySelector('.card-ship-refit-btn');
+
+  if (container.classList.contains('collapsed')) {
+    // Expand
+    container.classList.remove('collapsed');
+    button.classList.remove('collapsed');
+  } else {
+    // Collapse and apply refits
+    handleApplyRefits();
+    container.classList.add('collapsed');
+    button.classList.add('collapsed');
+  }
 };
 </script>
 
 <template>
-  <div class="refit-modal-overlay" @click="handleClose">
-    <div class="refit-modal" @click.stop>
-      <div class="refit-modal-header">
-        <h3>Ship Refits - {{ ship.class }}</h3>
-        <button class="close-btn" @click="handleClose">×</button>
-      </div>
-
-      <div class="refit-modal-body">
-        <ul class="ship-refits-list">
-          <li
-            v-for="refit in ship.refits"
-            :key="refit.id"
-            class="ship-refit"
-          >
+  <div class="card-ship-refit-container collapsed">
+    <ul>
+      <li v-for="refit in ship.refits" :key="refit.id" class="ship-refit">
+        <label>
+          <input
+            type="checkbox"
+            :name="refit.name"
+            :data-refit-pivot-id="refit.pivot.id"
+            :checked="isRefitApplied(refit)"
+          />
+          {{ refit.text }}
+          <span class="tooltip">
+            {{ refit.text_long }}
+            <template v-for="mod in refit.modifications" :key="mod.id">
+              <template v-if="mod.type === 'arm'">
+                <template v-if="mod.action === 'modify'">
+                  <br>[{{ formatModuleData(JSON.parse(mod.module)) }}: firepower({{ mod.pivot.firepower || 'N/A' }}) range({{ mod.pivot.range_speed || mod.pivot.misc || 'N/A' }})]
+                </template>
+                <template v-else-if="mod.action === 'replace' || mod.action === 'add'">
+                  <br>[{{ formatModuleData(JSON.parse(mod.value)) }}: firepower({{ mod.pivot.firepower || 'N/A' }}) range({{ mod.pivot.range_speed || mod.pivot.misc || 'N/A' }})]
+                </template>
+              </template>
+            </template>
+          </span>
+          <span> ({{ refit.pivot.points }}pts)</span>
+        </label>
+        <ul v-if="refit.children && refit.children.length > 0" class="ship-refits-children">
+          <li v-for="child in refit.children" :key="child.id" class="ship-refit">
             <label>
               <input
                 type="checkbox"
-                :value="refit.pivot.id"
-                @change="handleParentRefitChange(refit, $event.target.checked)"
-              >
-              {{ refit.name }} ({{ refit.pivot.points }} pts)
+                :name="child.name"
+                :data-refit-pivot-id="child.pivot.id"
+                :checked="isRefitApplied(child)"
+                :disabled="!isParentRefitApplied(refit)"
+              />
+              {{ child.text }}
+              <span class="tooltip">{{ child.text_long }}</span>
+              <span> ({{ child.pivot.points }}pts)</span>
             </label>
-
-            <!-- Child refits -->
-            <ul v-if="refit.children && refit.children.length > 0" class="ship-refits-children">
-              <li
-                v-for="childRefit in refit.children"
-                :key="childRefit.id"
-                class="ship-refit-child"
-              >
-                <label>
-                  <input
-                    type="checkbox"
-                    :value="childRefit.pivot.id"
-                    :disabled="!parentRefitStates[refit.id]"
-                    @change="handleChildRefitChange(childRefit, $event.target.checked)"
-                  >
-                  {{ childRefit.name }} ({{ childRefit.pivot.points }} pts)
-                </label>
-              </li>
-            </ul>
           </li>
         </ul>
-      </div>
-
-      <div class="refit-modal-footer">
-        <button @click="handleApplyRefits" class="apply-btn">Apply Refits</button>
-        <button @click="handleClose" class="cancel-btn">Cancel</button>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <style scoped>
-.refit-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
-
-.refit-modal {
-  background: white;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.refit-modal-header {
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.refit-modal-header h3 {
-  margin: 0;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.refit-modal-body {
-  padding: 1rem;
-  overflow-y: auto;
-  flex-grow: 1;
-}
-
-.ship-refits-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.ship-refit {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  border: 1px solid #eee;
-  border-radius: 4px;
-}
-
-.ship-refit label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-}
-
-.ship-refits-children {
-  list-style: none;
-  padding: 0;
-  margin: 0.5rem 0 0 1.5rem;
-}
-
-.ship-refit-child {
-  margin-bottom: 0.5rem;
-}
-
-.ship-refit-child label {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.refit-modal-footer {
-  padding: 1rem;
-  border-top: 1px solid #eee;
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-}
-
-.apply-btn {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.cancel-btn {
-  background: #6c757d;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.apply-btn:hover {
-  background: #0056b3;
-}
-
-.cancel-btn:hover {
-  background: #545b62;
-}
+/* No additional styles needed - using existing CSS from app.css */
 </style>
