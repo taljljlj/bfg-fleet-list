@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, inject } from 'vue';
+import { ref, nextTick, inject } from 'vue';
 
 const props = defineProps({
   ship: {
@@ -11,6 +11,8 @@ const props = defineProps({
 const emit = defineEmits(['close', 'refits-applied']);
 
 const fleetData = inject('fleetData');
+const showRefits = ref(false);
+const refitButtonRef = ref(null);
 
 // Helper function to format module data (same as discussed earlier)
 const formatModuleData = (data) => {
@@ -60,21 +62,35 @@ const handleApplyRefits = async () => {
   }
 };
 
-// Handle the refit button click (toggle and apply)
-const handleRefitButtonClick = () => {
-  const container = document.querySelector('.card-ship-refit-container');
-  const button = document.querySelector('.card-ship-refit-btn');
+const handleShowRefits = async () => {
+    if (!showRefits.value) {
+        // Opening the modal
+        showRefits.value = true;
+        await nextTick();
 
-  if (container.classList.contains('collapsed')) {
-    // Expand
-    container.classList.remove('collapsed');
-    button.classList.remove('collapsed');
-  } else {
-    // Collapse and apply refits
-    handleApplyRefits();
-    container.classList.add('collapsed');
-    button.classList.add('collapsed');
-  }
+        // Toggle CSS classes for animation
+        const container = document.querySelector('.card-ship-refit-container');
+        const button = refitButtonRef.value;
+
+        if (container && button) {
+            container.classList.remove('collapsed');
+            button.classList.remove('collapsed');
+        }
+    } else {
+        // Closing the modal and applying refits
+        await handleApplyRefits();
+        showRefits.value = false;
+
+        await nextTick();
+
+        const container = document.querySelector('.card-ship-refit-container');
+        const button = refitButtonRef.value;
+
+        if (container && button) {
+            container.classList.add('collapsed');
+            button.classList.add('collapsed');
+        }
+    }
 };
 </script>
 
@@ -127,5 +143,71 @@ const handleRefitButtonClick = () => {
 </template>
 
 <style scoped>
-/* No additional styles needed - using existing CSS from app.css */
+.card-ship-refit-container {
+    position: absolute;
+    top: 30px;
+    left: 15px;
+    width: 565px;
+    height: 235px;
+    z-index: 10;
+    border: 2px solid rgba(54, 87, 115, 0.8);
+    border-radius: 5px;
+    background: #c8d5f7;
+    overflow: auto;
+    color: rgba(54, 87, 115, 0.8);
+    transition: all 0.5s ease-out;
+}
+
+.card-ship-refit-container.collapsed {
+    width: 1px;
+    height: 1px;
+}
+
+ul {
+    list-style: none;
+    padding: 20px 20px 20px 35px;
+    margin: 0;
+    text-align: left;
+}
+
+li {
+    position: relative;
+}
+
+label {
+    cursor: pointer;
+}
+
+input {
+    display: inline-block;
+    width: 20px;
+    margin-right: 10px;
+    padding: 5px;
+    border: 2px solid rgba(54, 87, 115, 0.8);
+    border-radius: 5px;
+    background-color: transparent;
+    color: rgba(54, 87, 115, 0.8);
+}
+
+.tooltip {
+    visibility: hidden;
+    background-color: rgb(76 96 114);
+    color: #c8c5dc;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    left: 0;
+    top: 25px;
+    position: absolute;
+    z-index: 1;
+    width: 450px;
+}
+
+label:hover .tooltip {
+    visibility: visible;
+}
+
+.ship-refits-children {
+    padding: 0 0 0 35px;
+}
 </style>

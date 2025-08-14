@@ -100,6 +100,10 @@ const handleUpdateAttribute = (attribute, value) => {
     }
   });
 };
+
+const handleShipImageError = (event) => {
+    event.target.src = '/images/ships/ship-no-image.png';
+}
 </script>
 
 <template>
@@ -162,18 +166,42 @@ const handleUpdateAttribute = (attribute, value) => {
                         <img class="apply-icon" src="/images/fleet-builder/apply-icon.png" alt="Refit Icon">
                     </div>
                 </div>
-
                 <ShipRefitsModal
                     v-if="showRefitsModal && hasRefits"
                     :ship="ship"
                     @close="showRefitsModal = false"
                     @refits-applied="handleRefitsApplied"
                 />
+                <div class="card-ship-img">
+                    <img
+                        :src="`/images/ships/${ship.img_url}`"
+                        alt="Ship Profile Image"
+                        @error="handleShipImageError"
+                    >
+                </div>
+            </div>
+            <div class="card-subsec-r">
+                <input
+                    type="text"
+                    name="cardShipName"
+                    :placeholder="`Enter ${ship.type == 'Escort' ? 'Squadron' : 'Ship' } Name`"
+                    :value="`${ ship.pivot.name ?? '' }`"
+                >
+                <div class="card-ship-additional card-box-container">
+                    <div class="card-ship-special ship-rules-section-container">
+                        <ShipRulesSection :rules="ship.rules" />
+                    </div>
+                </div>
             </div>
         </div>
-      <ShipStatsSection :ship="ship" @update-attribute="handleUpdateAttribute" />
-      <ShipArmamentsSection :armaments="ship.armaments" />
-      <ShipRulesSection :rules="ship.rules" />
+        <div class="card-section-b">
+            <div class="card-subsec-l ship-stats-section-container">
+                <ShipStatsSection :ship="ship" @update-attribute="handleUpdateAttribute" />
+            </div>
+            <div class="card-subsec-r ship-armaments-section-container">
+                <ShipArmamentsSection :armaments="ship.armaments" />
+            </div>
+        </div>
     </div>
   </div>
 </template>
@@ -187,6 +215,13 @@ const handleUpdateAttribute = (attribute, value) => {
     background: rgb(235 232 255 / 70%);
     height: fit-content;
     margin-bottom: 20px;
+}
+
+.card-box-container {
+    border: 2px solid rgba(54, 87, 115, 0.8);
+    border-radius: 5px;
+    background-color: transparent;
+    color: rgba(54, 87, 115, 0.8);
 }
 
 .card-ship-header {
@@ -304,5 +339,102 @@ input:focus-visible {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+}
+
+.card-section-t,
+.card-section-b {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.card-ship-body .card-subsec-l,
+.card-ship-body .card-subsec-r {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-ship-body .card-section-t .card-subsec-l,
+.card-ship-body .card-section-t .card-subsec-r {
+    width: 50%;
+}
+
+.card-ship-img img {
+    filter: drop-shadow(0 0 15px rgb(54, 87, 115));
+}
+
+.card-ship-refit-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 30px;
+    width: 30px;
+    padding: 3px;
+    border: 2px solid rgba(54, 87, 115, 0.8);
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 100;
+    background: #b6c1da;
+}
+
+.card-ship-refit-btn:hover {
+    border-color: rgb(54, 87, 115);
+    box-shadow: 0 0 20px rgb(54, 87, 115);
+}
+
+.card-ship-refit-btn:hover img {
+    filter: contrast(1.5) brightness(0.9);
+}
+
+.card-ship-refit-btn.collapsed .apply-icon,
+.card-ship-refit-btn .refit-icon {
+    display: none;
+}
+
+.card-ship-refit-btn.collapsed .refit-icon {
+    display: block;
+}
+
+.card-section-t input {
+    box-sizing: border-box;
+    width: 100%;
+    border-color: rgba(54, 87, 115, 0.8);
+    background-color: transparent;
+    color: rgba(54, 87, 115, 0.8);
+    font-size: 18px;
+    font-weight: 400;
+    padding: 0 10px;
+    text-overflow: ellipsis;
+}
+
+.card-section-t input:focus-visible {
+    box-shadow: 0 0 5px inset rgba(54, 87, 115, 0.8);
+}
+
+.card-section-t input::placeholder {
+    color: rgba(54, 87, 115, 0.8);
+}
+
+.card-ship-additional {
+    box-sizing: border-box;
+    width: 100%;
+    height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.card-section-b {
+    margin-top: 5px;
+}
+
+.card-ship-body .card-section-b .card-subsec-l {
+    width: 37%;
+}
+
+.card-ship-body .card-section-b .card-subsec-r {
+    width: 63%;
+    align-self: center;
+    padding-right: 34px;
 }
 </style>

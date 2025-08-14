@@ -8,46 +8,40 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="ship-rules-section-container">
-    <div class="card-ship-rules card-box-container" v-if="rules && rules.length > 0">
-      <h4>Special Rules</h4>
-      <ul class="rules-list">
-        <li v-for="rule in rules" :key="rule.id">
-          <strong>{{ rule.name }}:</strong>
-          <span v-html="rule.description"></span>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <ul class="rules-list" v-if="rules && rules.length > 0">
+    <li v-for="rule in rules" :key="rule.id">
+      {{ rule.text }}
+      <span class="tooltip">{{ rule.text_long }}</span>
+    </li>
+  </ul>
 </template>
 
 <style scoped>
-.card-ship-rules {
-  margin-bottom: 1rem;
-}
-
-.card-ship-rules h4 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
-}
-
 .rules-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    padding-left: 20px;
+    margin: 0;
+    text-align: left;
 }
 
 .rules-list li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
-  line-height: 1.4;
+    position: relative;
 }
 
-.rules-list li:last-child {
-  border-bottom: none;
+.tooltip {
+    visibility: hidden;
+    width: 250px;
+    background-color: rgb(76 96 114);
+    color: #c8c5dc;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    left: 0;
+    top: 25px;
+    position: absolute;
+    z-index: 1;
 }
 
-.rules-list strong {
-  color: #333;
+li:hover .tooltip {
+    visibility: visible;
 }
 </style>

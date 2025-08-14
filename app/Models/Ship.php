@@ -12,6 +12,8 @@ class Ship extends Model
 {
     public $timestamps = false;
 
+    protected $appends = ['armour_short', 'img_url'];
+
     //Relations
     public function armaments() {
         return $this->belongsToMany(Armament::class, 'ship_armament')
