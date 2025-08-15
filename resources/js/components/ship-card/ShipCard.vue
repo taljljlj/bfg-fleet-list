@@ -107,7 +107,11 @@ const handleShipImageError = (event) => {
 </script>
 
 <template>
-  <div class="card-ship" :data-id="ship.id" :data-pivot-id="ship.pivot.id">
+  <div class="card-ship"
+       :data-id="ship.id"
+       :data-pivot-id="ship.pivot.id"
+       :style="`order: ${ship.order}`"
+  >
     <div class="card-ship-header">
       <div class="card-subsec-l">
         <div v-if="ship.type === 'Escort'" class="card-ship-class heading">
@@ -116,7 +120,7 @@ const handleShipImageError = (event) => {
                 <p>&times;</p>
                 <div class="squadron-counter-input">
                     <button onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change', { bubbles: true}));"><</button>
-                    <input type="number" name="squadronCounter" min="1" max="6" title="Number of ships (2-6)" value="{{ $ship.pivot.squadron_counter }}">
+                    <input type="number" name="squadronCounter" min="1" max="6" title="Number of ships (2-6)" :value="ship.pivot.squadron_counter">
                     <button onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change', { bubbles: true}));">></button>
                 </div>
             </div>

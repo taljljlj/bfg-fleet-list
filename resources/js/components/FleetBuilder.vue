@@ -93,12 +93,10 @@
       try {
         const data = await apiCall(`/api/${state.fleet.id}/ship-add/${shipId}`);
 
-        // Parse the HTML to extract ship data - we'll need to modify this approach
-        // For now, let's update points and add a placeholder
-        state.fleet.points = data.points;
+        state.fleet.points = data.fleetPoints;
 
-        // We'll need to modify the backend to return structured data instead of HTML
-        // For the initial implementation, we can work with what we have
+        state.ships.push(data.ship);
+        state.ships.sort((a, b) => a.order - b.order);
 
       } catch (error) {
         console.error('Error:', error);
@@ -215,6 +213,7 @@
           :key="ship.pivot.id"
           :ship="ship"
           @ship-removed="handleShipRemoved"
+
         />
       </div>
     </div>
