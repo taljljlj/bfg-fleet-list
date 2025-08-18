@@ -12,10 +12,13 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['ship-removed', 'ship-updated']);
+const emit = defineEmits(['ship-removed', 'ship-refits-applied']);
+console.log(props.ship);
+const fleetData = inject('fleetData');
 
 const showRefitsModal = ref(false);
 const refitButtonRef = ref(null);
+const refitsSectionRef = ref(null);
 const hasRefits = computed(() => props.ship.refits && props.ship.refits.length > 0);
 
 const shipPoints = computed(() => {
@@ -35,40 +38,36 @@ const handleShowRefits = async () => {
     await nextTick();
 
     // Toggle CSS classes for animation
-    const container = document.querySelector('.card-ship-refit-container');
     const button = refitButtonRef.value;
 
-    if (container && button) {
-      container.classList.remove('collapsed');
+    if (button) {
       button.classList.remove('collapsed');
     }
   } else {
     // Closing the modal and applying refits
     await handleApplyRefits();
-    showRefitsModal.value = false;
 
     await nextTick();
 
-    const container = document.querySelector('.card-ship-refit-container');
     const button = refitButtonRef.value;
 
-    if (container && button) {
-      container.classList.add('collapsed');
+    if (button) {
       button.classList.add('collapsed');
     }
+
+      showRefitsModal.value = false;
   }
 };
 
 const handleApplyRefits = async () => {
   // Get all checked refits from the container
   const checkedRefits = [];
-  const checkboxes = document.querySelectorAll('.card-ship-refit-container input[type="checkbox"]:checked');
+  const checkboxes = refitsSectionRef.value.querySelectorAll('.card-ship-refit-container input[type="checkbox"]:checked');
   checkboxes.forEach(checkbox => {
     checkedRefits.push(parseInt(checkbox.dataset.refitPivotId));
   });
 
   try {
-    const fleetData = inject('fleetData');
     const response = await fetch(`/api/${fleetData.fleet.id}/ship-refit/${props.ship.pivot.id}`, {
       method: 'PATCH',
       headers: {
@@ -79,7 +78,7 @@ const handleApplyRefits = async () => {
     });
 
     const data = await response.json();
-    emit('ship-updated', data);
+    emit('ship-refits-applied', data);
   } catch (error) {
     console.error('Error applying refits:', error);
     alert('Failed to apply refits. Please try again.');
@@ -87,12 +86,12 @@ const handleApplyRefits = async () => {
 };
 
 const handleRefitsApplied = (updatedShip) => {
-  emit('ship-updated', updatedShip);
+  emit('ship-refits-applied', updatedShip);
   showRefitsModal.value = false;
 };
 
 const handleUpdateAttribute = (attribute, value) => {
-  emit('ship-updated', {
+  emit('ship-refits-applied', {
     ...props.ship,
     pivot: {
       ...props.ship.pivot,
@@ -163,7 +162,7 @@ const handleShipImageError = (event) => {
 
     <div class="card-ship-body thin-font">
         <div class="card-section-t">
-            <div class="card-subsec-l">
+            <div ref="refitsSectionRef" class="card-subsec-l">
                 <div v-if="hasRefits">
                     <div ref="refitButtonRef" class="card-ship-refit-btn collapsed" @click="handleShowRefits">
                         <img class="refit-icon" src="/images/fleet-builder/refit-icon.png" alt="Refit Icon">

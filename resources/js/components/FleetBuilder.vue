@@ -123,6 +123,15 @@
       }
     };
 
+    const handleShipRefitsApplied = (data) => {
+        const shipIndex = state.ships.findIndex(ship => ship.pivot.id === data.ship.pivot.id);
+        if (shipIndex !== -1) {
+            state.ships[shipIndex] = data.ship;
+        }
+
+        state.fleet.points = data.fleetPoints;
+    }
+
     const handleExportPdf = async () => {
       try {
         const response = await fetch(`/api/${state.fleet.id}/export-pdf/`, {
@@ -213,7 +222,7 @@
           :key="ship.pivot.id"
           :ship="ship"
           @ship-removed="handleShipRemoved"
-
+          @ship-refits-applied="handleShipRefitsApplied"
         />
       </div>
     </div>

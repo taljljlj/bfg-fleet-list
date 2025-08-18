@@ -243,14 +243,13 @@ class FleetBuilderController extends Controller
 
         $syncResult = $fleetShip->appliedRefits()->sync($selectedRefits);
 
-        $refittedSections = $this->refitService->handleAppliedRefits($syncResult, $fleetShip, $fleet);
+        $this->refitService->handleAppliedRefits($syncResult, $fleetShip, $fleet);
 
-        $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $fleetShip->id), false, true);
+        $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $fleetShip->id), true, true);
 
         return response()->json([
             'message' => 'Ship refitted.',
-            'ship' => $ship,  // Auto-serialized with all relations
-            'refittedSections' => $refittedSections,
+            'ship' => $ship,
             'fleetPoints' => $fleet->points
         ]);
     }

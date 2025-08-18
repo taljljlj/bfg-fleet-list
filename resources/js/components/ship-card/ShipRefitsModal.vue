@@ -10,20 +10,17 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'refits-applied']);
 
-const fleetData = inject('fleetData');
-const showRefits = ref(false);
-const refitButtonRef = ref(null);
-
 // Helper function to format module data (same as discussed earlier)
-const formatModuleData = (data) => {
+const formatModificationData = (data) => {
   const fireArc = data.fire_arc ? ` (${data.fire_arc})` : '';
-  return `${data.placement} ${data.type}${fireArc}`;
+  const placement = data.placement ? `${data.placement} ` : '';
+  return `${placement}${data.type}${fireArc}`;
 };
 
 // Helper function to check if refit is applied
 const isRefitApplied = (refit) => {
-  return props.ship.appliedRefits &&
-         props.ship.appliedRefits.some(appliedRefit =>
+  return props.ship.applied_refits &&
+         props.ship.applied_refits.some(appliedRefit =>
            appliedRefit.ship_refit_id === refit.pivot.id
          );
 };
@@ -35,67 +32,12 @@ const isParentRefitApplied = (parentRefit) => {
            appliedRefit.ship_refit_id === parentRefit.pivot.id
          );
 };
-
-const handleApplyRefits = async () => {
-  // Get all checked refits
-  const checkedRefits = [];
-  const checkboxes = document.querySelectorAll('.card-ship-refit-container input[type="checkbox"]:checked');
-  checkboxes.forEach(checkbox => {
-    checkedRefits.push(parseInt(checkbox.dataset.refitPivotId));
-  });
-
-  try {
-    const response = await fetch(`/api/${fleetData.fleet.id}/ship-refit/${props.ship.pivot.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': fleetData.csrfToken
-      },
-      body: JSON.stringify({ 'selected-refits': checkedRefits })
-    });
-
-    const data = await response.json();
-    emit('refits-applied', data);
-  } catch (error) {
-    console.error('Error applying refits:', error);
-    alert('Failed to apply refits. Please try again.');
-  }
-};
-
-const handleShowRefits = async () => {
-    if (!showRefits.value) {
-        // Opening the modal
-        showRefits.value = true;
-        await nextTick();
-
-        // Toggle CSS classes for animation
-        const container = document.querySelector('.card-ship-refit-container');
-        const button = refitButtonRef.value;
-
-        if (container && button) {
-            container.classList.remove('collapsed');
-            button.classList.remove('collapsed');
-        }
-    } else {
-        // Closing the modal and applying refits
-        await handleApplyRefits();
-        showRefits.value = false;
-
-        await nextTick();
-
-        const container = document.querySelector('.card-ship-refit-container');
-        const button = refitButtonRef.value;
-
-        if (container && button) {
-            container.classList.add('collapsed');
-            button.classList.add('collapsed');
-        }
-    }
-};
 </script>
 
 <template>
-  <div class="card-ship-refit-container collapsed">
+  <div
+      class="card-ship-refit-container"
+  >
     <ul>
       <li v-for="refit in ship.refits" :key="refit.id" class="ship-refit">
         <label>
@@ -111,10 +53,10 @@ const handleShowRefits = async () => {
             <template v-for="mod in refit.modifications" :key="mod.id">
               <template v-if="mod.type === 'arm'">
                 <template v-if="mod.action === 'modify'">
-                  <br>[{{ formatModuleData(JSON.parse(mod.module)) }}: firepower({{ mod.pivot.firepower || 'N/A' }}) range({{ mod.pivot.range_speed || mod.pivot.misc || 'N/A' }})]
+                  <br>[{{ formatModificationData(JSON.parse(mod.module)) }}: firepower({{ mod.pivot.firepower || 'N/A' }}) range({{ mod.pivot.range_speed || mod.pivot.misc || 'N/A' }})]
                 </template>
                 <template v-else-if="mod.action === 'replace' || mod.action === 'add'">
-                  <br>[{{ formatModuleData(JSON.parse(mod.value)) }}: firepower({{ mod.pivot.firepower || 'N/A' }}) range({{ mod.pivot.range_speed || mod.pivot.misc || 'N/A' }})]
+                  <br>[{{ formatModificationData(JSON.parse(mod.value)) }}: firepower({{ mod.pivot.firepower || 'N/A' }}) range({{ mod.pivot.range_speed || mod.pivot.misc || 'N/A' }})]
                 </template>
               </template>
             </template>

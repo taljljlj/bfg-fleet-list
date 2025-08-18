@@ -81,24 +81,17 @@ class RefitService
      * @param Fleet $fleet
      * @return Collection
      */
-    public function handleAppliedRefits(array $syncResult, FleetShip $fleetShip, Fleet $fleet): Collection
+    public function handleAppliedRefits(array $syncResult, FleetShip $fleetShip, Fleet $fleet): void
     {
 
-        $resAttached = $this->handleAttachedRefits($syncResult['attached'], $fleetShip);
-        $resDetached = $this->handleDetachedRefits($syncResult['detached'], $fleetShip);
+        $attachedPointsModifier = $this->handleAttachedRefits($syncResult['attached'], $fleetShip);
+        $detachedPointsModifier = $this->handleDetachedRefits($syncResult['detached'], $fleetShip);
 
-        $pointsModifier = $resAttached['pointsModifier'] - $resDetached['pointsModifier'];
+        $pointsModifier = $attachedPointsModifier - $detachedPointsModifier;
         $fleetShip->points = FleetBuilderUtils::calculatePoints($fleetShip, $pointsModifier);
         $fleetShip->save();
         $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $pointsModifier);
         $fleet->save();
-
-        $shipModified = ($resAttached['shipModified'] ?: $resDetached['shipModified']) ?: false;
-        $armModified = ($resAttached['armModified'] ?: $resDetached['armModified']) ?: false;
-        $ruleModified = ($resAttached['ruleModified'] ?: $resDetached['ruleModified']) ?: false;
-
-
-        return collect(compact('shipModified', 'armModified', 'ruleModified'));
     }
 
     /**
@@ -106,13 +99,13 @@ class RefitService
      *
      * @param array $attachedRefits ship_refit_id array
      * @param FleetShip $fleetShip
-     * @return \Illuminate\Http\JsonResponse|Collection
+     * @return int
      */
-    private function handleAttachedRefits(array $attachedRefits, FleetShip $fleetShip) {
+    private function handleAttachedRefits(array $attachedRefits, FleetShip $fleetShip): int
+    {
         $ship = Ship::findOrFail($fleetShip->ship_id);
 
         $pointsModifier = $this->getRefitsPointCost($attachedRefits, $ship);
-        $shipModified = $armModified = $ruleModified = false;
 
         foreach ($attachedRefits as $shipRefitId) {
             $modifications = $ship->modifications()
@@ -123,27 +116,25 @@ class RefitService
                 switch ($modification->type) {
                     case 'ship':
                         $this->applyShipRefit($modification, $fleetShip);
-                        $shipModified = true;
                         break;
                     case 'arm':
                         $this->applyArmamentRefit($modification, $fleetShip);
-                        $armModified = true;
                         break;
                     case 'rule':
                         $this->applyRuleRefit($modification, $fleetShip);
-                        $ruleModified = true;
                         break;
                     case 'group':
+                        //TODO: handle group refit
                         break;
                     default:
                         //TODO: handle what happens when Exception is caught and returned. Extract this to callable function because of duplication
                         $message = "Something went wrong. Refit type unknown, cannot process. fleet_ship_id: " . $fleetShip->id . "; ship_refit_id: " . $shipRefitId . ";";
                         Log::error($message);
-                        return response()->json(['error' => $message], 500);
+//                        return response()->json(['error' => $message], 500);
                 }
             }
         }
-        return collect(compact('pointsModifier', 'shipModified', 'armModified', 'ruleModified'));
+        return $pointsModifier;
     }
 
     /**
@@ -151,13 +142,13 @@ class RefitService
      *
      * @param array $detachedRefits ship_refit_id array
      * @param FleetShip $fleetShip
-     * @return Collection
+     * @return int
      */
-    private function handleDetachedRefits(array $detachedRefits, FleetShip $fleetShip) {
+    private function handleDetachedRefits(array $detachedRefits, FleetShip $fleetShip): int
+    {
         $ship = Ship::findOrFail($fleetShip->ship_id);
 
         $pointsModifier = $this->getRefitsPointCost($detachedRefits, $ship);
-        $shipModified = $armModified = $ruleModified = false;
 
         foreach ($detachedRefits as $shipRefitId) {
             $modifications = $ship->modifications()
@@ -168,29 +159,26 @@ class RefitService
                 switch ($modification->type) {
                     case 'ship':
                         $this->removeShipRefit($modification, $fleetShip, $ship);
-                        $shipModified = true;
                         break;
                     case 'arm':
                         $this->removeArmRefit($modification, $fleetShip);
-                        $armModified = true;
                         break;
                     case 'rule':
                         $this->removeRuleRefit($modification, $fleetShip);
-                        $ruleModified = true;
                         break;
                 }
             }
         }
 
-        return collect(compact('pointsModifier', 'shipModified', 'armModified', 'ruleModified'));
+        return $pointsModifier;
     }
 
     /**
-     * Get total sum of point cost of refits applied
+     * Get the total sum of point cost of refits applied
      *
      * @param array $refitIds
      * @param Ship $ship
-     * @return int|mixed
+     * @return int
      */
     private function getRefitsPointCost(array $refitIds, Ship $ship) {
         $pointsModifier = 0;
@@ -468,10 +456,11 @@ class RefitService
      * @param Ship $ship
      * @return Ship
      */
-    public function loadAppliedRefits(Ship $ship): Ship // TODO: research if this can be eager loaded somehow through eloquent relations to remove this method
+    public function loadAppliedRefits(Ship $ship): Ship
+        // TODO: eager loading doesn't seem possible without making it more complex than raw query below
+        //  - However creating a custom ShipCollection class might be worth looking into
     {
         $appliedRefits = AppliedRefit::where('fleet_ship_id', $ship->pivot->id)->get();
-
         $ship->setRelation('appliedRefits', $appliedRefits);
 
         return $ship;

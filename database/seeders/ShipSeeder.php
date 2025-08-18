@@ -27,7 +27,7 @@ class ShipSeeder extends Seeder
                     "armaments" => [
                         ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 6, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 6, "misc" => null],
-                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150cm"],
+                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150"],
                         ["type" => "Weapons Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 6, "misc" => null]
                     ],
                     "fleet_lists" => [
@@ -98,7 +98,7 @@ class ShipSeeder extends Seeder
                         ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 4, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 4, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 6, "misc" => null],
-                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150cm"],
+                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150"],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 4, "is_reserve" => 0]
@@ -240,7 +240,7 @@ class ShipSeeder extends Seeder
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 6, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 6, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
-                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150cm"],
+                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150"],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 1, "is_reserve" => 0],
@@ -303,7 +303,7 @@ class ShipSeeder extends Seeder
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 4, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 4, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
-                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150cm"],
+                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150"],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 4, "is_reserve" => 0]
@@ -345,7 +345,7 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "nova_cannon_over_torpedoes", "points" => 20, "pivots" => [
                                 [
-                                    "firepower" => 1, "range_speed" => null, "misc" => "30-150cm"
+                                    "firepower" => 1, "range_speed" => null, "misc" => "30-150"
                                 ]
                             ]
                         ],
@@ -403,7 +403,7 @@ class ShipSeeder extends Seeder
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 12, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 12, "misc" => null],
-                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150cm"],
+                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150"],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 1, "is_reserve" => 0],
@@ -444,7 +444,7 @@ class ShipSeeder extends Seeder
                         ],
                         ["name" => "nova_cannon_over_torpedoes", "points" => 20, "pivots" => [
                                 [
-                                    "firepower" => 1, "range_speed" => null, "misc" => "30-150cm"
+                                    "firepower" => 1, "range_speed" => null, "misc" => "30-150"
                                 ]
                             ]
                         ]
@@ -488,7 +488,7 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "nova_cannon_over_torpedoes", "points" => 20, "pivots" => [
                                 [
-                                    "firepower" => 1, "range_speed" => null, "misc" => "30-150cm"
+                                    "firepower" => 1, "range_speed" => null, "misc" => "30-150"
                                 ]
                             ]
                         ],
@@ -939,7 +939,7 @@ class ShipSeeder extends Seeder
                         ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 2, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
-                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150cm"],
+                        ["type" => "Nova Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 1, "misc" => "30-150"],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 8, "is_reserve" => 0]
