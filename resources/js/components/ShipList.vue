@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import caretIcon from '@images/caret-icon.png';
 import addShipIcon from '@images/add-ship-icon.png';
 

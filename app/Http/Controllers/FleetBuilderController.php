@@ -273,13 +273,9 @@ class FleetBuilderController extends Controller
         $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $pointDiff);
         $fleet->save();
 
-        $points = [
-            'fleet' => $fleet->points,
-            'ship' => $fleetShip->squadron_points,
-        ];
-
         return response()->json([
-            'pointsData' => $points
+            'fleetPoints' => $fleet->points,
+            'squadronCounter' => $fleetShip->squadron_counter,
         ]);
     }
 

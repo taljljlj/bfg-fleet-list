@@ -123,7 +123,7 @@
       }
     };
 
-    const handleShipRefitsApplied = (data) => {
+    const handleShipUpdated = (data) => {
         const shipIndex = state.ships.findIndex(ship => ship.pivot.id === data.ship.pivot.id);
         if (shipIndex !== -1) {
             state.ships[shipIndex] = data.ship;
@@ -222,7 +222,7 @@
           :key="ship.pivot.id"
           :ship="ship"
           @ship-removed="handleShipRemoved"
-          @ship-refits-applied="handleShipRefitsApplied"
+          @ship-updated="handleShipUpdated"
         />
       </div>
     </div>

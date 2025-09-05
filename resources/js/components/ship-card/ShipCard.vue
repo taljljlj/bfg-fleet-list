@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, nextTick, inject } from 'vue';
+import { ref, computed, nextTick, inject, watch } from 'vue';
 import ShipStatsSection from './ShipStatsSection.vue';
 import ShipArmamentsSection from './ShipArmamentsSection.vue';
 import ShipRulesSection from './ShipRulesSection.vue';
@@ -12,7 +12,7 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['ship-removed', 'ship-refits-applied']);
+const emit = defineEmits(['ship-removed', 'ship-updated']);
 console.log(props.ship);
 const fleetData = inject('fleetData');
 
@@ -20,6 +20,7 @@ const showRefitsModal = ref(false);
 const refitButtonRef = ref(null);
 const refitsSectionRef = ref(null);
 const hasRefits = computed(() => props.ship.refits && props.ship.refits.length > 0);
+const squadronCounter = ref(props.ship.pivot.squadron_counter);
 
 const shipPoints = computed(() => {
   return props.ship.type === 'Escort'
@@ -78,7 +79,7 @@ const handleApplyRefits = async () => {
     });
 
     const data = await response.json();
-    emit('ship-refits-applied', data);
+    emit('ship-updated', data);
   } catch (error) {
     console.error('Error applying refits:', error);
     alert('Failed to apply refits. Please try again.');
@@ -86,12 +87,12 @@ const handleApplyRefits = async () => {
 };
 
 const handleRefitsApplied = (updatedShip) => {
-  emit('ship-refits-applied', updatedShip);
+  emit('ship-updated', updatedShip);
   showRefitsModal.value = false;
 };
 
 const handleUpdateAttribute = (attribute, value) => {
-  emit('ship-refits-applied', {
+  emit('ship-updated', {
     ...props.ship,
     pivot: {
       ...props.ship.pivot,
@@ -103,6 +104,48 @@ const handleUpdateAttribute = (attribute, value) => {
 const handleShipImageError = (event) => {
     event.target.src = '/images/ships/ship-no-image.png';
 }
+
+const incrementCounter = () => {
+    if (squadronCounter.value < 6) squadronCounter.value++;
+};
+
+const decrementCounter = () => {
+    if (squadronCounter.value > 1) squadronCounter.value--;
+};
+
+watch(squadronCounter, async (newValue) => {
+    try {
+        const response = await fetch(`/api/${fleetData.fleet.id}/ship-squadron-counter/${props.ship.pivot.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': fleetData.csrfToken
+            },
+            body: JSON.stringify({ 'squadron-counter': newValue })
+        });
+
+        const data = await response.json();
+
+        // Emit updated ship data to parent
+        emit('ship-updated', {
+            ship: {
+                ...props.ship,
+                pivot: {
+                    ...props.ship.pivot,
+                    squadron_counter: data.squadronCounter
+                }
+            },
+            fleetPoints: data.fleetPoints
+        });
+
+        // Optionally update fleet points here if needed
+        // updateFleetPoints(data.pointsData.fleet, false);
+
+    } catch (error) {
+        console.error('Error updating squadron counter:', error);
+        alert('Failed to update squadron counter. Please try again.');
+    }
+});
 </script>
 
 <template>
@@ -118,9 +161,15 @@ const handleShipImageError = (event) => {
             <div class="card-ship-amount">
                 <p>&times;</p>
                 <div class="squadron-counter-input">
-                    <button onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change', { bubbles: true}));"><</button>
-                    <input type="number" name="squadronCounter" min="1" max="6" title="Number of ships (2-6)" :value="ship.pivot.squadron_counter">
-                    <button onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change', { bubbles: true}));">></button>
+                    <button @click="decrementCounter"><</button>
+                    <input
+                        type="number"
+                        min="1"
+                        max="6"
+                        title="Number of ships (2-6)"
+                        v-model.number="squadronCounter"
+                    >
+                    <button @click="incrementCounter">></button>
                 </div>
             </div>
         </div>
