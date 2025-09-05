@@ -285,7 +285,7 @@ class FleetBuilderController extends Controller
      * @param Request $request
      * @return Response|JsonResponse
      */
-    public function updateShipCustomAttribute(Fleet $fleet, FleetShip $fleetShip, Request $request) : Response|JsonResponse
+    public function updateShipFields(Fleet $fleet, FleetShip $fleetShip, Request $request) : Response|JsonResponse
     {
         $attr = $request->get('attr');
         $value = $request->get('value');
@@ -300,7 +300,7 @@ class FleetBuilderController extends Controller
             $fleet->save();
 
             return response()->json([
-                'points' => $fleet->points
+                'fleetPoints' => $fleet->points
             ]);
         }
 

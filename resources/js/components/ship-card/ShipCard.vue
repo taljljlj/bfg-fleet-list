@@ -21,12 +21,19 @@ const refitButtonRef = ref(null);
 const refitsSectionRef = ref(null);
 const hasRefits = computed(() => props.ship.refits && props.ship.refits.length > 0);
 const squadronCounter = ref(props.ship.pivot.squadron_counter);
+const shipLd = ref(props.ship.pivot.leadership);
+const shipName = ref(props.ship.pivot.name)
 
-const shipPoints = computed(() => {
-  return props.ship.type === 'Escort'
-    ? props.ship.pivot.points * props.ship.pivot.squadron_counter
-    : props.ship.pivot.points;
-});
+const shipPoints = computed({
+    get() {
+        return props.ship.type === 'Escort'
+            ? props.ship.pivot.points * props.ship.pivot.squadron_counter
+            : props.ship.pivot.points
+    },
+    set(newValue) {
+        handleUpdateField('points', newValue)
+    }
+})
 
 const handleRemoveShip = () => {
   emit('ship-removed', props.ship.pivot.id);
@@ -91,14 +98,37 @@ const handleRefitsApplied = (updatedShip) => {
   showRefitsModal.value = false;
 };
 
-const handleUpdateAttribute = (attribute, value) => {
-  emit('ship-updated', {
-    ...props.ship,
-    pivot: {
-      ...props.ship.pivot,
-      [attribute]: value
+const handleUpdateField = async (attribute, value) => {
+    try {
+        const response = await fetch(`/api/${fleetData.fleet.id}/ship-fields/${props.ship.pivot.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': fleetData.csrfToken
+            },
+            body: JSON.stringify({ 'attr': attribute, 'value': value })
+        });
+
+        if(response.status === 200) {
+            const data = await response.json();
+
+            if('fleetPoints' in data) {
+                emit('ship-updated', {
+                    ship: {
+                        ...props.ship,
+                        pivot: {
+                            ...props.ship.pivot,
+                            points: value
+                        }
+                    },
+                    fleetPoints: data.fleetPoints
+                });
+            }
+        }
+    } catch (error) {
+        console.error('Error updating squadron counter:', error);
+        alert('Failed to update squadron counter. Please try again.');
     }
-  });
 };
 
 const handleShipImageError = (event) => {
@@ -146,6 +176,22 @@ watch(squadronCounter, async (newValue) => {
         alert('Failed to update squadron counter. Please try again.');
     }
 });
+
+watch(shipLd, async (newValue) => {
+    await handleUpdateField('leadership', newValue);
+    shipLd.value = newValue;
+})
+
+watch(shipName, async (newValue) => {
+    await handleUpdateField('name', newValue);
+    shipName.value = newValue;
+})
+
+const validateLdInput = (event) => {
+    const raw = event.target.value;
+    const cleaned = raw.replace(/[^0-9-]/g, '');
+    shipLd.value = cleaned;
+}
 </script>
 
 <template>
@@ -181,27 +227,27 @@ watch(squadronCounter, async (newValue) => {
             <input v-if="ship.type === 'Escort'"
                 title="Leadership: for squadrons enter Ld values for each individual ship in this field separated by - (dash)"
                 maxlength="11"
-                type="number"
+                type="text"
                 class="ship-escort-ld"
-                :value="ship.pivot.leadership"
-                @input="handleUpdateAttribute('leadership', $event.target.value)"
+                v-model="shipLd"
+                @input="validateLdInput"
                 name="cardShipLd"
             />
             <input v-else
                 title="Leadership"
                 maxlength="2"
-                type="number"
-                :value="ship.pivot.leadership"
-                @input="handleUpdateAttribute('leadership', $event.target.value)"
+                type="text"
+                v-model="shipLd"
+                @input="validateLdInput"
                 name="cardShipLd"
             />
         </div>
         <div class="card-ship-pts card-input heading">
             <label for="cardShipPts">Pts: </label>
             <input
+            title="Ship/Squadron Points: Set custom points value. For squadrons reduce counter to x1 before inputting points"
             type="number"
-            :value="shipPoints"
-            @input="handleUpdateAttribute('points', $event.target.value)"
+            v-model="shipPoints"
             name="cardShipPts"
             />
         </div>
@@ -237,7 +283,7 @@ watch(squadronCounter, async (newValue) => {
                     type="text"
                     name="cardShipName"
                     :placeholder="`Enter ${ship.type == 'Escort' ? 'Squadron' : 'Ship' } Name`"
-                    :value="`${ ship.pivot.name ?? '' }`"
+                    v-model="shipName"
                 >
                 <div class="card-ship-additional card-box-container">
                     <div class="card-ship-special ship-rules-section-container">
