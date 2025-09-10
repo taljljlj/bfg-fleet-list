@@ -1,33 +1,56 @@
 {
-  "public/images/fleet-builder-bg-2.jpg": {
-    "file": "assets/fleet-builder-bg-2-xhXNMud3.jpg",
-    "src": "public/images/fleet-builder-bg-2.jpg"
-  },
-  "public/images/fleet-builder/firearc-f.png": {
-    "file": "assets/firearc-f-BAQF4mJ7.png",
-    "src": "public/images/fleet-builder/firearc-f.png"
-  },
-  "public/images/fleet-builder/firearc-lfr.png": {
-    "file": "assets/firearc-lfr-mhTrzfoE.png",
-    "src": "public/images/fleet-builder/firearc-lfr.png"
-  },
-  "public/images/fleet-builder/firearc-lr.png": {
-    "file": "assets/firearc-lr-BceOqqnT.png",
-    "src": "public/images/fleet-builder/firearc-lr.png"
-  },
-  "public/images/header-bg.jpg": {
-    "file": "assets/header-bg-Djej8BmF.jpg",
-    "src": "public/images/header-bg.jpg"
-  },
   "resources/css/app.css": {
-    "file": "assets/app-A2PdKRW3.css",
+    "file": "assets/app-DpGmzVze.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/images/add-ship-icon.png": {
+    "file": "assets/add-ship-icon-HI4Yx_AO.png",
+    "src": "resources/images/add-ship-icon.png"
+  },
+  "resources/images/caret-icon.png": {
+    "file": "assets/caret-icon-KjWOtrdo.png",
+    "src": "resources/images/caret-icon.png"
+  },
+  "resources/images/fleet-builder-bg-2.jpg": {
+    "file": "assets/fleet-builder-bg-2-xhXNMud3.jpg",
+    "src": "resources/images/fleet-builder-bg-2.jpg"
+  },
+  "resources/images/fleet-builder/firearc-f.png": {
+    "file": "assets/firearc-f-BAQF4mJ7.png",
+    "src": "resources/images/fleet-builder/firearc-f.png"
+  },
+  "resources/images/fleet-builder/firearc-lfr.png": {
+    "file": "assets/firearc-lfr-mhTrzfoE.png",
+    "src": "resources/images/fleet-builder/firearc-lfr.png"
+  },
+  "resources/images/fleet-builder/firearc-lr.png": {
+    "file": "assets/firearc-lr-BceOqqnT.png",
+    "src": "resources/images/fleet-builder/firearc-lr.png"
+  },
+  "resources/images/header-bg.jpg": {
+    "file": "assets/header-bg-Djej8BmF.jpg",
+    "src": "resources/images/header-bg.jpg"
+  },
+  "resources/images/loading-icon.png": {
+    "file": "assets/loading-icon-ivLWt770.png",
+    "src": "resources/images/loading-icon.png"
+  },
   "resources/js/app.js": {
-    "file": "assets/app-Xaw6OIO1.js",
+    "file": "assets/app-D7VsAhFx.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true
+    "isEntry": true,
+    "css": [
+      "assets/app-BRrd7l0a.css"
+    ],
+    "assets": [
+      "assets/caret-icon-KjWOtrdo.png",
+      "assets/add-ship-icon-HI4Yx_AO.png",
+      "assets/loading-icon-ivLWt770.png",
+      "assets/firearc-lr-BceOqqnT.png",
+      "assets/firearc-f-BAQF4mJ7.png",
+      "assets/firearc-lfr-mhTrzfoE.png"
+    ]
   }
 }
