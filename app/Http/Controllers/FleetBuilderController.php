@@ -195,10 +195,13 @@ class FleetBuilderController extends Controller
             ->first();
         $ship->setRelation('pivot', $shipPivot);
 
+        // Add order to the ship for frontend
+        $ship->order = $shipOrder;
+
         return response()->json([
             'message' => 'Ship added to fleet.',
-            'html' => View::make('components.fleet-builder.ship-profile-card', compact('ship', 'shipOrder'))->render(),
-            'points' => $fleet->points
+            'ship' => $ship,
+            'fleetPoints' => $fleet->points
         ]);
     }
 
@@ -240,42 +243,14 @@ class FleetBuilderController extends Controller
 
         $syncResult = $fleetShip->appliedRefits()->sync($selectedRefits);
 
-        $refittedSections = $this->refitService->handleAppliedRefits($syncResult, $fleetShip, $fleet);
+        $this->refitService->handleAppliedRefits($syncResult, $fleetShip, $fleet);
 
-        $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $fleetShip->id), false, true);
-
-        $htmlData = [];
-        if ($refittedSections['shipModified']) {
-            //render the ship stats component and return to the frontend
-            $htmlData['stats'] = View::make(
-                'components.fleet-builder.ship-profile-sections.ship-profile-stats-section',
-                [ 'ship' => $ship ]
-            )->render();
-        }
-        if ($refittedSections['armModified']) {
-            //render the armament table component and return to the frontend
-            $htmlData['armaments'] = View::make(
-                'components.fleet-builder.ship-profile-sections.ship-profile-armaments-section',
-                [ 'armaments' => $ship->armaments ]
-            )->render();
-        }
-        if ($refittedSections['ruleModified']) {
-            //render the rule list component and return to the frontend
-            $htmlData['rules'] = View::make(
-                'components.fleet-builder.ship-profile-sections.ship-profile-rules-section',
-                [ 'rules' => $ship->rules ]
-            )->render();
-        }
-
-        $points = [
-            'fleet' => $fleet->points,
-            'ship' => $ship->pivot->points,
-        ];
+        $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $fleetShip->id), true, true);
 
         return response()->json([
-            'htmlData' => $htmlData,
-            'refittedSections' => $refittedSections,
-            'pointsData' => $points
+            'message' => 'Ship refitted.',
+            'ship' => $ship,
+            'fleetPoints' => $fleet->points
         ]);
     }
 
@@ -298,13 +273,9 @@ class FleetBuilderController extends Controller
         $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $pointDiff);
         $fleet->save();
 
-        $points = [
-            'fleet' => $fleet->points,
-            'ship' => $fleetShip->squadron_points,
-        ];
-
         return response()->json([
-            'pointsData' => $points
+            'fleetPoints' => $fleet->points,
+            'squadronCounter' => $fleetShip->squadron_counter,
         ]);
     }
 
