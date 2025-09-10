@@ -22,6 +22,6 @@ Route::prefix('{fleet}')->group(function () {
     Route::patch('/ship-remove/{shipPivotId}', [FleetBuilderController::class, 'detachShipFromFleet']);
     Route::patch('/ship-refit/{fleetShip}', [FleetBuilderController::class, 'refitShip']);
     Route::patch('/ship-squadron-counter/{fleetShip}', [FleetBuilderController::class, 'updateSquadronCounter']);
-    Route::patch('/ship-custom-attribute/{fleetShip}', [FleetBuilderController::class, 'updateShipCustomAttribute']);
+    Route::patch('/ship-fields/{fleetShip}', [FleetBuilderController::class, 'updateShipFields']);
     Route::get('/export-pdf/', [FleetBuilderController::class, 'getFleetAsPdf']);
 });
