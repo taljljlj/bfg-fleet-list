@@ -54,7 +54,7 @@ class RefitService
             $refit->setRelation('modifications', $refitModifications);
         }
 
-        $ship->setRelation('refits', $refits);
+        $ship->setRelation('refits', $refits->values());
 
 
         return $ship;
