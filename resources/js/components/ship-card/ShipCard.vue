@@ -13,7 +13,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['ship-removed', 'ship-updated']);
-console.log(props.ship);
 const fleetData = inject('fleetData');
 
 const showRefitsModal = ref(false);
@@ -294,7 +293,7 @@ const validateLdInput = (event) => {
         </div>
         <div class="card-section-b">
             <div class="card-subsec-l ship-stats-section-container">
-                <ShipStatsSection :ship="ship" @update-attribute="handleUpdateAttribute" />
+                <ShipStatsSection :ship="ship" />
             </div>
             <div class="card-subsec-r ship-armaments-section-container">
                 <ShipArmamentsSection :armaments="ship.armaments" />
