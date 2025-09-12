@@ -20,7 +20,7 @@ class RuleService
     {
         $refittedRules = FleetShipRule::where('fleet_ship_id', $ship->pivot->id)->get();
 
-        $combinedRules = $ship->rules;
+        $combinedRules = $ship->rules()->get();
 
         foreach ($refittedRules as $refittedRule) {
             $ruleObj = new Rules();
