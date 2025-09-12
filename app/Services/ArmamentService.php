@@ -20,8 +20,7 @@ class ArmamentService
     {
         $refittedArms = FleetShipArmament::where('fleet_ship_id', $ship->pivot->id)->get();
 
-        $shipArms = $ship->armaments;
-        $ship->unsetRelation('armaments');
+        $shipArms = $ship->armaments()->get();
 
         foreach ($refittedArms as $refittedArm){
             //If refit removes armament
@@ -70,8 +69,6 @@ class ArmamentService
     {
         return $armaments->transform(function ($item) use ($refittedArm) {
             if (isset($item->pivot->id) && $item->pivot->id == $refittedArm->ship_armament_id) {
-                $item = clone $item;
-
                 $item->type = $refittedArm->type;
                 $item->placement = $refittedArm->placement;
                 $item->fire_arc = $refittedArm->fire_arc;

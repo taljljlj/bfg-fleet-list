@@ -76,11 +76,7 @@ class FleetBuilderService
     public function loadAndPrepareShips(BelongsToMany $shipsRelation, bool $applyOrder = false, bool $single = false, bool $export = false): Collection|Ship|null
     {
         $query = $shipsRelation
-            ->with(['armaments', 'rules'])
             ->withPivot('id', 'points', 'speed', 'turns', 'shields', 'armour', 'turrets', 'squadron_counter', 'name', 'leadership');
-        if (!$export) {
-            $query = $query->with(['refits', 'modifications']);
-        }
 
         $ships = $single ? $query->first() : $query->get();
 
