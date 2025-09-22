@@ -29,5 +29,6 @@ npm run dev
 ```
 * For production:
 ```
+npm ci
 npm run build
 ```
