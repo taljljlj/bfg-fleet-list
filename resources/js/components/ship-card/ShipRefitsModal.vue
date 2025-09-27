@@ -1,5 +1,4 @@
 <script setup>
-import { ref, nextTick, inject } from 'vue';
 
 const props = defineProps({
   ship: {
