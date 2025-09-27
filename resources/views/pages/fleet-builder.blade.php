@@ -9,7 +9,7 @@
          data-ship-list="{{ json_encode($shipList) }}"
          data-ships="{{ json_encode($ships) }}"
          data-csrf-token="{{ csrf_token() }}">
-        <!-- Vue will mount here -->
+        <!-- Vue app -->
     </div>
 @endsection
 
