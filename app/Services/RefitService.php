@@ -24,11 +24,9 @@ class RefitService
      */
     public function rebuildRefitRelation(Ship $ship) : Ship
     {
-        //Extract modification to var and unset relation
-        $modifications = $ship->modifications;
-        $ship->unsetRelation('modifications');
-
-        $refits = $ship->refits;
+        //Get default refits/modifications
+        $refits = $ship->refits()->get();
+        $modifications = $ship->modifications()->get();
 
         foreach ($refits as $refit) {
             //Find and set pivot for children refits manually due to limitations of eloquent
@@ -54,7 +52,7 @@ class RefitService
             $refit->setRelation('modifications', $refitModifications);
         }
 
-        $ship->setRelation('refits', $refits);
+        $ship->setRelation('refits', $refits->values());
 
 
         return $ship;

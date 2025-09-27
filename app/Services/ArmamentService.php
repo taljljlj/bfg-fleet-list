@@ -20,8 +20,7 @@ class ArmamentService
     {
         $refittedArms = FleetShipArmament::where('fleet_ship_id', $ship->pivot->id)->get();
 
-        $shipArms = $ship->armaments;
-        $ship->unsetRelation('armaments');
+        $shipArms = $ship->armaments()->get();
 
         foreach ($refittedArms as $refittedArm){
             //If refit removes armament

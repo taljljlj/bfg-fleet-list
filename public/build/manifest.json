@@ -37,12 +37,12 @@
     "src": "resources/images/loading-icon.png"
   },
   "resources/js/app.js": {
-    "file": "assets/app-D7VsAhFx.js",
+    "file": "assets/app-VRP5H3xt.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-BRrd7l0a.css"
+      "assets/app-DbVH2-lK.css"
     ],
     "assets": [
       "assets/caret-icon-KjWOtrdo.png",

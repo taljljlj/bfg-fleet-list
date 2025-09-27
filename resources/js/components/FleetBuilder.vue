@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, reactive, inject, computed } from 'vue';
+    import { reactive, inject, computed } from 'vue';
     import FactionSelector from './FactionSelector.vue';
     import FleetListSelector from './FleetListSelector.vue';
     import ShipList from './ShipList.vue';
