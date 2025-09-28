@@ -72,7 +72,7 @@ class FleetListSeeder extends Seeder
         $fleetLists = array_merge($fleetLists, [
             ["name" => "Eldar Corsairs Fleet List [Gothic Sector]", "faction_id" => $factionId],
             ["name" => "Eldar Corsairs Fleet List [Later Gothic War]", "faction_id" => $factionId],
-            ["name" => "Lyanden Caftworld Fleet", "faction_id" => $factionId],
+            ["name" => "Iyanden Caftworld Fleet", "faction_id" => $factionId],
         ]);
 
         //get Dark Eldar ID for Dark Eldar fleet lists

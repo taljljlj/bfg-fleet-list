@@ -219,6 +219,16 @@ class RulesSeeder extends Seeder
                 'text' => 'May place 1 Blast along ship’s path after it moved',
                 'text_long' => '',
             ],
+            [
+                'name' => 'Boarding Weakness',
+                'text' => 'Cannot board; Enemy +1 when being boarded',
+                'text_long' => 'This ship cannot initiate boarding actions. A ship that boards it gains a +1 modifier in addition to any other modifiers.',
+            ],
+            [
+                'name' => 'Yriel\'s Pirate Warband',
+                'text' => '+2 boarding; +1 hit&run',
+                'text_long' => 'The ship embarks the most fearsome members of Yriel’s own pirate warband, which count as an Aspect Warrior fighting crew.',
+            ]
 //            [
 //                'name' => '',
 //                'text' => '',

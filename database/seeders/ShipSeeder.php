@@ -1970,26 +1970,163 @@ class ShipSeeder extends Seeder
                     "refits" => []
                 ],
 
+            ],
+            "Eldar" => [
+                [
+                    "class" => "Void Stalker Class Battleship", "type" => "Battleship", "hitpoints" => 10, "speed" => '10/20/25', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 380,
+                    "armaments" => [
+                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber"],
+                        ["type" => "Weapons Battery", "placement" => "Keel", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 8, "misc" => null],
+                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 2, "misc" => null]
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 23, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Eclipse Class Cruiser", "type" => "Cruiser", "hitpoints" => 6, "speed" => '10/20/25', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 250,
+                    "armaments" => [
+                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber"],
+                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null]
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 22, "is_reserve" => 0],
+                        ["fleet_list_id" => 23, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Shadow Class Cruiser", "type" => "Cruiser", "hitpoints" => 6, "speed" => '10/20/25', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 210,
+                    "armaments" => [
+                        ["type" => "Torpedoes", "placement" => "Keel", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 4, "misc" => null],
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 12, "misc" => null]
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 22, "is_reserve" => 0],
+                        ["fleet_list_id" => 23, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Aurora Class Light Cruiser", "type" => "Light Cruiser", "hitpoints" => 4, "speed" => '15/20/30', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 140,
+                    "armaments" => [
+                        ["type" => "Torpedoes", "placement" => "Keel", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 4, "misc" => null],
+                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null]
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 23, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Solaris Class Light Cruiser", "type" => "Light Cruiser", "hitpoints" => 4, "speed" => '15/20/30', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 130,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 8, "misc" => null]
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 23, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Hellebore Class Frigate", "type" => "Escort", "hitpoints" => 1, "speed" => '10/20/30', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 65,
+                    "armaments" => [
+                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Torpedoes", "placement" => "Keel", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 22, "is_reserve" => 0],
+                        ["fleet_list_id" => 23, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Aconite Class Frigate", "type" => "Escort", "hitpoints" => 1, "speed" => '10/20/30', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 55,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 5, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 22, "is_reserve" => 0],
+                        ["fleet_list_id" => 23, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Hemlock Class Destroyer", "type" => "Escort", "hitpoints" => 1, "speed" => '15/20/30', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 40,
+                    "armaments" => [
+                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 22, "is_reserve" => 0],
+                        ["fleet_list_id" => 23, "is_reserve" => 0],
+                    ],
+                    "rules" => [
+                        "Boarding Weakness"
+                    ],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Nightshade Class Destroyer", "type" => "Escort", "hitpoints" => 1, "speed" => '15/20/30', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 40,
+                    "armaments" => [
+                        ["type" => "Torpedoes", "placement" => "Keel", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 22, "is_reserve" => 0],
+                        ["fleet_list_id" => 23, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Flame Of Asuryan, Yriel's Flagship", "type" => "Cruiser", "hitpoints" => 8, "speed" => '10/20/25', "turns" => null, "shields" => null, "armour" => "5+", "turrets" => 0, "points" => 320,
+                    "armaments" => [
+                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 16, "misc" => null],
+                        ["type" => "Pulsar Lances", "placement" => "Keel", "fire_arc" => "Left/Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Pulsar Lances", "placement" => "Keel", "fire_arc" => "Front/Right", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 24, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Dragonship", "type" => "Cruiser", "hitpoints" => 6, "speed" => '10/20/25', "turns" => null, "shields" => null, "armour" => "5+", "turrets" => 0, "points" => 260,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 14, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 24, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+
             ]
         ];
 // TODO: complete the ship seeder for remaining factions
-//Single ship seeder template
-//        [
-//            "class" => "", "type" => "", "hitpoints" => , "speed" => , "turns" => , "shields" => , "armour" => "", "turrets" => , "points" => ,
-//            "armaments" => [
-//                ["type" => "", "placement" => "", "fire_arc" => "", "range_speed" => , "firepower" => ]
-//            ],
-//            "fleet_lists" => [
-//                ["fleet_list_id" => , "is_reserve" => 0],
-//            ]
-//        ],
 
 
-        foreach ($shipList as $faction) {
-            //Faction layer of an array was used before, leaving it as is in case it becomes useful again
-            //$factionId = Faction::getByName($faction)->id;
-            foreach ($faction as $shipData) {
-                //$shipData['faction_id'] = $factionId;
+        foreach ($shipList as $faction=>$shipsData) {
+
+            // Get faction id
+            $factionId = Faction::getByName($faction)->id;
+
+            foreach ($shipsData as $shipData) {
+                //Extract related objects data
                 $armamentsData = $shipData['armaments'];
                 unset($shipData['armaments']);
                 $fleetListsData = $shipData['fleet_lists'];
@@ -1999,6 +2136,8 @@ class ShipSeeder extends Seeder
                 $refitsData = $shipData['refits'];
                 unset($shipData['refits']);
 
+                //Create ship
+                $shipData['faction_id'] = $factionId;
                 $ship = Ship::create($shipData);
 
                 //Create armaments and attach them to ship
