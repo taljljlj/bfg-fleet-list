@@ -86,7 +86,6 @@ class FleetListSeeder extends Seeder
         $fleetLists = array_merge($fleetLists, [
             ["name" => "Cyclops Fleet List", "faction_id" => $factionId],
             ["name" => "Ork Waaagh! Fleet List", "faction_id" => $factionId],
-            ["name" => "Ork Clanz", "faction_id" => $factionId],
             ["name" => "Da Ork Clanz Fleet List", "faction_id" => $factionId],
         ]);
 

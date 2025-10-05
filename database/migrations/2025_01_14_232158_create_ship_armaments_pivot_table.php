@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('ship_id')->constrained('ships');
             $table->foreignId('armament_id')->constrained('armaments');
             $table->integer('range_speed')->nullable();
-            $table->integer('firepower');
+            $table->string('firepower', '10');
             $table->string('misc')->nullable();
         });
     }

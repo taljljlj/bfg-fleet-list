@@ -45,8 +45,8 @@ class ShipSeeder extends Seeder
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 6, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 6, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "F: 30cm, B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "F: 30cm, B: 20cm"],
                         ["type" => "Weapons Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 5, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 5, "misc" => null]
                     ],
@@ -67,7 +67,7 @@ class ShipSeeder extends Seeder
                                     "firepower" => null, "range_speed" => null, "misc" => null
                                 ],
                                 [
-                                    "firepower" => null, "range_speed" => null, "misc" => "Fighter,Bomber,Assault"
+                                    "firepower" => null, "range_speed" => null, "misc" => "F: 30cm, B: 20cm"
                                 ]
                             ]
                         ]
@@ -118,8 +118,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Oberon Class Battleship", "type" => "Battleship", "hitpoints" => 12, "speed" => 15, "turns" => 45, "shields" => 4, "armour" => "5+", "turrets" => 5, "points" => 335,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm"],
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 6, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 6, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 2, "misc" => null],
@@ -141,7 +141,7 @@ class ShipSeeder extends Seeder
                                     "firepower" => null, "range_speed" => null, "misc" => null
                                 ],
                                 [
-                                    "firepower" => null, "range_speed" => null, "misc" => "Fighter,Bomber,Assault"
+                                    "firepower" => null, "range_speed" => null, "misc" => "F: 30cm, B: 20cm, A: 30cm"
                                 ]
                             ]
                         ]
@@ -190,8 +190,8 @@ class ShipSeeder extends Seeder
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 8, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 8, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm"],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 2, "is_reserve" => 0]
@@ -205,7 +205,7 @@ class ShipSeeder extends Seeder
                                     "firepower" => null, "range_speed" => null, "misc" => null
                                 ],
                                 [
-                                    "firepower" => null, "range_speed" => null, "misc" => "Fighter,Bomber,Assault"
+                                    "firepower" => null, "range_speed" => null, "misc" => "F: 30cm, B: 20cm, A: 30cm"
                                 ]
                             ]
                         ],
@@ -235,8 +235,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Mars Class Battlecruiser", "type" => "Battlecruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 2, "points" => 270,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm"],
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 6, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 6, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
@@ -266,8 +266,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Dominion Class Battlecruiser", "type" => "Battlecruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 260,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm"],
                         ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 2, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 2, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
@@ -282,8 +282,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Jovian Class Battlecruiser", "type" => "Battlecruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 260,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm"],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
                     ],
                     "fleet_lists" => [
@@ -383,8 +383,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Dictator Class Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 220,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm"],
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 6, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 6, "misc" => null],
                         ["type" => "Torpedoes", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 6, "misc" => null],
@@ -611,8 +611,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Defiant Class Light Cruiser", "type" => "Light Cruiser", "hitpoints" => 6, "speed" => 20, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 120,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "Fighter,Bomber"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "Fighter,Bomber"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "F: 30cm, B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "F: 30cm, B: 20cm"],
                         ["type" => "Lance Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 2, "misc" => null],
                     ],
                     "fleet_lists" => [
@@ -804,7 +804,7 @@ class ShipSeeder extends Seeder
                         ["type" => "Bombardment Cannon", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 8, "misc" => null],
                         ["type" => "Bombardment Cannon", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 8, "misc" => null],
                         ["type" => "Bombardment Cannon", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 8, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Thunderhawk"],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F/B: 20cm"],
                         ["type" => "Torpedoes", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 6, "misc" => null],
                     ],
                     "fleet_lists" => [
@@ -822,7 +822,7 @@ class ShipSeeder extends Seeder
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 12, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 12, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Thunderhawk"],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F/B: 20cm"],
                         ["type" => "Torpedoes", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 6, "misc" => null],
                         ["type" => "Bombardment Cannon", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 8, "misc" => null],
                     ],
@@ -843,7 +843,7 @@ class ShipSeeder extends Seeder
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 4, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 4, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Thunderhawk"],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F/B: 20cm"],
                         ["type" => "Bombardment Cannon", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 3, "misc" => null],
                     ],
                     "fleet_lists" => [
@@ -950,10 +950,10 @@ class ShipSeeder extends Seeder
                     "refits" => [
                         ["name" => "launch_bays_over_lance_battery", "points" => 10, "pivots" => [
                                 [
-                                    "firepower" => 2, "range_speed" => null, "misc" => "Fighter,Bomber"
+                                    "firepower" => 2, "range_speed" => null, "misc" => "F: 30cm, B: 20cm"
                                 ],
                                 [
-                                    "firepower" => 2, "range_speed" => null, "misc" => "Fighter,Bomber"
+                                    "firepower" => 2, "range_speed" => null, "misc" => "F: 30cm, B: 20cm"
                                 ]
                             ]
                         ],
@@ -966,7 +966,7 @@ class ShipSeeder extends Seeder
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 12, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 12, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Thunderhawk"],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F/B: 20cm"],
                         ["type" => "Torpedoes", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 6, "misc" => null],
                         ["type" => "Bombardment Cannon", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 8, "misc" => null],
                     ],
@@ -1005,7 +1005,7 @@ class ShipSeeder extends Seeder
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 8, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 8, "misc" => null],
                         ["type" => "Bombardment Cannon", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 6, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Thunderhawk"],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F/B: 20cm"],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 9, "is_reserve" => 0]
@@ -1034,7 +1034,7 @@ class ShipSeeder extends Seeder
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 4, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 4, "misc" => null],
                         ["type" => "Bombardment Cannon", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 3, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Thunderhawk"],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F/B: 20cm"],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 9, "is_reserve" => 0]
@@ -1417,9 +1417,9 @@ class ShipSeeder extends Seeder
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 6, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 6, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 3, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
                         ["type" => "Lance Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 4, "misc" => null],
                     ],
                     "fleet_lists" => [
@@ -1492,9 +1492,9 @@ class ShipSeeder extends Seeder
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 9, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 9, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 4, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
                         ["type" => "Torpedoes", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 6, "misc" => null],
                     ],
                     "fleet_lists" => [
@@ -1514,8 +1514,8 @@ class ShipSeeder extends Seeder
                         ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 4, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 4, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 6, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
                         ["type" => "Torpedoes", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 9, "misc" => null],
                     ],
                     "fleet_lists" => [
@@ -1534,9 +1534,9 @@ class ShipSeeder extends Seeder
                         ["type" => "Hives Of Nurgle", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 6, "misc" => null],
                         ["type" => "Hives Of Nurgle", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 6, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 4, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
                         ["type" => "Lance Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 4, "misc" => null],
                     ],
                     "fleet_lists" => [
@@ -1575,8 +1575,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Despoiler Class Battleship", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 4, "armour" => "5+", "turrets" => 4, "points" => 400,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 6, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 6, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 3, "misc" => null],
@@ -1631,8 +1631,8 @@ class ShipSeeder extends Seeder
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 6, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 2, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 2, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 17, "is_reserve" => 0],
@@ -1709,8 +1709,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Styx Class Heavy Cruiser", "type" => "Heavy Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 260,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 6, "misc" => null],
                     ],
@@ -1728,8 +1728,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Hecate Class Heavy Cruiser", "type" => "Heavy Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 230,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
                         ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 45, "firepower" => 4, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 45, "firepower" => 4, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
@@ -1788,8 +1788,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Devastation Class Cruiser", "type" => "Cruiser", "hitpoints" => 8, "speed" => 25, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 190,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber,Assault"],
-                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
                         ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 2, "misc" => null],
                         ["type" => "Lance Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 6, "misc" => null],
@@ -1975,10 +1975,10 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Void Stalker Class Battleship", "type" => "Battleship", "hitpoints" => 10, "speed" => '10/20/25', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 380,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber"],
+                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "F: 30cm, B: 20cm"],
                         ["type" => "Weapons Battery", "placement" => "Keel", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 8, "misc" => null],
-                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 2, "misc" => null],
-                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 2, "misc" => null]
+                        ["type" => "Pulsar Lance", "placement" => "Prow", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Pulsar Lance", "placement" => "Prow", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 2, "misc" => null]
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 23, "is_reserve" => 0],
@@ -1989,8 +1989,8 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Eclipse Class Cruiser", "type" => "Cruiser", "hitpoints" => 6, "speed" => '10/20/25', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 250,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber"],
-                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null]
+                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "F: 30cm, B: 20cm"],
+                        ["type" => "Pulsar Lance", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null]
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 22, "is_reserve" => 0],
@@ -2016,7 +2016,7 @@ class ShipSeeder extends Seeder
                     "class" => "Aurora Class Light Cruiser", "type" => "Light Cruiser", "hitpoints" => 4, "speed" => '15/20/30', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 140,
                     "armaments" => [
                         ["type" => "Torpedoes", "placement" => "Keel", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 4, "misc" => null],
-                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null]
+                        ["type" => "Pulsar Lance", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null]
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 23, "is_reserve" => 0],
@@ -2038,7 +2038,7 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Hellebore Class Frigate", "type" => "Escort", "hitpoints" => 1, "speed" => '10/20/30', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 65,
                     "armaments" => [
-                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Pulsar Lance", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
                         ["type" => "Torpedoes", "placement" => "Keel", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null],
                         ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
                     ],
@@ -2064,7 +2064,7 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Hemlock Class Destroyer", "type" => "Escort", "hitpoints" => 1, "speed" => '15/20/30', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 40,
                     "armaments" => [
-                        ["type" => "Pulsar Lances", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Pulsar Lance", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 22, "is_reserve" => 0],
@@ -2091,10 +2091,10 @@ class ShipSeeder extends Seeder
                 [
                     "class" => "Flame Of Asuryan, Yriel's Flagship", "type" => "Cruiser", "hitpoints" => 8, "speed" => '10/20/25', "turns" => null, "shields" => null, "armour" => "5+", "turrets" => 0, "points" => 320,
                     "armaments" => [
-                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber,Assault"],
+                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "F: 30cm, B: 20cm, A: 30cm"],
                         ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 16, "misc" => null],
-                        ["type" => "Pulsar Lances", "placement" => "Keel", "fire_arc" => "Left/Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
-                        ["type" => "Pulsar Lances", "placement" => "Keel", "fire_arc" => "Front/Right", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Pulsar Lance", "placement" => "Keel", "fire_arc" => "Left/Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Pulsar Lance", "placement" => "Keel", "fire_arc" => "Front/Right", "range_speed" => 30, "firepower" => 1, "misc" => null],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 24, "is_reserve" => 0],
@@ -2106,7 +2106,7 @@ class ShipSeeder extends Seeder
                     "class" => "Dragonship", "type" => "Cruiser", "hitpoints" => 6, "speed" => '10/20/25', "turns" => null, "shields" => null, "armour" => "5+", "turrets" => 0, "points" => 260,
                     "armaments" => [
                         ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 14, "misc" => null],
-                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "Fighter,Bomber"],
+                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "F: 30cm, B: 20cm"],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 24, "is_reserve" => 0],
@@ -2114,7 +2114,291 @@ class ShipSeeder extends Seeder
                     "rules" => [],
                     "refits" => []
                 ],
-
+                [
+                    "class" => "Wraithship", "type" => "Cruiser", "hitpoints" => 6, "speed" => '10/20/25', "turns" => null, "shields" => null, "armour" => "5+", "turrets" => 0, "points" => 160,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 8, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Keel", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 30cm, B: 20cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 24, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Shadowhunter", "type" => "Escort", "hitpoints" => 1, "speed" => '15/20/30', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 40,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 3, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 24, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Eldar Transport", "type" => "Escort", "hitpoints" => 1, "speed" => '10/10/15', "turns" => null, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 0,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 15, "firepower" => 1, "misc" => null],
+                    ],
+                    "fleet_lists" => [],
+                    "rules" => [],
+                    "refits" => []
+                ],
+            ],
+            "Dark Eldar" => [
+                [
+                    "class" => "Torture Class Cruiser", "type" => "Cruiser", "hitpoints" => 6, "speed" => 35, "turns" => 90, "shields" => null, "armour" => "5+", "turrets" => 0, "points" => 210,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 12, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 25, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Corsair Class Escort", "type" => "Escort", "hitpoints" => 1, "speed" => 40, "turns" => 90, "shields" => null, "armour" => "4+", "turrets" => 0, "points" => 50,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 3, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 25, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+            ],
+            "Orks" => [
+                [
+                    "class" => "Hammer Class Battlekroozer", "type" => "Battlecruiser", "hitpoints" => 10, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 2, "points" => 245,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => "D6+6", "misc" => null],
+                        ["type" => "Bombardment Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 6, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Dorsal", "fire_arc" => null, "range_speed" => null, "firepower" => "D3+1", "misc" => "F/B: 25cm, A: 30cm"],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => "D6+2", "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => "D6+2", "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => [
+                        #There is OR armament refit needed for Bombardment Cannon
+                    ]
+                ],
+                [
+                    "class" => "Deathdeala Battleship", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 275,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => "D6+6", "misc" => null],
+                        ["type" => "Bombardment Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 6, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Dorsal", "fire_arc" => null, "range_speed" => null, "firepower" => "D3+1", "misc" => "F/B: 25cm, A: 30cm"],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => "D6+4", "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => "D6+4", "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Gorbag's Revenge Battleship", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 310,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => "D6+6", "misc" => null],
+                        ["type" => "Torpedoes", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => "D6+2", "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Dorsal", "fire_arc" => null, "range_speed" => null, "firepower" => "D3+1", "misc" => "F/B: 25cm, A: 30cm"],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => "D6+2", "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => "D6+2", "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F/B: 25cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F/B: 25cm, A: 30cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Slamblasta Battleship", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 295,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => "D6+6", "misc" => null],
+                        ["type" => "Lance Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Dorsal", "fire_arc" => null, "range_speed" => null, "firepower" => "D3+1", "misc" => "F/B: 25cm, A: 30cm"],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => "D6+6", "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => "D6+6", "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Kroolboy Battleship", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 270,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => "D6+6", "misc" => null],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Dorsal", "fire_arc" => null, "range_speed" => null, "firepower" => "D3+1", "misc" => "F/B: 25cm, A: 30cm"],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => "D6+2", "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => "D6+2", "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Terror Ship", "type" => "Cruiser", "hitpoints" => 10, "speed" => 20, "turns" => 45, "shields" => 1, "armour" => "6+ front / 5+ sides / 4+ rear", "turrets" => 1, "points" => 185,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => "D6", "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => "D6", "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F/B: 25cm, A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F/B: 25cm, A: 30cm"],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => "D6+2", "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 26, "is_reserve" => 0],
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Zukov's Klaw Assault Kroozer", "type" => "Cruiser", "hitpoints" => 10, "speed" => 20, "turns" => 45, "shields" => 1, "armour" => "6+ front / 5+ sides / 4+ rear", "turrets" => 1, "points" => 210,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => "D6", "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => "D6", "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => "2/Special", "misc" => "A: 30cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => "2/Special", "misc" => "A: 30cm"],
+                        ["type" => "Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => "D6+2", "misc" => null],
+                        ["type" => "Torpedoes", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => "D6+2", "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Kill Kroozer", "type" => "Cruiser", "hitpoints" => 10, "speed" => 20, "turns" => 45, "shields" => 1, "armour" => "6+ front / 5+ sides / 4+ rear", "turrets" => 1, "points" => 155,
+                    "armaments" => [
+                        ["type" => "Heavy Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 15, "firepower" => 4, "misc" => null],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 15, "firepower" => 4, "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => "D6", "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => "D6", "misc" => null],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 15, "firepower" => 6, "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => "D6+2", "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 26, "is_reserve" => 0],
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Lite Kroozer", "type" => "Light Cruiser", "hitpoints" => 6, "speed" => 20, "turns" => 45, "shields" => 1, "armour" => "6+ front / 5+ sides / 4+ rear", "turrets" => 1, "points" => 90,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => "D3+1", "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => "D3+1", "misc" => null],
+                        ["type" => "Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                        ["type" => "Heavy Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 15, "firepower" => 4, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Onslaught Attack Ship", "type" => "Escort", "hitpoints" => 1, "speed" => 20, "turns" => 45, "shields" => 1, "armour" => "6+ front / 4+", "turrets" => 1, "points" => 35,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => "D6", "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 26, "is_reserve" => 0],
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Savage Gunship", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 45, "shields" => 1, "armour" => "6+ front / 4+", "turrets" => 1, "points" => 30,
+                    "armaments" => [
+                        ["type" => "Heavy Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 15, "firepower" => 4, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 26, "is_reserve" => 0],
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Ravager Attack Ship", "type" => "Escort", "hitpoints" => 1, "speed" => 20, "turns" => 45, "shields" => 1, "armour" => "6+ front / 4+", "turrets" => 2, "points" => 40,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                        ["type" => "Torpedoes", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => "D6", "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 26, "is_reserve" => 0],
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Brute Ram Ship", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "6+ front / 4+", "turrets" => 1, "points" => 25,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 26, "is_reserve" => 0],
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Grunt Assault Ship", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 45, "shields" => 1, "armour" => "6+ front / 5+", "turrets" => 2, "points" => 30,
+                    "armaments" => [
+                        ["type" => "Gunz Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 26, "is_reserve" => 0],
+                        ["fleet_list_id" => 27, "is_reserve" => 0],
+                        ["fleet_list_id" => 28, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
             ]
         ];
 // TODO: complete the ship seeder for remaining factions
