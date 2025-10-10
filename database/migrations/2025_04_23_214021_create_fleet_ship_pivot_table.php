@@ -19,7 +19,7 @@ return new class extends Migration
             $table->smallInteger('points');
             $table->smallInteger('speed')->nullable();
             $table->smallInteger('turns')->nullable();
-            $table->smallInteger('shields')->nullable();
+            $table->string('shields')->nullable();
             $table->string('armour')->nullable();
             $table->smallInteger('turrets')->nullable();
             $table->mediumInteger('leadership')->nullable();

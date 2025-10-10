@@ -510,8 +510,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 13, "is_reserve" => 0],
                         ["fleet_list_id" => 14, "is_reserve" => 0],
                         ["fleet_list_id" => 15, "is_reserve" => 0],
-                        ["fleet_list_id" => 34, "is_reserve" => 1],
-                        ["fleet_list_id" => 35, "is_reserve" => 1]
+                        ["fleet_list_id" => 33, "is_reserve" => 1],
+                        ["fleet_list_id" => 34, "is_reserve" => 1]
                     ],
                     "rules" => [
                         "Resilient Mid-ship Corridor"
@@ -647,8 +647,8 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 2, "is_reserve" => 0],
                         ["fleet_list_id" => 13, "is_reserve" => 0],
                         ["fleet_list_id" => 14, "is_reserve" => 0],
-                        ["fleet_list_id" => 34, "is_reserve" => 1],
-                        ["fleet_list_id" => 35, "is_reserve" => 1]
+                        ["fleet_list_id" => 33, "is_reserve" => 1],
+                        ["fleet_list_id" => 34, "is_reserve" => 1]
                     ],
                     "rules" => [
                         "Improved Thrusters"
@@ -1370,10 +1370,49 @@ class ShipSeeder extends Seeder
                     ]
                 ],
                 [
+                    "class" => "Escort Carrier", "type" => "Escort", "hitpoints" => 1, "speed" => 15, "turns" => 45, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 60,
+                    "armaments" => [
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "F: 30cm, B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "F: 30cm, B: 20cm"],
+                        ["type" => "Weapons Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 15, "firepower" => 2, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 14, "is_reserve" => 0],
+                        ["fleet_list_id" => 15, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Q-Ship", "type" => "Escort", "hitpoints" => 1, "speed" => 15, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 2, "points" => 60,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 3, "misc" => null],
+                        ["type" => "Lance Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 14, "is_reserve" => 0],
+                        ["fleet_list_id" => 15, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Armed Freighter", "type" => "Escort", "hitpoints" => 1, "speed" => 15, "turns" => 45, "shields" => 1, "armour" => "5+", "turrets" => 1, "points" => 20,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Dorsal", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 3, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 14, "is_reserve" => 0],
+                        ["fleet_list_id" => 15, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
                     "class" => "Stryxis Caravan Vessel", "type" => "Defence", "hitpoints" => 8, "speed" => 10, "turns" => 0, "shields" => 2, "armour" => "5+", "turrets" => 2, "points" => 80,
                                     "armaments" => [
-                        ["type" => "Ghost-Light Macrobattery", "placement" => "", "fire_arc" => "All round", "range_speed" => 45, "firepower" => 10, "misc" => null],
-                        ["type" => "Ghost-Light Lance", "placement" => "", "fire_arc" => "All round", "range_speed" => 30, "firepower" => 3, "misc" => null],
+                        ["type" => "Ghost-Light Macrobattery", "placement" => "", "fire_arc" => "All Round", "range_speed" => 45, "firepower" => 10, "misc" => null],
+                        ["type" => "Ghost-Light Lance", "placement" => "", "fire_arc" => "All Round", "range_speed" => 30, "firepower" => 3, "misc" => null],
                     ],
                     "fleet_lists" => [
                         ["fleet_list_id" => 13, "is_reserve" => 0],
@@ -2399,9 +2438,466 @@ class ShipSeeder extends Seeder
                     "rules" => [],
                     "refits" => []
                 ],
+            ],
+            "Necrons" => [
+                [
+                    "class" => "Cairn Class Tombship", "type" => "Battleship", "hitpoints" => 12, "speed" => 20, "turns" => 45, "shields" => '4+ save', "armour" => "6+", "turrets" => 4, "points" => 500,
+                    "armaments" => [
+                        ["type" => "Lightning Arc", "placement" => null, "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                        ["type" => "Star Pulse Generator", "placement" => null, "fire_arc" => "All Around", "range_speed" => 20, "firepower" => '1 per enemy', "misc" => null],
+                        ["type" => "Gauss Particle Whip", "placement" => null, "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 6, "misc" => null],
+                        ["type" => "Portal", "placement" => null, "fire_arc" => "All Around", "range_speed" => 10, "firepower" => 3, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 29, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Scythe Class Harvest Ship", "type" => "Cruiser", "hitpoints" => 8, "speed" => 30, "turns" => 45, "shields" => '5+ save', "armour" => "6+", "turrets" => 3, "points" => 275,
+                    "armaments" => [
+                        ["type" => "Lightning Arc", "placement" => null, "fire_arc" => "Left/Right", "range_speed" => 30, "firepower" => 8, "misc" => null],
+                        ["type" => "Star Pulse Generator", "placement" => null, "fire_arc" => "All Around", "range_speed" => 20, "firepower" => '1 per enemy', "misc" => null],
+                        ["type" => "Gauss Particle Whip", "placement" => null, "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 4, "misc" => null],
+                        ["type" => "Portal", "placement" => null, "fire_arc" => "Left/Front/Right", "range_speed" => 10, "firepower" => 2, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 29, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Shroud Class Light Cruiser", "type" => "Light Cruiser", "hitpoints" => 4, "speed" => 30, "turns" => 45, "shields" => '5+ save', "armour" => "6+", "turrets" => 1, "points" => 155,
+                    "armaments" => [
+                        ["type" => "Lightning Arc", "placement" => null, "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 10, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 29, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Jackal Class Raider", "type" => "Escort", "hitpoints" => 1, "speed" => 40, "turns" => 90, "shields" => '6+ save', "armour" => "6+", "turrets" => 1, "points" => 50,
+                    "armaments" => [
+                        ["type" => "Lightning Arc", "placement" => null, "fire_arc" => "Front", "range_speed" => 30, "firepower" => 4, "misc" => null],
+                        ["type" => "Portal", "placement" => null, "fire_arc" => "All Around", "range_speed" => 10, "firepower" => 1, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 29, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Dirge Class Raider", "type" => "Escort", "hitpoints" => 1, "speed" => 50, "turns" => 90, "shields" => '6+ save', "armour" => "6+", "turrets" => 1, "points" => 40,
+                    "armaments" => [
+                        ["type" => "Lightning Arc", "placement" => null, "fire_arc" => "Front", "range_speed" => 30, "firepower" => 3, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 29, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+            ],
+            "Tyranids" => [
+                [
+                    "class" => "Hive Ship", "type" => "Battleship", "hitpoints" => 10, "speed" => 15, "turns" => 45, "shields" => null, "armour" => "5+", "turrets" => 4, "points" => 200,
+                    "armaments" => [],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 31, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Cruiser", "type" => "Cruiser", "hitpoints" => 6, "speed" => 20, "turns" => 45, "shields" => null, "armour" => "5+", "turrets" => 2, "points" => 80,
+                    "armaments" => [],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 31, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Kraken", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => null, "armour" => "6+", "turrets" => 0, "points" => 25,
+                    "armaments" => [],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 30, "is_reserve" => 0],
+                        ["fleet_list_id" => 31, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Vanguard Drone Ship", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => null, "armour" => "5+", "turrets" => 1, "points" => 20,
+                    "armaments" => [],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 30, "is_reserve" => 0],
+                        ["fleet_list_id" => 31, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Escort Drone", "type" => "Escort", "hitpoints" => 1, "speed" => 15, "turns" => 90, "shields" => null, "armour" => "5+", "turrets" => 1, "points" => 10,
+                    "armaments" => [],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 31, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+            ],
+            "Tau" => [
+                [
+                    "class" => "Gal'leath/Explorer Class Starship (Vash'ya)", "type" => "Battleship", "hitpoints" => 12, "speed" => 15, "turns" => 45, "shields" => 1, "armour" => "5+/ 4+ rear", "turrets" => 5, "points" => 230,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 6, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 4, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Gravitic Hook", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Orca/Warden"],
+                        ["type" => "Gravitic Hook", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Orca/Warden"],
+                        ["type" => "Gravitic Hook", "placement" => "Dorsal", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Orca/Warden"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Gal'leath/Explorer Class Starship (Bork'an)", "type" => "Battleship", "hitpoints" => 12, "speed" => 15, "turns" => 45, "shields" => 1, "armour" => "5+/ 4+ rear", "turrets" => 5, "points" => 230,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 6, "misc" => null],
+                        ["type" => "Gravitic Launcher", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 8, "misc" => "20-40cm"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Gravitic Hook", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Orca/Warden"],
+                        ["type" => "Gravitic Hook", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Orca/Warden"],
+                        ["type" => "Gravitic Hook", "placement" => "Dorsal", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Orca/Warden"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Or'es El'leath/Custodian Class Battleship", "type" => "Battleship", "hitpoints" => 10, "speed" => 20, "turns" => 45, "shields" => 3, "armour" => "6+ front / 5+", "turrets" => 4, "points" => 330,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 6, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 6, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 1, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 1, "misc" => null],
+                        ["type" => "Gravitic Hook", "placement" => "Stern", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:3 Wardens"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Gravitic Launcher", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 8, "misc" => "20-40cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "'Stronghold' Commerce Vessel", "type" => "Battleship", "hitpoints" => 10, "speed" => 15, "turns" => 45, "shields" => 4, "armour" => "6+ front / 5+", "turrets" => 4, "points" => 350,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 12, "misc" => null],
+                        ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 12, "misc" => null],
+                        ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 3, "misc" => null],
+                        ["type" => "Lance Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 3, "misc" => null],
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => 14, "misc" => null],
+                        ["type" => "Cutting Beam", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 15, "firepower" => "Special (max 8)", "misc" => null],
+                        ["type" => "Torpedo Silos", "placement" => "Dorsal", "fire_arc" => "All Round", "range_speed" => 30, "firepower" => 6, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Dorsal", "fire_arc" => null, "range_speed" => null, "firepower" => 3, "misc" => "F: 30cm,B: 20cm,A: 30cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 14, "is_reserve" => 0],
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                        ["fleet_list_id" => 34, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Lar'shi/Hero Class Starship (Vash'ya)", "type" => "Cruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 180,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 4, "misc" => null],
+                        ["type" => "Gravitic Launcher", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 6, "misc" => "20-40cm"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Ion Cannon", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Lar'shi/Hero Class Starship (T'olku)", "type" => "Cruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "5+", "turrets" => 3, "points" => 180,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 4, "misc" => null],
+                        ["type" => "Gravitic Launcher", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 6, "misc" => "20-40cm"],
+                        ["type" => "Launch Bays", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Launch Bays", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Railgun Battery", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 4, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 4, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Lar'shi'vre/Protector Class Cruiser (T'olku)", "type" => "Cruiser", "hitpoints" => 6, "speed" => 20, "turns" => 90, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 185,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => 6, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Gravitic Launcher", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 5, "misc" => "20-40cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Lar'shi'vre/Protector Class Cruiser (Vior'la)", "type" => "Cruiser", "hitpoints" => 6, "speed" => 20, "turns" => 90, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 185,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => 4, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Port", "fire_arc" => "Front", "range_speed" => 45, "firepower" => 1, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Starboard", "fire_arc" => "Front", "range_speed" => 45, "firepower" => 1, "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 1, "misc" => "F: 25cm,B: 20cm"],
+                        ["type" => "Gravitic Launcher", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 5, "misc" => "20-40cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "'Bastion' Commerce Vessel", "type" => "Cruiser", "hitpoints" => 8, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 2, "points" => 255,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 6, "misc" => null],
+                        ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 6, "misc" => null],
+                        ["type" => "Lance Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 60, "firepower" => 2, "misc" => null],
+                        ["type" => "Lance Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 60, "firepower" => 2, "misc" => null],
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => 8, "misc" => null],
+                        ["type" => "Cutting Beam", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 15, "firepower" => "Special (max 8)", "misc" => null],
+                        ["type" => "Launch Bays", "placement" => "Dorsal", "fire_arc" => "All Around", "range_speed" => null, "firepower" => "3sq / 4tor", "misc" => "F: 25cm,B: 20cm; A: 30cm: T:30cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 14, "is_reserve" => 0],
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                        ["fleet_list_id" => 34, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "'Citadel' Commerce Vessel", "type" => "Cruiser", "hitpoints" => 6, "speed" => 20, "turns" => 45, "shields" => 2, "armour" => "6+ front / 5+", "turrets" => 3, "points" => 185,
+                    "armaments" => [
+                        ["type" => "Weapons Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 6, "misc" => null],
+                        ["type" => "Weapons Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 6, "misc" => null],
+                        ["type" => "Weapons Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 45, "firepower" => 8, "misc" => null],
+                        ["type" => "Cutting Beam", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 15, "firepower" => "Special (max 8)", "misc" => null],
+                        ["type" => "Torpedo Silos", "placement" => "Dorsal", "fire_arc" => "All Around", "range_speed" => null, "firepower" => 4, "misc" => "F: 25cm,B: 20cm; A: 30cm: T:30cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 14, "is_reserve" => 0],
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                        ["fleet_list_id" => 34, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Il'fannor/Merchant Class Starship (Ke'lshan)", "type" => "Light Cruiser", "hitpoints" => 4, "speed" => 15, "turns" => 45, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 95,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Gravitic Hook", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Orca/Warden"],
+                        ["type" => "Gravitic Hook", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Orca/Warden"],
+                        ["type" => "Railgun Battery", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Il'fannor/Merchant Class Starship (Dal'yth)", "type" => "Light Cruiser", "hitpoints" => 4, "speed" => 15, "turns" => 45, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 95,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Il'porrui/Emissary Class Envoy Ship (Dal'yth)", "type" => "Light Cruiser", "hitpoints" => 4, "speed" => 20, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 110,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 4, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 4, "misc" => null],
+                        ["type" => "Gravitic Hook", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Warden"],
+                        ["type" => "Gravitic Hook", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Warden"],
+                        ["type" => "Launch Bays", "placement" => "Prow", "fire_arc" => null, "range_speed" => null, "firepower" => 2, "misc" => "F: 25cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Il'porrui/Emissary Class Envoy Ship (Bork'an)", "type" => "Light Cruiser", "hitpoints" => 4, "speed" => 20, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 110,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 4, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 4, "misc" => null],
+                        ["type" => "Gravitic Hook", "placement" => "Port", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Warden"],
+                        ["type" => "Gravitic Hook", "placement" => "Starboard", "fire_arc" => null, "range_speed" => null, "firepower" => null, "misc" => "Capacity:1 Warden"],
+                        ["type" => "Gravitic Launcher", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 3, "misc" => "20-40cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Il'porrui/Emissary Class Envoy Ship (Sa'cea)", "type" => "Light Cruiser", "hitpoints" => 4, "speed" => 20, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 110,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 45, "firepower" => 3, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 45, "firepower" => 3, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Port", "fire_arc" => "Left/Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Starboard", "fire_arc" => "Front/Right", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                        ["type" => "Gravitic Launcher", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 3, "misc" => "20-40cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Kir'qath/Defender Class Starship", "type" => "Escort", "hitpoints" => 1, "speed" => 20, "turns" => 45, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 45,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 3, "misc" => null],
+                        ["type" => "Gravitic Launcher", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 2, "misc" => "20-40cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Skether'qan/Messenger Class Starship", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 50,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Kass'l/Orca Class Gunship", "type" => "Escort", "hitpoints" => 1, "speed" => 20, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 1, "points" => 25,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Kir'shashvre/Castellan Class Escort", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 2, "points" => 50,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 45, "firepower" => 2, "misc" => null],
+                        ["type" => "Gravitic Launcher", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => null, "firepower" => 2, "misc" => "20-40cm"],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Kir'la/Warden Class Gunship", "type" => "Escort", "hitpoints" => 1, "speed" => 25, "turns" => 90, "shields" => 1, "armour" => "5+", "turrets" => 1, "points" => 30,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Front", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                        ["type" => "Ion Cannon", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 1, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Il'emaar/Courier Class Merchant Transport", "type" => "Escort", "hitpoints" => 1, "speed" => 20, "turns" => 45, "shields" => 1, "armour" => "5+", "turrets" => 1, "points" => 0,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Prow", "fire_arc" => "Left/Front/Right", "range_speed" => 30, "firepower" => 2, "misc" => null],
+                    ],
+                    "fleet_lists" => [],
+                    "rules" => [],
+                    "refits" => []
+                ],
+                [
+                    "class" => "Dhow", "type" => "Escort", "hitpoints" => 1, "speed" => 20, "turns" => 180, "shields" => 2, "armour" => "5+", "turrets" => 1, "points" => 45,
+                    "armaments" => [
+                        ["type" => "Railgun Battery", "placement" => "Port", "fire_arc" => "Left", "range_speed" => 30, "firepower" => 3, "misc" => null],
+                        ["type" => "Railgun Battery", "placement" => "Starboard", "fire_arc" => "Right", "range_speed" => 30, "firepower" => 3, "misc" => null],
+                    ],
+                    "fleet_lists" => [
+                        ["fleet_list_id" => 32, "is_reserve" => 0],
+                        ["fleet_list_id" => 33, "is_reserve" => 0],
+                        ["fleet_list_id" => 34, "is_reserve" => 0],
+                    ],
+                    "rules" => [],
+                    "refits" => []
+                ],
             ]
         ];
-// TODO: complete the ship seeder for remaining factions
 
 
         foreach ($shipList as $faction=>$shipsData) {

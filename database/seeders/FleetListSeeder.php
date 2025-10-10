@@ -105,7 +105,7 @@ class FleetListSeeder extends Seeder
         //get Tau ID for Tau fleet lists
         $factionId = Faction::getByName('Tau')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Kor'vattra Fleet List", "faction_id" => $factionId],
+            ["name" => "Merchant Fleet List", "faction_id" => $factionId],
             ["name" => "Commerce Protection Fleet List", "faction_id" => $factionId],
             ["name" => "Demiurg and Kroot Xenos Fleet List", "faction_id" => $factionId],
         ]);

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('placement', 25)->nullable()->default(null);
             $table->string('fire_arc', 25)->nullable()->default(null);
             $table->integer('range_speed')->nullable()->default(null);
-            $table->string('firepower', '10')->nullable()->default(null);
+            $table->string('firepower', 25)->nullable()->default(null);
             $table->string('misc')->nullable()->default(null);
             $table->timestamps();
         });
