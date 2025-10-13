@@ -102,4 +102,12 @@ table tbody tr.firearc-f:after {
 tbody tr.firearc-lfr:after {
     background-image: url('@images/fleet-builder/firearc-lfr.png');
 }
+
+tbody tr.firearc-lf:after {
+    background-image: url('@images/fleet-builder/firearc-lf.png');
+}
+
+tbody tr.firearc-fr:after {
+    background-image: url('@images/fleet-builder/firearc-fr.png');
+}
 </style>

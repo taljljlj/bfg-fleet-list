@@ -15,11 +15,11 @@ const props = defineProps({
         </div>
         <div class="stat-box card-box-container">
             <div class="stat-name">Speed</div>
-            <div class="stat-value">{{ ship.pivot.speed ?? ship.speed }}cm</div>
+            <div class="stat-value">{{ ship.pivot.speed ?? ship.speed }}{{ ship.speed.length > 2 ? '' : 'cm' }}</div>
         </div>
         <div class="stat-box card-box-container">
             <div class="stat-name">Turns</div>
-            <div class="stat-value">{{ ship.pivot.turns ?? ship.turns }}°</div>
+            <div class="stat-value">{{ ship.pivot.turns ?? ship.turns }}{{ ship.turns.length > 2 ? '' : '°' }}</div>
         </div>
         <div class="stat-box card-box-container">
             <div class="stat-name">Shields</div>

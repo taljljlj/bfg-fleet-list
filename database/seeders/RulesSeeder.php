@@ -61,7 +61,7 @@ class RulesSeeder extends Seeder
             ],
             [
                 'name' => 'Reduced Ld',
-                'text' => 'Randomly rolled Ld reduced by 1',
+                'text' => 'Ld roll result reduced by 1',
                 'text_long' => 'Their randomly rolled Leadership is reduced by one, so they will have a Leadership value of between 5 and 8',
             ],
             [
@@ -221,14 +221,29 @@ class RulesSeeder extends Seeder
             ],
             [
                 'name' => 'Boarding Weakness',
-                'text' => 'Cannot board; Enemy +1 when being boarded',
+                'text' => 'Cannot board; Enemy +1 boarding',
                 'text_long' => 'This ship cannot initiate boarding actions. A ship that boards it gains a +1 modifier in addition to any other modifiers.',
             ],
             [
-                'name' => 'Yriel\'s Pirate Warband',
-                'text' => '+2 boarding; +1 hit&run',
+                'name' => 'Yriel’s Pirate Warband',
+                'text' => 'Aspect Warriors: +2 boarding; +1 hit&run',
                 'text_long' => 'The ship embarks the most fearsome members of Yriel’s own pirate warband, which count as an Aspect Warrior fighting crew.',
-            ]
+            ],
+            [
+                'name' => 'Nimble Escorts',
+                'text' => 'May re-roll Holofield save vs attack craft',
+                'text_long' => 'These ships are so nimble that they can even pursue attack craft with ease, harrying the smaller vessels with an agility impossible for other escorts. When coming in base contact with any attack craft, they may re-roll a failed holofield save (the second roll stands). This effect only works against attack craft, and markers that behave only as fighters are still ignored normally.',
+            ],
+            [
+                'name' => 'Vulnerability to hit&run',
+                'text' => 'Enemy +1 hit&run',
+                'text_long' => 'All hit and run attacks against these ships add +1 to their roll.',
+            ],
+            [
+                'name' => 'Reduced Ld Modifier',
+                'text' => 'Ld roll -1',
+                'text_long' => 'Ship’s crew is less experienced and thus suffer a -1 modifier against the leadership table.',
+            ],
 //            [
 //                'name' => '',
 //                'text' => '',

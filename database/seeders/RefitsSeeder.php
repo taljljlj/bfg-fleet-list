@@ -721,6 +721,117 @@ class RefitsSeeder extends Seeder
                     ]
                 ]
             ],
+            [
+                "name" => "pulsar_lance_over_weapons_battery",
+                "text" => "Replace Weapons Battery with Pulsar Lance",
+                "text_long" => "Can replace Prow Weapons Battery with Pulsar Lance",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => json_encode([
+                            "type" => "Weapons Battery",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                        "action" => "replace",
+                        "value" => json_encode([
+                            "type" => "Pulsar Lance",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                    ],
+                ]
+            ],
+            [
+                "name" => "vampire_assault",
+                "text" => "Include Vampire Raiders",
+                "text_long" => "Ship may carry squadrons of Vampire raiders",
+                "data" => [
+                    [
+                        "type" => "rule",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => "+ Vampire Raiders",
+                    ],
+                    [
+                        "type" => "arm",
+                        "module" => json_encode([
+                            "type" => "Launch Bays",
+                            "placement" => null,
+                            "fire_arc" => null,
+                        ]),
+                        "action" => "modify",
+                        "value" => null,
+                    ],
+                ]
+            ],
+            [
+                "name" => "launch_bays_over_torpedoes_keel_vampire",
+                "text" => "Replace Torpedoes with Launch Bays",
+                "text_long" => "May replace its Keel Torpedoes for Launch Bays",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => json_encode([
+                            "type" => "Torpedoes",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                        "action" => "replace",
+                        "value" => json_encode([
+                            "type" => "Launch Bays",
+                            "placement" => "Prow",
+                            "fire_arc" => null,
+                        ]),
+                    ],
+                    [
+                        "type" => "group",
+                        "value" => json_encode(['vampire_assault']),
+                    ]
+                ]
+            ],
+            [
+                "name" => "launch_bays_over_torpedoes_keel",
+                "text" => "Replace Torpedoes with Launch Bays",
+                "text_long" => "May replace its Keel Torpedoes for Launch Bays",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => json_encode([
+                            "type" => "Torpedoes",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                        "action" => "replace",
+                        "value" => json_encode([
+                            "type" => "Launch Bays",
+                            "placement" => "Prow",
+                            "fire_arc" => null,
+                        ]),
+                    ],
+                ]
+            ],
+            [
+                "name" => "shadow_lance_over_weapons_battery",
+                "text" => "Replace Weapons Battery with Shadow Lance",
+                "text_long" => "Can replace Prow Weapons Battery with Shadow Lance",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => json_encode([
+                            "type" => "Weapons Battery",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                        "action" => "replace",
+                        "value" => json_encode([
+                            "type" => "Shadow Lance",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                    ],
+                ]
+            ],
 
             /* refits seeder template
             [
