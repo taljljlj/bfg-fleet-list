@@ -832,6 +832,168 @@ class RefitsSeeder extends Seeder
                     ],
                 ]
             ],
+            [
+                "name" => "mimic_engines",
+                "text" => "Add Mimic Engines",
+                "text_long" => "Ship equipped with mimic engines may make one normal move immediately after deployment, but before either side has taken a turn. In addition, if a vessel is more than 30 cm from the enemy at the start of the game it may NOT be targeted during the first turn of the game, or until it has attacked or launches any ordnance that attacks enemy ordnance or ships. If its ordnance does not attack during the first turn, enemy cannot attack it.",
+                "data" => [
+                    [
+                        "type" => "rule",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => "Mimic Engines: Free move before 1st turn...",
+                    ]
+                ]
+            ],
+            [
+                "name" => "add_prow_launch_bays",
+                "text" => "Add Prow Launch Bays",
+                "text_long" => "Ship may be equipped with Launch Bays.",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => json_encode([
+                            "type" => "Launch Bays",
+                            "placement" => "Prow",
+                            "fire_arc" => null,
+                        ]),
+                    ],
+                ]
+            ],
+            [
+                "name" => "add_prow_phantom_lance",
+                "text" => "Add Prow Phantom Lance",
+                "text_long" => "Ship may be equipped with Phantom Lance.",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => json_encode([
+                            "type" => "Phantom Lance",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                    ],
+                ]
+            ],
+            [
+                "name" => "add_prow_torpedoes",
+                "text" => "Add Prow Torpedoes",
+                "text_long" => "Ship may be equipped with Torpedoes.",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => json_encode([
+                            "type" => "Torpedoes",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                    ],
+                ]
+            ],
+            [
+                "name" => "add_prow_impaler_assault_module",
+                "text" => "Add Prow Impaler Assault Module",
+                "text_long" => "Ship may be equipped with Impaler Assault Module.",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => json_encode([
+                            "type" => "Impaler Assault Module",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                    ],
+                ]
+            ],
+            [
+                "name" => "add_two_prow_impaler_assault_modules",
+                "text" => "Add 2 Prow Impaler Assault Modules",
+                "text_long" => "Ship may be equipped with two Impaler Assault Modules.",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => json_encode([
+                            "type" => "Impaler Assault Module",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                    ],
+                    [
+                        "type" => "arm",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => json_encode([
+                            "type" => "Impaler Assault Module",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                    ],
+                ]
+            ],
+            [
+                "name" => "torture_class_refit_group",
+                "text" => "May be equipped with one of the following:",
+                "text_long" => "Torture class cruisers may be additionally equipped with one of the armaments from the list at no extra cost.",
+                "data" => [
+                    [
+                        "type" => "group",
+                        "value" => json_encode([
+                            "add_prow_launch_bays",
+                            "add_prow_phantom_lance",
+                            "add_prow_torpedoes",
+                            "add_prow_impaler_assault_module",
+                            "add_two_prow_impaler_assault_modules"
+                        ]),
+                    ],
+                ]
+            ],
+            [
+                "name" => "add_prow_weapons_battery",
+                "text" => "Add Prow Weapons Battery",
+                "text_long" => "Ship may be equipped with Weapons Battery.",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => json_encode([
+                            "type" => "Weapons Battery",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                    ],
+                ]
+            ],
+            [
+                "name" => "corsair_class_refit_group",
+                "text" => "May be equipped with one of the following:",
+                "text_long" => "Corsair class escorts may be additionally equipped with one of the armaments from the list at no extra cost.",
+                "data" => [
+                    [
+                        "type" => "group",
+                        "value" => json_encode([
+                            "add_prow_weapons_battery",
+                            "add_prow_phantom_lance",
+                            "add_prow_torpedoes",
+                            "add_prow_impaler_assault_module"
+                        ]),
+                    ],
+                ]
+            ],
+
+
+
+
 
             /* refits seeder template
             [

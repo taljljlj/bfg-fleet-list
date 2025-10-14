@@ -2251,7 +2251,60 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 25, "is_reserve" => 0],
                     ],
                     "rules" => [],
-                    "refits" => []
+                    "refits" => [
+                        ["name" => "mimic_engines", "points" => 20, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ]
+                            ]
+                        ],
+                        ["name" => "torture_class_refit_group", "points" => 0, "pivots" => [
+                                [
+                                    "firepower" => null, "range_speed" => null, "misc" => null
+                                ]
+                            ],
+                            "children-refits" => [
+                                [
+                                    "name" => "add_prow_launch_bays", "points" => 40, "pivots" => [
+                                        [
+                                            "firepower" => 4, "range_speed" => null, "misc" => "F: 30,B: 20, A: 30"
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    "name" => "add_prow_phantom_lance", "points" => 20, "pivots" => [
+                                        [
+                                            "firepower" => 2, "range_speed" => 30, "misc" => null
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    "name" => "add_prow_torpedoes", "points" => 20, "pivots" => [
+                                        [
+                                            "firepower" => 4, "range_speed" => 30, "misc" => null
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    "name" => "add_prow_impaler_assault_module", "points" => 20, "pivots" => [
+                                        [
+                                            "firepower" => "Special", "range_speed" => null, "misc" => "Attack Craft: 30"
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    "name" => "add_two_prow_impaler_assault_modules", "points" => 40, "pivots" => [
+                                        [
+                                            "firepower" => "Special", "range_speed" => null, "misc" => "Attack Craft: 30"
+                                        ],
+                                        [
+                                            "firepower" => "Special", "range_speed" => null, "misc" => "Attack Craft: 30"
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
+                    ]
                 ],
                 [
                     "class" => "Corsair Class Escort", "type" => "Escort", "hitpoints" => 1, "speed" => 40, "turns" => 90, "shields" => "Shadow", "armour" => "4+", "turrets" => 0, "points" => 50,
@@ -2263,7 +2316,50 @@ class ShipSeeder extends Seeder
                         ["fleet_list_id" => 25, "is_reserve" => 0],
                     ],
                     "rules" => [],
-                    "refits" => []
+                    "refits" => [
+                        ["name" => "mimic_engines", "points" => 5, "pivots" => [
+                            [
+                                "firepower" => null, "range_speed" => null, "misc" => null
+                            ]
+                        ]
+                        ],
+                        ["name" => "corsair_class_refit_group", "points" => 0, "pivots" => [
+                            [
+                                "firepower" => null, "range_speed" => null, "misc" => null
+                            ]
+                        ],
+                            "children-refits" => [
+                                [
+                                    "name" => "add_prow_weapons_battery", "points" => 0, "pivots" => [
+                                        [
+                                            "firepower" => 3, "range_speed" => 30, "misc" => null
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    "name" => "add_prow_phantom_lance", "points" => 0, "pivots" => [
+                                        [
+                                            "firepower" => 1, "range_speed" => 30, "misc" => null
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    "name" => "add_prow_torpedoes", "points" => 0, "pivots" => [
+                                        [
+                                            "firepower" => 2, "range_speed" => 30, "misc" => null
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    "name" => "add_prow_impaler_assault_module", "points" => 0, "pivots" => [
+                                        [
+                                            "firepower" => "Special", "range_speed" => null, "misc" => "Attack Craft: 30"
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ],
+                    ]
                 ],
             ],
             "Orks" => [
