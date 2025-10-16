@@ -48,7 +48,11 @@ class Ship extends Model
 
     //Accessors
     public function getArmourShortAttribute() {
-        return str_replace('front', 'f', $this->armour);
+        return str_replace(
+            ['front', 'sides', 'rear'],
+            ['f', 's', 'r'],
+            $this->armour
+        );
     }
 
     public function getImgUrlAttribute() {

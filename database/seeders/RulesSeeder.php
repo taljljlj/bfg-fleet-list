@@ -244,6 +244,56 @@ class RulesSeeder extends Seeder
                 'text' => 'Ld roll -1',
                 'text_long' => 'Ship’s crew is less experienced and thus suffer a -1 modifier against the leadership table.',
             ],
+            [
+                'name' => 'Ork Swap Ld',
+                'text' => 'At start of game swap Ld with any Kill Kroozer or Terror Ship',
+                'text_long' => 'When Leadership values are generated for the Ork fleet, this ship can opt to swap Leadership ratings with a Kill Kroozer or Terror Ship to represent the warlord dragooning the best crew in the fleet aboard his vessel.',
+            ],
+            [
+                'name' => 'Launchas',
+                'text' => 'Launchas: Torpedoes OR Bombardment Cannon; both needs reload',
+                'text_long' => 'In each turn, these launchas can either fire torpedoes or be used as a bombardment cannon. The launchas must be reloaded using the Reload Ordnance special order after each shot and can only fire if they are loaded. Garzog thus got it half right and Tyrant Uzog only ripped one of his arms off!',
+            ],
+            [
+                'name' => 'Soopa Enginez',
+                'text' => 'Soopa Enginez: 4D6 on All Ahead Full',
+                'text_long' => 'Ship is equipped with powerful ‘Soopa Enginez’ and may roll 4D6 when making an All Ahead Full special order, as opposed to the 2D6 normally rolled by Ork vessels.',
+            ],
+            [
+                'name' => 'Goff Clan',
+                'text' => 'Goff Clan: +1 Ld when ramming; +1 boarding',
+                'text_long' => 'Ship is of the Goff Clan, giving it both a +1 leadership modifier when attempting to ram and an additional +1 modifier during boarding actions.',
+            ],
+            [
+                'name' => 'Boarding Torpedoes',
+                'text' => '+ Boarding Torpedoes (spd:20cm; fp:D6+2)',
+                'text_long' => 'Ship is equipped with boarding torpedoes (speed:20; firepower:D6+2).',
+            ],
+            [
+                'name' => 'Additional Assault Boats',
+                'text' => 'May add +1 assault boat when launching, unless crippled+braced',
+                'text_long' => 'Ship may launch one additional assault boat during the ordnance phase any time it launches assault boats normally (even if crippled or braced, but not both).',
+            ],
+            [
+                'name' => 'Klaws',
+                'text' => '+ Klaws: 2D6 when base contact (hit 4+ each)',
+                'text_long' => 'Klaws are unaffected by special orders of any kind but cannot be used by capital ships if they are crippled. Any time the ship moves in base contact with any one enemy ship during the movement phase, immediately roll two D6. Each roll of a 4+ inflicts one hit on the target, ignoring shields but not holofields. Brace for Impact works normally against attacks by Klaws.',
+            ],
+            [
+                'name' => 'Traktor Field',
+                'text' => 'Traktor Field: must use 60mm base',
+                'text_long' => 'Ship has Traktor Field and must be mounted on a larger 60mm base.',
+            ],
+            [
+                'name' => 'Ram Ship',
+                'text' => 'Ram Ship: rolls 4D6 on ramming',
+                'text_long' => 'Ram ship is built for smashing into an enemy vessel at top speed, hence it rolls 4 dice to damage an opposing ship when it rams.',
+            ],
+            [
+                'name' => 'Assault Ship',
+                'text' => 'Assault Ship: rolls 2D6 on ramming; counts as 2HP for boarding',
+                'text_long' => 'Assault ships embark huge crews of Ork boarding parties and are equipped with tractor fields, powerful boarding drills, etc. They roll 2D6 against an opposing ship when ramming. Count as 2HP when determining their boarding value (before other modifiers).',
+            ],
 //            [
 //                'name' => '',
 //                'text' => '',

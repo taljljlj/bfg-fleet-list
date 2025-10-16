@@ -990,9 +990,123 @@ class RefitsSeeder extends Seeder
                     ],
                 ]
             ],
-
-
-
+            [
+                "name" => "boarding_torpedoes",
+                "text" => "Equip Boarding Torpedoes",
+                "text_long" => "Ship may be equipped with boarding torpedoes (speed:20; firepower:D6+2)",
+                "data" => [
+                    [
+                        "type" => "rule",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => "+ Boarding Torpedoes (spd:20cm; fp:D6+2)",
+                    ]
+                ]
+            ],
+            [
+                "name" => "torpedo_bommas",
+                "text" => "Include Torpedo bommas",
+                "text_long" => "Ship may carry squadrons of Torpedo bommas",
+                "data" => [
+                    [
+                        "type" => "rule",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => "+ Torpedo Bommas",
+                    ],
+                    [
+                        "type" => "arm",
+                        "module" => json_encode([
+                            "type" => "Launch Bays",
+                            "placement" => null,
+                            "fire_arc" => null,
+                        ]),
+                        "action" => "modify",
+                        "value" => null,
+                    ],
+                ]
+            ],
+            [
+                "name" => "torpedoes_over_heavy_gunz",
+                "text" => "Replace Heavy Gunz with Torpedoes",
+                "text_long" => "Can replace Prow Heavy Gunz Battery with Torpedo Launcha",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => json_encode([
+                            "type" => "Heavy Gunz Battery",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                        "action" => "replace",
+                        "value" => json_encode([
+                            "type" => "Torpedoes",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                    ],
+                    [
+                        "type" => "group",
+                        "value" => json_encode([
+                            "boarding_torpedoes",
+                        ]),
+                    ],
+                ]
+            ],
+            [
+                "name" => "replace_heavy_gunz_with_more_gunz",
+                "text" => "Replace Heavy Gunz with Torpedoes OR Gunz Battery",
+                "text_long" => "Can replace Prow Heavy Gunz Battery with Torpedo Launcha OR additional Gunz Battery",
+                "data" => [
+                    [
+                        "type" => "arm",
+                        "module" => json_encode([
+                            "type" => "Heavy Gunz Battery",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                        "action" => "remove",
+                        "value" => null,
+                    ],
+                    [
+                        "type" => "arm",
+                        "module" => json_encode([
+                            "type" => "Gunz Battery",
+                            "placement" => "Prow",
+                            "fire_arc" => "Front",
+                        ]),
+                        "action" => "modify",
+                        "value" => null,
+                    ],
+                ]
+            ],
+            [
+                "name" => "torpedoes_or_gunz_battery_over_heavy_gunz",
+                "text" => "Replace Heavy Gunz with Torpedoes OR Gunz Battery",
+                "text_long" => "Can replace Prow Heavy Gunz Battery with Torpedo Launcha OR additional Gunz Battery",
+                "data" => [
+                    [
+                        "type" => "group",
+                        "value" => json_encode([
+                            "torpedoes_over_heavy_gunz",
+                            "replace_heavy_gunz_with_more_gunz"
+                        ]),
+                    ],
+                ]
+            ],
+            [
+                "name" => "klaws",
+                "text" => "Equip Klaws",
+                "text_long" => "Ship can be equipped with Klaws. Point cost per escort, not per squadron.",
+                "data" => [
+                    [
+                        "type" => "rule",
+                        "module" => null,
+                        "action" => "add",
+                        "value" => "+ Klaws: 2D6 when base contact (hit 4+ each)",
+                    ],
+                ]
+            ],
 
 
             /* refits seeder template

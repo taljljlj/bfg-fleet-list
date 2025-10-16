@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('armaments', function (Blueprint $table) {
             $table->id();
-            $table->string('type', 25);
+            $table->string('type', 55);
             $table->string('placement', 25)->nullable();
             $table->string('fire_arc', 25)->nullable();
 

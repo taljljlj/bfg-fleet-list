@@ -50,9 +50,10 @@ const props = defineProps({
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 5px;
-    width: 50px;
-    margin-bottom: 10px;
+    padding: 2px;
+    width: 56px;
+    margin: 2px 0;
+    height: 54px;
 }
 
 .stat-value {
