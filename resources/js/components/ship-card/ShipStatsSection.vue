@@ -30,7 +30,7 @@ const props = defineProps({
             <div class="stat-value">{{ ship.pivot.armour_short ??  ship.armour_short }}</div>
         </div>
         <div class="stat-box card-box-container">
-            <div class="stat-name">Turrets</div>
+            <div class="stat-name">{{ ship.faction_id === 11 ? 'Spores' : 'Turrets' }}</div>
             <div class="stat-value">{{ ship.pivot.turrets ?? ship.turrets }}</div>
         </div>
     </div>
