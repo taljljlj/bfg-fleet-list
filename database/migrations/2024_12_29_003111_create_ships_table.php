@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('class');
             $table->string('type');
             $table->smallInteger('hitpoints');
-            $table->smallInteger('speed');
-            $table->smallInteger('turns');
-            $table->smallInteger('shields');
+            $table->string('speed');
+            $table->string('turns');
+            $table->string('shields');
             $table->string('armour');
             $table->smallInteger('turrets');
             $table->smallInteger('points');
-
+            $table->foreignId('faction_id')->constrained('factions');
         });
     }
 

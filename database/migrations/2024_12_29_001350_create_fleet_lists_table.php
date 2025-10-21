@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('fleet_lists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('faction_id');
+            $table->foreignId('faction_id')->constrained('factions');
         });
     }
 

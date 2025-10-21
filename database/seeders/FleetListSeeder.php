@@ -72,7 +72,7 @@ class FleetListSeeder extends Seeder
         $fleetLists = array_merge($fleetLists, [
             ["name" => "Eldar Corsairs Fleet List [Gothic Sector]", "faction_id" => $factionId],
             ["name" => "Eldar Corsairs Fleet List [Later Gothic War]", "faction_id" => $factionId],
-            ["name" => "Lyanden Caftworld Fleet", "faction_id" => $factionId],
+            ["name" => "Iyanden Caftworld Fleet", "faction_id" => $factionId],
         ]);
 
         //get Dark Eldar ID for Dark Eldar fleet lists
@@ -86,7 +86,6 @@ class FleetListSeeder extends Seeder
         $fleetLists = array_merge($fleetLists, [
             ["name" => "Cyclops Fleet List", "faction_id" => $factionId],
             ["name" => "Ork Waaagh! Fleet List", "faction_id" => $factionId],
-            ["name" => "Ork Clanz", "faction_id" => $factionId],
             ["name" => "Da Ork Clanz Fleet List", "faction_id" => $factionId],
         ]);
 
@@ -106,7 +105,7 @@ class FleetListSeeder extends Seeder
         //get Tau ID for Tau fleet lists
         $factionId = Faction::getByName('Tau')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Kor'vattra Fleet List", "faction_id" => $factionId],
+            ["name" => "Merchant Fleet List", "faction_id" => $factionId],
             ["name" => "Commerce Protection Fleet List", "faction_id" => $factionId],
             ["name" => "Demiurg and Kroot Xenos Fleet List", "faction_id" => $factionId],
         ]);

@@ -42,9 +42,17 @@ class Ship extends Model
         return $this->belongsToMany(Fleet::class, 'fleet_ship')->using(FleetShip::class)->withTimestamps();
     }
 
+    public function factions() {
+        return $this->belongsTo(Faction::class);
+    }
+
     //Accessors
     public function getArmourShortAttribute() {
-        return str_replace('front', 'f', $this->armour);
+        return str_replace(
+            ['front', 'sides', 'rear'],
+            ['f', 's', 'r'],
+            $this->armour
+        );
     }
 
     public function getImgUrlAttribute() {

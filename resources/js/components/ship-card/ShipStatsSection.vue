@@ -15,11 +15,11 @@ const props = defineProps({
         </div>
         <div class="stat-box card-box-container">
             <div class="stat-name">Speed</div>
-            <div class="stat-value">{{ ship.pivot.speed ?? ship.speed }}cm</div>
+            <div class="stat-value">{{ ship.pivot.speed ?? ship.speed }}{{ ship.speed.length > 2 ? '' : 'cm' }}</div>
         </div>
         <div class="stat-box card-box-container">
             <div class="stat-name">Turns</div>
-            <div class="stat-value">{{ ship.pivot.turns ?? ship.turns }}°</div>
+            <div class="stat-value">{{ ship.pivot.turns ?? ship.turns }}{{ ship.turns.length > 2 ? '' : '°' }}</div>
         </div>
         <div class="stat-box card-box-container">
             <div class="stat-name">Shields</div>
@@ -30,7 +30,7 @@ const props = defineProps({
             <div class="stat-value">{{ ship.pivot.armour_short ??  ship.armour_short }}</div>
         </div>
         <div class="stat-box card-box-container">
-            <div class="stat-name">Turrets</div>
+            <div class="stat-name">{{ ship.faction_id === 11 ? 'Spores' : 'Turrets' }}</div>
             <div class="stat-value">{{ ship.pivot.turrets ?? ship.turrets }}</div>
         </div>
     </div>
@@ -50,9 +50,10 @@ const props = defineProps({
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 5px;
-    width: 50px;
-    margin-bottom: 10px;
+    padding: 2px;
+    width: 56px;
+    margin: 2px 0;
+    height: 54px;
 }
 
 .stat-value {

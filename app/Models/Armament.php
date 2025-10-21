@@ -21,14 +21,17 @@ class Armament extends Model
     public function getFireArcShortAttribute() {
         $fireArc = $this->fire_arc;
         switch ($fireArc) {
-            case 'Left':
-                return 'lr';
             case 'Right':
+            case 'Left':
                 return 'lr';
             case 'Front':
                 return 'f';
             case 'Left/Front/Right':
                 return 'lfr';
+            case 'Left/Front':
+                return 'lf';
+            case 'Front/Right':
+                return 'fr';
             default:
                 return null;
         }
