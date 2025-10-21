@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignId('ship_id')->constrained('ships');
             $table->string('name')->nullable();
             $table->smallInteger('points');
-            $table->smallInteger('speed')->nullable();
-            $table->smallInteger('turns')->nullable();
-            $table->smallInteger('shields')->nullable();
+            $table->string('speed')->nullable();
+            $table->string('turns')->nullable();
+            $table->string('shields')->nullable();
             $table->string('armour')->nullable();
             $table->smallInteger('turrets')->nullable();
             $table->mediumInteger('leadership')->nullable();
