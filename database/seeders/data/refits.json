@@ -1531,6 +1531,23 @@
         ]
     },
     {
+        "name": "add_prow_bio_plasma_discharge",
+        "text": "Add Prow Bio-plasma Discharge",
+        "text_long": "Ship may be equipped with Bio-plasma Discharge.",
+        "data": [
+            {
+                "type": "arm",
+                "module": null,
+                "action": "add",
+                "value": {
+                    "type": "Bio-plasma Discharge",
+                    "placement": "Prow",
+                    "fire_arc": "Front"
+                }
+            }
+        ]
+    },
+    {
         "name": "kraken_ship_prow_armaments_group",
         "text": "Choose one prow armament",
         "text_long": "Ship may be equipped with one prow armament from the list.",
@@ -1594,6 +1611,18 @@
                 "value": null
             }
         ]
+    },
+    {
+        "name": "prow_deflector",
+        "text": "Upgrade ship with Prow Deflector",
+        "text_long": "Ship can be equipped with a deflector that raises its prow armour to 6+ for +10 points. This is disabled whenever the vessel suffers a prow critical hit (repairable normally).",
+        "data": [
+            {
+                "type": "rule",
+                "module": null,
+                "action": "add",
+                "value": "Prow Deflector: armour 6+ f; disabled if prow critical hit"
+            }
+        ]
     }
-
 ]

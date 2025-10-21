@@ -3673,14 +3673,12 @@
             "armaments": [
                 {
                     "type": "Ghost-Light Macrobattery",
-                    "placement": "",
                     "fire_arc": "All Round",
                     "range_speed": 45,
                     "firepower": 10
                 },
                 {
                     "type": "Ghost-Light Lance",
-                    "placement": "",
                     "fire_arc": "All Round",
                     "range_speed": 30,
                     "firepower": 3
@@ -3756,10 +3754,9 @@
                 },
                 {
                     "type": "Armageddon Gun",
-                    "placement": "",
                     "fire_arc": "Front",
                     "range_speed": 90,
-                    "firepower": 0
+                    "firepower": "Special"
                 }
             ],
             "fleet_lists": [
@@ -6086,7 +6083,7 @@
             ],
             "fleet_lists": [],
             "rules": [
-                "Reduced Ld Modifier"
+                "Reduced Ld"
             ],
             "refits": []
         }
@@ -8054,17 +8051,17 @@
                 {
                     "type": "Gravitic Hook",
                     "placement": "Port",
-                    "misc": "Capacity:1 Orca/Warden"
+                    "firepower": "Cap:1 Orca"
                 },
                 {
                     "type": "Gravitic Hook",
                     "placement": "Starboard",
-                    "misc": "Capacity:1 Orca/Warden"
+                    "firepower": "Cap:1 Orca"
                 },
                 {
                     "type": "Gravitic Hook",
                     "placement": "Dorsal",
-                    "misc": "Capacity:1 Orca/Warden"
+                    "firepower": "Cap:1 Orca"
                 }
             ],
             "fleet_lists": [
@@ -8120,17 +8117,17 @@
                 {
                     "type": "Gravitic Hook",
                     "placement": "Port",
-                    "misc": "Capacity:1 Orca/Warden"
+                    "firepower": "Cap:1 Orca"
                 },
                 {
                     "type": "Gravitic Hook",
                     "placement": "Starboard",
-                    "misc": "Capacity:1 Orca/Warden"
+                    "firepower": "Cap:1 Orca"
                 },
                 {
                     "type": "Gravitic Hook",
                     "placement": "Dorsal",
-                    "misc": "Capacity:1 Orca/Warden"
+                    "firepower": "Cap:1 Orca"
                 }
             ],
             "fleet_lists": [
@@ -8153,7 +8150,7 @@
             "speed": 20,
             "turns": 45,
             "shields": 3,
-            "armour": "6+ front / 5+",
+            "armour": "5+",
             "turrets": 4,
             "points": 330,
             "armaments": [
@@ -8188,7 +8185,7 @@
                 {
                     "type": "Gravitic Hook",
                     "placement": "Stern",
-                    "misc": "Capacity:3 Wardens"
+                    "firepower": "Cap:3 Wardens"
                 },
                 {
                     "type": "Launch Bays",
@@ -8216,7 +8213,11 @@
                     "is_reserve": 0
                 }
             ],
-            "rules": [],
+            "rules": [
+                "Massive",
+                "Prow Deflector",
+                "Improved Tracking System"
+            ],
             "refits": []
         },
         {
@@ -8304,7 +8305,12 @@
                     "is_reserve": 0
                 }
             ],
-            "rules": [],
+            "rules": [
+                "Massive",
+                "Demiurg Battleship Ld",
+                "Demiurg Bridge Smashed",
+                "Stronghold Ship VP"
+            ],
             "refits": []
         },
         {
@@ -8314,7 +8320,7 @@
             "speed": 20,
             "turns": 45,
             "shields": 2,
-            "armour": "6+ front / 5+",
+            "armour": "5+",
             "turrets": 3,
             "points": 180,
             "armaments": [
@@ -8370,7 +8376,7 @@
                 }
             ],
             "rules": [
-
+                "Prow Deflector"
             ],
             "refits": []
         },
@@ -8519,7 +8525,7 @@
             "speed": 20,
             "turns": 90,
             "shields": 2,
-            "armour": "6+ front / 5+",
+            "armour": "5+",
             "turrets": 3,
             "points": 185,
             "armaments": [
@@ -8578,7 +8584,9 @@
                     "is_reserve": 0
                 }
             ],
-            "rules": [],
+            "rules": [
+                "Prow Deflector"
+            ],
             "refits": []
         },
         {
@@ -8660,7 +8668,13 @@
                     "is_reserve": 0
                 }
             ],
-            "rules": [],
+            "rules": [
+                "Massive",
+                "Demiurg Cruiser Ld",
+                "Demiurg Bridge Smashed",
+                "Bastion Ship VP",
+                "Dorsal Launch Bays"
+            ],
             "refits": []
         },
         {
@@ -8728,7 +8742,12 @@
                     "is_reserve": 0
                 }
             ],
-            "rules": [],
+            "rules": [
+                "Massive",
+                "Demiurg Cruiser Ld",
+                "Demiurg Bridge Smashed",
+                "Citadel Ship VP"
+            ],
             "refits": []
         },
         {
@@ -8752,12 +8771,12 @@
                 {
                     "type": "Gravitic Hook",
                     "placement": "Port",
-                    "misc": "Capacity:1 Orca/Warden"
+                    "firepower": "Cap:1 Orca"
                 },
                 {
                     "type": "Gravitic Hook",
                     "placement": "Starboard",
-                    "misc": "Capacity:1 Orca/Warden"
+                    "firepower": "Cap:1 Orca"
                 },
                 {
                     "type": "Railgun Battery",
@@ -8895,12 +8914,12 @@
                 {
                     "type": "Gravitic Hook",
                     "placement": "Port",
-                    "misc": "Capacity:1 Warden"
+                    "firepower": "Cap:1 Warden"
                 },
                 {
                     "type": "Gravitic Hook",
                     "placement": "Starboard",
-                    "misc": "Capacity:1 Warden"
+                    "firepower": "Cap:1 Warden"
                 },
                 {
                     "type": "Launch Bays",
@@ -8916,7 +8935,15 @@
                 }
             ],
             "rules": [],
-            "refits": []
+            "refits": [
+                {
+                    "name": "prow_deflector",
+                    "points": 10,
+                    "pivots": [
+                        {}
+                    ]
+                }
+            ]
         },
         {
             "class": "Il'porrui/Emissary Class Envoy Ship (Bork'an)",
@@ -8946,12 +8973,12 @@
                 {
                     "type": "Gravitic Hook",
                     "placement": "Port",
-                    "misc": "Capacity:1 Warden"
+                    "firepower": "Cap:1 Warden"
                 },
                 {
                     "type": "Gravitic Hook",
                     "placement": "Starboard",
-                    "misc": "Capacity:1 Warden"
+                    "firepower": "Cap:1 Warden"
                 },
                 {
                     "type": "Gravitic Launcher",
@@ -8968,7 +8995,15 @@
                 }
             ],
             "rules": [],
-            "refits": []
+            "refits": [
+                {
+                    "name": "prow_deflector",
+                    "points": 10,
+                    "pivots": [
+                        {}
+                    ]
+                }
+            ]
         },
         {
             "class": "Il'porrui/Emissary Class Envoy Ship (Sa'cea)",
@@ -9024,7 +9059,15 @@
                 }
             ],
             "rules": [],
-            "refits": []
+            "refits": [
+                {
+                    "name": "prow_deflector",
+                    "points": 10,
+                    "pivots": [
+                        {}
+                    ]
+                }
+            ]
         },
         {
             "class": "Kir'qath/Defender Class Starship",
@@ -9171,7 +9214,9 @@
                     "is_reserve": 0
                 }
             ],
-            "rules": [],
+            "rules": [
+                "Tau Escorts"
+            ],
             "refits": []
         },
         {
@@ -9210,7 +9255,10 @@
                     "is_reserve": 0
                 }
             ],
-            "rules": [],
+            "rules": [
+                "Tau Escorts 2",
+                "Orca Gravitic Hook"
+            ],
             "refits": []
         },
         {
@@ -9233,7 +9281,9 @@
                 }
             ],
             "fleet_lists": [],
-            "rules": [],
+            "rules": [
+                "Reduced Ld"
+            ],
             "refits": []
         },
         {
@@ -9276,7 +9326,10 @@
                     "is_reserve": 0
                 }
             ],
-            "rules": [],
+            "rules": [
+                "Orca Gravitic Hook",
+                "Nicassar Ld"
+            ],
             "refits": []
         }
     ]

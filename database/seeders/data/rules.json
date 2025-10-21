@@ -46,8 +46,8 @@
     },
     {
         "name": "Reduced Ld",
-        "text": "Ld roll result reduced by 1",
-        "text_long": "Their randomly rolled Leadership is reduced by one, so they will have a Leadership value of between 5 and 8"
+        "text": "Ld -1 after roll",
+        "text_long": "Their randomly rolled Leadership is reduced by one after rolling."
     },
     {
         "name": "Grey Knights",
@@ -226,8 +226,8 @@
     },
     {
         "name": "Reduced Ld Modifier",
-        "text": "Ld roll -1",
-        "text_long": "Ship’s crew is less experienced and thus suffer a -1 modifier against the leadership table."
+        "text": "Ld roll modifier -1",
+        "text_long": "Ship’s crew is less experienced and thus suffer a -1 modifier when rolling."
     },
     {
         "name": "Ork Swap Ld",
@@ -320,6 +320,11 @@
         "text_long": "Escort drones subject to Instinctive Behaviour case 7 (‘must move towards a planet’) may instead move towards the nearest hive ship."
     },
     {
+        "name": "Gravitic Hook Cap",
+        "text": "Orca Grav Hooks may carry Warden or Dhow ships instead",
+        "text_long": "These vessels are fitted with a prow deflector to raise their frontal armour to 6. This is disabled if the ship suffers a Prow critical hit."
+    },
+    {
         "name": "Prow Deflector",
         "text": "Prow Deflector: armour 6+ f; disabled if prow critical hit",
         "text_long": "These vessels are fitted with a prow deflector to raise their frontal armour to 6. This is disabled if the ship suffers a Prow critical hit."
@@ -331,7 +336,67 @@
     },
     {
         "name": "Tracking System",
-        "text": "Equipped with a Tracking system",
+        "text": "+ Tracking System",
         "text_long": "This ship is equipped with a Tracking System."
+    },
+    {
+        "name": "Improved Tracking System",
+        "text": "+ Tracking System: range 20cm",
+        "text_long": "This ship has an integrated Tracking System coupled to an extremely sophisticated sensor suite. It has a range of 20 cm (instead of 10 cm)."
+    },
+    {
+        "name": "Tau Escorts",
+        "text": "Cannot squadron with Orcas; If squadron with Warden, cannot mix with any other",
+        "text_long": "This vessel may squadron with any other Tau escorts normally except Orcas (max. six per squadron), but those in a squadron with Wardens may not also be with any other escort type."
+    },
+    {
+        "name": "Tau Escorts 2",
+        "text": "Can squadron with Castellan only",
+        "text_long": "This vessel may squadron with Castellan escorts in the fleet if present (max. six per squadron) but not with any other escort types."
+    },
+    {
+        "name": "Demiurg Battleship Ld",
+        "text": "Ld: 10; -1 Ld per HP lost (min 5)",
+        "text_long": "Demiurg battleships are heavily automated and count their Ld value as 10 at the start of the battle. The ship's Ld will drop by -1 for each point of damage it suffers, but its Ld value will not drop any further than 5."
+    },
+    {
+        "name": "Demiurg Bridge Smashed",
+        "text": "Bridge smashed crit: no -Ld but additional -1 HP",
+        "text_long": "Bridge smashed critical hits will not inflict additional Leadership loss on a Demiurg ship, but instead cause an extra point of damage (and possible attendant Ld loss) on the vessel."
+    },
+    {
+        "name": "Stronghold Ship VP",
+        "text": "In pure Demiurg fleet or vs Orks VP=400",
+        "text_long": "A Stronghold class vessel is worth 350 Victory points normally but in a pure Demiurg fleet or one fighting against Orks it is worth 400 Victory points instead to reflect its extra determination. This does not affect its starting point cost."
+    },
+    {
+        "name": "Demiurg Cruiser Ld",
+        "text": "Ld: 9; -1 Ld per HP lost (min 5)",
+        "text_long": "Demiurg cruiser class ships are heavily automated and count their Ld value as 9 at the start of the battle. The ship's Ld will drop by -1 for each point of damage it suffers, but its Ld value will not drop any further than 5."
+    },
+    {
+        "name": "Bastion Ship VP",
+        "text": "In pure Demiurg fleet or vs Orks VP=300",
+        "text_long": "A Bastion class vessel is worth 255 Victory points normally but in a pure Demiurg fleet or one fighting against Orks it is worth 300 Victory points instead to reflect its extra determination. This does not affect its starting point cost."
+    },
+    {
+        "name": "Dorsal Launch Bays",
+        "text": "Dorsal Launch Bays: torpedoes or attack craft; not both",
+        "text_long": "The dorsal launch bays may launch either attack craft or torpedoes if reloaded but may not launch both attack craft and torpedoes in the same turn."
+    },
+    {
+        "name": "Citadel Ship VP",
+        "text": "In pure Demiurg fleet or vs Orks VP=200",
+        "text_long": "A Citadel class vessel is worth 185 Victory points normally but in a pure Demiurg fleet or one fighting against Orks it is worth 200 Victory points instead to reflect its extra determination. This does not affect its starting point cost."
+    },
+    {
+        "name": "Orca Gravitic Hook",
+        "text": "May be carried on Orca gravitic hooks",
+        "text_long": "Tau fleets may bring these ships to battle on gravitic hooks instead of Orcas. Any ship equipped with these ships can only carry them and may not have Orcas. These then form a squadron separate of their parent ship."
+    },
+    {
+        "name": "Nicassar Ld",
+        "text": "Ld: parent ship +1",
+        "text_long": "Their Leadership is the same as their parent ship +1 as the Nicassar are natural spacefarers."
     }
 ]

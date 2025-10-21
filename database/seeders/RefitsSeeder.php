@@ -23,10 +23,12 @@ class RefitsSeeder extends Seeder
             $refitObj = Refit::create($refit);
             foreach ($modifications as $modification) {
                 $modification['refit_id'] = $refitObj->id;
+                $names = $modification['value'];
+                $modification['module'] = json_encode($modification['module']);
+                $modification['value'] = json_encode($modification['value']);
                 Modification::create($modification);
 
                 if ($modification['type'] == 'group') {
-                    $names = json_decode($modification['value'], false);
                     $children = Refit::getByNames($names);
                     $refitObj->children()->attach($children->pluck('id'));
                 }

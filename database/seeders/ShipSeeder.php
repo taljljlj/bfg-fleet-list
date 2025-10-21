@@ -46,14 +46,14 @@ class ShipSeeder extends Seeder
                 foreach ($armamentsData as $armamentData) {
                     $armament = Armament::firstOrCreate([
                         "type" => $armamentData['type'],
-                        'placement' => $armamentData['placement'],
-                        'fire_arc' => $armamentData['fire_arc'],
+                        'placement' => $armamentData['placement'] ?? null,
+                        'fire_arc' => $armamentData['fire_arc'] ?? null,
                     ]);
 
                     $ship->armaments()->attach($armament->id, [
-                        'range_speed' => $armamentData['range_speed'] ?: null,
+                        'range_speed' => $armamentData['range_speed'] ?? null,
                         'firepower' => $armamentData['firepower'],
-                        'misc' => $armamentData['misc'] ?: null
+                        'misc' =>  $armamentData['misc'] ?? null
                     ]);
                 }
 
@@ -94,9 +94,9 @@ class ShipSeeder extends Seeder
                         for ($i = 0; $i < count($modifications); $i++) {
                             $ship->modifications()->attach($modifications[$i]->id, [
                                 'ship_refit_id' => $lastPivot->id,
-                                'firepower' => $refitData['pivots'][$i]['firepower'],
-                                'range_speed' => $refitData['pivots'][$i]['range_speed'],
-                                'misc' => $refitData['pivots'][$i]['misc'],
+                                'firepower' => $refitData['pivots'][$i]['firepower'] ?? null,
+                                'range_speed' => $refitData['pivots'][$i]['range_speed'] ?? null,
+                                'misc' => $refitData['pivots'][$i]['misc'] ?? null,
                             ]);
 
                             //If one of the modifications is of type group that means refit has children. Attach refit children to ship
@@ -123,9 +123,9 @@ class ShipSeeder extends Seeder
                                     for ($k = 0; $k < count($childrenModifications); $k++) {
                                         $ship->modifications()->attach($childrenModifications[$k]->id, [
                                             'ship_refit_id' => $lastChildPivot->id,
-                                            'firepower' => $childrenModsData[$k]['firepower'],
-                                            'range_speed' => $childrenModsData[$k]['range_speed'],
-                                            'misc' => $childrenModsData[$k]['misc'],
+                                            'firepower' => $childrenModsData[$k]['firepower'] ?? null,
+                                            'range_speed' => $childrenModsData[$k]['range_speed'] ?? null,
+                                            'misc' => $childrenModsData[$k]['misc'] ?? null,
                                         ]);
                                     }
                                 }
