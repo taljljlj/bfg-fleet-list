@@ -20,6 +20,14 @@
     "file": "assets/firearc-f-BAQF4mJ7.png",
     "src": "resources/images/fleet-builder/firearc-f.png"
   },
+  "resources/images/fleet-builder/firearc-fr.png": {
+    "file": "assets/firearc-fr-rf0FU1wm.png",
+    "src": "resources/images/fleet-builder/firearc-fr.png"
+  },
+  "resources/images/fleet-builder/firearc-lf.png": {
+    "file": "assets/firearc-lf-hTu-w6Kh.png",
+    "src": "resources/images/fleet-builder/firearc-lf.png"
+  },
   "resources/images/fleet-builder/firearc-lfr.png": {
     "file": "assets/firearc-lfr-mhTrzfoE.png",
     "src": "resources/images/fleet-builder/firearc-lfr.png"
@@ -37,12 +45,12 @@
     "src": "resources/images/loading-icon.png"
   },
   "resources/js/app.js": {
-    "file": "assets/app-VRP5H3xt.js",
+    "file": "assets/app-CXKcO_YD.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-DbVH2-lK.css"
+      "assets/app-Bj1H9xK_.css"
     ],
     "assets": [
       "assets/caret-icon-KjWOtrdo.png",
@@ -50,7 +58,9 @@
       "assets/loading-icon-ivLWt770.png",
       "assets/firearc-lr-BceOqqnT.png",
       "assets/firearc-f-BAQF4mJ7.png",
-      "assets/firearc-lfr-mhTrzfoE.png"
+      "assets/firearc-lfr-mhTrzfoE.png",
+      "assets/firearc-lf-hTu-w6Kh.png",
+      "assets/firearc-fr-rf0FU1wm.png"
     ]
   }
 }
