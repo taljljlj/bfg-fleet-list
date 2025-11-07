@@ -254,7 +254,7 @@ const validateLdInput = (event) => {
       </div>
     </div>
 
-    <div class="card-ship-body thin-font">
+    <div class="card-ship-body font-secondary tracking-tight">
         <div class="card-section-t">
             <div ref="refitsSectionRef" class="card-subsec-l">
                 <div v-if="hasRefits">

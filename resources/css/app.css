@@ -1,28 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary-100: #6097c0;
+    --color-primary-500: #365773;
+    --color-primary-700: #2d3748;
+    --color-secondary: #c8c5dc;
+    --color-tertiary: #4a5568;
+
+    --font-family-primary: "League Gothic", sans-serif;
+    --font-family-secondary: "Pathway Gothic One", sans-serif;
+}
+
 /* =================== */
 /*      General        */
 /* =================== */
-
 #mainBody {
-    margin: 0;
-    background-color: #4a5568;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    font-family: "League Gothic", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-variation-settings:
-        "wdth" 100;
-    letter-spacing: 1px;
-}
-h3, h4 {
-    font-weight: 400;
-}
-
-.thin-font {
-    font-family: "Pathway Gothic One", sans-serif;
-    letter-spacing: 0.5px;
+    font-family: var(--font-family-primary), sans-serif;
 }
 
 img {
@@ -39,7 +32,7 @@ label:has(> input[type="checkbox"]:disabled) {
 }
 
 input {
-    font-family: "Pathway Gothic One", sans-serif;
+    font-family: var(--font-family-secondary);
 }
 
 /* Chrome, Safari, Edge */

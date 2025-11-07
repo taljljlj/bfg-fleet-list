@@ -21,7 +21,7 @@
     <!-- Styles -->
     @vite('resources/css/app.css')
 </head>
-<body id="mainBody">
+<body id="mainBody" class="bg-tertiary flex flex-col min-h-screen">
     <header id="bfgHeader">
         <div class="banner-container">
             <a class="logo-home" href="{{ route('home') }}">

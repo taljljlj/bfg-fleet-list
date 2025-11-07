@@ -39,12 +39,12 @@ const toggleGroup = (event) => {
                         <img :src="caretIcon" alt="caret-icon">
                     </span>
                 </h4>
-                <ul class="ship-type-container thin-font">
+                <ul class="ship-type-container font-secondary tracking-wide">
                     <li v-for="ship in shipGroup" :key="ship.id">
                         <span class="ship-class">
                           {{ ship.class }}{{ ship.type === 'Escort' ? ' Squadron' : '' }}
                         </span>
-                        <span class="ship-pts thin-font">{{ ship.points }}</span>
+                        <span class="ship-pts font-secondary tracking-tight">{{ ship.points }}</span>
                         <span
                             class="ship-add-btn"
                             @click="handleShipAdd(ship.id)"
