@@ -21,6 +21,8 @@ php artisan migrate
 php artisan db:seed
 ```
 
+Project needs symlink `public/images -> resources/images` to please both Blade and Vite.
+
 ## Runtime
 Necessary for fleet builder functionality:
 * For development:

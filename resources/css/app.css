@@ -14,10 +14,6 @@
 /* =================== */
 /*      General        */
 /* =================== */
-#mainBody {
-    font-family: var(--font-family-primary), sans-serif;
-}
-
 img {
     max-width: 100%;
     max-height: 100%;
@@ -51,67 +47,16 @@ input[type="number"] {
 /*      BFG Header     */
 /* =================== */
 #bfgHeader {
-    height: 150px;
     background-image: url('@images/header-bg.jpg');
-    background-size: cover;
-    text-align: center;
-}
-#bfgHeader .banner-container {
-    position: relative;
-    height: 100%;
-}
-#bfgHeader .logo-home {
-    text-align: center;
-    align-items: end;
-}
-#bfgHeader .bfg-logo {
-    padding-top: 15px;
-    height: 80%;
 }
 
 /* =================== */
 /*      Navbar         */
 /* =================== */
-
-#navbar {
-    text-align: center;
-    background-color: #c8c5dc;
-    font-family: "League Gothic", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    font-variation-settings:
-        "wdth" 100;
-    letter-spacing: 0.5px;
-}
-#navbar .navbar-container {
-    max-width: 1500px;
-    margin: auto;
-}
-#navbar ul {
-    text-align: right;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-#navbar li {
-    display: inline-block;
-    height: 40px;
-    padding: 15px 40px;
-    font-size: 40px;
-    color: black;
-}
-#navbar a {
-    display: block;
-    text-decoration: none;
-    color: #2d3748;
-    height: 100%;
-}
-#navbar a:hover {
-    color: rgb(54, 87, 115);
-}
-#userDropdownBtn {
-    height: 100%;
+@layer wrappers {
+    .navbar-li {
+        @apply box-content align-top inline-block h-10 py-3.5 px-10 leading-10 text-4xl;
+    }
 }
 
 /* =================== */
