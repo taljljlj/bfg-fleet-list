@@ -4,6 +4,7 @@
     --color-primary-100: #6097c0;
     --color-primary-500: #365773;
     --color-primary-700: #2d3748;
+    --color-primary-100-opc-35: #6097C059;
     --color-secondary: #c8c5dc;
     --color-tertiary: #4a5568;
 
@@ -28,7 +29,7 @@ label:has(> input[type="checkbox"]:disabled) {
 }
 
 input {
-    font-family: var(--font-family-secondary);
+    font-family: var(--font-family-secondary), sans-serif;
 }
 
 /* Chrome, Safari, Edge */
@@ -47,6 +48,8 @@ input[type="number"] {
 /*      BFG Header     */
 /* =================== */
 #bfgHeader {
+    /*Vite and Vue are in conflict here and giving me a headache + IDE code analysis reporting it as error on commits. Setting suppression rule, i know this works fine */
+    /*noinspection CssUnknownTarget*/
     background-image: url('@images/header-bg.jpg');
 }
 
@@ -64,35 +67,18 @@ input[type="number"] {
 /* =================== */
 
 #fleetBuilderBody {
-    flex: 1;
+    /*noinspection CssUnknownTarget*/
     background-image: url('@images/fleet-builder-bg-2.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    text-align: center;
 }
+/* maybe remove? not sure what is this for
+/*#fleetBuilderBody .content-wrapper:after {*/
+/*    content: "";*/
+/*    display: block;*/
+/*    clear: both;*/
+/*}*/
 
-#fleetBuilderBody .content-wrapper {
-    padding: 0 20px;
-    margin: auto;
-    position: relative;
-}
-
-#fleetBuilderBody .content-wrapper:after {
-    content: "";
-    display: block;
-    clear: both;
-}
-
-#fleetBuilderBody .section {
-    border: #c8c5dc 3px solid;
-    border-radius: 5px;
-    padding: 25px;
-    background-color: #6097c05e;
-    box-shadow: #1a202c 0 0 30px, inset #c8c5dc 0 0 30px;
-    backdrop-filter: blur(12px);
-    margin-top: 50px;
-    color: #c8c5dc;
-    position: relative;
+@layer wrappers {
+    .section {
+        @apply relative text-secondary p-6 border-3 border-secondary rounded-md bg-primary-100-opc-35 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc] backdrop-blur-md mt-12;
+    }
 }

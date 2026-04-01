@@ -19,66 +19,21 @@ const handleFactionClick = (factionId) => {
 </script>
 
 <template>
-  <div class="faction-selector">
+  <div class="faction-selector flex gap-4 flex-wrap justify-evenly user-select-none">
     <div
       v-for="faction in factions"
       :key="faction.id"
-      class="faction"
-      :class="{ selected: selectedFactionId === faction.id }"
+      class="faction relative cursor-pointer opacity-70 my-2.5 transition-opacity duration-300 ease-in-out hover:opacity-100 hover:drop-shadow-[0_0_10px_#c8c5dc] hover:hue-rotate-45"
+      :class="[
+        { selected: selectedFactionId === faction.id },
+        selectedFactionId === faction.id
+          ? 'opacity-100 after:content-[\'\'] after:block after:w-0 after:h-0 after:absolute after:left-[calc(50%-10px)] after:-bottom-6 after:border-t-20 after:border-t-white after:border-l-10 after:border-l-transparent after:border-r-10 after:border-r-transparent'
+          : ''
+      ]"
       @click="handleFactionClick(faction.id)"
     >
-      <img :src="`/images/factions/${faction.img_url}`" :alt="`${faction.name} Logo`">
-      <h3>{{ faction.name }}</h3>
+      <img :src="`/images/factions/${faction.img_url}`" :alt="`${faction.name} Logo`" class="h-[60px]">
+      <h3 class="m-0 tracking-wider text-white text-lg">{{ faction.name }}</h3>
     </div>
   </div>
 </template>
-
-<style scoped>
-.faction-selector {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    user-select: none;
-}
-
-.faction {
-    transition: all 0.2s ease;
-    margin: 10px 5px;
-    opacity: 70%;
-    cursor: pointer;
-    position: relative;
-}
-
-.faction:hover {
-    opacity: 1;
-    filter: drop-shadow(0 0 10px #c8c5dc) hue-rotate(45deg);
-}
-
-.faction.selected {
-    opacity: 1;
-}
-
-.faction.selected:after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 0;
-    position: absolute;
-    left: calc(50% - 10px);
-    border-top: 20px solid white;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    bottom: -25px;
-}
-
-.faction img {
-    height: 60px;
-}
-
-.faction h3 {
-    margin: 0;
-    letter-spacing: 1px;
-    color: white;
-}
-</style>
