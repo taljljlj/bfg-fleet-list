@@ -58,7 +58,7 @@
 
       } catch (error) {
         console.error('Error:', error);
-        alert('A disruption in the sacred data-rites has occurred. Twisted forces of the Warp have cast their afflictions upon your fleet. Reinstate your will and attempt anew, lest chaos consume this endeavor.');
+        alert('+++ Cogitator Rejects Allegiance +++\r\nA disruption in the sacred data-rites has occurred. Reinstate your will and attempt anew.');
       } finally {
         state.isLoading = false;
       }
@@ -82,7 +82,7 @@
 
       } catch (error) {
         console.error('Error:', error);
-        alert('Submission failed. Please check your input.');
+        alert('+++ Void Registry Corrupted +++\r\nThe Machine Spirit rejects the fleet list change. Purge errors and attempt the ritual anew.');
       } finally {
         state.isLoading = false;
       }
@@ -100,7 +100,7 @@
 
       } catch (error) {
         console.error('Error:', error);
-        alert('Submission failed. Please check your input.');
+        alert('+++ Ship Integration Denied +++\r\nThe fleet list rejects alteration. The vessel is cast adrift, refusing induction into the fleet manifest.');
       } finally {
         state.isLoading = false;
       }
@@ -117,7 +117,7 @@
 
       } catch (error) {
         console.error('Error:', error);
-        alert('Submission failed. Please check your input.');
+        alert('+++ Ship Purge Denied +++\r\nThe fleet list refuses alteration. The vessel clings to the roster as if possessed.');
       } finally {
         state.isLoading = false;
       }
@@ -142,8 +142,8 @@
         });
 
         if (response.status !== 200) {
-            console.error('Failed to download PDF');
-            alert('Something went wrong, could not generate PDF. Please check ship data and try again.');
+            console.error('Failed to fetch PDF:', response.status, response.statusText);
+            alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
             return;
         }
 
@@ -158,7 +158,7 @@
 
       } catch (error) {
         console.error('Error:', error);
-        alert('Something went wrong, could not generate PDF. Please check ship data and try again.');
+        alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
       }
     };
 </script>
