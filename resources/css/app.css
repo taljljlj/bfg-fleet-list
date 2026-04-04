@@ -1,15 +1,21 @@
 @import "tailwindcss";
 
 @theme {
+    /* Colors */
     --color-primary-100: #6097c0;
     --color-primary-500: #365773;
     --color-primary-700: #2d3748;
     --color-primary-100-opc-35: #6097C059;
+    --color-primary-500-opc-50: #36577380;
     --color-secondary: #c8c5dc;
     --color-tertiary: #4a5568;
 
+    /* Fonts */
     --font-family-primary: "League Gothic", sans-serif;
     --font-family-secondary: "Pathway Gothic One", sans-serif;
+
+    /* Animations */
+    --animate-spin-slow: spin 2s ease-in-out infinite;
 }
 
 /* =================== */
@@ -80,5 +86,26 @@ input[type="number"] {
 @layer wrappers {
     .section {
         @apply relative text-secondary p-6 border-3 border-secondary rounded-md bg-primary-100-opc-35 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc] backdrop-blur-md mt-12;
+    }
+    .section-overlay {
+        @apply absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-primary-500-opc-50 backdrop-blur-sm z-50;
+    }
+    .section-overlay img {
+        @apply w-12 h-12 animate-spin-slow;
+    }
+    .section-left .section-subsection {
+        @apply relative pb-2.5 after:absolute after:block after:content-[''] after:bottom-0 after:-right-6 after:h-1 after:w-88 after:bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)];
+    }
+    .section-left .section-subsection.last {
+        @apply after:hidden pb-0;
+    }
+    .export-btn {
+        @apply w-22 text-lg;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply rounded-md border-primary-100 font-family-primary tracking-wide bg-secondary text-primary-500 cursor-pointer p-0.5 hover:text-primary-100 hover:shadow-[0_0_10px_#c8c5dc];
     }
 }
