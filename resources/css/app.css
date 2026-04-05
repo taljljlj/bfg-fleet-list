@@ -102,6 +102,9 @@ input[type="number"] {
     .export-btn {
         @apply w-22 text-lg;
     }
+    .ship-list-separator:after {
+        @apply absolute block content-[''] bottom-0 -right-6 w-64 h-0.5 bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)];
+    }
 }
 
 @layer components {
