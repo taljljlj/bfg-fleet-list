@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, nextTick, inject, watch } from 'vue';
+import {computed, inject, nextTick, ref, watch} from 'vue';
 import ShipStatsSection from './ShipStatsSection.vue';
 import ShipArmamentsSection from './ShipArmamentsSection.vue';
 import ShipRulesSection from './ShipRulesSection.vue';
@@ -188,18 +188,17 @@ watch(shipName, async (newValue) => {
 
 const validateLdInput = (event) => {
     const raw = event.target.value;
-    const cleaned = raw.replace(/[^0-9-]/g, '');
-    shipLd.value = cleaned;
+    shipLd.value = raw.replace(/[^0-9-]/g, '');
 }
 </script>
 
 <template>
-  <div class="card-ship"
+  <div class="card-ship border-3 border-secondary rounded-md w-[600px] backdrop-blur-sm bg-secondary mb-5"
        :data-id="ship.id"
        :data-pivot-id="ship.pivot.id"
        :style="`order: ${ship.order}`"
   >
-    <div class="card-ship-header">
+    <div class="card-ship-header bg-primary-500-opc-80 text-secondary flex flex-row justify-between items-center text-3xl">
       <div class="card-subsec-l">
         <div v-if="ship.type === 'Escort'" class="card-ship-class heading">
             {{ ship.class }} Squadron
@@ -221,7 +220,7 @@ const validateLdInput = (event) => {
         <div v-else class="card-ship-class heading">{{ ship.class }}</div>
       </div>
       <div class="card-subsec-r">
-        <div class="card-ship-ld card-input heading">
+        <div class="card-ship-ld card-input heading px-2.5">
             <label for="cardShipLd">Ld: </label>
             <input v-if="ship.type === 'Escort'"
                 title="Leadership: for squadrons enter Ld values for each individual ship in this field separated by - (dash)"
@@ -241,7 +240,7 @@ const validateLdInput = (event) => {
                 name="cardShipLd"
             />
         </div>
-        <div class="card-ship-pts card-input heading">
+        <div class="card-ship-pts card-input heading px-2.5">
             <label for="cardShipPts">Pts: </label>
             <input
             title="Ship/Squadron Points: Set custom points value. For squadrons reduce counter to x1 before inputting points"
@@ -281,7 +280,7 @@ const validateLdInput = (event) => {
                 <input
                     type="text"
                     name="cardShipName"
-                    :placeholder="`Enter ${ship.type == 'Escort' ? 'Squadron' : 'Ship' } Name`"
+                    :placeholder="`Enter ${ship.type === 'Escort' ? 'Squadron' : 'Ship' } Name`"
                     v-model="shipName"
                 >
                 <div class="card-ship-additional card-box-container">
@@ -304,78 +303,6 @@ const validateLdInput = (event) => {
 </template>
 
 <style scoped>
-.card-ship {
-    border: 3px solid #c8c5dc;
-    border-radius: 5px;
-    width: 600px;
-    backdrop-filter: blur(7px);
-    background: rgb(235 232 255 / 70%);
-    height: fit-content;
-    margin-bottom: 20px;
-}
-
-.card-box-container {
-    border: 2px solid rgba(54, 87, 115, 0.8);
-    border-radius: 5px;
-    background-color: transparent;
-    color: rgba(54, 87, 115, 0.8);
-}
-
-.card-ship-header {
-    background-color: rgba(54, 87, 115, 0.8);
-    color: #c8c5dc;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.card-subsec-l {
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    padding: 0 10px;
-    position: relative;
-}
-
-.card-subsec-r {
-    display: flex;
-    align-self: flex-end;
-    align-items: center;
-    padding: 0 10px;
-}
-
-.card-input {
-    padding: 0 10px;
-}
-
-.heading {
-    font-size: 22px;
-    font-weight: 400;
-    z-index: 1;
-}
-
-input {
-    border-radius: 5px;
-    border-color: #c8c5dc;
-    border-style: solid;
-    background-color: transparent;
-    outline: none;
-    width: 50px;
-    margin: 0;
-    padding: 0;
-    vertical-align: middle;
-    height: 30px;
-    text-align: center;
-    font-size: 25px;
-    font-weight: 600;
-    color: #c8c5dc;
-}
-
-input:focus-visible {
-    box-shadow: inset #c8c5dc 0 0 5px;
-}
-
 .card-ship-remove-btn {
     font-size: 45px;
     cursor: pointer;

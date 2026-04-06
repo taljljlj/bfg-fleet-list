@@ -7,6 +7,7 @@
     --color-primary-700: #2d3748;
     --color-primary-100-opc-35: #6097C059;
     --color-primary-500-opc-50: #36577380;
+    --color-primary-500-opc-80: #365773CC;
     --color-secondary: #c8c5dc;
     --color-tertiary: #4a5568;
 
@@ -105,6 +106,28 @@ input[type="number"] {
     .ship-list-separator:after {
         @apply absolute block content-[''] bottom-0 -right-6 w-64 h-0.5 bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)];
     }
+
+    /* Ship Cards */
+    .card-ship .card-subsec-l {
+        @apply flex items-center px-2.5 relative;
+    }
+
+    .card-ship .card-subsec-r {
+        @apply flex self-end items-center px-2.5;
+    }
+
+    .card-ship .card-box-container {
+        @apply border-2 border-primary-500-opc-80 rounded-md bg-transparent text-primary-500-opc-80;
+    }
+
+    .card-ship .heading {
+        @apply text-2xl font-normal z-0;
+    }
+
+    .card-ship input {
+        @apply rounded-md border-2 border-secondary bg-transparent outline-none w-14 m-0 p-0 align-middle text-2xl font-semibold text-secondary focus-visible:shadow-[inset_0_0_5px_#c8c5dc];
+    }
+
 }
 
 @layer components {
