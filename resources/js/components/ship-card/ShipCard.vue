@@ -198,22 +198,23 @@ const validateLdInput = (event) => {
        :data-pivot-id="ship.pivot.id"
        :style="`order: ${ship.order}`"
   >
-    <div class="card-ship-header bg-primary-500-opc-80 text-secondary flex flex-row justify-between items-center text-3xl">
+    <div class="card-ship-header relative bg-primary-500-opc-80 text-secondary flex flex-row justify-between items-center text-3xl z-10">
       <div class="card-subsec-l">
         <div v-if="ship.type === 'Escort'" class="card-ship-class heading">
             {{ ship.class }} Squadron
-            <div class="card-ship-amount">
-                <p>&times;</p>
-                <div class="squadron-counter-input">
-                    <button @click="decrementCounter"><</button>
+            <div class="card-ship-amount absolute items-center z-20 rounded-md top-6 left-20 p-1 pb-0 bg-[linear-gradient(to_bottom,transparent_0%,#506d88_30%)]">
+                <p class="text-3xl p-0 m-0 leading-3">&times;</p>
+                <div class="squadron-counter-input align-middle">
+                    <button class="counter-btn" @click="decrementCounter"><</button>
                     <input
                         type="number"
+                        class="w-5 h-5 text-lg"
                         min="1"
                         max="6"
                         title="Number of ships (2-6)"
                         v-model.number="squadronCounter"
                     >
-                    <button @click="incrementCounter">></button>
+                    <button class="counter-btn" @click="incrementCounter">></button>
                 </div>
             </div>
         </div>
@@ -226,7 +227,7 @@ const validateLdInput = (event) => {
                 title="Leadership: for squadrons enter Ld values for each individual ship in this field separated by - (dash)"
                 maxlength="11"
                 type="text"
-                class="ship-escort-ld"
+                class="ship-escort-ld w-24 text-2xl"
                 v-model="shipLd"
                 @input="validateLdInput"
                 name="cardShipLd"
@@ -235,6 +236,7 @@ const validateLdInput = (event) => {
                 title="Leadership"
                 maxlength="2"
                 type="text"
+                class="w-6 text-2xl"
                 v-model="shipLd"
                 @input="validateLdInput"
                 name="cardShipLd"
@@ -245,16 +247,17 @@ const validateLdInput = (event) => {
             <input
             title="Ship/Squadron Points: Set custom points value. For squadrons reduce counter to x1 before inputting points"
             type="number"
+            class="w-14 text-2xl"
             v-model="shipPoints"
             name="cardShipPts"
             />
         </div>
-        <div class="card-ship-remove-btn" @click="handleRemoveShip">×</div>
+        <div class="card-ship-remove-btn text-5xl cursor-pointer hover:text-white" @click="handleRemoveShip">×</div>
       </div>
     </div>
 
-    <div class="card-ship-body font-secondary tracking-tight">
-        <div class="card-section-t">
+    <div class="card-ship-body font-secondary tracking-tight flex flex-wrap flex-row">
+        <div class="card-section-t flex justify-evenly items-center w-full">
             <div ref="refitsSectionRef" class="card-subsec-l">
                 <div v-if="hasRefits">
                     <div ref="refitButtonRef" class="card-ship-refit-btn collapsed" @click="handleShowRefits">
@@ -279,6 +282,7 @@ const validateLdInput = (event) => {
             <div class="card-subsec-r">
                 <input
                     type="text"
+                    class="w-14 text-2xl"
                     name="cardShipName"
                     :placeholder="`Enter ${ship.type === 'Escort' ? 'Squadron' : 'Ship' } Name`"
                     v-model="shipName"
@@ -290,7 +294,7 @@ const validateLdInput = (event) => {
                 </div>
             </div>
         </div>
-        <div class="card-section-b">
+        <div class="card-section-b flex justify-evenly items-center w-full">
             <div class="card-subsec-l ship-stats-section-container">
                 <ShipStatsSection :ship="ship" />
             </div>
@@ -303,74 +307,8 @@ const validateLdInput = (event) => {
 </template>
 
 <style scoped>
-.card-ship-remove-btn {
-    font-size: 45px;
-    cursor: pointer;
-}
-
 .card-ship-remove-btn:hover {
-    color: white;
     text-shadow: 0 0 10px #c8c5dc;
-}
-
-.card-ship-ld input,
-.card-ship-amount input {
-    width: 25px;
-}
-
-.card-ship-ld .ship-escort-ld {
-    width: 100px;
-}
-
-.card-ship-amount {
-    position: absolute;
-    align-items: center;
-    background: linear-gradient(to bottom, transparent 0%, #506d88 30%);
-    z-index: -1;
-    border-radius: 5px;
-    top: 24px;
-    left: 90px;
-    padding: 3px;
-}
-
-.card-ship-amount p {
-    font-size: 32px;
-    padding: 0;
-    margin: 0;
-    line-height: 13px;
-}
-
-.card-ship-amount input {
-    height: 18px;
-    width: 20px;
-    font-size: 18px;
-}
-
-.card-ship-amount button {
-    background: transparent;
-    border: none;
-    color: #c8c5dc;
-    cursor: pointer;
-    width: 12px;
-    height: 18px;
-    padding: 0;
-    font-size: 18px;
-    font-family: League Gothic, sans-serif;
-    font-weight: 800;
-}
-
-.card-ship-body {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-}
-
-.card-section-t,
-.card-section-b {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
 }
 
 .card-ship-body .card-subsec-l,
