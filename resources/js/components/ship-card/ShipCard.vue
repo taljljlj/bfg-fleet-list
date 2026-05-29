@@ -208,7 +208,7 @@ const validateLdInput = (event) => {
                     <button class="counter-btn" @click="decrementCounter"><</button>
                     <input
                         type="number"
-                        class="w-5 h-5 text-lg"
+                        class="w-5 h-5 text-lg light-input"
                         min="1"
                         max="6"
                         title="Number of ships (2-6)"
@@ -220,14 +220,14 @@ const validateLdInput = (event) => {
         </div>
         <div v-else class="card-ship-class heading">{{ ship.class }}</div>
       </div>
-      <div class="card-subsec-r">
+      <div class="card-subsec-r px-2.5">
         <div class="card-ship-ld card-input heading px-2.5">
             <label for="cardShipLd">Ld: </label>
             <input v-if="ship.type === 'Escort'"
                 title="Leadership: for squadrons enter Ld values for each individual ship in this field separated by - (dash)"
                 maxlength="11"
                 type="text"
-                class="ship-escort-ld w-24 text-2xl"
+                class="ship-escort-ld w-24 text-2xl light-input"
                 v-model="shipLd"
                 @input="validateLdInput"
                 name="cardShipLd"
@@ -236,7 +236,7 @@ const validateLdInput = (event) => {
                 title="Leadership"
                 maxlength="2"
                 type="text"
-                class="w-6 text-2xl"
+                class="w-8 text-2xl light-input"
                 v-model="shipLd"
                 @input="validateLdInput"
                 name="cardShipLd"
@@ -247,7 +247,7 @@ const validateLdInput = (event) => {
             <input
             title="Ship/Squadron Points: Set custom points value. For squadrons reduce counter to x1 before inputting points"
             type="number"
-            class="w-14 text-2xl"
+            class="w-14 text-2xl light-input"
             v-model="shipPoints"
             name="cardShipPts"
             />
@@ -256,13 +256,15 @@ const validateLdInput = (event) => {
       </div>
     </div>
 
-    <div class="card-ship-body font-secondary tracking-tight flex flex-wrap flex-row">
+    <div class="card-ship-body font-secondary tracking-tight flex flex-wrap flex-row pt-0.5">
         <div class="card-section-t flex justify-evenly items-center w-full">
-            <div ref="refitsSectionRef" class="card-subsec-l">
+            <div ref="refitsSectionRef" class="card-subsec-l flex flex-col w-1/2">
                 <div v-if="hasRefits">
-                    <div ref="refitButtonRef" class="card-ship-refit-btn collapsed" @click="handleShowRefits">
-                        <img class="refit-icon" src="/images/fleet-builder/refit-icon.png" alt="Refit Icon">
-                        <img class="apply-icon" src="/images/fleet-builder/apply-icon.png" alt="Refit Icon">
+                    <div ref="refitButtonRef"
+                         class="card-ship-refit-btn collapsed absolute top-2.5 left-2.5 h-7 w-7 p-0.5 cursor-pointer z-50 bg-secondary rounded-md border-2 border-primary-500-opc-80 hover:border-primary-500 hover:shadow-[0_0_20px_#365773] group"
+                         @click="handleShowRefits">
+                            <img class="refit-icon group-hover:contrast-150 group-hover:brightness-90 hidden group-[.collapsed]:block" src="/images/fleet-builder/refit-icon.png" alt="Refit Icon">
+                            <img class="apply-icon group-hover:contrast-150 group-hover:brightness-90 group-[.collapsed]:hidden" src="/images/fleet-builder/apply-icon.png" alt="Refit Icon">
                     </div>
                 </div>
                 <ShipRefitsModal
@@ -279,26 +281,26 @@ const validateLdInput = (event) => {
                     >
                 </div>
             </div>
-            <div class="card-subsec-r">
+            <div class="card-subsec-r flex flex-col w-1/2 px-2.5">
                 <input
                     type="text"
-                    class="w-14 text-2xl"
+                    class="w-full text-lg font-thin px-2.5 text-ellipsis border-primary-500-opc-80 text-primary-500-opc-80 focus-visible:shadow-[inset_0_0_5px_#365773CC] placeholder:text-primary-500-opc-80"
                     name="cardShipName"
                     :placeholder="`Enter ${ship.type === 'Escort' ? 'Squadron' : 'Ship' } Name`"
                     v-model="shipName"
                 >
-                <div class="card-ship-additional card-box-container">
+                <div class="card-ship-additional card-box-container w-full h-32 overflow-y-auto overflow-x-hidden">
                     <div class="card-ship-special ship-rules-section-container">
                         <ShipRulesSection :rules="ship.rules" />
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card-section-b flex justify-evenly items-center w-full">
-            <div class="card-subsec-l ship-stats-section-container">
+        <div class="card-section-b flex justify-evenly items-center w-full mt-1">
+            <div class="card-subsec-l ship-stats-section-container flex flex-col w-1/3">
                 <ShipStatsSection :ship="ship" />
             </div>
-            <div class="card-subsec-r ship-armaments-section-container">
+            <div class="card-subsec-r ship-armaments-section-container flex flex-col w-2/3 self-center pr-9">
                 <ShipArmamentsSection :armaments="ship.armaments" />
             </div>
         </div>
@@ -311,92 +313,8 @@ const validateLdInput = (event) => {
     text-shadow: 0 0 10px #c8c5dc;
 }
 
-.card-ship-body .card-subsec-l,
-.card-ship-body .card-subsec-r {
-    display: flex;
-    flex-direction: column;
-}
-
-.card-ship-body .card-section-t .card-subsec-l,
-.card-ship-body .card-section-t .card-subsec-r {
-    width: 50%;
-}
-
 .card-ship-img img {
     filter: drop-shadow(0 0 15px rgb(54, 87, 115));
 }
 
-.card-ship-refit-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    height: 30px;
-    width: 30px;
-    padding: 3px;
-    border: 2px solid rgba(54, 87, 115, 0.8);
-    border-radius: 5px;
-    cursor: pointer;
-    z-index: 100;
-    background: #b6c1da;
-}
-
-.card-ship-refit-btn:hover {
-    border-color: rgb(54, 87, 115);
-    box-shadow: 0 0 20px rgb(54, 87, 115);
-}
-
-.card-ship-refit-btn:hover img {
-    filter: contrast(1.5) brightness(0.9);
-}
-
-.card-ship-refit-btn.collapsed .apply-icon,
-.card-ship-refit-btn .refit-icon {
-    display: none;
-}
-
-.card-ship-refit-btn.collapsed .refit-icon {
-    display: block;
-}
-
-.card-section-t input {
-    box-sizing: border-box;
-    width: 100%;
-    border-color: rgba(54, 87, 115, 0.8);
-    background-color: transparent;
-    color: rgba(54, 87, 115, 0.8);
-    font-size: 18px;
-    font-weight: 400;
-    padding: 0 10px;
-    text-overflow: ellipsis;
-}
-
-.card-section-t input:focus-visible {
-    box-shadow: 0 0 5px inset rgba(54, 87, 115, 0.8);
-}
-
-.card-section-t input::placeholder {
-    color: rgba(54, 87, 115, 0.8);
-}
-
-.card-ship-additional {
-    box-sizing: border-box;
-    width: 100%;
-    height: 120px;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.card-section-b {
-    margin-top: 5px;
-}
-
-.card-ship-body .card-section-b .card-subsec-l {
-    width: 37%;
-}
-
-.card-ship-body .card-section-b .card-subsec-r {
-    width: 63%;
-    align-self: center;
-    padding-right: 34px;
-}
 </style>

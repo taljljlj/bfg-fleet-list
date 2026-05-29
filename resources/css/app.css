@@ -113,7 +113,7 @@ input[type="number"] {
     }
 
     .card-ship .card-subsec-r {
-        @apply flex self-end items-center px-2.5;
+        @apply flex self-end items-center;
     }
 
     .card-ship .card-box-container {
@@ -125,7 +125,11 @@ input[type="number"] {
     }
 
     .card-ship input {
-        @apply rounded-md border-2 border-secondary bg-transparent outline-none m-0 p-0 align-middle font-semibold text-secondary text-center focus-visible:shadow-[inset_0_0_5px_#c8c5dc];
+        @apply rounded-md border-2 bg-transparent outline-none m-0 p-0 align-middle font-semibold text-center;
+    }
+
+    .card-ship .light-input {
+        @apply border-secondary text-secondary focus-visible:shadow-[inset_0_0_5px_#c8c5dc];
     }
 
     .card-ship .counter-btn {
