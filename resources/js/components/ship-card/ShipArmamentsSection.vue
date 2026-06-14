@@ -47,7 +47,7 @@ const props = defineProps({
     </div>
 </template>
 
-<!--suppress SpellCheckingInspection -->
+<!--suppress SpellCheckingInspection, CssUnusedSymbol, CssUnknownTarget -->
 <style scoped>
 table tbody tr.firearc-lr:after {
     background-image: url('@images/fleet-builder/firearc-lr.png');
