@@ -32,7 +32,7 @@ const handleFactionClick = (factionId) => {
       ]"
       @click="handleFactionClick(faction.id)"
     >
-      <img :src="`/images/factions/${faction.img_url}`" :alt="`${faction.name} Logo`" class="h-[60px]">
+      <img :src="`/images/factions/${faction.img_url}`" :alt="`${faction.name} Logo`" class="h-12">
       <h3 class="m-0 tracking-wider text-white text-lg">{{ faction.name }}</h3>
     </div>
   </div>

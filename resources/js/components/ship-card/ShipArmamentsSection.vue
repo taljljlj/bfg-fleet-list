@@ -8,89 +8,47 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="card-ship-armaments card-box-container" v-if="armaments && armaments.length > 0">
-      <table>
-        <thead>
+    <div class="card-ship-armaments card-box-container flex flex-wrap flex-col self-center items-center w-full" v-if="armaments && armaments.length > 0">
+      <table class="w-full border-collapse">
+        <thead class="bg-primary-500-opc-80 text-secondary">
           <tr>
-              <th>Armament</th>
-              <th>Speed/Range</th>
-              <th colspan="2">Firepower</th>
+              <th class="font-normal">Armament</th>
+              <th class="font-normal">Speed/Range</th>
+              <th class="font-normal" colspan="2">Firepower</th>
           </tr>
         </thead>
         <tbody>
             <template v-for="armament in armaments" :key="armament.id">
                 <tr
-                    v-if="armament.placement != 'Starboard'"
+                    v-if="armament.placement !== 'Starboard'"
                     :class="`firearc-${armament.fire_arc_short}`"
+                    class="border-t-2 border-b-primary-500-opc-80 relative after:content-[''] after:block after:absolute after:-top-0.5 after:-right-7 after:w-6 after:h-6 after:bg-contain after:bg-no-repeat"
                 >
-                    <td>{{ (armament.placement === 'Port' ? 'Pt|Sb' : armament.placement) + ' ' + armament.type }}</td>
+                    <!-- 1st col -->
+                    <td class="border-r-2 border-b-primary-500-opc-80">{{ (armament.placement === 'Port' ? 'Pt|Sb' : armament.placement) + ' ' + armament.type }}</td>
 
-                    <td v-if="armament.pivot.range_speed">{{ armament.pivot.range_speed }}</td>
-                    <td v-else-if="armament.pivot.misc">{{ armament.pivot.misc }}</td>
-                    <td v-else>N/A</td>
+                    <!-- 2nd col -->
+                    <td v-if="armament.pivot.range_speed" class="border-r-2 border-b-primary-500-opc-80">{{ armament.pivot.range_speed }}</td>
+                    <td v-else-if="armament.pivot.misc" class="border-r-2 border-b-primary-500-opc-80">{{ armament.pivot.misc }}</td>
+                    <td v-else class="border-r-2 border-b-primary-500-opc-80">N/A</td>
+
+                    <!-- 3rd col -->
                     <template v-if="armament.placement === 'Port'">
-                        <td>{{ armament.pivot.firepower }}</td>
+                        <td class="border-r-2 border-b-primary-500-opc-80">{{ armament.pivot.firepower }}</td>
                         <td>{{ armament.pivot.firepower }}</td>
                     </template>
                     <template v-else>
                         <td colspan="2">{{ armament.pivot.firepower }}</td>
                     </template>
-                  </tr>
+                </tr>
             </template>
         </tbody>
       </table>
     </div>
 </template>
 
+<!--suppress SpellCheckingInspection -->
 <style scoped>
-.card-ship-armaments {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-self: center;
-    align-items: center;
-    width: 100%;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table thead {
-    background-color: rgba(54, 87, 115, 0.8);
-    color: #c8c5dc;
-}
-
-table thead th {
-    font-weight: 400;
-}
-
-table tbody tr {
-    border-top: 2px solid rgba(54, 87, 115, 0.8);
-    position: relative;
-}
-
-table tbody td {
-    border-right: 2px solid rgba(54, 87, 115, 0.8);
-}
-
-table tbody td:last-child {
-    border-right: 0;
-}
-
-table tbody tr:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: -2px;
-    right: -30px;
-    width: 22px;
-    height: 22px;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
 table tbody tr.firearc-lr:after {
     background-image: url('@images/fleet-builder/firearc-lr.png');
 }

@@ -136,6 +136,10 @@ input[type="number"] {
         @apply bg-transparent border-none text-secondary cursor-pointer w-3 h-5 p-0 text-lg font-extrabold;
     }
 
+    .card-ship .stat-box {
+        @apply flex flex-col justify-center p-0.5 w-14 my-0.5 h-14 border-2 rounded-md bg-transparent border-primary-500-opc-80 text-primary-500-opc-80;
+    }
+
 }
 
 @layer components {
