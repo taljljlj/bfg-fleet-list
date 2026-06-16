@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <ul class="rules-list" v-if="rules && rules.length > 0">
+  <ul class="rules-list pl-5 m-0 text-left" v-if="rules && rules.length > 0">
     <li v-for="rule in rules" :key="rule.id">
       {{ rule.text }}
       <span class="tooltip">{{ rule.text_long }}</span>
@@ -17,16 +17,7 @@ const props = defineProps({
 </template>
 
 <style scoped>
-.rules-list {
-    padding-left: 20px;
-    margin: 0;
-    text-align: left;
-}
-
-.rules-list li {
-    position: relative;
-}
-
+/* TODO: move tooltip to global message box */
 .tooltip {
     visibility: hidden;
     width: 250px;

@@ -58,7 +58,7 @@
 
       } catch (error) {
         console.error('Error:', error);
-        alert('A disruption in the sacred data-rites has occurred. Twisted forces of the Warp have cast their afflictions upon your fleet. Reinstate your will and attempt anew, lest chaos consume this endeavor.');
+        alert('+++ Cogitator Rejects Allegiance +++\r\nA disruption in the sacred data-rites has occurred. Reinstate your will and attempt anew.');
       } finally {
         state.isLoading = false;
       }
@@ -82,7 +82,7 @@
 
       } catch (error) {
         console.error('Error:', error);
-        alert('Submission failed. Please check your input.');
+        alert('+++ Void Registry Corrupted +++\r\nThe Machine Spirit rejects the fleet list change. Purge errors and attempt the ritual anew.');
       } finally {
         state.isLoading = false;
       }
@@ -100,7 +100,7 @@
 
       } catch (error) {
         console.error('Error:', error);
-        alert('Submission failed. Please check your input.');
+        alert('+++ Ship Integration Denied +++\r\nThe fleet list rejects alteration. The vessel is cast adrift, refusing induction into the fleet manifest.');
       } finally {
         state.isLoading = false;
       }
@@ -117,7 +117,7 @@
 
       } catch (error) {
         console.error('Error:', error);
-        alert('Submission failed. Please check your input.');
+        alert('+++ Ship Purge Denied +++\r\nThe fleet list refuses alteration. The vessel clings to the roster as if possessed.');
       } finally {
         state.isLoading = false;
       }
@@ -142,7 +142,9 @@
         });
 
         if (response.status !== 200) {
-          throw new Error('Failed to download PDF');
+            console.error('Failed to fetch PDF:', response.status, response.statusText);
+            alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
+            return;
         }
 
         const blob = await response.blob();
@@ -156,13 +158,13 @@
 
       } catch (error) {
         console.error('Error:', error);
-        alert('Submission failed. Please check your input.');
+        alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
       }
     };
 </script>
 
 <template>
-  <div class="fleet-builder">
+  <div class="fleet-builder relative">
     <!-- Faction Selection -->
     <div class="section section-top">
       <FactionSelector
@@ -173,14 +175,14 @@
     </div>
 
     <!-- Left Section -->
-    <div class="section section-left">
+    <div class="section section-left w-88 min-h-[50vh] float-left">
       <div class="section-overlay" v-if="state.isLoading" style="visibility: visible">
         <img :src="loadingIcon" alt="Loading Icon">
       </div>
 
       <!-- Points Counter -->
       <div class="section-subsection">
-        <h1><span id="points">{{ fleetPoints }}</span> pts.</h1>
+        <h1 class="m-0 text-right text-4xl font-bold"><span id="points">{{ fleetPoints }}</span> pts.</h1>
       </div>
 
       <!-- Fleet List Selector -->
@@ -193,7 +195,7 @@
       </div>
 
       <!-- Ship List -->
-      <div class="section-subsection last">
+      <div class="section-subsection pb-2.5 last">
         <ShipList
           :ship-list="state.shipList"
           @ship-selected="handleShipAdded"
@@ -202,21 +204,21 @@
     </div>
 
     <!-- Right Section -->
-    <div class="section section-right">
+    <div class="section section-right w-[calc(100%-400px)] min-h-[50vh] float-right flex flex-col">
       <div class="section-overlay" v-if="state.isLoading" style="visibility: visible">
         <img :src="loadingIcon" alt="Loading Icon">
       </div>
 
       <!-- Fleet Actions -->
-      <div class="fleet-actions">
+      <div class="fleet-actions flex flex-row justify-evenly p-2.5 border-2 border-secondary rounded-md bg-primary-500-opc-50 backdrop-blur-sm mb-6">
         <a :href="`/test-pdf/${state.fleet.id}`">Test Pdf</a>
-        <button @click="handleExportPdf" class="export-btn">Export PDF</button>
-        <button id="exportUrl" class="export-btn">Share URL</button>
-        <button id="exportStore" class="export-btn">Save</button>
+        <button @click="handleExportPdf" class="export-btn btn-primary">Export PDF</button>
+        <button id="exportUrl" class="export-btn btn-primary">Share URL</button>
+        <button id="exportStore" class="export-btn btn-primary">Save</button>
       </div>
 
       <!-- Ship Cards -->
-      <div class="ship-card-container">
+      <div class="ship-card-container flex flex-wrap flex-row text-center justify-evenly w-full">
         <ShipCard
           v-for="ship in state.ships"
           :key="ship.pivot.id"
@@ -228,123 +230,3 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-.fleet-builder {
-    position: relative;
-}
-
-.section-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(7px);
-    background-color: rgba(54, 87, 115, 0.5);
-}
-
-.section-overlay img {
-    width: 50px;
-    height: 50px;
-    animation: spin 2s ease-in-out infinite;
-    -moz-animation: spin 2s linear infinite;
-    -webkit-animation: spin 2s ease-in-out infinite;
-}
-
-@keyframes spin {
-    100% { transform: rotate(360deg); }
-}
-
-@-moz-keyframes spin{
-    100% { transform: rotate(360deg); }
-}
-
-@-webkit-keyframes spin{
-    100% { transform: rotate(360deg); }
-}
-
-.section-left {
-    width: 300px;
-    min-height: 50vh;
-    float: left;
-}
-
-.section-left .section-subsection {
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.section-left .section-subsection:after {
-    position: absolute;
-    display: block;
-    content: "";
-    bottom: 0;
-    right: -25px;
-    height: 3px;
-    width: 300px;
-    background: linear-gradient(to right, transparent 0%, #c8c5dc 100%);
-}
-
-.section-left .section-subsection.last:after {
-    display: none;
-    padding-bottom: 0;
-}
-
-.section-left h1 {
-    margin: 0;
-    text-align: right;
-}
-
-.section-right {
-    width: calc(100% - 450px);
-    min-height: 50vh;
-    float: right;
-    display: flex;
-    flex-direction: column;
-}
-
-.fleet-actions {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    height: 50px;
-    padding: 10px;
-    border: 2px solid #c8c5dc;
-    border-radius: 5px;
-    background-color: rgb(78, 108, 135);
-    backdrop-filter: blur(7px);
-    margin-bottom: 25px;
-}
-
-.fleet-actions button {
-    border-radius: 5px;
-    border-color: rgb(116, 166, 175);
-    font-family: "League Gothic", sans-serif;
-    font-size: 18px;
-    letter-spacing: 1px;
-    background-color: #c8c5dc;
-    cursor: pointer;
-    width: 90px;
-}
-
-.fleet-actions button:hover {
-    color: rgb(54, 87, 115);
-    box-shadow: 0 0 10px #c8c5dc;
-}
-
-.ship-card-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    text-align: center;
-    justify-content: space-evenly;
-    width: 100%;
-}
-</style>
