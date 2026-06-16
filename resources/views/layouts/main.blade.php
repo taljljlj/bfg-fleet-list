@@ -22,9 +22,9 @@
     @vite('resources/css/app.css')
 </head>
 <body id="mainBody" class="bg-tertiary font-family-primary flex flex-col min-h-screen">
-    <header id="bfgHeader" class="h-36 bg-cover text-center">
+    <header id="bfgHeader" class="h-40 bg-cover text-center">
         <div class="banner-container relative h-full">
-            <a class="logo-home inline-block pt-3.5 h-4/5" href="{{ route('home') }}">
+            <a class="logo-home inline-block h-full" href="{{ route('home') }}">
                 <img id="bfg-logo" src="{{ asset("images/bfg-logo.png") }}" alt="bfg logo">
             </a>
         </div>
