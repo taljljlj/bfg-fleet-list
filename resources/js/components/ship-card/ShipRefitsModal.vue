@@ -9,14 +9,12 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'refits-applied']);
 
-// Helper function to format module data (same as discussed earlier)
 const formatModificationData = (data) => {
   const fireArc = data.fire_arc ? ` (${data.fire_arc})` : '';
   const placement = data.placement ? `${data.placement} ` : '';
   return `${placement}${data.type}${fireArc}`;
 };
 
-// Helper function to check if refit is applied
 const isRefitApplied = (refit) => {
   return props.ship.applied_refits &&
          props.ship.applied_refits.some(appliedRefit =>
@@ -34,19 +32,19 @@ const isParentRefitApplied = (parentRefit) => {
 </script>
 
 <template>
-  <div
-      class="card-ship-refit-container"
-  >
-    <ul>
+  <div class="card-ship-refit-container absolute top-7 left-2 w-xl h-64 z-10 border-2 border-primary-500-opc-80 rounded-md bg-secondary-300 overflow-auto text-primary-500-opc-80">
+    <ul class="list-none p-5 pl-9 m-0 text-left">
       <li v-for="refit in ship.refits" :key="refit.id" class="ship-refit">
-        <label>
+        <label class="cursor-pointer">
           <input
             type="checkbox"
             :name="refit.name"
             :data-refit-pivot-id="refit.pivot.id"
             :checked="isRefitApplied(refit)"
+            class="hidden peer"
           />
-          {{ refit.text }}
+          <span class="inline-block align-middle w-4 h-4 border-2 border-primary-500-opc-80 rounded-sm bg-secondary mr-3 peer-checked:bg-primary-500"></span>
+          <span class="align-middle">{{ refit.text }}</span>
           <span class="tooltip">
             {{ refit.text_long }}
             <template v-for="mod in refit.modifications" :key="mod.id">
@@ -60,21 +58,23 @@ const isParentRefitApplied = (parentRefit) => {
               </template>
             </template>
           </span>
-          <span> ({{ refit.pivot.points }}pts)</span>
+          <span class="align-middle"> ({{ refit.pivot.points }}pts)</span>
         </label>
-        <ul v-if="refit.children && refit.children.length > 0" class="ship-refits-children">
+        <ul v-if="refit.children && refit.children.length > 0" class="ship-refits-children list-none pl-9 m-0 text-left">
           <li v-for="child in refit.children" :key="child.id" class="ship-refit">
-            <label>
+            <label class="cursor-pointer">
               <input
                 type="checkbox"
                 :name="child.name"
                 :data-refit-pivot-id="child.pivot.id"
                 :checked="isRefitApplied(child)"
                 :disabled="!isParentRefitApplied(refit)"
+                class="hidden peer"
               />
-              {{ child.text }}
+              <span class="inline-block align-middle w-4 h-4 border-2 border-primary-500-opc-80 rounded-sm bg-secondary mr-3 peer-checked:bg-primary-500 peer-disabled:border-primary-100-opc-35"></span>
+              <span class="align-middle peer-disabled:text-primary-100-opc-35">{{ child.text }}</span>
               <span class="tooltip">{{ child.text_long }}</span>
-              <span> ({{ child.pivot.points }}pts)</span>
+              <span class="align-middle peer-disabled:text-primary-100-opc-35"> ({{ child.pivot.points }}pts)</span>
             </label>
           </li>
         </ul>
@@ -84,52 +84,7 @@ const isParentRefitApplied = (parentRefit) => {
 </template>
 
 <style scoped>
-.card-ship-refit-container {
-    position: absolute;
-    top: 30px;
-    left: 15px;
-    width: 565px;
-    height: 235px;
-    z-index: 10;
-    border: 2px solid rgba(54, 87, 115, 0.8);
-    border-radius: 5px;
-    background: #c8d5f7;
-    overflow: auto;
-    color: rgba(54, 87, 115, 0.8);
-    transition: all 0.5s ease-out;
-}
-
-.card-ship-refit-container.collapsed {
-    width: 1px;
-    height: 1px;
-}
-
-ul {
-    list-style: none;
-    padding: 20px 20px 20px 35px;
-    margin: 0;
-    text-align: left;
-}
-
-li {
-    position: relative;
-}
-
-label {
-    cursor: pointer;
-}
-
-input {
-    display: inline-block;
-    width: 20px;
-    margin-right: 10px;
-    padding: 5px;
-    border: 2px solid rgba(54, 87, 115, 0.8);
-    border-radius: 5px;
-    background-color: transparent;
-    color: rgba(54, 87, 115, 0.8);
-}
-
+/* TODO: move tooltip to global message box */
 .tooltip {
     visibility: hidden;
     background-color: rgb(76 96 114);
@@ -146,9 +101,5 @@ input {
 
 label:hover .tooltip {
     visibility: visible;
-}
-
-.ship-refits-children {
-    padding: 0 0 0 35px;
 }
 </style>

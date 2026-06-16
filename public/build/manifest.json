@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-DpGmzVze.css",
+    "file": "assets/app-CKmkOKcR.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -45,12 +45,12 @@
     "src": "resources/images/loading-icon.png"
   },
   "resources/js/app.js": {
-    "file": "assets/app-CXKcO_YD.js",
+    "file": "assets/app-H6h8uwvW.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-Bj1H9xK_.css"
+      "assets/app-DCG_tc70.css"
     ],
     "assets": [
       "assets/caret-icon-KjWOtrdo.png",

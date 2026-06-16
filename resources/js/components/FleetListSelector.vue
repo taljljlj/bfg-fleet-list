@@ -34,21 +34,26 @@ const handleFleetListSelect = (fleetList) => {
 </script>
 
 <template>
-    <div class="fleet-list-selector">
-        <h3>Fleet List:</h3>
-        <div class="dropdown" :class="{ expanded: isExpanded }">
-            <div class="dropdown-select" @click="handleToggleDropdown">
+    <div class="fleet-list-selector mb-4">
+        <h3 class="mt-2.5 mb-1 tracking-widest font-semibold text-lg">Fleet List:</h3>
+        <div class="dropdown relative **:select-none group" :class="{ expanded: isExpanded }">
+            <div class="dropdown-select relative w-full h-9 py-1 px-3.5 border-2 border-secondary rounded-md cursor-pointer z-0 tracking-wider hover:shadow-[inset_0_0_10px_#c8c5dc]"
+                 @click="handleToggleDropdown"
+            >
                 <span>{{ selectedFleetListName }}</span>
                 <span class="dropdown-caret">
-          <img :src="caretIcon" alt="Caret">
+          <img :src="caretIcon" alt="Caret" class="float-right opacity-70 group-[.expanded]:rotate-180">
         </span>
             </div>
-            <div class="dropdown-content" :style="{ display: isExpanded ? 'block' : 'none' }">
+            <div class="dropdown-content absolute top-full left-0 right-0 w-full border-2 border-secondary border-t-0 rounded-md z-10 backdrop-blur-sm bg-primary-500 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc]"
+                 :style="{ display: isExpanded ? 'block' : 'none' }"
+            >
                 <ul>
                     <li
                         v-for="fleetList in fleetLists"
                         :key="fleetList.id"
                         @click="handleFleetListSelect(fleetList)"
+                        class="tracking-wider py-0.5 px-1.5 cursor-pointer border-b-2 border-t-2 border-transparent hover:text-white hover:border-secondary"
                     >
                         {{ fleetList.name }}
                     </li>
@@ -57,82 +62,3 @@ const handleFleetListSelect = (fleetList) => {
         </div>
     </div>
 </template>
-
-<style scoped>
-.fleet-list-selector {
-    margin-bottom: 1rem;
-}
-
-h3 {
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-weight: 600;
-    letter-spacing: 2px;
-}
-
-.dropdown {
-    position: relative;
-}
-
-.dropdown * {
-    user-select: none;
-}
-
-.dropdown-select {
-    position: relative;
-    box-sizing: border-box;
-    width: 100%;
-    height: 35px;
-    padding: 5px 15px;
-    border: 2px solid #c8c5dc;
-    border-radius: 5px;
-    cursor: pointer;
-    z-index: 1;
-}
-
-.dropdown-select:hover {
-    box-shadow: inset #c8c5dc 0 0 10px;
-}
-
-.dropdown-caret img {
-    float: right;
-    opacity: 0.7;
-}
-
-.dropdown-content {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    box-sizing: border-box;
-    width: 100%;
-    border: 2px solid #c8c5dc;
-    border-top: none;
-    backdrop-filter: blur(7px);
-    background-color: rgb(54, 87, 115);
-    z-index: 10;
-    border-radius: 5px;
-    box-shadow: #1a202c 0 0 30px, inset #c8c5dc 0 0 30px;
-}
-
-.dropdown-content ul {
-    list-style: none;
-    padding: 0;
-}
-
-.dropdown-content li {
-    padding: 2px 7px;
-    cursor: pointer;
-    border-top: 2px solid transparent;
-    border-bottom: 2px solid transparent;
-}
-
-.dropdown-content li:hover {
-    color: white;
-    border-color: #c8c5dc;
-}
-
-.dropdown.expanded .dropdown-caret img {
-  transform: rotate(180deg);
-}
-</style>
