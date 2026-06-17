@@ -4,6 +4,9 @@ import ShipStatsSection from './ShipStatsSection.vue';
 import ShipArmamentsSection from './ShipArmamentsSection.vue';
 import ShipRulesSection from './ShipRulesSection.vue';
 import ShipRefitsModal from './ShipRefitsModal.vue';
+import {useTooltip} from "@/composables/useTooltip.js";
+
+const {showTooltip, clearTooltip} = useTooltip();
 
 const props = defineProps({
   ship: {
@@ -204,7 +207,11 @@ const validateLdInput = (event) => {
             {{ ship.class }} Squadron
             <div class="card-ship-amount absolute items-center z-20 rounded-md top-6 left-20 p-1 pb-0 bg-[linear-gradient(to_bottom,transparent_0%,#506d88_30%)]">
                 <p class="text-3xl p-0 m-0 leading-3">&times;</p>
-                <div class="squadron-counter-input align-middle">
+                <div
+                    class="squadron-counter-input align-middle"
+                    @mouseenter="showTooltip('Max number of ships per squadron (6)')"
+                    @mouseleave="clearTooltip"
+                >
                     <button class="counter-btn" @click="decrementCounter"><</button>
                     <input
                         type="number"
@@ -224,7 +231,8 @@ const validateLdInput = (event) => {
         <div class="card-ship-ld card-input heading px-2.5">
             <label for="cardShipLd">Ld: </label>
             <input v-if="ship.type === 'Escort'"
-                title="Leadership: for squadrons enter Ld values for each individual ship in this field separated by - (dash)"
+                @mouseenter="showTooltip('Leadership: for squadrons enter Ld values for each individual ship in this field separated by - (dash)')"
+                @mouseleave="clearTooltip"
                 maxlength="11"
                 type="text"
                 class="ship-escort-ld w-24 text-2xl light-input"
@@ -233,7 +241,8 @@ const validateLdInput = (event) => {
                 name="cardShipLd"
             />
             <input v-else
-                title="Leadership"
+                @mouseenter="showTooltip('Leadership')"
+                @mouseleave="clearTooltip"
                 maxlength="2"
                 type="text"
                 class="w-8 text-2xl light-input"
@@ -245,11 +254,12 @@ const validateLdInput = (event) => {
         <div class="card-ship-pts card-input heading px-2.5">
             <label for="cardShipPts">Pts: </label>
             <input
-            title="Ship/Squadron Points: Set custom points value. For squadrons reduce counter to x1 before inputting points"
-            type="number"
-            class="w-14 text-2xl light-input"
-            v-model="shipPoints"
-            name="cardShipPts"
+                @mouseenter="showTooltip('Ship/Squadron Points: Set custom points value. For squadrons set squadron ship counter prior to custom points value.')"
+                @mouseleave="clearTooltip"
+                type="number"
+                class="w-14 text-2xl light-input"
+                v-model="shipPoints"
+                name="cardShipPts"
             />
         </div>
         <div class="card-ship-remove-btn text-5xl cursor-pointer hover:text-white" @click="handleRemoveShip">×</div>
@@ -262,7 +272,10 @@ const validateLdInput = (event) => {
                 <div v-if="hasRefits">
                     <div ref="refitButtonRef"
                          class="card-ship-refit-btn collapsed absolute top-2.5 left-2.5 h-7 w-7 p-0.5 cursor-pointer z-50 bg-secondary rounded-md border-2 border-primary-500-opc-80 hover:border-primary-500 hover:shadow-[0_0_20px_#365773] group"
-                         @click="handleShowRefits">
+                         @click="handleShowRefits"
+                         @mouseenter="showTooltip('Refit ship')"
+                         @mouseleave="clearTooltip"
+                    >
                             <img class="refit-icon group-hover:contrast-150 group-hover:brightness-90 hidden group-[.collapsed]:block" src="/images/fleet-builder/refit-icon.png" alt="Refit Icon">
                             <img class="apply-icon group-hover:contrast-150 group-hover:brightness-90 group-[.collapsed]:hidden" src="/images/fleet-builder/apply-icon.png" alt="Refit Icon">
                     </div>
