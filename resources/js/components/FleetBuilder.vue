@@ -5,6 +5,7 @@
     import ShipList from './ShipList.vue';
     import ShipCard from './ship-card/ShipCard.vue';
     import loadingIcon from '@images/loading-icon.png';
+    import MessageBox from "@/components/MessageBox.vue";
 
     // Inject data from Laravel
     const fleetData = inject('fleetData');
@@ -165,6 +166,9 @@
 
 <template>
   <div class="fleet-builder relative">
+    <div class="fixed z-50 top-5 left-1">
+        <MessageBox />
+    </div>
     <!-- Faction Selection -->
     <div class="section section-top">
       <FactionSelector
