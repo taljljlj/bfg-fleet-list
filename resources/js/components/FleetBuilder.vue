@@ -1,11 +1,12 @@
 <script setup>
     import { reactive, inject, computed } from 'vue';
-    import FactionSelector from './FactionSelector.vue';
-    import FleetListSelector from './FleetListSelector.vue';
-    import ShipList from './ShipList.vue';
+    import FactionSelector from './setup/FactionSelector.vue';
+    import FleetListSelector from './setup/FleetListSelector.vue';
+    import ShipList from './setup/ShipList.vue';
     import ShipCard from './ship-card/ShipCard.vue';
     import loadingIcon from '@images/loading-icon.png';
-    import MessageBox from "@/components/MessageBox.vue";
+    import MessageBox from './commons/MessageBox.vue';
+    import FleetActions from "@/components/controls/FleetActions.vue";
 
     // Inject data from Laravel
     const fleetData = inject('fleetData');
@@ -189,6 +190,12 @@
         <h1 class="m-0 text-right text-4xl font-bold"><span id="points">{{ fleetPoints }}</span> pts.</h1>
       </div>
 
+      <!-- Fleet Actions -->
+      <FleetActions
+        :fleet-id="state.fleet.id"
+        :on-export-pdf="handleExportPdf"
+      />
+
       <!-- Fleet List Selector -->
       <div class="section-subsection">
         <FleetListSelector
@@ -211,14 +218,6 @@
     <div class="section section-right w-[calc(100%-400px)] min-h-[50vh] float-right flex flex-col">
       <div class="section-overlay" v-if="state.isLoading" style="visibility: visible">
         <img :src="loadingIcon" alt="Loading Icon">
-      </div>
-
-      <!-- Fleet Actions -->
-      <div class="fleet-actions flex flex-row justify-evenly p-2.5 border-2 border-secondary rounded-md bg-primary-500-opc-50 backdrop-blur-sm mb-6">
-        <a :href="`/test-pdf/${state.fleet.id}`">Test Pdf</a>
-        <button @click="handleExportPdf" class="export-btn btn-primary">Export PDF</button>
-        <button id="exportUrl" class="export-btn btn-primary">Share URL</button>
-        <button id="exportStore" class="export-btn btn-primary">Save</button>
       </div>
 
       <!-- Ship Cards -->
