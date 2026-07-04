@@ -123,7 +123,7 @@ input[type="number"] {
         @apply after:hidden pb-0;
     }
     .export-btn {
-        @apply w-22 text-lg;
+        @apply w-12 h-12;
     }
     .ship-list-separator:after {
         @apply absolute block content-[''] bottom-0 -right-6 w-64 h-0.5 bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)];
