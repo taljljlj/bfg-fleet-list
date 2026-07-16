@@ -198,21 +198,138 @@
         "fleetlist": ["Black Crusade Fleet List", "The Sorcerous Fleet", "The Plaguefleet", "The Berzerker Fleet", "The Pleasurefleet"]
     },
     {
-        "name": "",
-        "leadership": "",
-        "leadership_type": "",
-        "points": "",
-        "rolls": "",
-        "faction": "",
-        "fleetlist": []
+        "name": "Pirate Prince",
+        "leadership": "+2 (max 10)",
+        "leadership_type": "rule",
+        "points": "100",
+        "rolls": "0",
+        "faction": "Eldar",
+        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]"]
     },
     {
-        "name": "",
-        "leadership": "",
-        "leadership_type": "",
-        "points": "",
-        "rolls": "",
-        "faction": "",
-        "fleetlist": []
+        "name": "Eldar Hero",
+        "leadership": "10",
+        "leadership_type": "value",
+        "points": "100",
+        "rolls": "0",
+        "faction": "Eldar",
+        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]", "Iyanden Caftworld Fleet"]
+    },
+    {
+        "name": "Eldar Autarch",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "75",
+        "rolls": "0",
+        "faction": "Eldar",
+        "fleetlist": ["Iyanden Caftworld Fleet"]
+    },
+    {
+        "name": "Iyanden Bearer of the Flame",
+        "leadership": "10",
+        "leadership_type": "value",
+        "points": "100",
+        "rolls": "0",
+        "faction": "Eldar",
+        "fleetlist": ["Iyanden Caftworld Fleet"]
+    },
+    {
+        "name": "Farseer",
+        "leadership": null,
+        "leadership_type": null,
+        "points": "30",
+        "rolls": "1",
+        "faction": "Eldar",
+        "fleetlist": ["Iyanden Caftworld Fleet"]
+    },
+    {
+        "name": "Prince Yriel",
+        "leadership": "10",
+        "leadership_type": "value",
+        "points": "150",
+        "rolls": "1",
+        "faction": "Eldar",
+        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]", "Iyanden Caftworld Fleet"]
+    },
+    {
+        "name": "Dread Archon",
+        "leadership": "+2 (max 10)",
+        "leadership_type": "rule",
+        "points": "100",
+        "rolls": "0",
+        "faction": "Dark ELdar",
+        "fleetlist": ["Pirates Fleet List"]
+    },
+    {
+        "name": "Ork Warlord",
+        "leadership": null,
+        "leadership_type": null,
+        "points": "40",
+        "rolls": "1",
+        "faction": "Orks",
+        "fleetlist": ["Cyclops Fleet List", "Ork Waaagh! Fleet List"]
+    },
+    {
+        "name": "Ork Warlord",
+        "leadership": null,
+        "leadership_type": null,
+        "points": "0",
+        "rolls": "1",
+        "faction": "Orks",
+        "fleetlist": ["Da Ork Clanz Fleet List"]
+    },
+    {
+        "name": "Kor'O Vash'Ya Y'Eldi Mesme",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "110",
+        "rolls": "2",
+        "faction": "Tau",
+        "fleetlist": ["Commerce Protection Fleet List"]
+    },
+    {
+        "name": "Tau Kor'el",
+        "leadership": "8",
+        "leadership_type": "value",
+        "points": "50",
+        "rolls": "1",
+        "faction": "Tau",
+        "fleetlist": ["Merchant Fleet List", "Commerce Protection Fleet List"]
+    },
+    {
+        "name": "Tau Kor'O",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "80",
+        "rolls": "1",
+        "faction": "Tau",
+        "fleetlist": ["Merchant Fleet List", "Commerce Protection Fleet List"]
+    },
+    {
+        "name": "Necron",
+        "leadership": null,
+        "leadership_type": null,
+        "points": "0",
+        "rolls": "1",
+        "faction": "Necrons",
+        "fleetlist": ["Harvest Fleet List"]
+    },
+    {
+        "name": "Hive Mind",
+        "leadership": "8",
+        "leadership_type": "value",
+        "points": "0",
+        "rolls": "0",
+        "faction": "Tyranids",
+        "fleetlist": ["Hive Fleet List"]
+    },
+    {
+        "name": "Hive Mind",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "40",
+        "rolls": "0",
+        "faction": "Tyranids",
+        "fleetlist": ["Hive Fleet List"]
     }
 ]
