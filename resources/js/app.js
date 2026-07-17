@@ -14,6 +14,8 @@ if (fleetBuilderContainer) {
         selectedFleetList: JSON.parse(fleetBuilderContainer.dataset.selectedFleetList || 'null'),
         shipList: JSON.parse(fleetBuilderContainer.dataset.shipList || 'null'),
         ships: JSON.parse(fleetBuilderContainer.dataset.ships || 'null'),
+        commanderList: JSON.parse(fleetBuilderContainer.dataset.commanderList || 'null'),
+        commanders: JSON.parse(fleetBuilderContainer.dataset.commanders || 'null'),
         csrfToken: fleetBuilderContainer.dataset.csrfToken
     });
 

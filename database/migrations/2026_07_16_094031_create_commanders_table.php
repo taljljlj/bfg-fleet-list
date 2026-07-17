@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('commanders', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name');
+            $table->string('leadership')->nullable();
+            $table->string('leadership_type')->nullable();
+            $table->smallInteger('points');
+            $table->string('rolls');
+            $table->foreignId('faction_id')->constrained('factions');
         });
     }
 

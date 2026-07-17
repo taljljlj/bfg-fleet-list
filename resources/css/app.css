@@ -116,12 +116,6 @@ input[type="number"] {
     .section-overlay img {
         @apply w-12 h-12 animate-spin-slow;
     }
-    .section-left .section-subsection {
-        @apply relative pb-2.5 after:absolute after:block after:content-[''] after:bottom-0 after:-right-6 after:h-1 after:w-88 after:bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)];
-    }
-    .section-left .section-subsection.last {
-        @apply after:hidden pb-0;
-    }
     .export-btn {
         @apply w-12 h-12;
     }
@@ -167,5 +161,21 @@ input[type="number"] {
 @layer components {
     .btn-primary {
         @apply rounded-md border-primary-100 font-family-primary tracking-wide bg-secondary text-primary-500 cursor-pointer p-0.5 hover:text-primary-100 hover:shadow-[0_0_10px_#c8c5dc];
+    }
+
+    .section-divider {
+        @apply relative pb-2.5 after:absolute after:block after:content-[''] after:bottom-0 after:h-1 after:w-full;
+    }
+
+    .divider-l {
+        @apply after:-right-6 after:bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)];
+    }
+
+    .divider-r {
+        @apply after:-left-6 after:bg-[linear-gradient(to_left,transparent_0%,#c8c5dc_100%)];
+    }
+
+    .section-divider.last {
+        @apply after:hidden pb-0;
     }
 }

@@ -23,5 +23,6 @@ Route::prefix('{fleet}')->group(function () {
     Route::patch('/ship-refit/{fleetShip}', [FleetBuilderController::class, 'refitShip']);
     Route::patch('/ship-squadron-counter/{fleetShip}', [FleetBuilderController::class, 'updateSquadronCounter']);
     Route::patch('/ship-fields/{fleetShip}', [FleetBuilderController::class, 'updateShipFields']);
+    Route::patch('/commander-add/{commander}', [FleetBuilderController::class, 'attachCommanderToFleet']);
     Route::get('/export-pdf/', [FleetBuilderController::class, 'getFleetAsPdf']);
 });

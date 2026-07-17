@@ -7,6 +7,7 @@
     import loadingIcon from '@images/loading-icon.png';
     import MessageBox from './commons/MessageBox.vue';
     import FleetActions from "@/components/controls/FleetActions.vue";
+    import FleetSetup from "@/components/setup/FleetSetup.vue";
 
     // Inject data from Laravel
     const fleetData = inject('fleetData');
@@ -19,6 +20,8 @@
       selectedFleetList: fleetData.selectedFleetList,
       shipList: fleetData.shipList,
       ships: fleetData.ships || [],
+      commanderList: fleetData.commanderList,
+      commanders: fleetData.commanders || [],
       isLoading: false
     });
 
@@ -57,6 +60,7 @@
         state.selectedFleetList = null;
         state.shipList = null;
         state.ships = [];
+        state.commanderList = null;
 
       } catch (error) {
         console.error('Error:', error);
@@ -74,6 +78,7 @@
         // Update state
         state.selectedFleetList = { id: fleetListId, name: fleetListName };
         state.shipList = data.shipList;
+        state.commanderList = data.commanderList;
 
         // Handle excluded ships
         if (data.excludedShipsData) {
@@ -163,6 +168,23 @@
         alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
       }
     };
+
+    const handleCommanderAdded = async (commanderId) => {
+        state.isLoading = true;
+        try {
+            const data = await apiCall(`/api/${state.fleet.id}/commander-add/${commanderId}`);
+
+            state.fleet.points = data.fleetPoints;
+
+            state.commanders.push(data.commander);
+
+        } catch (error) {
+            console.error('Error:', error);
+            alert('+++ Command Induction Denied +++\r\nThe fleet rejects leadership. The officer is cast aside, unrecognized by the muster and barred from command. Audit fleet records and resubmit the officer\'s commission');
+        } finally {
+            state.isLoading = false;
+        }
+    }
 </script>
 
 <template>
@@ -186,32 +208,29 @@
       </div>
 
       <!-- Points Counter -->
-      <div class="section-subsection">
+      <div class="section-divider divider-l">
         <h1 class="m-0 text-right text-4xl font-bold"><span id="points">{{ fleetPoints }}</span> pts.</h1>
       </div>
 
-      <!-- Fleet Actions -->
-      <FleetActions
-        :fleet-id="state.fleet.id"
-        :on-export-pdf="handleExportPdf"
-      />
+        <!-- Fleet Actions -->
+        <FleetActions
+            :fleet-id="state.fleet.id"
+            :on-export-pdf="handleExportPdf"
+        />
 
-      <!-- Fleet List Selector -->
-      <div class="section-subsection">
+        <!-- Fleet List Selector -->
         <FleetListSelector
-          :fleet-lists="state.fleetLists"
-          :selected-fleet-list="state.selectedFleetList"
-          @fleet-list-selected="handleFleetListSelected"
+            :fleet-lists="state.fleetLists"
+            :selected-fleet-list="state.selectedFleetList"
+            @fleet-list-selected="handleFleetListSelected"
         />
-      </div>
 
-      <!-- Ship List -->
-      <div class="section-subsection pb-2.5 last">
+        <!-- Ship List -->
         <ShipList
-          :ship-list="state.shipList"
-          @ship-selected="handleShipAdded"
+            :ship-list="state.shipList"
+            @ship-selected="handleShipAdded"
         />
-      </div>
+
     </div>
 
     <!-- Right Section -->
@@ -220,8 +239,14 @@
         <img :src="loadingIcon" alt="Loading Icon">
       </div>
 
+        <!-- Fleet Setup -->
+        <FleetSetup
+            :commanderList="state.commanderList"
+            @commander-added="handleCommanderAdded"
+        />
+
       <!-- Ship Cards -->
-      <div class="ship-card-container flex flex-wrap flex-row text-center justify-evenly w-full">
+      <div class="ship-card-container flex flex-wrap flex-row text-center justify-evenly w-full pt-5">
         <ShipCard
           v-for="ship in state.ships"
           :key="ship.pivot.id"

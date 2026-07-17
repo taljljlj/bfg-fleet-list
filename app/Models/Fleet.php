@@ -27,4 +27,8 @@ class Fleet extends Model
                 $query->where('fleet_list_id', $fleetList->id);
             });
     }
+
+    public function commanders() {
+        return $this->belongsToMany(Commander::class, 'fleet_commanders')->withTimestamps();
+    }
 }

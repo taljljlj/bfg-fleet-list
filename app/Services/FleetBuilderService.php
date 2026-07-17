@@ -58,11 +58,24 @@ class FleetBuilderService
         return $fleet;
     }
 
-    public function getShipsByFleetList(FleetList $fleetList)
+    /**
+     * @param FleetList $fleetList
+     * @return Collection
+     */
+    public function getShipsByFleetList(FleetList $fleetList) : Collection
     {
         $ships = $fleetList->getShipsGroupedByType();
 
         return $this->sortShips($ships);
+    }
+
+    /**
+     * @param FleetList $fleetList
+     * @return Collection
+     */
+    public function getCommandersByFleetList(FleetList $fleetList) : Collection
+    {
+        return $fleetList->commanders()->get();
     }
 
     /**
@@ -71,6 +84,7 @@ class FleetBuilderService
      * @param BelongsToMany $shipsRelation Base fleet relation to work with
      * @param bool $applyOrder Whether to apply ship type ordering, used to loading fleet builder page
      * @param bool $single Whether to return a single ship instance, used for applying ship refits
+     * @param bool $export
      * @return Collection|Ship|null
      */
     public function loadAndPrepareShips(BelongsToMany $shipsRelation, bool $applyOrder = false, bool $single = false, bool $export = false): Collection|Ship|null
@@ -96,6 +110,7 @@ class FleetBuilderService
      *
      * @param Ship $ship
      * @param bool $applyOrder
+     * @param bool $export
      * @return Ship
      */
     private function prepareShip(Ship $ship, bool $applyOrder, bool $export): Ship

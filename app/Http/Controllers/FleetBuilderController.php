@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\FleetBuilderUtils;
+use App\Models\Commander;
 use App\Models\Faction;
 use App\Models\Fleet;
 use App\Models\FleetList;
@@ -76,15 +77,23 @@ class FleetBuilderController extends Controller
         //If fleet has selected fleet list
         $selectedFleetList = null;
         $shipList = null;
+        $commanderList = null;
         if ($fleet->fleet_list_id) {
             $selectedFleetList = FleetList::findOrFail($fleet->fleet_list_id);
             $shipList = $this->fleetBuilderService->getShipsByFleetList($selectedFleetList);
+            $commanderList = $this->fleetBuilderService->getCommandersByFleetList($selectedFleetList);
         }
 
         //If fleet has attached ships return full list and assign order for frontend
         $ships = null;
         if ($fleet->ships()->exists()) {
             $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true);
+        }
+
+        //If fleet has attached commanders return full list
+        $commanders = null;
+        if ($fleet->commanders()->exists()) {
+            $commanders = $fleet->commanders()->get();
         }
 
         return view('pages.fleet-builder', compact(
@@ -94,6 +103,8 @@ class FleetBuilderController extends Controller
             'selectedFleetList',
             'shipList',
             'ships',
+            'commanderList',
+            'commanders',
         ));
     }
 
@@ -127,6 +138,7 @@ class FleetBuilderController extends Controller
     public function setFleetList(Fleet $fleet, FleetList $fleetList) : JsonResponse
     {
         $shipList = $this->fleetBuilderService->getShipsByFleetList($fleetList);
+        $commanderList = $this->fleetBuilderService->getCommandersByFleetList($fleetList);
 
         $fleet->fleetList()->associate($fleetList);
         $fleet->save();
@@ -155,6 +167,7 @@ class FleetBuilderController extends Controller
             'fleetList' => $fleetList,
             'shipList' => $shipList,
             'excludedShipsData' => $excludedShipsData,
+            'commanderList' => $commanderList,
         ]);
     }
 
@@ -191,6 +204,7 @@ class FleetBuilderController extends Controller
 
         //Get last attached ship id for frontend data attribute
         $shipPivot = FleetShip::where('ship_id', $ship->id)
+            ->where('fleet_id', $fleet->id)
             ->latest('id')
             ->first();
         $ship->setRelation('pivot', $shipPivot);
@@ -305,6 +319,25 @@ class FleetBuilderController extends Controller
         }
 
         return response()->noContent();
+    }
+
+    /**
+     * @param Fleet $fleet
+     * @param Commander $commander
+     * @return JsonResponse
+     */
+    public function attachCommanderToFleet(Fleet $fleet, Commander $commander) : JsonResponse
+    {
+        $fleet->commanders()->attach($commander);
+
+        $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $commander->points);
+        $fleet->save();
+
+        return response()->json([
+            'message' => 'Ship added to fleet.',
+            'commander' => $commander,
+            'fleetPoints' => $fleet->points
+        ]);
     }
 
     public function getFleetAsPdf(Fleet $fleet)

@@ -7,5 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Commander extends Model
 {
-    use HasFactory;
+    public $timestamps = false;
+
+    //Relations
+    public function faction(){
+        return $this->belongsTo(Faction::class);
+    }
+    public function fleetLists ()
+    {
+        return $this->belongsToMany(FleetList::class, 'fleet_list_commanders');
+    }
+
+
 }
