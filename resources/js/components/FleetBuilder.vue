@@ -61,6 +61,7 @@
         state.shipList = null;
         state.ships = [];
         state.commanderList = null;
+        state.commanders = [];
 
       } catch (error) {
         console.error('Error:', error);
@@ -185,6 +186,23 @@
             state.isLoading = false;
         }
     }
+
+    const handleCommanderRemoved = async (commanderPivotId) => {
+        state.isLoading = true;
+        try {
+            const data = await apiCall(`/api/${state.fleet.id}/commander-remove/${commanderPivotId}`);
+
+            state.fleet.points = data.points;
+            state.commanders = state.commanders.filter(commander => commander.pivot.id !== commanderPivotId);
+
+        } catch (error) {
+            console.error('Error:', error);
+            //TODO: generate specific error message
+            alert('+++ Command Purge Denied +++\r\nThe fleet rejects leadership. The officer is cast aside, unrecognized by the muster and barred from command. Audit fleet records and resubmit the officer\'s commission');
+        } finally {
+            state.isLoading = false;
+        }
+    }
 </script>
 
 <template>
@@ -242,7 +260,9 @@
         <!-- Fleet Setup -->
         <FleetSetup
             :commanderList="state.commanderList"
+            :commanders="state.commanders"
             @commander-added="handleCommanderAdded"
+            @commander-removed="handleCommanderRemoved"
         />
 
       <!-- Ship Cards -->

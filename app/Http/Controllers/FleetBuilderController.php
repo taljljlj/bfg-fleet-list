@@ -6,6 +6,7 @@ use App\Helpers\FleetBuilderUtils;
 use App\Models\Commander;
 use App\Models\Faction;
 use App\Models\Fleet;
+use App\Models\FleetBuilder\FleetCommander;
 use App\Models\FleetList;
 use App\Models\FleetBuilder\FleetShip;
 use App\Models\Ship;
@@ -93,7 +94,7 @@ class FleetBuilderController extends Controller
         //If fleet has attached commanders return full list
         $commanders = null;
         if ($fleet->commanders()->exists()) {
-            $commanders = $fleet->commanders()->get();
+            $commanders = $fleet->commanders()->withPivot('id')->get();
         }
 
         return view('pages.fleet-builder', compact(
@@ -226,6 +227,7 @@ class FleetBuilderController extends Controller
      */
     public function detachShipFromFleet(Fleet $fleet, int $shipPivotId) : JsonResponse
     {
+        //Use pivot id as there can be multiple relations of the same ship and fleet, so we need to remove specific one
         $fleetShip = FleetShip::findOrFail($shipPivotId);
 
         if ($fleetShip->ships()->first()->type == 'Escort') {
@@ -333,10 +335,35 @@ class FleetBuilderController extends Controller
         $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $commander->points);
         $fleet->save();
 
+        //Get last attached ship id for frontend data attribute
+        $commanderPivot = FleetCommander::where('commander_id', $commander->id)
+            ->where('fleet_id', $fleet->id)
+            ->latest('id')
+            ->first();
+        $commander->setRelation('pivot', $commanderPivot);
+
         return response()->json([
-            'message' => 'Ship added to fleet.',
+            'message' => 'Commander added to fleet.',
             'commander' => $commander,
             'fleetPoints' => $fleet->points
+        ]);
+    }
+
+    public function detachCommanderFromFleet(Fleet $fleet, int $commanderPivotId) : JsonResponse
+    {
+        //Use pivot id as there can be multiple relations of the same commander and fleet, so we need to remove specific one
+        $fleetCommander = FleetCommander::findOrFail($commanderPivotId);
+
+        $fleetCommanderPoints = $fleetCommander->commander->points;
+
+        $fleetCommander->delete();
+
+        $fleet->points = FleetBuilderUtils::calculatePoints($fleet, -($fleetCommanderPoints));
+        $fleet->save();
+
+        return response()->json([
+            'message' => 'Commander removed from fleet.',
+            'points' => $fleet->points
         ]);
     }
 

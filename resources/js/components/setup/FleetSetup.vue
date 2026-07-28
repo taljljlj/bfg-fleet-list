@@ -5,14 +5,22 @@ const props = defineProps({
     commanderList: {
         type: Object,
         default: null
+    },
+    commanders: {
+        type: Object,
+        default: null
     }
 });
 
-const emit = defineEmits(['commander-added']);
+const emit = defineEmits(['commander-added', 'commander-removed']);
 
 const handleCommanderAdd = (commanderId) => {
     emit('commander-added', commanderId);
 };
+
+const handleCommanderRemove = (commanderId) => {
+    emit('commander-removed', commanderId);
+}
 
 </script>
 
@@ -36,6 +44,24 @@ const handleCommanderAdd = (commanderId) => {
                     <span class="grow text-right">
                         0/1
                     </span>
+                </li>
+            </ul>
+            <ul v-if="commanders">
+                <li
+                    v-for="commander in commanders"
+                    :key="commander.id"
+                >
+                    <div class="commander-info text-xl align-middle flex w-full justify-center-safe">
+                        <span
+                            class="cursor-pointer opacity-70 hover:opacity-100 user-select-none hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)] mr-2 text-5xl leading-1 pt-3"
+                            @click="handleCommanderRemove(commander.pivot.id)"
+                        >
+                            ×
+                        </span>
+                        <span>{{commander.name}}</span>
+                        <span>Ld: {{commander.leadership}}</span>
+                        <span>Re-rolls: {{commander.rolls}}</span>
+                    </div>
                 </li>
             </ul>
         </div>
