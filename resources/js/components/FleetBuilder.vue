@@ -197,8 +197,7 @@
 
         } catch (error) {
             console.error('Error:', error);
-            //TODO: generate specific error message
-            alert('+++ Command Purge Denied +++\r\nThe fleet rejects leadership. The officer is cast aside, unrecognized by the muster and barred from command. Audit fleet records and resubmit the officer\'s commission');
+            alert('+++ Command Purge Denied +++\r\nThe fleet rejects alteration. The officer clings to the muster rolls, refusing expulsion from command. Review fleet records and renew the purge protocol.');
         } finally {
             state.isLoading = false;
         }
