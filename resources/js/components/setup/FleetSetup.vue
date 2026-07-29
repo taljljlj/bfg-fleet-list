@@ -1,5 +1,7 @@
 <script setup>
+import {computed, ref} from 'vue';
 import addShipIcon from '@images/add-ship-icon.png';
+import Dropdown from "@/components/controls/Dropdown.vue";
 
 const props = defineProps({
     commanderList: {
@@ -9,10 +11,24 @@ const props = defineProps({
     commanders: {
         type: Object,
         default: null
+    },
+    ships: {
+        type: Object,
+        default: null
     }
 });
 
-const emit = defineEmits(['commander-added', 'commander-removed']);
+const mappedCommanderShipList = computed(() =>
+    props.ships.map(ship => ({
+        pivotId: ship.pivot.id,
+        name: ship.pivot.name ?? ship.class
+    }))
+);
+
+
+const emit = defineEmits(['commander-added', 'commander-removed', 'commander-ship-selected']);
+
+const selectedShips = ref({});
 
 const handleCommanderAdd = (commanderId) => {
     emit('commander-added', commanderId);
@@ -22,6 +38,10 @@ const handleCommanderRemove = (commanderId) => {
     emit('commander-removed', commanderId);
 }
 
+const handleShipSelected = (commanderId, shipId, shipName) => {
+    selectedShips.value[commanderId] = { pivotId: shipId, name: shipName };
+    emit('commander-ship-selected', commanderId, shipId, shipName);
+};
 </script>
 
 <template>
@@ -34,14 +54,14 @@ const handleCommanderRemove = (commanderId) => {
                     :key="commander.id"
                     class="my-1 align-middle flex w-full justify-between"
                 >
-                    <span>{{commander.name}} ({{commander.points}} pts)</span>
                     <span
-                        class="cursor-pointer opacity-70 hover:opacity-100 user-select-none hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)] inline-block rotate-90 ml-2"
+                        class="cursor-pointer opacity-70 hover:opacity-100 user-select-none hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)] inline-block rotate-90 mr-2"
                         @click="handleCommanderAdd(commander.id)"
                     >
                                 <img :src="addShipIcon" alt="Add Ship Icon" class="h-4 w-4">
                     </span>
-                    <span class="grow text-right">
+                    <span>{{commander.name}} ({{commander.points}} pts)</span>
+                    <span class="grow text-right font-family-secondary">
                         0/1
                     </span>
                 </li>
@@ -50,17 +70,30 @@ const handleCommanderRemove = (commanderId) => {
                 <li
                     v-for="commander in commanders"
                     :key="commander.id"
+                    class="my-1 commander-info text-xl w-full flex items-center justify-between"
                 >
-                    <div class="commander-info text-xl align-middle flex w-full justify-center-safe">
+                    <div class="flex grow">
                         <span
-                            class="cursor-pointer opacity-70 hover:opacity-100 user-select-none hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)] mr-2 text-5xl leading-1 pt-3"
+                            class="cursor-pointer opacity-70 hover:opacity-100 user-select-none hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)] mr-2"
                             @click="handleCommanderRemove(commander.pivot.id)"
                         >
-                            ×
+                            ✖
                         </span>
-                        <span>{{commander.name}}</span>
-                        <span>Ld: {{commander.leadership}}</span>
-                        <span>Re-rolls: {{commander.rolls}}</span>
+                        <span class="mx-2">{{commander.name}} ({{commander.points}} pts)</span>
+                    </div>
+                    <div class="flex">
+                        <span class="mx-2 font-family-secondary">Ld: {{commander.leadership}}</span>
+                        <span class="mx-2 font-family-secondary">Re-rolls: {{commander.rolls}}</span>
+                        <span class="mx-2 font-family-secondary">Ship: </span>
+                    </div>
+                    <div class="flex-1/4">
+                        <Dropdown
+                            :items="mappedCommanderShipList"
+                            :selectedItem="selectedShips[commander.id]"
+                            labelKey="name"
+                            valueKey="pivotId"
+                            @item-selected="(pivotId, name) => handleShipSelected(commander.id, pivotId, name)"
+                        />
                     </div>
                 </li>
             </ul>

@@ -186,7 +186,8 @@ watch(shipLd, async (newValue) => {
 
 watch(shipName, async (newValue) => {
     await handleUpdateField('name', newValue);
-    shipName.value = newValue;
+    props.ship.pivot.name = newValue;
+    emit('ship-updated', props.ship);
 })
 
 const validateLdInput = (event) => {

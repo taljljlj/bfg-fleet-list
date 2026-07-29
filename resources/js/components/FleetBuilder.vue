@@ -260,6 +260,7 @@
         <FleetSetup
             :commanderList="state.commanderList"
             :commanders="state.commanders"
+            :ships="state.ships"
             @commander-added="handleCommanderAdded"
             @commander-removed="handleCommanderRemoved"
         />
