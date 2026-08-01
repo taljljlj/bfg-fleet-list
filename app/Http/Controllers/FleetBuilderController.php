@@ -17,7 +17,6 @@ use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\View;
 use Spatie\Browsershot\Browsershot;
 use Spatie\LaravelPdf\Facades\Pdf;
 
@@ -370,6 +369,7 @@ class FleetBuilderController extends Controller
     }
 
     /**
+     * @param Fleet $fleet
      * @param FleetCommander $fleetCommander
      * @param FleetShip $fleetShip
      * @return JsonResponse
