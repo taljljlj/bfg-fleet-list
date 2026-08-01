@@ -28,7 +28,7 @@ class FleetListSeeder extends Seeder
         //get Space Marine ID for space marine fleet lists
         $factionId = Faction::getByName('Space Marines')->id;
         $fleetLists = array_merge($fleetLists, [
-            ["name" => "Codex Astardes Fleet List", "faction_id" => $factionId],
+            ["name" => "Codex Astartes Fleet List", "faction_id" => $factionId],
             ["name" => "Crusade Fleet List", "faction_id" => $factionId],
             ["name" => "Dominion Fleet List", "faction_id" => $factionId],
         ]);

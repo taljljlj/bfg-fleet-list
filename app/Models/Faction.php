@@ -17,6 +17,9 @@ class Faction extends Model
     public function ships() {
         return $this->hasMany(Ship::class)->with('armaments');
     }
+    public function commanders() {
+        return $this->hasMany(Commander::class);
+    }
 
     //Accessors
     public function getHotpickFactionImgUrlAttribute() {
