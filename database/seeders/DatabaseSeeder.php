@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             RulesSeeder::class,
             RefitsSeeder::class,
             ShipSeeder::class,
+            CommandersSeeder::class,
         ]);
     }
 }

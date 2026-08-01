@@ -18,6 +18,10 @@ class FleetList extends Model
     public function ships() {
         return $this->belongsToMany(Ship::class, 'fleet_list_ship');
     }
+    public function commanders()
+    {
+        return $this->belongsToMany(Commander::class, 'fleet_list_commanders');
+    }
 
 
     /**

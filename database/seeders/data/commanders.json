@@ -1,0 +1,335 @@
+[
+    {
+        "name": "Fleet-Admiral",
+        "leadership": "8",
+        "leadership_type": "value",
+        "points": "50",
+        "rolls": "1",
+        "faction": "Imperium",
+        "fleetlist": ["Gothic Sector Fleet List", "Bastion Fleet List", "Armageddon Sector Fleet List", "Bakka Sector Fleet List"]
+    },
+    {
+        "name": "Admiral",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "100",
+        "rolls": "1",
+        "faction": "Imperium",
+        "fleetlist": ["Gothic Sector Fleet List", "Bastion Fleet List", "Armageddon Sector Fleet List", "Bakka Sector Fleet List"]
+    },
+    {
+        "name": "Solar Admiral",
+        "leadership": "10",
+        "leadership_type": "value",
+        "points": "150",
+        "rolls": "1",
+        "faction": "Imperium",
+        "fleetlist": ["Gothic Sector Fleet List", "Bastion Fleet List", "Armageddon Sector Fleet List", "Bakka Sector Fleet List"]
+    },
+    {
+        "name": "Master of the Fleet",
+        "leadership": "10",
+        "leadership_type": "value",
+        "points": "50",
+        "rolls": "1",
+        "faction": "Imperium",
+        "fleetlist": ["Armageddon Sector Fleet List"]
+    },
+    {
+        "name": "Lord Admiral Rath",
+        "leadership": "10",
+        "leadership_type": "value",
+        "points": "200",
+        "rolls": "2",
+        "faction": "Imperium",
+        "fleetlist": ["Bakka Sector Fleet List"]
+    },
+    {
+        "name": "Master of the Fleet",
+        "leadership": "10",
+        "leadership_type": "value",
+        "points": "50",
+        "rolls": "1",
+        "faction": "Space Marines",
+        "fleetlist": ["Codex Astardes Fleet List", "Crusade Fleet List", "Dominion Fleet List"]
+    },
+    {
+        "name": "Space Marine Captain",
+        "leadership": "Roll against Space Marine Ld table",
+        "leadership_type": "custom",
+        "points": "25",
+        "rolls": "0",
+        "faction": "Space Marines",
+        "fleetlist": ["Dominion Fleet List"]
+    },
+    {
+        "name": "Archmagos Explorator",
+        "leadership": "8",
+        "leadership_type": "value",
+        "points": "50",
+        "rolls": "0",
+        "faction": "Adeptus Mechanicus",
+        "fleetlist": ["Adeptus Mechanicus Fleet List"]
+    },
+    {
+        "name": "Archmagos Veneratus",
+        "leadership": "9",
+        "leadership_type": "calue",
+        "points": "100",
+        "rolls": "0",
+        "faction": "Adeptus Mechanicus",
+        "fleetlist": ["Adeptus Mechanicus Fleet List"]
+    },
+    {
+        "name": "Inquisitor Lord",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "75",
+        "rolls": "1",
+        "faction": "Inquisition",
+        "fleetlist": ["The Emperor's Inquisition"]
+    },
+    {
+        "name": "Ordo Hereticus Inquisitor Lord",
+        "leadership": "+1 (max 10)",
+        "leadership_type": "rule",
+        "points": "100",
+        "rolls": "1",
+        "faction": "Inquisition",
+        "fleetlist": ["Ordo Hereticus"]
+    },
+    {
+        "name": "Ordo Xenos Inquisitor Lord",
+        "leadership": "+1 (max 10)",
+        "leadership_type": "rule",
+        "points": "105",
+        "rolls": "1",
+        "faction": "Inquisition",
+        "fleetlist": ["Ordo Xenos"]
+    },
+    {
+        "name": "Ordo Malleus Inquisitor Lord",
+        "leadership": "+1 (max 10)",
+        "leadership_type": "rule",
+        "points": "100",
+        "rolls": "1",
+        "faction": "Inquisition",
+        "fleetlist": ["Ordo Malleus"]
+    },
+    {
+        "name": "Veteran Rogue Trader",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "50",
+        "rolls": "1",
+        "faction": "Rogue Traders",
+        "fleetlist": ["Rogue Traders", "Exploration Fleet List"]
+    },
+    {
+        "name": "Pirate Captain",
+        "leadership": "+1 (max 10)",
+        "leadership_type": "rule",
+        "points": "50",
+        "rolls": "1",
+        "faction": "Rogue Traders",
+        "fleetlist": ["Pirates and Wolf Packs"]
+    },
+    {
+        "name": "Abaddon",
+        "leadership": "10",
+        "leadership_type": "value",
+        "points": "195",
+        "rolls": "1 per turn",
+        "faction": "Chaos",
+        "fleetlist": ["Chaos Incursion Fleet List", "Black Crusade Fleet List", "The Sorcerous Fleet", "The Plaguefleet", "The Berzerker Fleet", "The Pleasurefleet"]
+    },
+    {
+        "name": "Chaos Warmaster",
+        "leadership": "8",
+        "leadership_type": "value",
+        "points": "50",
+        "rolls": "1",
+        "faction": "Chaos",
+        "fleetlist": ["Chaos Incursion Fleet List"]
+    },
+    {
+        "name": "Chaos Warmaster",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "100",
+        "rolls": "1",
+        "faction": "Chaos",
+        "fleetlist": ["Chaos Incursion Fleet List"]
+    },
+    {
+        "name": "Chaos Warmaster",
+        "leadership": "+2 (max 9)",
+        "leadership_type": "rule",
+        "points": "100",
+        "rolls": "1",
+        "faction": "Chaos",
+        "fleetlist": ["Black Crusade Fleet List"]
+    },
+    {
+        "name": "Chaos Warmaster",
+        "leadership": "+2 (max 10)",
+        "leadership_type": "rule",
+        "points": "100",
+        "rolls": "1",
+        "faction": "Chaos",
+        "fleetlist": ["The Sorcerous Fleet", "The Plaguefleet", "The Berzerker Fleet", "The Pleasurefleet"]
+    },
+    {
+        "name": "Chaos Lord",
+        "leadership": "8",
+        "leadership_type": "value",
+        "points": "50",
+        "rolls": "0",
+        "faction": "Chaos",
+        "fleetlist": ["Chaos Incursion Fleet List"]
+    },
+    {
+        "name": "Chaos Lord",
+        "leadership": "+1 (max 9)",
+        "leadership_type": "rule",
+        "points": "25",
+        "rolls": "0",
+        "faction": "Chaos",
+        "fleetlist": ["Black Crusade Fleet List", "The Sorcerous Fleet", "The Plaguefleet", "The Berzerker Fleet", "The Pleasurefleet"]
+    },
+    {
+        "name": "Pirate Prince",
+        "leadership": "+2 (max 10)",
+        "leadership_type": "rule",
+        "points": "100",
+        "rolls": "0",
+        "faction": "Eldar",
+        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]"]
+    },
+    {
+        "name": "Eldar Hero",
+        "leadership": "10",
+        "leadership_type": "value",
+        "points": "100",
+        "rolls": "0",
+        "faction": "Eldar",
+        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]", "Iyanden Caftworld Fleet"]
+    },
+    {
+        "name": "Eldar Autarch",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "75",
+        "rolls": "0",
+        "faction": "Eldar",
+        "fleetlist": ["Iyanden Caftworld Fleet"]
+    },
+    {
+        "name": "Iyanden Bearer of the Flame",
+        "leadership": "10",
+        "leadership_type": "value",
+        "points": "100",
+        "rolls": "0",
+        "faction": "Eldar",
+        "fleetlist": ["Iyanden Caftworld Fleet"]
+    },
+    {
+        "name": "Farseer",
+        "leadership": null,
+        "leadership_type": null,
+        "points": "30",
+        "rolls": "1",
+        "faction": "Eldar",
+        "fleetlist": ["Iyanden Caftworld Fleet"]
+    },
+    {
+        "name": "Prince Yriel",
+        "leadership": "10",
+        "leadership_type": "value",
+        "points": "150",
+        "rolls": "1",
+        "faction": "Eldar",
+        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]", "Iyanden Caftworld Fleet"]
+    },
+    {
+        "name": "Dread Archon",
+        "leadership": "+2 (max 10)",
+        "leadership_type": "rule",
+        "points": "100",
+        "rolls": "0",
+        "faction": "Dark ELdar",
+        "fleetlist": ["Pirates Fleet List"]
+    },
+    {
+        "name": "Ork Warlord",
+        "leadership": null,
+        "leadership_type": null,
+        "points": "40",
+        "rolls": "1",
+        "faction": "Orks",
+        "fleetlist": ["Cyclops Fleet List", "Ork Waaagh! Fleet List"]
+    },
+    {
+        "name": "Ork Warlord",
+        "leadership": null,
+        "leadership_type": null,
+        "points": "0",
+        "rolls": "1",
+        "faction": "Orks",
+        "fleetlist": ["Da Ork Clanz Fleet List"]
+    },
+    {
+        "name": "Kor'O Vash'Ya Y'Eldi Mesme",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "110",
+        "rolls": "2",
+        "faction": "Tau",
+        "fleetlist": ["Commerce Protection Fleet List"]
+    },
+    {
+        "name": "Tau Kor'el",
+        "leadership": "8",
+        "leadership_type": "value",
+        "points": "50",
+        "rolls": "1",
+        "faction": "Tau",
+        "fleetlist": ["Merchant Fleet List", "Commerce Protection Fleet List"]
+    },
+    {
+        "name": "Tau Kor'O",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "80",
+        "rolls": "1",
+        "faction": "Tau",
+        "fleetlist": ["Merchant Fleet List", "Commerce Protection Fleet List"]
+    },
+    {
+        "name": "Necron",
+        "leadership": null,
+        "leadership_type": null,
+        "points": "0",
+        "rolls": "1",
+        "faction": "Necrons",
+        "fleetlist": ["Harvest Fleet List"]
+    },
+    {
+        "name": "Hive Mind",
+        "leadership": "8",
+        "leadership_type": "value",
+        "points": "0",
+        "rolls": "0",
+        "faction": "Tyranids",
+        "fleetlist": ["Hive Fleet List"]
+    },
+    {
+        "name": "Hive Mind",
+        "leadership": "9",
+        "leadership_type": "value",
+        "points": "40",
+        "rolls": "0",
+        "faction": "Tyranids",
+        "fleetlist": ["Hive Fleet List"]
+    }
+]

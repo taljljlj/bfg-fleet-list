@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\FleetBuilderUtils;
+use App\Models\Commander;
 use App\Models\Faction;
 use App\Models\Fleet;
+use App\Models\FleetBuilder\FleetCommander;
 use App\Models\FleetList;
 use App\Models\FleetBuilder\FleetShip;
 use App\Models\Ship;
@@ -15,7 +17,6 @@ use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\View;
 use Spatie\Browsershot\Browsershot;
 use Spatie\LaravelPdf\Facades\Pdf;
 
@@ -76,15 +77,23 @@ class FleetBuilderController extends Controller
         //If fleet has selected fleet list
         $selectedFleetList = null;
         $shipList = null;
+        $commanderList = null;
         if ($fleet->fleet_list_id) {
             $selectedFleetList = FleetList::findOrFail($fleet->fleet_list_id);
             $shipList = $this->fleetBuilderService->getShipsByFleetList($selectedFleetList);
+            $commanderList = $this->fleetBuilderService->getCommandersByFleetList($selectedFleetList);
         }
 
         //If fleet has attached ships return full list and assign order for frontend
         $ships = null;
         if ($fleet->ships()->exists()) {
             $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true);
+        }
+
+        //If fleet has attached commanders return full list
+        $commanders = null;
+        if ($fleet->commanders()->exists()) {
+            $commanders = $fleet->commanders()->withPivot('id', 'fleet_ship_id')->get();
         }
 
         return view('pages.fleet-builder', compact(
@@ -94,6 +103,8 @@ class FleetBuilderController extends Controller
             'selectedFleetList',
             'shipList',
             'ships',
+            'commanderList',
+            'commanders',
         ));
     }
 
@@ -127,6 +138,7 @@ class FleetBuilderController extends Controller
     public function setFleetList(Fleet $fleet, FleetList $fleetList) : JsonResponse
     {
         $shipList = $this->fleetBuilderService->getShipsByFleetList($fleetList);
+        $commanderList = $this->fleetBuilderService->getCommandersByFleetList($fleetList);
 
         $fleet->fleetList()->associate($fleetList);
         $fleet->save();
@@ -155,6 +167,7 @@ class FleetBuilderController extends Controller
             'fleetList' => $fleetList,
             'shipList' => $shipList,
             'excludedShipsData' => $excludedShipsData,
+            'commanderList' => $commanderList,
         ]);
     }
 
@@ -191,6 +204,7 @@ class FleetBuilderController extends Controller
 
         //Get last attached ship id for frontend data attribute
         $shipPivot = FleetShip::where('ship_id', $ship->id)
+            ->where('fleet_id', $fleet->id)
             ->latest('id')
             ->first();
         $ship->setRelation('pivot', $shipPivot);
@@ -212,6 +226,7 @@ class FleetBuilderController extends Controller
      */
     public function detachShipFromFleet(Fleet $fleet, int $shipPivotId) : JsonResponse
     {
+        //Use pivot id as there can be multiple relations of the same ship and fleet, so we need to remove specific one
         $fleetShip = FleetShip::findOrFail($shipPivotId);
 
         if ($fleetShip->ships()->first()->type == 'Escort') {
@@ -305,6 +320,68 @@ class FleetBuilderController extends Controller
         }
 
         return response()->noContent();
+    }
+
+    /**
+     * @param Fleet $fleet
+     * @param Commander $commander
+     * @return JsonResponse
+     */
+    public function attachCommanderToFleet(Fleet $fleet, Commander $commander) : JsonResponse
+    {
+        $fleet->commanders()->attach($commander);
+
+        $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $commander->points);
+        $fleet->save();
+
+        //Get last attached ship id for frontend data attribute
+        $commanderPivot = FleetCommander::where('commander_id', $commander->id)
+            ->where('fleet_id', $fleet->id)
+            ->latest('id')
+            ->first();
+        $commander->setRelation('pivot', $commanderPivot);
+
+        return response()->json([
+            'message' => 'Commander added to fleet.',
+            'commander' => $commander,
+            'fleetPoints' => $fleet->points
+        ]);
+    }
+
+    /**
+     * @param Fleet $fleet
+     * @param int $commanderPivotId
+     * @return JsonResponse
+     */
+    public function detachCommanderFromFleet(Fleet $fleet, FleetCommander $fleetCommander) : JsonResponse
+    {
+        $fleetCommanderPoints = $fleetCommander->commander->points;
+
+        $fleetCommander->delete();
+
+        $fleet->points = FleetBuilderUtils::calculatePoints($fleet, -($fleetCommanderPoints));
+        $fleet->save();
+
+        return response()->json([
+            'message' => 'Commander removed from fleet.',
+            'points' => $fleet->points
+        ]);
+    }
+
+    /**
+     * @param Fleet $fleet
+     * @param FleetCommander $fleetCommander
+     * @param FleetShip $fleetShip
+     * @return JsonResponse
+     */
+    public function commanderAssignShip (Fleet $fleet, FleetCommander $fleetCommander, FleetShip $fleetShip) : JsonResponse
+    {
+        $fleetCommander->fleet_ship_id = $fleetShip->id;
+        $fleetCommander->save();
+
+        return response()->json([
+            'message' => 'Ship assigned to commander.',
+        ]);
     }
 
     public function getFleetAsPdf(Fleet $fleet)
