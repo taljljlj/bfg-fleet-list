@@ -202,6 +202,18 @@
             state.isLoading = false;
         }
     }
+
+    const handleCommanderShipAssigned = async (commanderPivotId, shipPivotId) => {
+        state.isLoading = true;
+        try {
+            const data = await apiCall(`/api/${state.fleet.id}/commander-ship-assign/${commanderPivotId}/${shipPivotId}`);
+
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            state.isLoading = false;
+        }
+    }
 </script>
 
 <template>
@@ -263,6 +275,7 @@
             :ships="state.ships"
             @commander-added="handleCommanderAdded"
             @commander-removed="handleCommanderRemoved"
+            @commander-ship-assigned="handleCommanderShipAssigned"
         />
 
       <!-- Ship Cards -->

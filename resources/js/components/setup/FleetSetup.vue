@@ -1,5 +1,5 @@
 <script setup>
-import {computed, ref} from 'vue';
+import {computed, onMounted, ref} from 'vue';
 import addShipIcon from '@images/add-ship-icon.png';
 import Dropdown from "@/components/controls/Dropdown.vue";
 
@@ -26,7 +26,7 @@ const mappedCommanderShipList = computed(() =>
 );
 
 
-const emit = defineEmits(['commander-added', 'commander-removed', 'commander-ship-selected']);
+const emit = defineEmits(['commander-added', 'commander-removed', 'commander-ship-assigned']);
 
 const selectedShips = ref({});
 
@@ -38,10 +38,26 @@ const handleCommanderRemove = (commanderId) => {
     emit('commander-removed', commanderId);
 }
 
-const handleShipSelected = (commanderId, shipId, shipName) => {
-    selectedShips.value[commanderId] = { pivotId: shipId, name: shipName };
-    emit('commander-ship-selected', commanderId, shipId, shipName);
+const handleCommanderShipAssigned = (commanderPivotId, shipPivotId, shipName) => {
+    selectedShips.value[commanderPivotId] = { pivotId: shipPivotId, name: shipName };
+    emit('commander-ship-assigned', commanderPivotId, shipPivotId);
 };
+
+onMounted(() => {
+    if (props.commanders) {
+        props.commanders.forEach(commander => {
+            if (commander.pivot?.fleet_ship_id) {
+                const ship = props.ships.find(s => s.pivot.id === commander.pivot.fleet_ship_id);
+                if (ship) {
+                    selectedShips.value[commander.pivot.id] = {
+                        pivotId: ship.pivot.id,
+                        name: ship.pivot.name ?? ship.class
+                    };
+                }
+            }
+        });
+    }
+});
 </script>
 
 <template>
@@ -89,10 +105,10 @@ const handleShipSelected = (commanderId, shipId, shipName) => {
                     <div class="flex-1/4">
                         <Dropdown
                             :items="mappedCommanderShipList"
-                            :selectedItem="selectedShips[commander.id]"
+                            :selectedItem="selectedShips[commander.pivot.id]"
                             labelKey="name"
                             valueKey="pivotId"
-                            @item-selected="(pivotId, name) => handleShipSelected(commander.id, pivotId, name)"
+                            @item-selected="(pivotId, name) => handleCommanderShipAssigned(commander.pivot.id, pivotId, name)"
                         />
                     </div>
                 </li>

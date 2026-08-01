@@ -94,7 +94,7 @@ class FleetBuilderController extends Controller
         //If fleet has attached commanders return full list
         $commanders = null;
         if ($fleet->commanders()->exists()) {
-            $commanders = $fleet->commanders()->withPivot('id')->get();
+            $commanders = $fleet->commanders()->withPivot('id', 'fleet_ship_id')->get();
         }
 
         return view('pages.fleet-builder', compact(
@@ -349,11 +349,13 @@ class FleetBuilderController extends Controller
         ]);
     }
 
-    public function detachCommanderFromFleet(Fleet $fleet, int $commanderPivotId) : JsonResponse
+    /**
+     * @param Fleet $fleet
+     * @param int $commanderPivotId
+     * @return JsonResponse
+     */
+    public function detachCommanderFromFleet(Fleet $fleet, FleetCommander $fleetCommander) : JsonResponse
     {
-        //Use pivot id as there can be multiple relations of the same commander and fleet, so we need to remove specific one
-        $fleetCommander = FleetCommander::findOrFail($commanderPivotId);
-
         $fleetCommanderPoints = $fleetCommander->commander->points;
 
         $fleetCommander->delete();
@@ -364,6 +366,21 @@ class FleetBuilderController extends Controller
         return response()->json([
             'message' => 'Commander removed from fleet.',
             'points' => $fleet->points
+        ]);
+    }
+
+    /**
+     * @param FleetCommander $fleetCommander
+     * @param FleetShip $fleetShip
+     * @return JsonResponse
+     */
+    public function commanderAssignShip (Fleet $fleet, FleetCommander $fleetCommander, FleetShip $fleetShip) : JsonResponse
+    {
+        $fleetCommander->fleet_ship_id = $fleetShip->id;
+        $fleetCommander->save();
+
+        return response()->json([
+            'message' => 'Ship assigned to commander.',
         ]);
     }
 

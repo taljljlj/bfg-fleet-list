@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('fleet_id')->constrained('fleets');
             $table->foreignId('commander_id')->constrained('commanders');
+            $table->foreignId('fleet_ship_id')->nullable()->constrained('fleet_ship');
             $table->timestamps();
         });
     }
