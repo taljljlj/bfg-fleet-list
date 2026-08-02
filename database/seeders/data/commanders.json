@@ -6,7 +6,8 @@
         "points": "50",
         "rolls": "1",
         "faction": "Imperium",
-        "fleetlist": ["Gothic Sector Fleet List", "Bastion Fleet List", "Armageddon Sector Fleet List", "Bakka Sector Fleet List"]
+        "fleetlist": ["Gothic Sector Fleet List", "Bastion Fleet List", "Armageddon Sector Fleet List", "Bakka Sector Fleet List"],
+        "extra_rerolls" : [25,75,150]
     },
     {
         "name": "Admiral",
@@ -15,7 +16,8 @@
         "points": "100",
         "rolls": "1",
         "faction": "Imperium",
-        "fleetlist": ["Gothic Sector Fleet List", "Bastion Fleet List", "Armageddon Sector Fleet List", "Bakka Sector Fleet List"]
+        "fleetlist": ["Gothic Sector Fleet List", "Bastion Fleet List", "Armageddon Sector Fleet List", "Bakka Sector Fleet List"],
+        "extra_rerolls" : [25,75,150]
     },
     {
         "name": "Solar Admiral",
@@ -24,7 +26,8 @@
         "points": "150",
         "rolls": "1",
         "faction": "Imperium",
-        "fleetlist": ["Gothic Sector Fleet List", "Bastion Fleet List", "Armageddon Sector Fleet List", "Bakka Sector Fleet List"]
+        "fleetlist": ["Gothic Sector Fleet List", "Bastion Fleet List", "Armageddon Sector Fleet List", "Bakka Sector Fleet List"],
+        "extra_rerolls" : [25,75,150]
     },
     {
         "name": "Master of the Fleet",
@@ -33,7 +36,8 @@
         "points": "50",
         "rolls": "1",
         "faction": "Imperium",
-        "fleetlist": ["Armageddon Sector Fleet List"]
+        "fleetlist": ["Armageddon Sector Fleet List"],
+        "extra_rerolls" : [25,50,75]
     },
     {
         "name": "Lord Admiral Rath",
@@ -42,7 +46,8 @@
         "points": "200",
         "rolls": "2",
         "faction": "Imperium",
-        "fleetlist": ["Bakka Sector Fleet List"]
+        "fleetlist": ["Bakka Sector Fleet List"],
+        "extra_rerolls" : [25,75,150]
     },
     {
         "name": "Master of the Fleet",
@@ -51,7 +56,8 @@
         "points": "50",
         "rolls": "1",
         "faction": "Space Marines",
-        "fleetlist": ["Codex Astardes Fleet List", "Crusade Fleet List", "Dominion Fleet List"]
+        "fleetlist": ["Codex Astardes Fleet List", "Crusade Fleet List", "Dominion Fleet List"],
+        "extra_rerolls" : [25,75,150]
     },
     {
         "name": "Space Marine Captain",
@@ -60,7 +66,8 @@
         "points": "25",
         "rolls": "0",
         "faction": "Space Marines",
-        "fleetlist": ["Dominion Fleet List"]
+        "fleetlist": ["Dominion Fleet List"],
+        "extra_rerolls" : []
     },
     {
         "name": "Archmagos Explorator",
@@ -69,7 +76,8 @@
         "points": "50",
         "rolls": "0",
         "faction": "Adeptus Mechanicus",
-        "fleetlist": ["Adeptus Mechanicus Fleet List"]
+        "fleetlist": ["Adeptus Mechanicus Fleet List"],
+        "extra_rerolls" : [50,125]
     },
     {
         "name": "Archmagos Veneratus",
@@ -78,7 +86,8 @@
         "points": "100",
         "rolls": "0",
         "faction": "Adeptus Mechanicus",
-        "fleetlist": ["Adeptus Mechanicus Fleet List"]
+        "fleetlist": ["Adeptus Mechanicus Fleet List"],
+        "extra_rerolls" : [50,125]
     },
     {
         "name": "Inquisitor Lord",
@@ -87,7 +96,8 @@
         "points": "75",
         "rolls": "1",
         "faction": "Inquisition",
-        "fleetlist": ["The Emperor's Inquisition"]
+        "fleetlist": ["The Emperor's Inquisition"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Ordo Hereticus Inquisitor Lord",
@@ -96,7 +106,8 @@
         "points": "100",
         "rolls": "1",
         "faction": "Inquisition",
-        "fleetlist": ["Ordo Hereticus"]
+        "fleetlist": ["Ordo Hereticus"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Ordo Xenos Inquisitor Lord",
@@ -105,7 +116,8 @@
         "points": "105",
         "rolls": "1",
         "faction": "Inquisition",
-        "fleetlist": ["Ordo Xenos"]
+        "fleetlist": ["Ordo Xenos"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Ordo Malleus Inquisitor Lord",
@@ -114,7 +126,8 @@
         "points": "100",
         "rolls": "1",
         "faction": "Inquisition",
-        "fleetlist": ["Ordo Malleus"]
+        "fleetlist": ["Ordo Malleus"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Veteran Rogue Trader",
@@ -123,7 +136,8 @@
         "points": "50",
         "rolls": "1",
         "faction": "Rogue Traders",
-        "fleetlist": ["Rogue Traders", "Exploration Fleet List"]
+        "fleetlist": ["Rogue Traders", "Exploration Fleet List"],
+        "extra_rerolls" : []
     },
     {
         "name": "Pirate Captain",
@@ -132,7 +146,8 @@
         "points": "50",
         "rolls": "1",
         "faction": "Rogue Traders",
-        "fleetlist": ["Pirates and Wolf Packs"]
+        "fleetlist": ["Pirates and Wolf Packs"],
+        "extra_rerolls" : [25,50]
     },
     {
         "name": "Abaddon",
@@ -141,7 +156,8 @@
         "points": "195",
         "rolls": "1 per turn",
         "faction": "Chaos",
-        "fleetlist": ["Chaos Incursion Fleet List", "Black Crusade Fleet List", "The Sorcerous Fleet", "The Plaguefleet", "The Berzerker Fleet", "The Pleasurefleet"]
+        "fleetlist": ["Chaos Incursion Fleet List", "Black Crusade Fleet List", "The Sorcerous Fleet", "The Plaguefleet", "The Berzerker Fleet", "The Pleasurefleet"],
+        "extra_rerolls" : []
     },
     {
         "name": "Chaos Warmaster",
@@ -150,7 +166,8 @@
         "points": "50",
         "rolls": "1",
         "faction": "Chaos",
-        "fleetlist": ["Chaos Incursion Fleet List"]
+        "fleetlist": ["Chaos Incursion Fleet List"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Chaos Warmaster",
@@ -159,7 +176,8 @@
         "points": "100",
         "rolls": "1",
         "faction": "Chaos",
-        "fleetlist": ["Chaos Incursion Fleet List"]
+        "fleetlist": ["Chaos Incursion Fleet List"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Chaos Warmaster",
@@ -168,7 +186,8 @@
         "points": "100",
         "rolls": "1",
         "faction": "Chaos",
-        "fleetlist": ["Black Crusade Fleet List"]
+        "fleetlist": ["Black Crusade Fleet List"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Chaos Warmaster",
@@ -177,7 +196,8 @@
         "points": "100",
         "rolls": "1",
         "faction": "Chaos",
-        "fleetlist": ["The Sorcerous Fleet", "The Plaguefleet", "The Berzerker Fleet", "The Pleasurefleet"]
+        "fleetlist": ["The Sorcerous Fleet", "The Plaguefleet", "The Berzerker Fleet", "The Pleasurefleet"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Chaos Lord",
@@ -186,7 +206,8 @@
         "points": "50",
         "rolls": "0",
         "faction": "Chaos",
-        "fleetlist": ["Chaos Incursion Fleet List"]
+        "fleetlist": ["Chaos Incursion Fleet List"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Chaos Lord",
@@ -195,7 +216,8 @@
         "points": "25",
         "rolls": "0",
         "faction": "Chaos",
-        "fleetlist": ["Black Crusade Fleet List", "The Sorcerous Fleet", "The Plaguefleet", "The Berzerker Fleet", "The Pleasurefleet"]
+        "fleetlist": ["Black Crusade Fleet List", "The Sorcerous Fleet", "The Plaguefleet", "The Berzerker Fleet", "The Pleasurefleet"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Pirate Prince",
@@ -204,7 +226,8 @@
         "points": "100",
         "rolls": "0",
         "faction": "Eldar",
-        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]"]
+        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]"],
+        "extra_rerolls" : [25,50,100]
     },
     {
         "name": "Eldar Hero",
@@ -213,7 +236,8 @@
         "points": "100",
         "rolls": "0",
         "faction": "Eldar",
-        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]", "Iyanden Caftworld Fleet"]
+        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]", "Iyanden Caftworld Fleet"],
+        "extra_rerolls" : [50,75,100]
     },
     {
         "name": "Eldar Autarch",
@@ -222,7 +246,8 @@
         "points": "75",
         "rolls": "0",
         "faction": "Eldar",
-        "fleetlist": ["Iyanden Caftworld Fleet"]
+        "fleetlist": ["Iyanden Caftworld Fleet"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Iyanden Bearer of the Flame",
@@ -231,7 +256,8 @@
         "points": "100",
         "rolls": "0",
         "faction": "Eldar",
-        "fleetlist": ["Iyanden Caftworld Fleet"]
+        "fleetlist": ["Iyanden Caftworld Fleet"],
+        "extra_rerolls" : [25]
     },
     {
         "name": "Farseer",
@@ -240,7 +266,8 @@
         "points": "30",
         "rolls": "1",
         "faction": "Eldar",
-        "fleetlist": ["Iyanden Caftworld Fleet"]
+        "fleetlist": ["Iyanden Caftworld Fleet"],
+        "extra_rerolls" : []
     },
     {
         "name": "Prince Yriel",
@@ -249,7 +276,8 @@
         "points": "150",
         "rolls": "1",
         "faction": "Eldar",
-        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]", "Iyanden Caftworld Fleet"]
+        "fleetlist": ["Eldar Corsairs Fleet List [Gothic Sector]", "Eldar Corsairs Fleet List [Later Gothic War]", "Iyanden Caftworld Fleet"],
+        "extra_rerolls" : [25,50]
     },
     {
         "name": "Dread Archon",
@@ -258,7 +286,8 @@
         "points": "100",
         "rolls": "0",
         "faction": "Dark ELdar",
-        "fleetlist": ["Pirates Fleet List"]
+        "fleetlist": ["Pirates Fleet List"],
+        "extra_rerolls" : [25,50,100]
     },
     {
         "name": "Ork Warlord",
@@ -267,7 +296,8 @@
         "points": "40",
         "rolls": "1",
         "faction": "Orks",
-        "fleetlist": ["Cyclops Fleet List", "Ork Waaagh! Fleet List"]
+        "fleetlist": ["Cyclops Fleet List", "Ork Waaagh! Fleet List"],
+        "extra_rerolls" : [20,40]
     },
     {
         "name": "Ork Warlord",
@@ -276,7 +306,8 @@
         "points": "0",
         "rolls": "1",
         "faction": "Orks",
-        "fleetlist": ["Da Ork Clanz Fleet List"]
+        "fleetlist": ["Da Ork Clanz Fleet List"],
+        "extra_rerolls" : [20,40]
     },
     {
         "name": "Kor'O Vash'Ya Y'Eldi Mesme",
@@ -285,7 +316,8 @@
         "points": "110",
         "rolls": "2",
         "faction": "Tau",
-        "fleetlist": ["Commerce Protection Fleet List"]
+        "fleetlist": ["Commerce Protection Fleet List"],
+        "extra_rerolls" : [25,75]
     },
     {
         "name": "Tau Kor'el",
@@ -294,7 +326,8 @@
         "points": "50",
         "rolls": "1",
         "faction": "Tau",
-        "fleetlist": ["Merchant Fleet List", "Commerce Protection Fleet List"]
+        "fleetlist": ["Merchant Fleet List", "Commerce Protection Fleet List"],
+        "extra_rerolls" : [25,75]
     },
     {
         "name": "Tau Kor'O",
@@ -303,7 +336,8 @@
         "points": "80",
         "rolls": "1",
         "faction": "Tau",
-        "fleetlist": ["Merchant Fleet List", "Commerce Protection Fleet List"]
+        "fleetlist": ["Merchant Fleet List", "Commerce Protection Fleet List"],
+        "extra_rerolls" : [25,75]
     },
     {
         "name": "Necron",
@@ -312,7 +346,8 @@
         "points": "0",
         "rolls": "1",
         "faction": "Necrons",
-        "fleetlist": ["Harvest Fleet List"]
+        "fleetlist": ["Harvest Fleet List"],
+        "extra_rerolls" : [25,75]
     },
     {
         "name": "Hive Mind",
@@ -321,7 +356,8 @@
         "points": "0",
         "rolls": "0",
         "faction": "Tyranids",
-        "fleetlist": ["Hive Fleet List"]
+        "fleetlist": ["Hive Fleet List"],
+        "extra_rerolls" : [30]
     },
     {
         "name": "Hive Mind",
@@ -330,6 +366,7 @@
         "points": "40",
         "rolls": "0",
         "faction": "Tyranids",
-        "fleetlist": ["Hive Fleet List"]
+        "fleetlist": ["Hive Fleet List"],
+        "extra_rerolls" : [40]
     }
 ]
