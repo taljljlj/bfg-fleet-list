@@ -80,6 +80,7 @@
         state.selectedFleetList = { id: fleetListId, name: fleetListName };
         state.shipList = data.shipList;
         state.commanderList = data.commanderList;
+        state.commanders.length = 0; //state.commanders = [] is not working with the way reactivity is initialized for some reason, but mutating array like this forces DOM re-rendering
 
         // Handle excluded ships
         if (data.excludedShipsData) {
