@@ -121,6 +121,7 @@ class FleetBuilderController extends Controller
         $fleet->faction()->associate($faction);
         $fleet->fleetList()->dissociate();
         $fleet->ships()->detach();
+        $fleet->commanders()->detach();
         $fleet->save();
 
         return response()->json([
@@ -141,6 +142,7 @@ class FleetBuilderController extends Controller
         $commanderList = $this->fleetBuilderService->getCommandersByFleetList($fleetList);
 
         $fleet->fleetList()->associate($fleetList);
+        $fleet->commanders()->detach();
         $fleet->save();
 
         $msg = "Fleet list selected.";
