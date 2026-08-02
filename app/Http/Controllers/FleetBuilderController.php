@@ -215,7 +215,7 @@ class FleetBuilderController extends Controller
         $ship->order = $shipOrder;
 
         return response()->json([
-            'message' => 'Ship added to fleet.',
+            'message' => $ship->class . ' added to fleet.',
             'ship' => $ship,
             'fleetPoints' => $fleet->points
         ]);
@@ -265,7 +265,7 @@ class FleetBuilderController extends Controller
         $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $fleetShip->id), true, true);
 
         return response()->json([
-            'message' => 'Ship refitted.',
+            'message' => 'Ship refits applied.',
             'ship' => $ship,
             'fleetPoints' => $fleet->points
         ]);
@@ -352,7 +352,7 @@ class FleetBuilderController extends Controller
 
     /**
      * @param Fleet $fleet
-     * @param int $commanderPivotId
+     * @param FleetCommander $fleetCommander
      * @return JsonResponse
      */
     public function detachCommanderFromFleet(Fleet $fleet, FleetCommander $fleetCommander) : JsonResponse

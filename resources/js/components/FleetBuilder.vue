@@ -8,6 +8,7 @@
     import MessageBox from './commons/MessageBox.vue';
     import FleetActions from "@/components/controls/FleetActions.vue";
     import FleetSetup from "@/components/setup/FleetSetup.vue";
+    import {useTooltip} from "@/composables/useTooltip.js";
 
     // Inject data from Laravel
     const fleetData = inject('fleetData');
@@ -28,6 +29,9 @@
     // Computed properties
     const fleetPoints = computed(() => state.fleet.points);
     const selectedFactionId = computed(() => state.fleet.faction_id);
+
+    // Message handling
+    const {showTooltip, clearTooltip} = useTooltip();
 
     // API helper function
     const apiCall = async (url, method = 'PATCH', body = null) => {
@@ -63,11 +67,16 @@
         state.commanderList = null;
         state.commanders = [];
 
+        showTooltip(data.message);
+
       } catch (error) {
         console.error('Error:', error);
         alert('+++ Cogitator Rejects Allegiance +++\r\nA disruption in the sacred data-rites has occurred. Reinstate your will and attempt anew.');
       } finally {
         state.isLoading = false;
+        setTimeout(() => {
+            clearTooltip();
+        }, 5000);
       }
     };
 
@@ -89,11 +98,16 @@
           state.ships = state.ships.filter(ship => !excludedShipIds.includes(ship.id));
         }
 
+        showTooltip(data.message);
+
       } catch (error) {
         console.error('Error:', error);
         alert('+++ Void Registry Corrupted +++\r\nThe Machine Spirit rejects the fleet list change. Purge errors and attempt the ritual anew.');
       } finally {
         state.isLoading = false;
+        setTimeout(() => {
+            clearTooltip();
+        }, 5000);
       }
     };
 
@@ -107,11 +121,15 @@
         state.ships.push(data.ship);
         state.ships.sort((a, b) => a.order - b.order);
 
+        showTooltip(data.message);
       } catch (error) {
         console.error('Error:', error);
         alert('+++ Ship Integration Denied +++\r\nThe fleet list rejects alteration. The vessel is cast adrift, refusing induction into the fleet manifest.');
       } finally {
         state.isLoading = false;
+        setTimeout(() => {
+            clearTooltip();
+        }, 5000);
       }
     };
 
@@ -124,11 +142,15 @@
         state.fleet.points = data.points;
         state.ships = state.ships.filter(ship => ship.pivot.id !== shipPivotId);
 
+        showTooltip(data.message);
       } catch (error) {
         console.error('Error:', error);
         alert('+++ Ship Purge Denied +++\r\nThe fleet list refuses alteration. The vessel clings to the roster as if possessed.');
       } finally {
         state.isLoading = false;
+        setTimeout(() => {
+            clearTooltip();
+        }, 5000);
       }
     };
 
@@ -139,6 +161,11 @@
         }
 
         state.fleet.points = data.fleetPoints;
+
+        showTooltip(data.message);
+        setTimeout(() => {
+            clearTooltip();
+        }, 5000);
     }
 
     const handleExportPdf = async () => {
@@ -180,11 +207,15 @@
 
             state.commanders.push(data.commander);
 
+            showTooltip(data.message);
         } catch (error) {
             console.error('Error:', error);
             alert('+++ Command Induction Denied +++\r\nThe fleet rejects leadership. The officer is cast aside, unrecognized by the muster and barred from command. Audit fleet records and resubmit the officer\'s commission');
         } finally {
             state.isLoading = false;
+            setTimeout(() => {
+                clearTooltip();
+            }, 5000);
         }
     }
 
@@ -196,11 +227,15 @@
             state.fleet.points = data.points;
             state.commanders = state.commanders.filter(commander => commander.pivot.id !== commanderPivotId);
 
+            showTooltip(data.message);
         } catch (error) {
             console.error('Error:', error);
             alert('+++ Command Purge Denied +++\r\nThe fleet rejects alteration. The officer clings to the muster rolls, refusing expulsion from command. Review fleet records and renew the purge protocol.');
         } finally {
             state.isLoading = false;
+            setTimeout(() => {
+                clearTooltip();
+            }, 5000);
         }
     }
 
@@ -209,10 +244,14 @@
         try {
             const data = await apiCall(`/api/${state.fleet.id}/commander-ship-assign/${commanderPivotId}/${shipPivotId}`);
 
+            showTooltip(data.message);
         } catch (error) {
             console.error('Error:', error);
         } finally {
             state.isLoading = false;
+            setTimeout(() => {
+                clearTooltip();
+            }, 5000);
         }
     }
 </script>

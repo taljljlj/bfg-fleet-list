@@ -6,7 +6,7 @@ export function useTooltip() {
     }
 
     function clearTooltip() {
-        message.value = '';
+        message.value = null;
     }
 
     return {
