@@ -93,7 +93,7 @@ class FleetBuilderController extends Controller
         //If fleet has attached commanders return full list
         $commanders = null;
         if ($fleet->commanders()->exists()) {
-            $commanders = $fleet->commanders()->withPivot('id', 'fleet_ship_id')->get();
+            $commanders = $fleet->commanders()->withPivot('id', 'fleet_ship_id')->with('commanderRerolls')->get();
         }
 
         return view('pages.fleet-builder', compact(
@@ -340,6 +340,8 @@ class FleetBuilderController extends Controller
             ->latest('id')
             ->first();
         $commander->setRelation('pivot', $commanderPivot);
+
+        $commander->load('commanderRerolls');
 
         return response()->json([
             'message' => 'Commander added to fleet.',

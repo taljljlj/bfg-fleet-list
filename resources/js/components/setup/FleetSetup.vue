@@ -1,7 +1,11 @@
 <script setup>
 import {computed, onMounted, ref} from 'vue';
 import addShipIcon from '@images/add-ship-icon.png';
+import extraRerollIcon from '@images/extra-reroll-icon.png';
 import Dropdown from "@/components/controls/Dropdown.vue";
+import {useTooltip} from "@/composables/useTooltip.js";
+
+const {showTooltip, clearTooltip} = useTooltip();
 
 const props = defineProps({
     commanderList: {
@@ -58,6 +62,10 @@ onMounted(() => {
         });
     }
 });
+
+const handleBuyExtraRerolls = () => {
+
+}
 </script>
 
 <template>
@@ -98,18 +106,65 @@ onMounted(() => {
                         <span class="mx-2">{{commander.name}} ({{commander.points}} pts)</span>
                     </div>
                     <div class="flex">
-                        <span class="mx-2 font-family-secondary">Ld: {{commander.leadership}}</span>
-                        <span class="mx-2 font-family-secondary">Re-rolls: {{commander.rolls}}</span>
+                        <span
+                            v-if="commander.leadership_type != 'custom'"
+                            class="mx-2 font-family-secondary"
+                        >
+                            Ld: {{commander.leadership}}
+                        </span>
+                        <span
+                            v-else
+                            class="mx-2 font-family-secondary inline-block"
+                            @mouseenter="showTooltip(commander.leadership)"
+                            @mouseleave="clearTooltip"
+                        >
+                            Ld: Special &#128712;
+                        </span>
                         <span class="mx-2 font-family-secondary">Ship: </span>
                     </div>
-                    <div class="flex-1/4">
+                    <div class="flex-1/4 text-sm">
                         <Dropdown
                             :items="mappedCommanderShipList"
                             :selectedItem="selectedShips[commander.pivot.id]"
                             labelKey="name"
                             valueKey="pivotId"
                             @item-selected="(pivotId, name) => handleCommanderShipAssigned(commander.pivot.id, pivotId, name)"
+                            class="mr-2"
                         />
+                    </div>
+                    <div class="flex">
+                        <span class="mx-2 font-family-secondary">Re-rolls: {{commander.rolls}}</span>
+                        <div
+                            v-if="commander.commander_rerolls.length > 0"
+                            class="cursor-pointer user-select-none inline-block relative z-10"
+                            @click="handleBuyExtraRerolls"
+                        >
+                            <img :src="extraRerollIcon" alt="Buy Extra Rerolls" class="h-8 opacity-70 hover:opacity-100 hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)]" />
+                            <div class="absolute w-44 top-0 left-10 border-2 border-primary-500-opc-80 rounded-md bg-secondary overflow-auto text-primary-500-opc-80 z-50 text-left p-4">
+                                <h3 class="mb-4">Buy extra re-rolls:</h3>
+                                <div>
+                                    <input
+                                        type="radio"
+                                        name="reroll"
+                                        :value="null"
+                                        :id="0"
+                                    >
+                                    <label :for="0" class="px-4">None</label>
+                                </div>
+                                <div
+                                    v-for="reroll in commander.commander_rerolls"
+                                    :key="reroll.id"
+                                >
+                                    <input
+                                        type="radio"
+                                        name="reroll"
+                                        :value="reroll.id"
+                                        :id="reroll.id"
+                                    >
+                                    <label :for="reroll.id" class="px-2">+{{ reroll.modifier }} rolls ({{ reroll.points}} pts)</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </li>
             </ul>

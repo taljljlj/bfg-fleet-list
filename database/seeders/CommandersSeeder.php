@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Commander;
+use App\Models\CommanderRerolls;
 use App\Models\Faction;
 use App\Models\FleetList;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CommandersSeeder extends Seeder
@@ -23,6 +23,8 @@ class CommandersSeeder extends Seeder
             unset($commanderData['fleetlist']);
             $factionData = $commanderData['faction'];
             unset($commanderData['faction']);
+            $commanderRerolls = $commanderData['extra_rerolls'];
+            unset($commanderData['extra_rerolls']);
 
             $commanderData['faction_id'] = Faction::where('name', $factionData)->first()->id;
 
@@ -32,6 +34,16 @@ class CommandersSeeder extends Seeder
 
             foreach ($fleetListIds as $fleetListId) {
                 $commander->fleetLists()->attach($fleetListId);
+            }
+
+            $modifier = 0;
+            foreach ($commanderRerolls as $rerollPoints) {
+                $modifier++;
+                CommanderRerolls::create([
+                    'commander_id' => $commander->id,
+                    'modifier' => $modifier,
+                    'points' => $rerollPoints,
+                ]);
             }
         }
     }
