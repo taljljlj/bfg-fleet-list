@@ -227,6 +227,8 @@
             state.fleet.points = data.points;
             state.commanders = state.commanders.filter(commander => commander.pivot.id !== commanderPivotId);
 
+            resetUnassignedShipLeadership(data.unassignedShipId);
+
             showTooltip(data.message);
         } catch (error) {
             console.error('Error:', error);
@@ -244,9 +246,17 @@
         try {
             const data = await apiCall(`/api/${state.fleet.id}/commander-ship-assign/${commanderPivotId}/${shipPivotId}`);
 
+            const shipIndex = state.ships.findIndex(ship => ship.pivot.id === data.ship.pivot.id);
+            if (shipIndex !== -1) {
+                Object.assign(state.ships[shipIndex], data.ship);
+            }
+
+            resetUnassignedShipLeadership(data.unassignedShipId);
+
             showTooltip(data.message);
         } catch (error) {
             console.error('Error:', error);
+            alert('+++ Command Assignment Denied +++\r\nThe fleet resists alteration. The vessel rejects new command, its logs corrupted and its crew unyielding. Purge archives and resubmit the assignment order.');
         } finally {
             state.isLoading = false;
             setTimeout(() => {
@@ -254,6 +264,17 @@
             }, 5000);
         }
     }
+
+    const resetUnassignedShipLeadership = (unassignedShipId) => {
+        if (!unassignedShipId) return;
+
+        const unassignedShipIndex = state.ships.findIndex(
+            ship => ship.pivot.id === unassignedShipId
+        );
+        if (unassignedShipIndex !== -1) {
+            state.ships[unassignedShipIndex].pivot.leadership = null;
+        }
+    };
 
     const handleCommanderRerollsUpdated = async (data) => {
         state.fleet.points = data.fleetPoints;

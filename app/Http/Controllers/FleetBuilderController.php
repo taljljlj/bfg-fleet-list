@@ -13,6 +13,7 @@ use App\Models\FleetBuilder\FleetShip;
 use App\Models\Ship;
 use App\Services\FleetBuilderService;
 use App\Services\RefitService;
+use App\Services\ShipService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
@@ -25,14 +26,17 @@ class FleetBuilderController extends Controller
 {
     private FleetBuilderService $fleetBuilderService;
     private RefitService $refitService;
+    private ShipService $shipService;
 
     /**
      * @param FleetBuilderService $fleetBuilderService
      * @param RefitService $refitService
      */
-    public function __construct(FleetBuilderService $fleetBuilderService, RefitService $refitService) {
+    public function __construct(FleetBuilderService $fleetBuilderService, RefitService $refitService, ShipService $shipService) {
         $this->fleetBuilderService = $fleetBuilderService;
-        $this->refitService = $refitService;}
+        $this->refitService = $refitService;
+        $this->shipService = $shipService;
+    }
 
     /**
      * The first step in opening fleet builder - creating a new fleet
@@ -312,8 +316,7 @@ class FleetBuilderController extends Controller
         $value = $request->get('value');
         $shipPoints = $fleetShip->points;
 
-        $fleetShip->{$attr} = $value;
-        $fleetShip->save();
+        $fleetShip = $this->shipService->modifyShipAttribute($fleetShip, $attr, $value);
 
         if ($attr == 'points') {
             $pointDiff = $value - $shipPoints;
@@ -371,6 +374,8 @@ class FleetBuilderController extends Controller
     {
         $fleetCommanderPoints = $fleetCommander->commander->points;
 
+        $unassignedFleetShipId = $this->shipService->resetUnassignedShipLd( $fleetCommander->fleet_ship_id);
+
         $fleetCommander->delete();
 
         $fleet->points = FleetBuilderUtils::calculatePoints($fleet, -($fleetCommanderPoints));
@@ -378,7 +383,8 @@ class FleetBuilderController extends Controller
 
         return response()->json([
             'message' => 'Commander removed from fleet.',
-            'points' => $fleet->points
+            'points' => $fleet->points,
+            'unassignedShipId' => $unassignedFleetShipId ?? null,
         ]);
     }
 
@@ -390,11 +396,23 @@ class FleetBuilderController extends Controller
      */
     public function commanderAssignShip (Fleet $fleet, FleetCommander $fleetCommander, FleetShip $fleetShip) : JsonResponse
     {
+        $unassignedFleetShipId = $this->shipService->resetUnassignedShipLd( $fleetCommander->fleet_ship_id);
+
         $fleetCommander->fleet_ship_id = $fleetShip->id;
         $fleetCommander->save();
 
+        $commander = $fleetCommander->commander()->first();
+
+        if($commander->leadership_type === 'value') {
+            $fleetShip = $this->shipService->modifyShipAttribute($fleetShip, 'leadership', $commander->leadership);
+        }
+
+        $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $fleetShip->id), true, true);
+
         return response()->json([
             'message' => 'Ship assigned to commander.',
+            'ship' => $ship,
+            'unassignedShipId' => $unassignedFleetShipId ?? null,
         ]);
     }
 

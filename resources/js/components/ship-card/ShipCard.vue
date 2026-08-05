@@ -238,7 +238,7 @@ const validateLdInput = (event) => {
                 maxlength="11"
                 type="text"
                 class="ship-escort-ld w-24 text-2xl light-input"
-                v-model="shipLd"
+                v-model="props.ship.pivot.leadership"
                 @input="validateLdInput"
                 name="cardShipLd"
             />
@@ -248,7 +248,7 @@ const validateLdInput = (event) => {
                 maxlength="2"
                 type="text"
                 class="w-8 text-2xl light-input"
-                v-model="shipLd"
+                v-model="props.ship.pivot.leadership"
                 @input="validateLdInput"
                 name="cardShipLd"
             />
