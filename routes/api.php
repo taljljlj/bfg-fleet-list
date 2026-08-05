@@ -26,5 +26,6 @@ Route::prefix('{fleet}')->group(function () {
     Route::patch('/commander-add/{commander}', [FleetBuilderController::class, 'attachCommanderToFleet']);
     Route::patch('/commander-remove/{fleetCommander}', [FleetBuilderController::class, 'detachCommanderFromFleet']);
     Route::patch('/commander-ship-assign/{fleetCommander}/{fleetShip}', [FleetBuilderController::class, 'commanderAssignShip']);
+    Route::patch('/commander-rerolls/{fleetCommander}/{commanderRerolls}', [FleetBuilderController::class, 'commanderApplyExtraRerolls']);
     Route::get('/export-pdf/', [FleetBuilderController::class, 'getFleetAsPdf']);
 });

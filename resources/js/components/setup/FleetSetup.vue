@@ -1,7 +1,11 @@
 <script setup>
-import {computed, onMounted, ref} from 'vue';
+import {computed, inject, onMounted, ref} from 'vue';
 import addShipIcon from '@images/add-ship-icon.png';
+import extraRerollIcon from '@images/extra-reroll-icon.png';
 import Dropdown from "@/components/controls/Dropdown.vue";
+import {useTooltip} from "@/composables/useTooltip.js";
+
+const {showTooltip, clearTooltip} = useTooltip();
 
 const props = defineProps({
     commanderList: {
@@ -25,10 +29,13 @@ const mappedCommanderShipList = computed(() =>
     }))
 );
 
+const fleetData = inject('fleetData');
 
-const emit = defineEmits(['commander-added', 'commander-removed', 'commander-ship-assigned']);
+const emit = defineEmits(['commander-added', 'commander-removed', 'commander-ship-assigned', 'commander-rerolls-updated']);
 
 const selectedShips = ref({});
+const showExtraRerolls = ref({});
+const selectedRerolls = ref({});
 
 const handleCommanderAdd = (commanderId) => {
     emit('commander-added', commanderId);
@@ -58,6 +65,34 @@ onMounted(() => {
         });
     }
 });
+
+const handleShowExtraRerolls = async (commander) => {
+    if (showExtraRerolls.value[commander.pivot.id]) {
+        const commanderRerollId = selectedRerolls.value[commander.pivot.id] ?? null;
+        await handleApplyExtraRerolls(commander, commanderRerollId);
+    }
+
+    showExtraRerolls.value[commander.pivot.id] = !showExtraRerolls.value[commander.pivot.id];
+}
+
+const handleApplyExtraRerolls = async (commander, commanderRerollId) => {
+    try {
+        const response = await fetch(`/api/${fleetData.fleet.id}/commander-rerolls/${commander.pivot.id}/${commanderRerollId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': fleetData.csrfToken
+            },
+        });
+
+        const data = await response.json();
+        emit('commander-rerolls-updated', data);
+    } catch (error) {
+        console.error('Error applying extra re-rolls:', error);
+        alert('+++ Re-roll Augury Denied +++\r\nThe fleet rejects augmentation. The dice‑spirits refuse the officer’s plea, casting the extra rolls into silence. Review the muster and renew the augury protocol.');
+
+    }
+};
 </script>
 
 <template>
@@ -95,21 +130,76 @@ onMounted(() => {
                         >
                             ✖
                         </span>
-                        <span class="mx-2">{{commander.name}} ({{commander.points}} pts)</span>
+                        <span class="mx-2">{{commander.name}} ({{ commander.pivot.points ?? commander.points}} pts)</span>
                     </div>
                     <div class="flex">
-                        <span class="mx-2 font-family-secondary">Ld: {{commander.leadership}}</span>
-                        <span class="mx-2 font-family-secondary">Re-rolls: {{commander.rolls}}</span>
+                        <span
+                            v-if="commander.leadership_type !== 'custom'"
+                            class="mx-2 font-family-secondary"
+                        >
+                            Ld: {{commander.leadership}}
+                        </span>
+                        <span
+                            v-else
+                            class="mx-2 font-family-secondary inline-block"
+                            @mouseenter="showTooltip(commander.leadership)"
+                            @mouseleave="clearTooltip"
+                        >
+                            Ld: Special &#128712;
+                        </span>
                         <span class="mx-2 font-family-secondary">Ship: </span>
                     </div>
-                    <div class="flex-1/4">
+                    <div class="flex-1/4 text-sm">
                         <Dropdown
                             :items="mappedCommanderShipList"
                             :selectedItem="selectedShips[commander.pivot.id]"
                             labelKey="name"
                             valueKey="pivotId"
                             @item-selected="(pivotId, name) => handleCommanderShipAssigned(commander.pivot.id, pivotId, name)"
+                            class="mr-2"
                         />
+                    </div>
+                    <div class="flex">
+                        <span class="mx-2 font-family-secondary">Re-rolls: {{commander.pivot.rolls ?? commander.rolls}}</span>
+                        <div
+                            v-if="commander.commander_rerolls.length > 0"
+                            class="user-select-none inline-block relative z-10"
+                        >
+                            <img
+                                @click="handleShowExtraRerolls(commander)"
+                                :src="extraRerollIcon" alt="Buy Extra Rerolls"
+                                class="cursor-pointer h-8 opacity-70 hover:opacity-100 hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)]"
+                            />
+                            <div
+                                v-show="showExtraRerolls[commander.pivot.id]"
+                                class="user-select-none absolute w-44 top-0 left-10 border-2 border-primary-500-opc-80 rounded-md bg-secondary overflow-auto text-primary-500-opc-80 z-50 text-left p-4"
+                            >
+                                <h3 class="mb-4">Buy extra re-rolls:</h3>
+                                <div>
+                                    <input
+                                        type="radio"
+                                        :name="`reroll-${commander.pivot.id}`"
+                                        :value="0"
+                                        :id="0"
+                                        v-model="selectedRerolls[commander.pivot.id]"
+                                    >
+                                    <label :for="0" class="px-4">None</label>
+                                </div>
+                                <div
+                                    v-for="reroll in commander.commander_rerolls"
+                                    :key="reroll.id"
+                                >
+                                    <input
+                                        type="radio"
+                                        :name="`reroll-${commander.pivot.id}`"
+                                        :value="reroll.id"
+                                        :id="reroll.id"
+                                        v-model="selectedRerolls[commander.pivot.id]"
+                                    >
+                                    <label :for="reroll.id" class="px-2">+{{ reroll.modifier }} rolls ({{ reroll.points}} pts)</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </li>
             </ul>

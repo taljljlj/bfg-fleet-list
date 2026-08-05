@@ -10,6 +10,7 @@ The goal of the project is to provide a more complete and visually polished alte
 
 - Fleet building with faction and fleet list selection
 - Ship assignment and refit support
+- Commander assignment
 - Points tracking and detailed ship information
 - Readable PDF export for tabletop use
 - UI-focused presentation with ship-card-inspired exports

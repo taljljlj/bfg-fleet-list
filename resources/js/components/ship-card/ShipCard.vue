@@ -91,7 +91,8 @@ const handleApplyRefits = async () => {
     emit('ship-updated', data);
   } catch (error) {
     console.error('Error applying refits:', error);
-    alert('Failed to apply refits. Please try again.');
+      alert('+++ Refit Protocol Denied +++\r\nThe fleet rejects alteration. The Machine Spirit resists the sacred modifications, casting the refits into the void. Inspect the schematics and renew the ritual of reforging.');
+
   }
 };
 
