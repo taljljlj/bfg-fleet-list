@@ -18,5 +18,9 @@ class Commander extends Model
         return $this->belongsToMany(FleetList::class, 'fleet_list_commanders');
     }
 
+    public function commanderRerolls () {
+        return $this->hasMany(CommanderRerolls::class);
+    }
+
 
 }

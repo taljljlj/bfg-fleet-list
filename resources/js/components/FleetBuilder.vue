@@ -254,6 +254,15 @@
             }, 5000);
         }
     }
+
+    const handleCommanderRerollsUpdated = async (data) => {
+        state.fleet.points = data.fleetPoints;
+
+        const index = state.commanders.findIndex(c => c.id === data.commander.id);
+        if (index !== -1) {
+            state.commanders.splice(index, 1, data.commander);
+        }
+    }
 </script>
 
 <template>
@@ -316,6 +325,7 @@
             @commander-added="handleCommanderAdded"
             @commander-removed="handleCommanderRemoved"
             @commander-ship-assigned="handleCommanderShipAssigned"
+            @commander-rerolls-updated="handleCommanderRerollsUpdated"
         />
 
       <!-- Ship Cards -->
