@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\FleetBuilderUtils;
 use App\Models\Commander;
+use App\Models\CommanderRerolls;
 use App\Models\Faction;
 use App\Models\Fleet;
 use App\Models\FleetBuilder\FleetCommander;
@@ -93,7 +94,10 @@ class FleetBuilderController extends Controller
         //If fleet has attached commanders return full list
         $commanders = null;
         if ($fleet->commanders()->exists()) {
-            $commanders = $fleet->commanders()->withPivot('id', 'fleet_ship_id')->with('commanderRerolls')->get();
+            $commanders = $fleet->commanders()
+                ->withPivot('id', 'fleet_ship_id', 'points', 'rolls')
+                ->with('commanderRerolls')
+                ->get();
         }
 
         return view('pages.fleet-builder', compact(
@@ -329,7 +333,13 @@ class FleetBuilderController extends Controller
      */
     public function attachCommanderToFleet(Fleet $fleet, Commander $commander) : JsonResponse
     {
-        $fleet->commanders()->attach($commander);
+        $fleet->commanders()->attach(
+            $commander,
+            [
+                'points' => $commander->points,
+                'rolls' => $commander->rolls
+            ]
+        );
 
         $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $commander->points);
         $fleet->save();
@@ -383,6 +393,39 @@ class FleetBuilderController extends Controller
 
         return response()->json([
             'message' => 'Ship assigned to commander.',
+        ]);
+    }
+
+    public function commanderApplyExtraRerolls (Fleet $fleet, FleetCommander $fleetCommander, ?int $commanderRerollId) : JsonResponse
+    {
+        $commander = $fleetCommander->commander()->first();
+
+        if($commanderRerollId) {
+            $commanderReroll = CommanderRerolls::findOrFail($commanderRerollId);
+
+            $rerollPoints = $commanderReroll->points;
+            $rerollModifier = $commanderReroll->modifier;
+        } else {
+            $rerollPoints = 0;
+            $rerollModifier = 0;
+        }
+
+        $pointsDiff = ($commander->points + $rerollPoints) - $fleetCommander->points;
+        $fleet->points = FleetBuilderUtils::calculatePoints($fleet, $pointsDiff);
+        $fleet->save();
+
+        $fleetCommander->points = $commander->points + $rerollPoints;
+        $fleetCommander->rolls = (int)$commander->rolls + (int)$rerollModifier;
+
+        $fleetCommander->save();
+
+        $commander->setRelation('pivot', $fleetCommander);
+        $commander->load('commanderRerolls');
+
+        return response()->json([
+            'message' => 'Extra re-rolls choice applied.',
+            'commander' => $commander,
+            'fleetPoints' => $fleet->points
         ]);
     }
 
