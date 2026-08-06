@@ -246,6 +246,11 @@
         try {
             const data = await apiCall(`/api/${state.fleet.id}/commander-ship-assign/${commanderPivotId}/${shipPivotId}`);
 
+            const commander = state.commanders.find(commander => commander.pivot.id === commanderPivotId);
+            if (commander) {
+                commander.pivot.fleet_ship_id = shipPivotId;
+            }
+
             const shipIndex = state.ships.findIndex(ship => ship.pivot.id === data.ship.pivot.id);
             if (shipIndex !== -1) {
                 Object.assign(state.ships[shipIndex], data.ship);
@@ -284,6 +289,20 @@
             state.commanders.splice(index, 1, data.commander);
         }
     }
+
+    const commanderByShipId = computed(() => {
+        const commanders = {};
+
+        state.commanders.forEach(commander => {
+            const shipId = commander.pivot?.fleet_ship_id;
+
+            if (shipId !== null && shipId !== undefined) {
+                commanders[shipId] = commander;
+            }
+        });
+
+        return commanders;
+    });
 </script>
 
 <template>
@@ -355,6 +374,7 @@
           v-for="ship in state.ships"
           :key="ship.pivot.id"
           :ship="ship"
+          :commander="commanderByShipId[ship.pivot.id]"
           @ship-removed="handleShipRemoved"
           @ship-updated="handleShipUpdated"
         />

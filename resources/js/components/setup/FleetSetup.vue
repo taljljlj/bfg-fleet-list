@@ -1,7 +1,7 @@
 <script setup>
 import {computed, inject, onMounted, ref} from 'vue';
 import addShipIcon from '@images/add-ship-icon.png';
-import extraRerollIcon from '@images/extra-reroll-icon.png';
+import extraRerollIcon from '@images/fleet-builder/extra-reroll-icon.png';
 import Dropdown from "@/components/controls/Dropdown.vue";
 import {useTooltip} from "@/composables/useTooltip.js";
 

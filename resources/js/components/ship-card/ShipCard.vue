@@ -12,6 +12,10 @@ const props = defineProps({
   ship: {
     type: Object,
     required: true
+  },
+  commander: {
+    type: Object,
+    default: null
   }
 });
 
@@ -270,7 +274,7 @@ const validateLdInput = (event) => {
 
     <div class="card-ship-body font-secondary tracking-tight flex flex-wrap flex-row pt-0.5">
         <div class="card-section-t flex justify-evenly items-center w-full">
-            <div ref="refitsSectionRef" class="card-subsec-l flex flex-col w-1/2">
+            <div ref="refitsSectionRef" class="card-subsec-l flex flex-col w-1/2 relative">
                 <div v-if="hasRefits">
                     <div ref="refitButtonRef"
                          class="card-ship-refit-btn collapsed absolute top-2.5 left-2.5 h-7 w-7 p-0.5 cursor-pointer z-50 bg-secondary rounded-md border-2 border-primary-500-opc-80 hover:border-primary-500 hover:shadow-[0_0_20px_#365773] group"
@@ -278,8 +282,8 @@ const validateLdInput = (event) => {
                          @mouseenter="showTooltip('Refit ship')"
                          @mouseleave="clearTooltip"
                     >
-                            <img class="refit-icon group-hover:contrast-150 group-hover:brightness-90 hidden group-[.collapsed]:block" src="/images/fleet-builder/refit-icon.png" alt="Refit Icon">
-                            <img class="apply-icon group-hover:contrast-150 group-hover:brightness-90 group-[.collapsed]:hidden" src="/images/fleet-builder/apply-icon.png" alt="Refit Icon">
+                            <img src="/images/fleet-builder/refit-icon.png" alt="Refit Icon" class="refit-icon group-hover:contrast-150 group-hover:brightness-90 hidden group-[.collapsed]:block">
+                            <img src="/images/fleet-builder/apply-icon.png" alt="Refit Icon" class="apply-icon group-hover:contrast-150 group-hover:brightness-90 group-[.collapsed]:hidden">
                     </div>
                 </div>
                 <ShipRefitsModal
@@ -294,6 +298,10 @@ const validateLdInput = (event) => {
                         alt="Ship Profile Image"
                         @error="handleShipImageError"
                     >
+                </div>
+                <div v-if="commander" class="absolute bottom-0 left-2.5 flex items-end">
+                    <img src="/images/fleet-builder/commander-icon.png" alt="Commander Icon" class="h-8 opacity-80 inline-block">
+                    <span class="font-family-secondary text-primary-500-opc-80 text-md inline-block ml-1">{{ commander.name }}</span>
                 </div>
             </div>
             <div class="card-subsec-r flex flex-col w-1/2 px-2.5">
