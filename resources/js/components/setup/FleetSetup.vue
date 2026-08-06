@@ -1,7 +1,7 @@
 <script setup>
 import {computed, inject, onMounted, ref} from 'vue';
 import addShipIcon from '@images/add-ship-icon.png';
-import extraRerollIcon from '@images/extra-reroll-icon.png';
+import extraRerollIcon from '@images/fleet-builder/extra-reroll-icon.png';
 import Dropdown from "@/components/controls/Dropdown.vue";
 import {useTooltip} from "@/composables/useTooltip.js";
 
@@ -133,20 +133,7 @@ const handleApplyExtraRerolls = async (commander, commanderRerollId) => {
                         <span class="mx-2">{{commander.name}} ({{ commander.pivot.points ?? commander.points}} pts)</span>
                     </div>
                     <div class="flex">
-                        <span
-                            v-if="commander.leadership_type !== 'custom'"
-                            class="mx-2 font-family-secondary"
-                        >
-                            Ld: {{commander.leadership}}
-                        </span>
-                        <span
-                            v-else
-                            class="mx-2 font-family-secondary inline-block"
-                            @mouseenter="showTooltip(commander.leadership)"
-                            @mouseleave="clearTooltip"
-                        >
-                            Ld: Special &#128712;
-                        </span>
+                        <span class="mx-2 font-family-secondary">Ld: {{commander.leadership}}</span>
                         <span class="mx-2 font-family-secondary">Ship: </span>
                     </div>
                     <div class="flex-1/4 text-sm">

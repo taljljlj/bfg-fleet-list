@@ -224,8 +224,10 @@
         try {
             const data = await apiCall(`/api/${state.fleet.id}/commander-remove/${commanderPivotId}`);
 
-            state.fleet.points = data.points;
+            state.fleet.points = data.fleetPoints;
             state.commanders = state.commanders.filter(commander => commander.pivot.id !== commanderPivotId);
+
+            resetUnassignedShip(data.unassignedShip);
 
             showTooltip(data.message);
         } catch (error) {
@@ -244,9 +246,22 @@
         try {
             const data = await apiCall(`/api/${state.fleet.id}/commander-ship-assign/${commanderPivotId}/${shipPivotId}`);
 
+            const commander = state.commanders.find(commander => commander.pivot.id === commanderPivotId);
+            if (commander) {
+                commander.pivot.fleet_ship_id = shipPivotId;
+            }
+
+            const shipIndex = state.ships.findIndex(ship => ship.pivot.id === data.ship.pivot.id);
+            if (shipIndex !== -1) {
+                Object.assign(state.ships[shipIndex], data.ship);
+            }
+
+            resetUnassignedShip(data.unassignedShip);
+
             showTooltip(data.message);
         } catch (error) {
             console.error('Error:', error);
+            alert('+++ Command Assignment Denied +++\r\nThe fleet resists alteration. The vessel rejects new command, its logs corrupted and its crew unyielding. Purge archives and resubmit the assignment order.');
         } finally {
             state.isLoading = false;
             setTimeout(() => {
@@ -254,6 +269,17 @@
             }, 5000);
         }
     }
+
+    const resetUnassignedShip = (unassignedShip) => {
+        if (!unassignedShip) return;
+
+        const unassignedShipIndex = state.ships.findIndex(
+            ship => ship.pivot.id === unassignedShip.pivot.id
+        );
+        if (unassignedShipIndex !== -1) {
+            Object.assign(state.ships[unassignedShipIndex], unassignedShip);
+        }
+    };
 
     const handleCommanderRerollsUpdated = async (data) => {
         state.fleet.points = data.fleetPoints;
@@ -263,6 +289,20 @@
             state.commanders.splice(index, 1, data.commander);
         }
     }
+
+    const commanderByShipId = computed(() => {
+        const commanders = {};
+
+        state.commanders.forEach(commander => {
+            const shipId = commander.pivot?.fleet_ship_id;
+
+            if (shipId !== null && shipId !== undefined) {
+                commanders[shipId] = commander;
+            }
+        });
+
+        return commanders;
+    });
 </script>
 
 <template>
@@ -334,6 +374,7 @@
           v-for="ship in state.ships"
           :key="ship.pivot.id"
           :ship="ship"
+          :commander="commanderByShipId[ship.pivot.id]"
           @ship-removed="handleShipRemoved"
           @ship-updated="handleShipUpdated"
         />

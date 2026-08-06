@@ -19,6 +19,7 @@ return new class extends Migration
             $table->smallInteger('points');
             $table->string('rolls');
             $table->foreignId('faction_id')->constrained('factions');
+            $table->foreignId('rule_id')->nullable()->constrained('rules');
         });
     }
 
