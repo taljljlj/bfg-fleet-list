@@ -224,10 +224,10 @@
         try {
             const data = await apiCall(`/api/${state.fleet.id}/commander-remove/${commanderPivotId}`);
 
-            state.fleet.points = data.points;
+            state.fleet.points = data.fleetPoints;
             state.commanders = state.commanders.filter(commander => commander.pivot.id !== commanderPivotId);
 
-            resetUnassignedShipLeadership(data.unassignedShipId);
+            resetUnassignedShip(data.unassignedShip);
 
             showTooltip(data.message);
         } catch (error) {
@@ -251,7 +251,7 @@
                 Object.assign(state.ships[shipIndex], data.ship);
             }
 
-            resetUnassignedShipLeadership(data.unassignedShipId);
+            resetUnassignedShip(data.unassignedShip);
 
             showTooltip(data.message);
         } catch (error) {
@@ -265,14 +265,14 @@
         }
     }
 
-    const resetUnassignedShipLeadership = (unassignedShipId) => {
-        if (!unassignedShipId) return;
+    const resetUnassignedShip = (unassignedShip) => {
+        if (!unassignedShip) return;
 
         const unassignedShipIndex = state.ships.findIndex(
-            ship => ship.pivot.id === unassignedShipId
+            ship => ship.pivot.id === unassignedShip.pivot.id
         );
         if (unassignedShipIndex !== -1) {
-            state.ships[unassignedShipIndex].pivot.leadership = null;
+            Object.assign(state.ships[unassignedShipIndex], unassignedShip);
         }
     };
 

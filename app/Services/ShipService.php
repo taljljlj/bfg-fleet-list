@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\FleetBuilder\FleetCommander;
 use App\Models\FleetBuilder\FleetShip;
+use App\Models\FleetBuilder\FleetShipRule;
+use App\Models\Rules;
 
 class ShipService
 {
@@ -22,16 +25,33 @@ class ShipService
     }
 
     /**
-     * @param int|null $id
-     * @return int|null
+     * @param FleetCommander $fleetCommander
+     * @return FleetShip|null
      */
-    public function resetUnassignedShipLd (int|null $id) : int|null
+    public function resetUnassignedShip (FleetCommander $fleetCommander) : FleetShip|null
     {
-        if($id) {
-            $unassignedFleetShip = FleetShip::findOrFail($id);
-            $this->modifyShipAttribute($unassignedFleetShip, 'leadership', null);
+        if($fleetCommander->fleet_ship_id) {
+            $fleetShip = FleetShip::findOrFail($fleetCommander->fleet_ship_id);
+            $commander = $fleetCommander->commander()->first();
+
+            switch ($commander->leadership_type) {
+                case 'value':
+                    $this->modifyShipAttribute($fleetShip, 'leadership', null);
+                    break;
+
+                case 'rule':
+                    $rule = $commander->rule()->first();
+                    FleetShipRule::where('fleet_ship_id', $fleetShip->id)
+                        ->where('text', $rule->text)
+                        ->where('text_long', $rule->text_long)
+                        ->delete();
+                    break;
+
+                default:
+                    return null;
+            }
         }
 
-        return $unassignedFleetShip->id ?? null;
+        return $fleetShip ?? null;
     }
 }

@@ -398,5 +398,30 @@
         "name": "Nicassar Ld",
         "text": "Ld: parent ship +1",
         "text_long": "Their Leadership is the same as their parent ship +1 as the Nicassar are natural spacefarers."
+    },
+    {
+        "name": "Commander Ld 1",
+        "text": "Commander: Ld +1 (max 10)",
+        "text_long": "Ship has a commander assigned increasing its leadership roll +1 (max Ld 10)."
+    },
+    {
+        "name": "Commander Ld 2",
+        "text": "Commander: Ld +1 (max 9)",
+        "text_long": "Ship has a commander assigned increasing its leadership roll +1 (max Ld 9)."
+    },
+    {
+        "name": "Commander Ld 3",
+        "text": "Commander: Ld +2 (max 10)",
+        "text_long": "Ship has a commander assigned increasing its leadership roll +2 (max Ld 10)."
+    },
+    {
+        "name": "Commander Ld 4",
+        "text": "Commander: Ld +2 (max 9)",
+        "text_long": "Ship has a commander assigned increasing its leadership roll +2 (max Ld 9)."
+    },
+    {
+        "name": "Commander Ld 5",
+        "text": "Commander: use Space Marine Ld table",
+        "text_long": "Ship has a Space Marine commander assigned, when rolling for leadership roll against Space Marine leadership table."
     }
 ]

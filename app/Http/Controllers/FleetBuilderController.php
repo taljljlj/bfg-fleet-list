@@ -374,17 +374,21 @@ class FleetBuilderController extends Controller
     {
         $fleetCommanderPoints = $fleetCommander->commander->points;
 
-        $unassignedFleetShipId = $this->shipService->resetUnassignedShipLd( $fleetCommander->fleet_ship_id);
+        $unassignedFleetShip = $this->shipService->resetUnassignedShip($fleetCommander);
 
         $fleetCommander->delete();
 
         $fleet->points = FleetBuilderUtils::calculatePoints($fleet, -($fleetCommanderPoints));
         $fleet->save();
 
+        if ($unassignedFleetShip) {
+            $unassignedShip = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $unassignedFleetShip->id), true, true);
+        }
+
         return response()->json([
             'message' => 'Commander removed from fleet.',
-            'points' => $fleet->points,
-            'unassignedShipId' => $unassignedFleetShipId ?? null,
+            'fleetPoints' => $fleet->points,
+            'unassignedShip' => $unassignedFleetShip ? $unassignedShip : null,
         ]);
     }
 
@@ -396,7 +400,7 @@ class FleetBuilderController extends Controller
      */
     public function commanderAssignShip (Fleet $fleet, FleetCommander $fleetCommander, FleetShip $fleetShip) : JsonResponse
     {
-        $unassignedFleetShipId = $this->shipService->resetUnassignedShipLd( $fleetCommander->fleet_ship_id);
+        $unassignedFleetShip = $this->shipService->resetUnassignedShip($fleetCommander);
 
         $fleetCommander->fleet_ship_id = $fleetShip->id;
         $fleetCommander->save();
@@ -405,14 +409,23 @@ class FleetBuilderController extends Controller
 
         if($commander->leadership_type === 'value') {
             $fleetShip = $this->shipService->modifyShipAttribute($fleetShip, 'leadership', $commander->leadership);
+        } else if ($commander->leadership_type === 'rule') {
+            $rule = $commander->rule()->first();
+            $fleetShip->additionalRules()->create([
+                'text' => $rule->text,
+                'text_long' => $rule->text_long,
+            ]);
         }
 
         $ship = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $fleetShip->id), true, true);
+        if($unassignedFleetShip) {
+            $unassignedShip = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships()->wherePivot('id', $unassignedFleetShip->id), true, true);
+        }
 
         return response()->json([
             'message' => 'Ship assigned to commander.',
             'ship' => $ship,
-            'unassignedShipId' => $unassignedFleetShipId ?? null,
+            'unassignedShip' => $unassignedFleetShip ? $unassignedShip : null,
         ]);
     }
 

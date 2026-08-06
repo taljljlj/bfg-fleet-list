@@ -6,6 +6,7 @@ use App\Models\Commander;
 use App\Models\CommanderRerolls;
 use App\Models\Faction;
 use App\Models\FleetList;
+use App\Models\Rules;
 use Illuminate\Database\Seeder;
 
 class CommandersSeeder extends Seeder
@@ -25,6 +26,13 @@ class CommandersSeeder extends Seeder
             unset($commanderData['faction']);
             $commanderRerolls = $commanderData['extra_rerolls'];
             unset($commanderData['extra_rerolls']);
+
+            if ($commanderData['rule']) {
+                $commanderData['rule_id'] = Rules::where('name', $commanderData['rule'])->first()->id;
+            } else {
+                $commanderData['rule_id'] = null;
+            }
+            unset($commanderData['rule']);
 
             $commanderData['faction_id'] = Faction::where('name', $factionData)->first()->id;
 

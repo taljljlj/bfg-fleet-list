@@ -22,5 +22,7 @@ class Commander extends Model
         return $this->hasMany(CommanderRerolls::class);
     }
 
-
+    public function rule() {
+        return $this->belongsTo(Rules::class);
+    }
 }
