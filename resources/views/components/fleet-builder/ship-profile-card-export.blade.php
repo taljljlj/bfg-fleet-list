@@ -111,7 +111,7 @@
                                 <h4>Escorts Ld & HP</h4>
                                 @for($i=1; $i<=$ship->pivot->squadron_counter; $i++)
                                     <div class="hp-col">
-                                        <div class="hp-box">{{ $escortLd[$i-1] }}</div>
+                                        <div class="hp-box">{{ $escortLd[$i-1] ?? '' }}</div>
                                         <p>{{ $i }}</p>
                                     </div>
                                 @endfor
