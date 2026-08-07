@@ -469,8 +469,9 @@ class FleetBuilderController extends Controller
 
             $faction = $fleet->faction()->first();
             $fleetList = $fleet->fleetList()->first();
+            $commanders = $fleet->commanders()->withPivot('id', 'fleet_ship_id', 'points', 'rolls')->orderBy('points', 'desc')->get();
 
-            $pdf = Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList', 'fleet'))
+            $pdf = Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList', 'fleet', 'commanders'))
                 ->withBrowsershot(fn(Browsershot $browsershot) =>
                     $browsershot->scale(0.55)
                         ->noSandbox() //PDF generation stalls with sandbox on Windows. Might be redundant if hosted on Linux but security implications are low as there is no backdoor to inject malicious html
@@ -493,7 +494,8 @@ class FleetBuilderController extends Controller
 
         $faction = $fleet->faction()->first();
         $fleetList = $fleet->fleetList()->first();
+        $commanders = $fleet->commanders()->withPivot('id', 'fleet_ship_id', 'points', 'rolls')->orderBy('points', 'desc')->get();
 
-        return view('pages.fleet-export', compact('faction', 'ships', 'fleetList', 'fleet'));
+        return view('pages.fleet-export', compact('faction', 'ships', 'fleetList', 'fleet', 'commanders'));
     }
 }
