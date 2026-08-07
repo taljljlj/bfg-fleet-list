@@ -1,9 +1,8 @@
 name: Deploy Laravel/Vue App
 
 on:
-  push:
-    tags:
-      - 'v*'  # Only triggers on version tags
+  release:
+    types: [published]
 
 jobs:
   deploy:
