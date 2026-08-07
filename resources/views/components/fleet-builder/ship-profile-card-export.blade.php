@@ -5,19 +5,21 @@
 {{--                <div class="card-faction-img">--}}
 {{--                    <img src="{{ asset('images/factions/imperium-logo.png') }}" alt="Faction logo">--}}
 {{--                </div>--}}
-                <div class="card-ship-class heading">{{ $ship->class }}</div>
+                <div class="card-ship-class heading">{{ $ship->class }} {{ $ship->type === 'Escort' ? 'Squadron (' . $ship->pivot->squadron_counter . ')' : '' }}</div>
                 <div class="card-input">
-                    <label for="ship-name">Ship Name:</label>
+                    <label for="ship-name">{{ $ship->type === 'Escort' ? 'Squadron' : 'Ship' }} Name:</label>
                     <input type="text" name="ship-name" value="{{ $ship->pivot->name ?: '' }}">
                 </div>
             </div>
             <div class="card-subsec-r">
+                @if($ship->type != 'Escort')
                 <div class="card-ship-ld card-input heading">
                     <label for="cardShipLd">Ld:</label>
                     <input type="text" name="cardShipLd" value="{{ $ship->pivot->leadership ?: '' }}">
                 </div>
+                @endif
                 <div class="card-ship-pts card-input heading">
-                    <label for="cardShipPts">Pts:</label>
+                    <label for="cardShipPts">{{ $ship->type === 'Escort' ? 'Pts per ship' : 'Pts' }}:</label>
                     <input type="text" name="cardShipPts" placeholder="{{ $ship->pivot->points }}">
                 </div>
             </div>
@@ -28,6 +30,17 @@
                     <div class="card-ship-img">
                         <img src="{{ asset(file_exists(public_path('images/ships/' . $ship->img_url)) ? ('images/ships/' . $ship->img_url) : ('images/ships/ship-no-image.png')) }}" alt="Ship Profile Image">
                     </div>
+                    @php
+                        $shipCommander = $commanders->first(function ($commander) use ($ship) {
+                            return $commander->pivot->fleet_ship_id === $ship->pivot->id;
+                        })
+                    @endphp
+                    @if($shipCommander)
+                    <div class="commander-tag">
+                        <img src="{{ asset('images/fleet-builder/commander-icon.png') }}" alt="Commander Icon">
+                        <span>{{ $shipCommander->name }}</span>
+                    </div>
+                    @endif
                 </div>
                 <div class="card-subsec-r">
                     <div class="card-ship-stats">
@@ -89,22 +102,38 @@
             </div>
             <div class="card-section-b">
                 <div class="card-subsec-l">
-                    <div class="card-ship-hp">
-                        @for($i=1; $i<=$ship->hitpoints;$i++)
-                            @if($i==1)
-                                <div class="hp-row-1">
-                            @endif
-                                    <div class="hp-box"></div>
-                            @if($i == ($ship->hitpoints/2))
-                                </div>
-                                <div class="hp-row-2">
-                            @endif
-                            @if($i == $ship->hitpoints)
-                                </div>
-                            @endif
-                        @endfor
-                    </div>
-                    <div class="card-ship-crits">
+                        @if($ship->type === 'Escort')
+                            @php
+                                $escortLdDigits = str_replace('-', '', (string)$ship->pivot->leadership);
+                                $escortLd = str_split($escortLdDigits);
+                            @endphp
+                            <div class="card-ship-hp escorts-hp">
+                                <h4>Escorts Ld & HP</h4>
+                                @for($i=1; $i<=$ship->pivot->squadron_counter; $i++)
+                                    <div class="hp-col">
+                                        <div class="hp-box">{{ $escortLd[$i-1] }}</div>
+                                        <p>{{ $i }}</p>
+                                    </div>
+                                @endfor
+                            </div>
+                        @else
+                            <div class="card-ship-hp">
+                                @for($i=1; $i<=$ship->hitpoints;$i++)
+                                    @if($i==1)
+                                        <div class="hp-row-1">
+                                    @endif
+                                            <div class="hp-box"></div>
+                                    @if($i == ($ship->hitpoints/2))
+                                        </div>
+                                        <div class="hp-row-2">
+                                    @endif
+                                    @if($i == $ship->hitpoints)
+                                        </div>
+                                    @endif
+                                @endfor
+                            </div>
+                        @endif
+                    <div class="card-ship-crits {{ $ship->type === 'Escort' ? 'escorts-crits' : '' }}">
                         <h4>Critical Damages</h4>
                         <div class="card-ship-crits-container">
                             <div class="crit-box">
