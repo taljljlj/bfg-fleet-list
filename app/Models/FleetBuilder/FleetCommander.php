@@ -14,7 +14,9 @@ class FleetCommander extends Pivot
     }
 
     //Accessors
-    public function getArmourShortAttribute() {
-        return str_replace('front', 'f', $this->armour);
+    public function getCommanderRerollIdAttribute($value)
+    {
+        return $value ?? 0;
     }
+
 }

@@ -67,8 +67,9 @@ onMounted(() => {
 });
 
 const handleShowExtraRerolls = async (commander) => {
+    console.log(commander);
     if (showExtraRerolls.value[commander.pivot.id]) {
-        const commanderRerollId = selectedRerolls.value[commander.pivot.id] ?? null;
+        const commanderRerollId = commander.pivot.commander_reroll_id ?? 0;
         await handleApplyExtraRerolls(commander, commanderRerollId);
     }
 
@@ -162,28 +163,25 @@ const handleApplyExtraRerolls = async (commander, commanderRerollId) => {
                                 class="user-select-none absolute w-44 top-0 left-10 border-2 border-primary-500-opc-80 rounded-md bg-secondary overflow-auto text-primary-500-opc-80 z-50 text-left p-4"
                             >
                                 <h3 class="mb-4">Buy extra re-rolls:</h3>
-                                <div>
-                                    <input
-                                        type="radio"
-                                        :name="`reroll-${commander.pivot.id}`"
-                                        :value="0"
-                                        :id="0"
-                                        v-model="selectedRerolls[commander.pivot.id]"
-                                    >
-                                    <label :for="0" class="px-4">None</label>
-                                </div>
-                                <div
-                                    v-for="reroll in commander.commander_rerolls"
-                                    :key="reroll.id"
-                                >
+                                <input
+                                    type="radio"
+                                    :name="`reroll-${commander.pivot.id}`"
+                                    :value="0"
+                                    :id="`reroll-${commander.pivot.id}-0`"
+                                    v-model="commander.pivot.commander_reroll_id"
+                                />
+                                <label :for="`reroll-${commander.pivot.id}-0`" class="px-4">None</label>
+                                <div v-for="reroll in commander.commander_rerolls" :key="reroll.id">
                                     <input
                                         type="radio"
                                         :name="`reroll-${commander.pivot.id}`"
                                         :value="reroll.id"
-                                        :id="reroll.id"
-                                        v-model="selectedRerolls[commander.pivot.id]"
-                                    >
-                                    <label :for="reroll.id" class="px-2">+{{ reroll.modifier }} rolls ({{ reroll.points}} pts)</label>
+                                        :id="`reroll-${commander.pivot.id}-${reroll.id}`"
+                                        v-model="commander.pivot.commander_reroll_id"
+                                    />
+                                    <label :for="`reroll-${commander.pivot.id}-${reroll.id}`" class="px-2">
+                                        +{{ reroll.modifier }} rolls ({{ reroll.points }} pts)
+                                    </label>
                                 </div>
                             </div>
                         </div>

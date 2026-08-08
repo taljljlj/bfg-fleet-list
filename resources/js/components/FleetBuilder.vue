@@ -284,7 +284,7 @@
     const handleCommanderRerollsUpdated = async (data) => {
         state.fleet.points = data.fleetPoints;
 
-        const index = state.commanders.findIndex(c => c.id === data.commander.id);
+        const index = state.commanders.findIndex(c => c.pivot.id === data.commander.pivot.id);
         if (index !== -1) {
             state.commanders.splice(index, 1, data.commander);
         }
