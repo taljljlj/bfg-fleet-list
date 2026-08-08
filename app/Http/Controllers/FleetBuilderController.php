@@ -99,7 +99,7 @@ class FleetBuilderController extends Controller
         $commanders = null;
         if ($fleet->commanders()->exists()) {
             $commanders = $fleet->commanders()
-                ->withPivot('id', 'fleet_ship_id', 'points', 'rolls')
+                ->withPivot('id', 'fleet_ship_id', 'points', 'rolls', 'commander_reroll_id')
                 ->with('commanderRerolls')
                 ->get();
         }
@@ -436,11 +436,12 @@ class FleetBuilderController extends Controller
         if($commanderRerollId) {
             $commanderReroll = CommanderRerolls::findOrFail($commanderRerollId);
 
+            $rerollId = $commanderReroll->id;
             $rerollPoints = $commanderReroll->points;
             $rerollModifier = $commanderReroll->modifier;
         } else {
-            $rerollPoints = 0;
-            $rerollModifier = 0;
+            $rerollId = null;
+            $rerollPoints = $rerollModifier = 0;
         }
 
         $pointsDiff = ($commander->points + $rerollPoints) - $fleetCommander->points;
@@ -449,6 +450,7 @@ class FleetBuilderController extends Controller
 
         $fleetCommander->points = $commander->points + $rerollPoints;
         $fleetCommander->rolls = (int)$commander->rolls + (int)$rerollModifier;
+        $fleetCommander->commander_reroll_id = $rerollId;
 
         $fleetCommander->save();
 
