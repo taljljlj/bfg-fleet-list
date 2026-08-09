@@ -247,6 +247,14 @@ class FleetBuilderController extends Controller
 
         $fleetShip->delete();
 
+        //Cleanup
+        $fleetCommander = FleetCommander::where('fleet_ship_id', $shipPivotId)->first();
+        if ($fleetCommander) {
+            $fleetCommander->fleet_ship_id = null;
+            $fleetCommander->save();
+        }
+
+        //Update fleet points
         $fleet->points = FleetBuilderUtils::calculatePoints($fleet, -($shipPoints));
         $fleet->save();
 

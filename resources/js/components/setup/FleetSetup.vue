@@ -1,5 +1,5 @@
 <script setup>
-import {computed, inject, onMounted, ref} from 'vue';
+import {computed, inject, ref} from 'vue';
 import addShipIcon from '@images/add-ship-icon.png';
 import extraRerollIcon from '@images/fleet-builder/extra-reroll-icon.png';
 import Dropdown from "@/components/controls/Dropdown.vue";
@@ -19,6 +19,10 @@ const props = defineProps({
     ships: {
         type: Object,
         default: null
+    },
+    commanderSelectedShips: {
+        type: Object,
+        default: () => ({})
     }
 });
 
@@ -33,7 +37,6 @@ const fleetData = inject('fleetData');
 
 const emit = defineEmits(['commander-added', 'commander-removed', 'commander-ship-assigned', 'commander-rerolls-updated']);
 
-const selectedShips = ref({});
 const showExtraRerolls = ref({});
 const selectedRerolls = ref({});
 
@@ -46,25 +49,8 @@ const handleCommanderRemove = (commanderId) => {
 }
 
 const handleCommanderShipAssigned = (commanderPivotId, shipPivotId, shipName) => {
-    selectedShips.value[commanderPivotId] = { pivotId: shipPivotId, name: shipName };
-    emit('commander-ship-assigned', commanderPivotId, shipPivotId);
+    emit('commander-ship-assigned', commanderPivotId, shipPivotId, shipName);
 };
-
-onMounted(() => {
-    if (props.commanders) {
-        props.commanders.forEach(commander => {
-            if (commander.pivot?.fleet_ship_id) {
-                const ship = props.ships.find(s => s.pivot.id === commander.pivot.fleet_ship_id);
-                if (ship) {
-                    selectedShips.value[commander.pivot.id] = {
-                        pivotId: ship.pivot.id,
-                        name: ship.pivot.name ?? ship.class
-                    };
-                }
-            }
-        });
-    }
-});
 
 const handleShowExtraRerolls = async (commander) => {
     console.log(commander);
@@ -140,7 +126,7 @@ const handleApplyExtraRerolls = async (commander, commanderRerollId) => {
                     <div class="flex-1/4 text-sm">
                         <Dropdown
                             :items="mappedCommanderShipList"
-                            :selectedItem="selectedShips[commander.pivot.id]"
+                            :selectedItem="props.commanderSelectedShips[commander.pivot.id]"
                             labelKey="name"
                             valueKey="pivotId"
                             @item-selected="(pivotId, name) => handleCommanderShipAssigned(commander.pivot.id, pivotId, name)"
