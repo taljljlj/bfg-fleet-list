@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\FleetBuilder\FleetCommander;
 use App\Models\FleetBuilder\FleetShip;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,6 +30,6 @@ class Fleet extends Model
     }
 
     public function commanders() {
-        return $this->belongsToMany(Commander::class, 'fleet_commander')->withTimestamps();
+        return $this->belongsToMany(Commander::class, 'fleet_commander')->using(FleetCommander::class)->withTimestamps();
     }
 }

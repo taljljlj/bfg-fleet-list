@@ -1,5 +1,5 @@
 <script setup>
-    import { reactive, inject, computed } from 'vue';
+import {reactive, inject, computed, onMounted, watch} from 'vue';
     import FactionSelector from './setup/FactionSelector.vue';
     import FleetListSelector from './setup/FleetListSelector.vue';
     import ShipList from './setup/ShipList.vue';
@@ -23,7 +23,8 @@
       ships: fleetData.ships || [],
       commanderList: fleetData.commanderList,
       commanders: fleetData.commanders || [],
-      isLoading: false
+      isLoading: false,
+      commanderSelectedShips: {}
     });
 
     // Computed properties
@@ -142,6 +143,14 @@
         state.fleet.points = data.points;
         state.ships = state.ships.filter(ship => ship.pivot.id !== shipPivotId);
 
+        const commanderIndex = state.commanders.findIndex(commander => commander.pivot.fleet_ship_id === shipPivotId);
+        console.log(commanderIndex);
+        if (commanderIndex !== -1) {
+            state.commanders[commanderIndex].pivot.fleet_ship_id = null;
+            const commanderPivotId = state.commanders[commanderIndex].pivot.id;
+            delete state.commanderSelectedShips[commanderPivotId];
+        }
+
         showTooltip(data.message);
       } catch (error) {
         console.error('Error:', error);
@@ -241,7 +250,7 @@
         }
     }
 
-    const handleCommanderShipAssigned = async (commanderPivotId, shipPivotId) => {
+    const handleCommanderShipAssigned = async (commanderPivotId, shipPivotId, shipName) => {
         state.isLoading = true;
         try {
             const data = await apiCall(`/api/${state.fleet.id}/commander-ship-assign/${commanderPivotId}/${shipPivotId}`);
@@ -255,6 +264,8 @@
             if (shipIndex !== -1) {
                 Object.assign(state.ships[shipIndex], data.ship);
             }
+
+            state.commanderSelectedShips[commanderPivotId] = { pivotId: shipPivotId, name: shipName };
 
             resetUnassignedShip(data.unassignedShip);
 
@@ -284,7 +295,7 @@
     const handleCommanderRerollsUpdated = async (data) => {
         state.fleet.points = data.fleetPoints;
 
-        const index = state.commanders.findIndex(c => c.id === data.commander.id);
+        const index = state.commanders.findIndex(c => c.pivot.id === data.commander.pivot.id);
         if (index !== -1) {
             state.commanders.splice(index, 1, data.commander);
         }
@@ -303,6 +314,34 @@
 
         return commanders;
     });
+
+    onMounted(() => {
+        prefillCommanderSelectedShips();
+    });
+
+    watch(
+        () => state.commanders,
+        () => {
+            prefillCommanderSelectedShips();
+        },
+        { immediate: true }
+    );
+
+    function prefillCommanderSelectedShips() {
+        const prefilled = {};
+        state.commanders.forEach(commander => {
+            if (commander.pivot?.fleet_ship_id) {
+                const ship = state.ships.find(s => s.pivot.id === commander.pivot.fleet_ship_id);
+                if (ship) {
+                    prefilled[commander.pivot.id] = {
+                        pivotId: ship.pivot.id,
+                        name: ship.pivot.name ?? ship.class
+                    };
+                }
+            }
+        });
+        state.commanderSelectedShips = prefilled;
+    }
 </script>
 
 <template>
@@ -362,6 +401,7 @@
             :commanderList="state.commanderList"
             :commanders="state.commanders"
             :ships="state.ships"
+            :commanderSelectedShips="state.commanderSelectedShips"
             @commander-added="handleCommanderAdded"
             @commander-removed="handleCommanderRemoved"
             @commander-ship-assigned="handleCommanderShipAssigned"
