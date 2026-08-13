@@ -14,11 +14,11 @@ The goal of the project is to provide a more complete and visually polished alte
 - Points tracking and detailed ship information
 - Readable PDF export for tabletop use
 - UI-focused presentation with ship-card-inspired exports
-- Built around the BFG Remastered official ruleset
+- Built around the BFG Remastered ruleset
 
 ### Current status
 
-The project is still in development and is not yet feature complete. Planned and missing functionality includes support for ship staff/officers/admirals and their modifiers, fleet list reserves and fleet ship limiters for conditions that restrict certain ship types.
+The project is still in development and is not yet feature complete. Planned and missing functionality includes fleet list reserves and fleet ship limiters for conditions that restrict certain ship types.
 
 ### Demo
 
@@ -47,6 +47,17 @@ php artisan db:seed
 ```
 
 Project needs symlink or junction `public/images -> resources/images` to please both Blade and Vite.
+
+For PDF exporter there are 2 driver options [cloudflare, browsershot]. For localhost use browsershot, for publicly hosted app cloudflare is recommended. Add the following to .env file based on driver:
+```
+LARAVEL_PDF_DRIVER=browsershot
+
+or
+
+LARAVEL_PDF_DRIVER=cloudflare
+CLOUDFLARE_ACCOUNT_ID=<ACCOUNT_ID>
+CLOUDFLARE_API_TOKEN=<API_TOKEN>
+```
 
 ## Runtime
 Necessary for fleet builder functionality:
