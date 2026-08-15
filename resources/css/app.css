@@ -72,13 +72,15 @@ input[type="number"] {
     scrollbar-color: var(--color-primary-500) transparent;
 }
 
+#commonBody {
+    background-image: url('@images/main-bg.jpg');
+}
+
 
 /* =================== */
 /*      BFG Header     */
 /* =================== */
 #bfgHeader {
-    /*Vite and Vue are in conflict here and giving me a headache + IDE code analysis reporting it as error on commits. Setting suppression rule, i know this works fine */
-    /*noinspection CssUnknownTarget*/
     background-image: url('@images/header-bg.jpg');
 }
 
@@ -96,8 +98,7 @@ input[type="number"] {
 /* =================== */
 
 #fleetBuilderBody {
-    /*noinspection CssUnknownTarget*/
-    background-image: url('@images/fleet-builder-bg-2.jpg');
+    background-image: url('@images/fleet-builder/fleet-builder-bg-2.jpg');
 }
 /* maybe remove? not sure what is this for
 /*#fleetBuilderBody .content-wrapper:after {*/
@@ -179,3 +180,7 @@ input[type="number"] {
         @apply after:hidden pb-0;
     }
 }
+
+/* =================== */
+/*    Fleet Builder    */
+/* =================== */

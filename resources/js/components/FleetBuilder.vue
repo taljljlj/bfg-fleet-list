@@ -4,7 +4,7 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
     import FleetListSelector from './setup/FleetListSelector.vue';
     import ShipList from './setup/ShipList.vue';
     import ShipCard from './ship-card/ShipCard.vue';
-    import loadingIcon from '@images/loading-icon.png';
+    import loadingIcon from '@images/fleet-builder/loading-icon.png';
     import MessageBox from './commons/MessageBox.vue';
     import FleetActions from "@/components/controls/FleetActions.vue";
     import FleetSetup from "@/components/setup/FleetSetup.vue";

@@ -21,7 +21,7 @@
     <!-- Styles -->
     @vite('resources/css/app.css')
 </head>
-<body id="mainBody" class="bg-tertiary font-family-primary flex flex-col min-h-screen">
+<body id="mainBody" class="font-family-primary flex flex-col min-h-screen">
     <header id="bfgHeader" class="h-40 bg-cover text-center">
         <div class="banner-container relative h-full">
             <a class="logo-home inline-block h-full" href="{{ route('home') }}">
@@ -29,18 +29,31 @@
             </a>
         </div>
     </header>
-    <div id="navbar" class="font-semibold tracking-tight bg-secondary font-family-primary">
+    <nav id="navbar" class="font-semibold tracking-tight bg-secondary font-family-primary">
         <div class="navbar-container max-w-[1500px] m-auto">
             <ul class="text-right m-0 p-0 list-none">
                 <li class="navbar-li">
                     <a href="{{ route('builder.index') }}" class="block no-underline h-full hover:opacity-80 text-primary-700">Fleet Builder</a>
                 </li>
                 <li class="navbar-li">
-                    <div id="userDropdownBtn" class="hover:opacity-80 h-full"><img src="{{ asset("images/user-icon.png") }}" alt="user logo"></div>
+                    <a href="{{ route('builder.index') }}" class="block no-underline h-full hover:opacity-80 text-primary-700">Battlefield Generator</a>
+                </li>
+                <li class="navbar-li">
+                    <div class="h-full text-primary-700">
+                        <img src="{{ asset("images/user-icon.png") }}" alt="user logo" class="inline-block">
+                        @if(Auth::user())
+                            <span>{{ Auth::user()->name }}</span>
+                            <a href="{{ route('logout') }}" class="hover:opacity-80"> (Logout)</a>
+                        @else
+                            <a href="{{ route('show-login') }}" class="hover:opacity-80">Login</a>
+                            <span> / </span>
+                            <a href="{{ route('show-register') }}" class="hover:opacity-80">Register</a>
+                        @endif
+                    </div>
                 </li>
             </ul>
         </div>
-    </div>
+    </nav>
     @yield('content')
     <footer>
         @stack('scripts')

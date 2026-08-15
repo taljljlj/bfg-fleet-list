@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FleetBuilderController;
 
@@ -24,6 +25,16 @@ Route::group(['middleware' => 'guest'], function () {
         Route::get('/{fleet}', [FleetBuilderController::class, 'edit'])->name('builder.edit');
         Route::get('/hotpick/{faction}', [FleetBuilderController::class, 'hotpickIndex'])->name('builder.index-hotpick');
         Route::get('test-export/{fleet}', [FleetBuilderController::class, 'testPdf'])->name('test.fleet.export-pdf'); //TODO: test route for testing pdf view; remove
-        Route::get('{fleet}/export-pdf/', [FleetBuilderController::class, 'getFleetAsPdf'])->name('pdf-export.test'); //TODO: test route for testing pdf generation
+        Route::get('{fleet}/export-pdf/', [FleetBuilderController::class, 'getFleetAsPdf'])->name('pdf-export.test');
     });
+
+    Route::get('/login', [UserController::class, 'showLoginForm'])->name('show-login');
+    Route::post('/login', [UserController::class, 'login'])->name('login');
+    Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('show-register');
+    Route::post('/register', [UserController::class, 'register'])->name('register');
+
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
