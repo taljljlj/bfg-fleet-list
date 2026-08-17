@@ -42,8 +42,15 @@
                     <div class="h-full text-primary-700">
                         <img src="{{ asset("images/user-icon.png") }}" alt="user logo" class="inline-block">
                         @if(Auth::user())
-                            <span>{{ Auth::user()->name }}</span>
-                            <a href="{{ route('logout') }}" class="hover:opacity-80"> (Logout)</a>
+                            <span>{{ Auth::user()->name }} (</span>
+                            <form method="POST" action="{{ route('logout') }}" class="inline">
+                                @csrf
+                                <button type="submit"
+                                        class="hover:opacity-80 bg-transparent border-0 cursor-pointer p-0 font-inherit text-inherit">
+                                    Logout
+                                </button>
+                            </form>
+                            <span>)</span>
                         @else
                             <a href="{{ route('show-login') }}" class="hover:opacity-80">Login</a>
                             <span> / </span>

@@ -141,14 +141,6 @@ input[type="number"] {
         @apply text-2xl font-normal z-0;
     }
 
-    .card-ship input {
-        @apply rounded-md border-2 bg-transparent outline-none m-0 p-0 align-middle font-semibold text-center;
-    }
-
-    .card-ship .light-input {
-        @apply border-secondary text-secondary focus-visible:shadow-[inset_0_0_5px_#c8c5dc];
-    }
-
     .card-ship .counter-btn {
         @apply bg-transparent border-none text-secondary cursor-pointer w-3 h-5 p-0 text-lg font-extrabold;
     }
@@ -178,6 +170,14 @@ input[type="number"] {
 
     .section-divider.last {
         @apply after:hidden pb-0;
+    }
+
+    .bfi-input {
+        @apply rounded-md border-2 bg-transparent outline-none align-middle font-semibold;
+    }
+
+    .light-input {
+        @apply border-secondary text-secondary focus-visible:shadow-[inset_0_0_5px_#c8c5dc];
     }
 }
 
