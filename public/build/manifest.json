@@ -1,20 +1,16 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-Djk5LCqy.css",
+    "file": "assets/app-BC3iO5VE.css",
     "src": "resources/css/app.css",
     "isEntry": true
-  },
-  "resources/images/add-ship-icon.png": {
-    "file": "assets/add-ship-icon-HI4Yx_AO.png",
-    "src": "resources/images/add-ship-icon.png"
   },
   "resources/images/caret-icon.png": {
     "file": "assets/caret-icon-KjWOtrdo.png",
     "src": "resources/images/caret-icon.png"
   },
-  "resources/images/fleet-builder-bg-2.jpg": {
-    "file": "assets/fleet-builder-bg-2-xhXNMud3.jpg",
-    "src": "resources/images/fleet-builder-bg-2.jpg"
+  "resources/images/fleet-builder/add-ship-icon.png": {
+    "file": "assets/add-ship-icon-HI4Yx_AO.png",
+    "src": "resources/images/fleet-builder/add-ship-icon.png"
   },
   "resources/images/fleet-builder/extra-reroll-icon.png": {
     "file": "assets/extra-reroll-icon-Dwd_93N4.png",
@@ -40,21 +36,29 @@
     "file": "assets/firearc-lr-BceOqqnT.png",
     "src": "resources/images/fleet-builder/firearc-lr.png"
   },
+  "resources/images/fleet-builder/fleet-builder-bg-2.jpg": {
+    "file": "assets/fleet-builder-bg-2-xhXNMud3.jpg",
+    "src": "resources/images/fleet-builder/fleet-builder-bg-2.jpg"
+  },
+  "resources/images/fleet-builder/loading-icon.png": {
+    "file": "assets/loading-icon-ivLWt770.png",
+    "src": "resources/images/fleet-builder/loading-icon.png"
+  },
   "resources/images/header-bg.jpg": {
     "file": "assets/header-bg-Djej8BmF.jpg",
     "src": "resources/images/header-bg.jpg"
   },
-  "resources/images/loading-icon.png": {
-    "file": "assets/loading-icon-ivLWt770.png",
-    "src": "resources/images/loading-icon.png"
+  "resources/images/main-bg.jpg": {
+    "file": "assets/main-bg-hLB4wS9L.jpg",
+    "src": "resources/images/main-bg.jpg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-Czb1t3Z7.js",
+    "file": "assets/app-Djm75f7i.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-Byo6G5zp.css"
+      "assets/app-BKj3oAg5.css"
     ],
     "assets": [
       "assets/caret-icon-KjWOtrdo.png",
