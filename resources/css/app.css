@@ -180,7 +180,3 @@ input[type="number"] {
         @apply border-secondary text-secondary focus-visible:shadow-[inset_0_0_5px_#c8c5dc];
     }
 }
-
-/* =================== */
-/*    Fleet Builder    */
-/* =================== */
