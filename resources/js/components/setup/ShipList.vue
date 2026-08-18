@@ -1,6 +1,6 @@
 <script setup>
 import caretIcon from '@images/caret-icon.png';
-import addShipIcon from '@images/add-ship-icon.png';
+import addShipIcon from '@images/fleet-builder/add-ship-icon.png';
 
 const props = defineProps({
     shipList: {

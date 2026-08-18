@@ -1,6 +1,6 @@
-@extends('layouts.main')
+@extends('layouts.common-layout')
 
-@section('content')
+@section('common-content')
     <div class="hotpick-faction">
         <h1>Build your fleet!</h1>
         <div class="faction-container">

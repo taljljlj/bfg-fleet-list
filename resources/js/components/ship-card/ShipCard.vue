@@ -221,7 +221,7 @@ const validateLdInput = (event) => {
                     <button class="counter-btn" @click="decrementCounter"><</button>
                     <input
                         type="number"
-                        class="w-5 h-5 text-lg light-input"
+                        class="w-5 h-5 text-lg bfi-input light-input m-0 p-0 text-center"
                         min="1"
                         max="6"
                         title="Number of ships (2-6)"
@@ -241,7 +241,7 @@ const validateLdInput = (event) => {
                 @mouseleave="clearTooltip"
                 maxlength="11"
                 type="text"
-                class="ship-escort-ld w-24 text-2xl light-input"
+                class="ship-escort-ld w-24 text-2xl bfi-input light-input m-0 p-0 text-center"
                 v-model="props.ship.pivot.leadership"
                 @input="validateLdInput"
                 name="cardShipLd"
@@ -251,7 +251,7 @@ const validateLdInput = (event) => {
                 @mouseleave="clearTooltip"
                 maxlength="2"
                 type="text"
-                class="w-8 text-2xl light-input"
+                class="w-8 text-2xl bfi-input light-input m-0 p-0 text-center"
                 v-model="props.ship.pivot.leadership"
                 @input="validateLdInput"
                 name="cardShipLd"
@@ -263,7 +263,7 @@ const validateLdInput = (event) => {
                 @mouseenter="showTooltip('Ship/Squadron Points: Set custom points value. For squadrons set squadron ship counter prior to custom points value.')"
                 @mouseleave="clearTooltip"
                 type="number"
-                class="w-14 text-2xl light-input"
+                class="w-14 text-2xl bfi-input light-input m-0 p-0 text-center"
                 v-model="shipPoints"
                 name="cardShipPts"
             />
@@ -307,7 +307,7 @@ const validateLdInput = (event) => {
             <div class="card-subsec-r flex flex-col w-1/2 px-2.5">
                 <input
                     type="text"
-                    class="w-full text-lg font-thin px-2.5 text-ellipsis border-primary-500-opc-80 text-primary-500-opc-80 focus-visible:shadow-[inset_0_0_5px_#365773CC] placeholder:text-primary-500-opc-80"
+                    class="w-full text-lg font-thin px-2.5 py-0 text-ellipsis border-primary-500-opc-80 text-primary-500-opc-80 focus-visible:shadow-[inset_0_0_5px_#365773CC] placeholder:text-primary-500-opc-80 bfi-input m-0 text-center"
                     name="cardShipName"
                     :placeholder="`Enter ${ship.type === 'Escort' ? 'Squadron' : 'Ship' } Name`"
                     v-model="shipName"

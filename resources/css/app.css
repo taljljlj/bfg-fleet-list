@@ -72,13 +72,15 @@ input[type="number"] {
     scrollbar-color: var(--color-primary-500) transparent;
 }
 
+#commonBody {
+    background-image: url('@images/main-bg.jpg');
+}
+
 
 /* =================== */
 /*      BFG Header     */
 /* =================== */
 #bfgHeader {
-    /*Vite and Vue are in conflict here and giving me a headache + IDE code analysis reporting it as error on commits. Setting suppression rule, i know this works fine */
-    /*noinspection CssUnknownTarget*/
     background-image: url('@images/header-bg.jpg');
 }
 
@@ -96,8 +98,7 @@ input[type="number"] {
 /* =================== */
 
 #fleetBuilderBody {
-    /*noinspection CssUnknownTarget*/
-    background-image: url('@images/fleet-builder-bg-2.jpg');
+    background-image: url('@images/fleet-builder/fleet-builder-bg-2.jpg');
 }
 /* maybe remove? not sure what is this for
 /*#fleetBuilderBody .content-wrapper:after {*/
@@ -140,14 +141,6 @@ input[type="number"] {
         @apply text-2xl font-normal z-0;
     }
 
-    .card-ship input {
-        @apply rounded-md border-2 bg-transparent outline-none m-0 p-0 align-middle font-semibold text-center;
-    }
-
-    .card-ship .light-input {
-        @apply border-secondary text-secondary focus-visible:shadow-[inset_0_0_5px_#c8c5dc];
-    }
-
     .card-ship .counter-btn {
         @apply bg-transparent border-none text-secondary cursor-pointer w-3 h-5 p-0 text-lg font-extrabold;
     }
@@ -177,5 +170,13 @@ input[type="number"] {
 
     .section-divider.last {
         @apply after:hidden pb-0;
+    }
+
+    .bfi-input {
+        @apply rounded-md border-2 bg-transparent outline-none align-middle font-semibold;
+    }
+
+    .light-input {
+        @apply border-secondary text-secondary focus-visible:shadow-[inset_0_0_5px_#c8c5dc];
     }
 }
