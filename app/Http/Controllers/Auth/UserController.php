@@ -6,10 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 
 class UserController extends Controller
 {
+    protected $logger;
+    public function __construct()
+    {
+        $this->logger = Log::channel('user');
+        $this->middleware('guest')->except('logout');
+    }
     public function showLoginForm()
     {
         return view('auth.login');
@@ -22,9 +29,14 @@ class UserController extends Controller
             'password' => 'required|string',
         ]);
 
-        if (auth()->attempt(['email' => $validated['email'], 'password' => $validated['password']])) {
-            $request->session()->regenerate();
-            return redirect()->route('home');
+        try {
+            if (auth()->attempt(['email' => $validated['email'], 'password' => $validated['password']], $request->get('remember'))) {
+                $request->session()->regenerate();
+                return redirect()->route('home');
+            }
+            $this->logger->warning('Login failed for email: '.$validated['email']);
+        } catch (\Exception $e) {
+            $this->logger->error('Login exception: '.$e->getMessage());
         }
 
         return back()->withErrors([
@@ -51,13 +63,17 @@ class UserController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-        ]);
+        try {
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+            ]);
 
-        auth()->login($user);
+            auth()->login($user);
+        } catch (\Exception $e) {
+            $this->logger->error('Registration exception: '.$e->getMessage());
+        }
 
         return redirect()->route('home');
     }
