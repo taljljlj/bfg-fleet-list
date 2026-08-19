@@ -160,12 +160,16 @@ input[type="number"] {
         @apply relative pb-2.5 after:absolute after:block after:content-[''] after:bottom-0 after:h-1 after:w-full;
     }
 
-    .divider-l {
+    .divider-r {
         @apply after:-right-6 after:bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)];
     }
 
-    .divider-r {
+    .divider-l {
         @apply after:-left-6 after:bg-[linear-gradient(to_left,transparent_0%,#c8c5dc_100%)];
+    }
+
+    .divider-c {
+        @apply after:bg-[linear-gradient(to_left,transparent_0%,#c8c5dc_50%,transparent_100%)];
     }
 
     .section-divider.last {
