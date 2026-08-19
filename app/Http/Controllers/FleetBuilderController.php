@@ -38,12 +38,27 @@ class FleetBuilderController extends Controller
         $this->shipService = $shipService;
     }
 
+    public function index() {
+        if (auth()->user()) {
+            $fleets = auth()->user()->fleets()->latest('updated_at')->get();
+        } else {
+            $guestFleetIds = session()->get('guestFleetIds');
+            if ($guestFleetIds) {
+                $fleets = Fleet::whereIn('id', $guestFleetIds)->latest('updated_at')->get();
+            } else {
+                $fleets = collect();
+            }
+        }
+
+        return view('pages.fleet-index', compact(['fleets']));
+    }
+
     /**
      * The first step in opening fleet builder - creating a new fleet
      * Redirects to fleet builder page
      * @return RedirectResponse
      */
-    public function index() : RedirectResponse
+    public function create() : RedirectResponse
     {
         $fleet = $this->fleetBuilderService->createFleetInitial();
 

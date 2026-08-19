@@ -92,23 +92,34 @@
                     @enderror
                 </div>
 
-                <div class="text-center mt-8">
-                    <button type="submit" class="btn-primary text-2xl px-8 py-2">Login</button>
+                <div class="flex flex-row justify-items-stretch items-center mt-8">
+                    <div class="text-left flex-1">
+                        <div class="mt-3">
+                            <p class="text-lg">
+                                <a href="{{ route('password.request') }}" class="text-primary-100 hover:opacity-80 underline">Forgot password?</a>
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-lg">
+                                Don't have an account?
+                                <a href="{{ route('show-register') }}" class="text-primary-100 hover:opacity-80 underline">Register here</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="text-right flex-1 font-family-secondary">
+                        <div>
+                            <label class="items-center cursor-pointer">
+                                <input type="checkbox" name="remember" class="hidden peer">
+                                <span class="inline-block align-middle w-4 h-4 border-2 border-secondary rounded-sm bg-primary-500 mr-3 peer-checked:bg-primary-100 peer-disabled:border-primary-100-opc-35"></span>
+                                <span> Remember Me</span>
+                            </label>
+                        </div>
+                        <div class="text-right mt-3">
+                            <button type="submit" class="btn-primary text-2xl px-8 py-2">Login</button>
+                        </div>
+                    </div>
                 </div>
             </form>
-
-            <div class="mt-3">
-                <p class="text-lg">
-                    <a href="{{ route('password.request') }}" class="text-primary-100 hover:opacity-80 underline">Forgot password?</a>
-                </p>
-            </div>
-            <div>
-                <p class="text-lg">
-                    Don't have an account?
-                    <a href="{{ route('show-register') }}" class="text-primary-100 hover:opacity-80 underline">Register here</a>
-                </p>
-            </div>
-
         </div>
     </div>
 @endsection

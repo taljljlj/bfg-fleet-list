@@ -44,6 +44,13 @@ class FleetBuilderService
     public function createFleetInitial()
     {
         $fleet = new Fleet();
+        $fleet->save();
+
+        if (auth()->user()) {
+            $fleet->user_id = auth()->id();
+        } else {
+            session()->push('guestFleetIds', $fleet->id);
+        }
         $fleet->name = 'Fleet #' . $fleet->id;
         $fleet->save();
 

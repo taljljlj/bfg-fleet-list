@@ -23,7 +23,7 @@ const toggleGroup = (event) => {
 </script>
 
 <template>
-    <div class="section-divider divider-l pb-2.5 last">
+    <div class="section-divider divider-r pb-2.5 last">
         <div class="ship-list">
             <ul v-if="shipList">
                 <li

@@ -20,7 +20,7 @@
                 @endif
                 <div class="card-ship-pts card-input heading">
                     <label for="cardShipPts">{{ $ship->type === 'Escort' ? 'Pts per ship' : 'Pts' }}:</label>
-                    <input type="text" name="cardShipPts" placeholder="{{ $ship->pivot->points }}">
+                    <input type="text" name="cardShipPts" placeholder="{{ $ship->pivot->points }}" readonly>
                 </div>
             </div>
         </div>
@@ -111,8 +111,9 @@
                                 <h4>Escorts Ld & HP</h4>
                                 @for($i=1; $i<=$ship->pivot->squadron_counter; $i++)
                                     <div class="hp-col">
-                                        <div class="hp-box">{{ $escortLd[$i-1] ?? '' }}</div>
-                                        <p>{{ $i }}</p>
+                                        <div class="hp-box">{{ $escortLd[$i-1] ?? '' }}
+                                            <p>{{ $i }}</p>
+                                        </div>
                                     </div>
                                 @endfor
                             </div>

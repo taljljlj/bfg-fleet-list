@@ -6,7 +6,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="fleet-actions section-divider divider-l flex flex-row justify-evenly pt-2.5">
+    <div class="fleet-actions section-divider divider-r flex flex-row justify-evenly pt-2.5">
         <div @click="onExportPdf" class="export-btn btn-primary">
             <div class="hover:opacity-80 p-2">
                 <img src="/images/fleet-builder/pdf-export-icon.png" alt="PDF Export">
