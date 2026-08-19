@@ -365,7 +365,7 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
       </div>
 
       <!-- Points Counter -->
-      <div class="section-divider divider-l">
+      <div class="section-divider divider-r">
         <h1 class="m-0 text-right text-4xl font-bold"><span id="points">{{ fleetPoints }}</span> pts.</h1>
       </div>
 

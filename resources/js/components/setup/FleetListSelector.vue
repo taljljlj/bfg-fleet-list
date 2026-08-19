@@ -1,5 +1,4 @@
 <script setup>
-import { ref, computed } from 'vue';
 import Dropdown from "@/components/controls/Dropdown.vue";
 
 const props = defineProps({
@@ -21,7 +20,7 @@ const handleFleetListSelected = (id, name) => {
 </script>
 
 <template>
-    <div class="section-divider divider-l">
+    <div class="section-divider divider-r">
         <div class="fleet-list-selector mb-4">
             <h3 class="mt-2.5 mb-1 tracking-widest font-semibold text-lg">Fleet List:</h3>
             <Dropdown
