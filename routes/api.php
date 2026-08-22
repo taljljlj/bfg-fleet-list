@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('{fleet}')->group(function () {
+    Route::patch('/name/{name}', [FleetBuilderController::class, 'updateFleetName']);
     Route::patch('/faction/{faction}', [FleetBuilderController::class, 'setFaction']);
     Route::patch('/fleet-list/{fleetList}', [FleetBuilderController::class, 'setFleetList']);
     Route::patch('/ship-add/{ship}', [FleetBuilderController::class, 'attachShipToFleet']);

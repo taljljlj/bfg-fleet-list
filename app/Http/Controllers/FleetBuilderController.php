@@ -40,11 +40,15 @@ class FleetBuilderController extends Controller
 
     public function index() {
         if (auth()->user()) {
-            $fleets = auth()->user()->fleets()->latest('updated_at')->get();
+            $fleets = auth()->user()->fleets()
+                ->with('faction', 'fleetList')
+                ->latest('updated_at')->get();
         } else {
             $guestFleetIds = session()->get('guestFleetIds');
             if ($guestFleetIds) {
-                $fleets = Fleet::whereIn('id', $guestFleetIds)->latest('updated_at')->get();
+                $fleets = Fleet::whereKey($guestFleetIds)
+                    ->with('faction', 'fleetList')
+                    ->latest('updated_at')->get();
             } else {
                 $fleets = collect();
             }
@@ -484,6 +488,21 @@ class FleetBuilderController extends Controller
             'message' => 'Extra re-rolls choice applied.',
             'commander' => $commander,
             'fleetPoints' => $fleet->points
+        ]);
+    }
+
+    /**
+     * @param Fleet $fleet
+     * @param string $name
+     * @return JsonResponse
+     */
+    public function updateFleetName(Fleet $fleet, string $name) : JsonResponse
+    {
+        $fleet->name = $name;
+        $fleet->save();
+
+        return response()->json([
+            'message' => 'Fleet name updated.',
         ]);
     }
 
