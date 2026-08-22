@@ -487,6 +487,21 @@ class FleetBuilderController extends Controller
         ]);
     }
 
+    /**
+     * @param Fleet $fleet
+     * @param string $name
+     * @return JsonResponse
+     */
+    public function updateFleetName(Fleet $fleet, string $name) : JsonResponse
+    {
+        $fleet->name = $name;
+        $fleet->save();
+
+        return response()->json([
+            'message' => 'Fleet name updated.',
+        ]);
+    }
+
     public function getFleetAsPdf(Fleet $fleet)
     {
         try {
