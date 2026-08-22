@@ -7,7 +7,7 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
     import loadingIcon from '@images/fleet-builder/loading-icon.png';
     import MessageBox from './commons/MessageBox.vue';
     import FleetActions from "@/components/controls/FleetActions.vue";
-    import FleetSetup from "@/components/setup/FleetSetup.vue";
+    import CommanderSetup from "@/components/setup/CommanderSetup.vue";
     import {useTooltip} from "@/composables/useTooltip.js";
 
     // Inject data from Laravel
@@ -30,6 +30,13 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
     // Computed properties
     const fleetPoints = computed(() => state.fleet.points);
     const selectedFactionId = computed(() => state.fleet.faction_id);
+    const fleetName = computed({
+        get: () => state.fleet.name,
+        set: (value) => {
+            state.fleet.name = value;
+            handleUpdateName(value);
+        }
+    });
 
     // Message handling
     const {showTooltip, clearTooltip} = useTooltip();
@@ -342,6 +349,36 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
         });
         state.commanderSelectedShips = prefilled;
     }
+
+    watch(fleetName, async (newValue) => {
+        await handleUpdateName(newValue);
+        fleetName = newValue;
+    })
+
+    const handleUpdateName = async (value) => {
+        try {
+            const response = await fetch(`/api/${fleetData.fleet.id}/name/${value}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': fleetData.csrfToken
+                },
+            });
+
+            if(response.status === 200) {
+                const data = await response.json();
+
+                showTooltip(data.message);
+            }
+        } catch (error) {
+            console.error('Error updating fleet name:', error);
+            alert('Failed to update fleet name. Please try again.');
+        } finally {
+            setTimeout(() => {
+                clearTooltip();
+            }, 5000);
+        }
+    };
 </script>
 
 <template>
@@ -395,18 +432,36 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
       <div class="section-overlay" v-if="state.isLoading" style="visibility: visible">
         <img :src="loadingIcon" alt="Loading Icon">
       </div>
+        <div class="fleet-setup-container section-divider divider-r flex flex-row">
+            <div class="flex-1/3">
+                <!-- Fleet Name -->
+                <div class="section-divider divider-r pb-6 mb-6">
+                    <h1 class="text-4xl mb-4">Fleet Template Name</h1>
+                    <input type="text"
+                           placeholder="Fleet Name"
+                           v-model="fleetName"
+                           class="bfi-input input-light px-4 py-1 text-xl w-80"
+                           maxlength="155"
+                    >
+                </div>
 
-        <!-- Fleet Setup -->
-        <FleetSetup
-            :commanderList="state.commanderList"
-            :commanders="state.commanders"
-            :ships="state.ships"
-            :commanderSelectedShips="state.commanderSelectedShips"
-            @commander-added="handleCommanderAdded"
-            @commander-removed="handleCommanderRemoved"
-            @commander-ship-assigned="handleCommanderShipAssigned"
-            @commander-rerolls-updated="handleCommanderRerollsUpdated"
-        />
+                <!-- Commander Setup -->
+                <CommanderSetup
+                    :commanderList="state.commanderList"
+                    :commanders="state.commanders"
+                    :ships="state.ships"
+                    :commanderSelectedShips="state.commanderSelectedShips"
+                    @commander-added="handleCommanderAdded"
+                    @commander-removed="handleCommanderRemoved"
+                    @commander-ship-assigned="handleCommanderShipAssigned"
+                    @commander-rerolls-updated="handleCommanderRerollsUpdated"
+                />
+            </div>
+            <div class="flex-1/3">
+            </div>
+            <div class="flex-1/3">
+            </div>
+        </div>
 
       <!-- Ship Cards -->
       <div class="ship-card-container flex flex-wrap flex-row text-center justify-evenly w-full pt-5">
