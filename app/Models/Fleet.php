@@ -32,4 +32,9 @@ class Fleet extends Model
     public function commanders() {
         return $this->belongsToMany(Commander::class, 'fleet_commander')->using(FleetCommander::class)->withTimestamps();
     }
+
+    //Accessors
+    public function getDefaultNameAttribute() {
+        return 'Fleet #' . $this->id;
+    }
 }
