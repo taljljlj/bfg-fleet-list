@@ -57,6 +57,18 @@ class FleetBuilderController extends Controller
         return view('pages.fleet-index', compact(['fleets']));
     }
 
+    public function show(Fleet $fleet) {
+        $fleet->load('faction', 'fleetList', 'commanders');
+
+        $ships = collect();
+        if ($fleet->ships()->exists()) {
+            $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true);
+        }
+        $fleet->setRelation('ships', $ships);
+
+        return view('pages.fleet-view', compact(['fleet']));
+    }
+
     /**
      * The first step in opening fleet builder - creating a new fleet
      * Redirects to fleet builder page

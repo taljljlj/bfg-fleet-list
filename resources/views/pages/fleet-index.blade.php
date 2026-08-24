@@ -21,7 +21,7 @@
                             @endif
                         </div>
                         <div class="text-lg mr-4 flex-2/5 truncate text-left">
-                            <a href="{{ route('builder.edit', $fleet->id) }}" class="hover:underline">{{ $fleet->name }}</a> {{-- TODO: replace route once view is implemented --}}
+                            <a href="{{ route('builder.view', $fleet->id) }}" class="hover:underline">{{ $fleet->name }}</a>
                             @if($fleet->fleetList)
                                 <span class="font-family-secondary tracking-tight">({{ $fleet->fleetList->name }})</span>
                             @endif
