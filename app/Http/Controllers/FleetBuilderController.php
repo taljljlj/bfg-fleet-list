@@ -58,13 +58,22 @@ class FleetBuilderController extends Controller
     }
 
     public function show(Fleet $fleet) {
-        $fleet->load('faction', 'fleetList', 'commanders');
+        $fleet->load('faction', 'fleetList', 'commanders', 'user');
 
-        $ships = collect();
+        $ships = null;
         if ($fleet->ships()->exists()) {
             $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true);
         }
+
+        $commanders = null;
+        if ($fleet->commanders()->exists()) {
+            $commanders = $fleet->commanders()
+                ->withPivot('id', 'fleet_ship_id', 'points', 'rolls')
+                ->get();
+        }
+
         $fleet->setRelation('ships', $ships);
+        $fleet->setRelation('commanders', $commanders);
 
         return view('pages.fleet-view', compact(['fleet']));
     }

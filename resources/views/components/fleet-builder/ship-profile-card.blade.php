@@ -1,32 +1,32 @@
 @if($ship)
-    <div class="card-ship export card-box-container">
-        <div class="card-header">
-            <div class="card-subsec-l">
+    <div class="card-ship card-box-container my-2">
+        <div class="card-header flex justify-center py-1 px-3 border-b-2 border-b-secondary items-center text-lg">
+            <div class="card-subsec-l flex grow items-center">
 {{--                <div class="card-faction-img">--}}
 {{--                    <img src="{{ asset('images/factions/imperium-logo.png') }}" alt="Faction logo">--}}
 {{--                </div>--}}
                 <div class="card-ship-class heading">{{ $ship->class }} {{ $ship->type === 'Escort' ? 'Squadron (' . $ship->pivot->squadron_counter . ')' : '' }}</div>
                 <div class="card-input">
                     <label for="ship-name">{{ $ship->type === 'Escort' ? 'Squadron' : 'Ship' }} Name:</label>
-                    <input type="text" name="ship-name" value="{{ $ship->pivot->name ?: '' }}">
+                    <input type="text" name="ship-name" value="{{ $ship->pivot->name ?: '' }}" readonly class="ml-3 mr-2 h-7 text-xl align-middle font-bold text-center p-1 w-56">
                 </div>
             </div>
-            <div class="card-subsec-r">
+            <div class="card-subsec-r flex flex-row">
                 @if($ship->type != 'Escort')
                 <div class="card-ship-ld card-input heading">
                     <label for="cardShipLd">Ld:</label>
-                    <input type="text" name="cardShipLd" value="{{ $ship->pivot->leadership ?: '' }}">
+                    <input type="text" name="cardShipLd" value="{{ $ship->pivot->leadership ?: '' }}" readonly class="mx-2 h-7 text-xl align-middle font-bold text-center p-1 w-7">
                 </div>
                 @endif
                 <div class="card-ship-pts card-input heading">
                     <label for="cardShipPts">{{ $ship->type === 'Escort' ? 'Pts per ship' : 'Pts' }}:</label>
-                    <input type="text" name="cardShipPts" placeholder="{{ $ship->pivot->points }}" readonly>
+                    <input type="text" name="cardShipPts" placeholder="{{ $ship->pivot->points }}" readonly class="mx-2 h-7 text-xl align-middle font-bold text-center p-1 w-9">
                 </div>
             </div>
         </div>
-        <div class="card-body">
-            <div class="card-section-t">
-                <div class="card-subsec-l">
+        <div class="card-body flex flex-row flex-wrap font-family-secondary tracking-wide py-3 px-1.5 justify-evenly">
+            <div class="card-section-t flex flex-row">
+                <div class="card-subsec-l relative">
                     <div class="card-ship-img">
                         <img src="{{ asset(file_exists(public_path('images/ships/' . $ship->img_url)) ? ('images/ships/' . $ship->img_url) : ('images/ships/ship-no-image.png')) }}" alt="Ship Profile Image">
                     </div>
@@ -36,13 +36,13 @@
                         })
                     @endphp
                     @if($shipCommander)
-                    <div class="commander-tag">
-                        <img src="{{ asset('images/fleet-builder/commander-icon.png') }}" alt="Commander Icon">
-                        <span>{{ $shipCommander->name }}</span>
+                    <div class="commander-tag absolute bottom-0 left-1 flex items-end">
+                        <img src="{{ asset('images/fleet-builder/commander-icon.png') }}" alt="Commander Icon" class="h-3.5 opacity-80 inline-block">
+                        <span class="text-sm inline-block ml-1 font-family-secondary">{{ $shipCommander->name }}</span>
                     </div>
                     @endif
                 </div>
-                <div class="card-subsec-r">
+                <div class="card-subsec-r pr-4">
                     <div class="card-ship-stats">
                         <div class="stat-box card-box-container">
                             <div class="stat-name">Speed</div>
@@ -100,7 +100,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-section-b">
+            <div class="card-section-b flex flex-row">
                 <div class="card-subsec-l">
                         @if($ship->type === 'Escort')
                             @php
