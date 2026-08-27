@@ -11,10 +11,16 @@
             <div class="flex flex-row justify-between px-12 py-3 align-middle">
                 <div class="text-center user-select-none">
                     <div class="flex flex-row justify-center">
-                        <img src="{{ asset('images/factions/' . $fleet->faction->img_url) }}" alt="{{ $fleet->faction->name }} Logo" class="h-8 mr-2">
+                        @if($fleet->faction)
+                            <img src="{{ asset('images/factions/' . $fleet->faction->img_url) }}" alt="{{ $fleet->faction->name }} Logo" class="h-8 mr-2">
+                        @endif
                         <h3 class="tracking-wider text-white text-2xl font-bold">
-                            {{ $fleet->faction->name }}
-                            <span class="font-light tracking-normal">({{ $fleet->fleetList->name }})</span>
+                            @if($fleet->faction)
+                                {{ $fleet->faction->name }}
+                            @endif
+                            @if($fleet->faction && $fleet->fleetList)
+                                <span class="font-light tracking-normal">({{ $fleet->fleetList->name }})</span>
+                            @endif
                         </h3>
                     </div>
                 </div>
@@ -56,29 +62,36 @@
                 <img :src="loadingIcon" alt="Loading Icon">
             </div>
             <div class="fleet-setup-container section-divider divider-r flex flex-row">
-                <div class="flex-1/3">
-                    <!-- Fleet Name -->
-                    <div class="section-divider divider-r pb-6 mb-6">
-                        <h1 class="text-4xl mb-4">Fleet Template Name</h1>
-                        <input type="text"
-                               placeholder="Fleet Name"
-                               v-model="fleetName"
-                               class="bfi-input input-light px-4 py-1 text-xl w-80"
-                               maxlength="155"
-                        >
-                    </div>
-
+                <div class="flex-1/3 pb-4">
+                    @if($fleet->commanders)
                     <!-- Commander Setup -->
-                    <CommanderSetup
-                        :commanderList="state.commanderList"
-                        :commanders="state.commanders"
-                        :ships="state.ships"
-                        :commanderSelectedShips="state.commanderSelectedShips"
-                        @commander-added="handleCommanderAdded"
-                        @commander-removed="handleCommanderRemoved"
-                        @commander-ship-assigned="handleCommanderShipAssigned"
-                        @commander-rerolls-updated="handleCommanderRerollsUpdated"
-                    />
+                    @foreach($fleet->commanders as $commander)
+                        @php
+                            $commanderShip = $fleet->ships->first(function ($ship) use ($commander) {
+                                return $ship->pivot->id === $commander->pivot->fleet_ship_id;
+                            });
+                        @endphp
+                        @if($loop->first)
+                            <h2 class="text-2xl mb-4">Fleet Commander:</h2>
+                        @elseif($loop->index === 1)
+                            <h2 class="text-2xl my-4">Ship Commander{{ $loop->count > 2 ? 's' : '' }}:</h2>
+                        @endif
+                        <h3 class="text-xl flex align-middle px-4">{{ $commander->name }} ({{ $commander->pivot->points }} Pts) Ld:{{ $commander->leadership }} [{{ $commanderShip ? ($commanderShip->pivot->name ?? $commanderShip->class) : 'No ship assigned' }}]
+                            @for($i=0; $i<$commander->rolls; $i++)
+                                <span>
+                                    <img class="h-7 ml-2 invert opacity-60" src="{{ asset('images/fleet-builder/reroll-icon.png') }}" alt="Re-roll Icon">
+                                </span>
+                            @endfor
+                            @for($i=$commander->rolls;$i<$commander->pivot->rolls; $i++)
+                                <span>
+                                    <img class="h-7 ml-2 opacity-60" src="{{ asset('images/fleet-builder/extra-reroll-icon.png') }}" alt="Re-roll Icon">
+                                </span>
+                            @endfor
+                        </h3>
+                    @endforeach
+                    @else
+                        <h2 class="text-2xl my-4">This fleet has no commanders assigned</h2>
+                    @endif
                 </div>
                 <div class="flex-1/3">
                 </div>
@@ -88,14 +101,13 @@
 
             <!-- Ship Cards -->
             <div class="ship-card-container flex flex-wrap flex-row text-center justify-evenly w-full pt-5">
-                <ShipCard
-                    v-for="ship in state.ships"
-                    :key="ship.pivot.id"
-                    :ship="ship"
-                    :commander="commanderByShipId[ship.pivot.id]"
-                    @ship-removed="handleShipRemoved"
-                    @ship-updated="handleShipUpdated"
-                />
+                @if($fleet->ships)
+                    @foreach($fleet->ships as $ship)
+                        <x-fleet-builder.ship-profile-card :ship="$ship" :commanders="$fleet->commanders"/>
+                    @endforeach
+                @else
+                    <h2 class="text-2xl mt-8">No ships have been added to the fleet yet</h2>
+                @endif
             </div>
         </div>
     </div>

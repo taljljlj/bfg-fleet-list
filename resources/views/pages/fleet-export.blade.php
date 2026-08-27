@@ -488,35 +488,43 @@
             </div>
             <div class="header">
                 <div class="header-l commander-list">
-                    @foreach($commanders as $commander)
-                        @php
-                            $commanderShip = $ships->first(function ($ship) use ($commander) {
-                                return $ship->pivot->id === $commander->pivot->fleet_ship_id;
-                            });
-                        @endphp
-                        @if($loop->first)
-                            <h3>Fleet Commander:</h3>
-                        @elseif($loop->index === 1)
-                            <h3>Ship Commander{{ $loop->count > 2 ? 's' : '' }}:</h3>
-                        @endif
-                            <h4>{{ $commander->name }} ({{ $commander->pivot->points }} Pts) [{{ $commanderShip ? ($commanderShip->pivot->name ?? $commanderShip->class) : 'No ship assigned' }}]
-                                @for($i=0; $i<$commander->pivot->rolls; $i++)
-                                    <span>
-                                        <img class="commander-reroll-img" src="{{ asset('images/fleet-builder/reroll-icon.png') }}" alt="Re-roll Icon">
-                                    </span>
-                                @endfor
-                            </h4>
-                    @endforeach
+                    @if($commanders)
+                        @foreach($commanders as $commander)
+                            @php
+                                $commanderShip = $ships->first(function ($ship) use ($commander) {
+                                    return $ship->pivot->id === $commander->pivot->fleet_ship_id;
+                                });
+                            @endphp
+                            @if($loop->first)
+                                <h3>Fleet Commander:</h3>
+                            @elseif($loop->index === 1)
+                                <h3>Ship Commander{{ $loop->count > 2 ? 's' : '' }}:</h3>
+                            @endif
+                                <h4>{{ $commander->name }} ({{ $commander->pivot->points }} Pts) [{{ $commanderShip ? ($commanderShip->pivot->name ?? $commanderShip->class) : 'No ship assigned' }}]
+                                    @for($i=0; $i<$commander->pivot->rolls; $i++)
+                                        <span>
+                                            <img class="commander-reroll-img" src="{{ asset('images/fleet-builder/reroll-icon.png') }}" alt="Re-roll Icon">
+                                        </span>
+                                    @endfor
+                                </h4>
+                        @endforeach
+                    @else
+                        <h3>This fleet has no commanders assigned</h3>
+                    @endif
                 </div>
             </div>
             <div class="ships-container">
-                @foreach($ships as $ship)
-                    <x-fleet-builder.ship-profile-card-export :ship="$ship" :commanders="$commanders"/>
-                    @if (($loop->index + 1) % 5 == 0 && !$loop->last)
-                        <div style="page-break-after: always;"></div>
-                        <div class="new-page"></div>
-                    @endif
-                @endforeach
+                @if($ships)
+                    @foreach($ships as $ship)
+                        <x-fleet-builder.ship-profile-card-export :ship="$ship" :commanders="$commanders"/>
+                        @if (($loop->index + 1) % 5 == 0 && !$loop->last)
+                            <div style="page-break-after: always;"></div>
+                            <div class="new-page"></div>
+                        @endif
+                    @endforeach
+                @else
+                    <h3>No ships have been added to the fleet yet</h3>
+                @endif
             </div>
         </div>
     </div>

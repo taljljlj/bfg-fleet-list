@@ -62,7 +62,8 @@ class FleetBuilderController extends Controller
 
         $ships = null;
         if ($fleet->ships()->exists()) {
-            $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true);
+            $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true, false, true);
+            $ships = $ships->sortBy('order');
         }
 
         $commanders = null;

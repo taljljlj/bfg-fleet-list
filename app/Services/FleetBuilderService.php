@@ -94,7 +94,7 @@ class FleetBuilderService
      * @param bool $export
      * @return Collection|Ship|null
      */
-    public function loadAndPrepareShips(BelongsToMany $shipsRelation, bool $applyOrder = false, bool $single = false, bool $export = false): Collection|Ship|null
+    public function loadAndPrepareShips(BelongsToMany $shipsRelation, bool $applyOrder = false, bool $single = false, bool $readonly= false): Collection|Ship|null
     {
         $query = $shipsRelation
             ->withPivot('id', 'points', 'speed', 'turns', 'shields', 'armour', 'turrets', 'squadron_counter', 'name', 'leadership');
@@ -106,10 +106,10 @@ class FleetBuilderService
         }
 
         if ($single) {
-            return $this->prepareShip($ships, $applyOrder, $export);
+            return $this->prepareShip($ships, $applyOrder, $readonly);
         }
 
-        return $ships->map(fn($ship) => $this->prepareShip($ship, $applyOrder, $export));
+        return $ships->map(fn($ship) => $this->prepareShip($ship, $applyOrder, $readonly));
     }
 
     /**
@@ -120,9 +120,9 @@ class FleetBuilderService
      * @param bool $export
      * @return Ship
      */
-    private function prepareShip(Ship $ship, bool $applyOrder, bool $export): Ship
+    private function prepareShip(Ship $ship, bool $applyOrder, bool $readonly): Ship
     {
-        if (!$export) {
+        if (!$readonly) {
             $ship = $this->refitService->rebuildRefitRelation($ship);
             $ship = $this->refitService->loadAppliedRefits($ship);
         }
