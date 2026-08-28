@@ -21,7 +21,7 @@
                             @endif
                         </div>
                         <div class="text-lg mr-4 flex-2/5 truncate text-left">
-                            <a href="{{ route('builder.edit', $fleet->id) }}" class="hover:underline">{{ $fleet->name }}</a> {{-- TODO: replace route once view is implemented --}}
+                            <a href="{{ route('builder.view', $fleet->id) }}" class="hover:underline">{{ $fleet->name }}</a>
                             @if($fleet->fleetList)
                                 <span class="font-family-secondary tracking-tight">({{ $fleet->fleetList->name }})</span>
                             @endif
@@ -29,7 +29,7 @@
                         <div class="text-xl mr-4">{{ $fleet->points }} pts</div>
                         <div>
                             <a href="{{ route('builder.edit', $fleet->id) }}" class="btn-primary text-md px-3 py-1">Edit</a>
-                            <form action="{{ route('builder.edit', $fleet->id) }}" method="POST" class="inline-block">
+                            <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn-primary text-md leading-5 px-3 py-1">Delete</button>

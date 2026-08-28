@@ -31,6 +31,7 @@ class FleetBuilderController extends Controller
     /**
      * @param FleetBuilderService $fleetBuilderService
      * @param RefitService $refitService
+     * @param ShipService $shipService
      */
     public function __construct(FleetBuilderService $fleetBuilderService, RefitService $refitService, ShipService $shipService) {
         $this->fleetBuilderService = $fleetBuilderService;
@@ -38,8 +39,14 @@ class FleetBuilderController extends Controller
         $this->shipService = $shipService;
     }
 
+    /**
+     * Fleet builder landing page. Shows user fleets and their CRUD actions.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\View\View|object
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function index() {
-        if (auth()->user()) {
+        if (auth()->check()) {
             $fleets = auth()->user()->fleets()
                 ->with('faction', 'fleetList')
                 ->latest('updated_at')->get();
@@ -57,9 +64,30 @@ class FleetBuilderController extends Controller
         return view('pages.fleet-index', compact(['fleets']));
     }
 
+    public function show(Fleet $fleet) {
+        $fleet->load('faction', 'fleetList', 'commanders', 'user');
+
+        $ships = null;
+        if ($fleet->ships()->exists()) {
+            $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true, false, true);
+            $ships = $ships->sortBy('order');
+        }
+
+        $commanders = null;
+        if ($fleet->commanders()->exists()) {
+            $commanders = $fleet->commanders()
+                ->withPivot('id', 'fleet_ship_id', 'points', 'rolls')
+                ->get();
+        }
+
+        $fleet->setRelation('ships', $ships);
+        $fleet->setRelation('commanders', $commanders);
+
+        return view('pages.fleet-view', compact(['fleet']));
+    }
+
     /**
-     * The first step in opening fleet builder - creating a new fleet
-     * Redirects to fleet builder page
+     * Create a new fleet. Creates the new blank fleet template and redirects to edit page.
      * @return RedirectResponse
      */
     public function create() : RedirectResponse
@@ -70,8 +98,33 @@ class FleetBuilderController extends Controller
     }
 
     /**
-     * First step in opening fleet builder if faction hotpick was selected - create new fleet, prefill fleet-faction relation
-     * Redirects to fleet builder page
+     * Soft-delete fleet. Detach it from user and reset fleet and ship names to defaults, but keep the fleet record.
+     * @param Fleet $fleet
+     * @return RedirectResponse
+     */
+    public function delete(Fleet $fleet) : RedirectResponse
+    {
+        if (auth()->check() || $fleet->user_id) {
+            $fleet->user_id = null;
+        } else {
+            $guestFleetIds = session('guestFleetIds', []);
+            $guestFleetIds = array_filter($guestFleetIds, fn($id) => $id !== $fleet->id);
+            session()->put('guestFleetIds', $guestFleetIds);
+
+        }
+        $fleet->name = $fleet->default_name;
+        $fleet->save();
+
+        FleetShip::where('fleet_id', $fleet->id)
+            ->whereNotNull('name')
+            ->update(['name' => null]);
+
+        return redirect()->route('builder.index');
+    }
+
+    /**
+     * The first step in opening fleet builder if faction hotpick was selected - create new fleet, prefill fleet-faction relation
+     * Redirects to fleet edit page
      * @param Faction $faction
      * @return RedirectResponse
      */
@@ -456,6 +509,12 @@ class FleetBuilderController extends Controller
         ]);
     }
 
+    /**
+     * @param Fleet $fleet
+     * @param FleetCommander $fleetCommander
+     * @param int|null $commanderRerollId
+     * @return JsonResponse
+     */
     public function commanderApplyExtraRerolls (Fleet $fleet, FleetCommander $fleetCommander, ?int $commanderRerollId) : JsonResponse
     {
         $commander = $fleetCommander->commander()->first();
@@ -506,6 +565,11 @@ class FleetBuilderController extends Controller
         ]);
     }
 
+    /**
+     * Generates the PDF file with fleet data. Suitable for viewing and printing.
+     * @param Fleet $fleet
+     * @return JsonResponse|Pdf
+     */
     public function getFleetAsPdf(Fleet $fleet)
     {
         try {

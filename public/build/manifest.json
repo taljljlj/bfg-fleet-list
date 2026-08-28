@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-B4W6P0IY.css",
+    "file": "assets/app-B9arort8.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -53,23 +53,18 @@
     "src": "resources/images/main-bg.jpg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-Da6nq8uK.js",
+    "file": "assets/app-CC7AVvgi.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-BKj3oAg5.css"
+      "assets/app-BRg0BU08.css"
     ],
     "assets": [
       "assets/caret-icon-KjWOtrdo.png",
       "assets/add-ship-icon-HI4Yx_AO.png",
       "assets/loading-icon-ivLWt770.png",
-      "assets/extra-reroll-icon-Dwd_93N4.png",
-      "assets/firearc-lr-BceOqqnT.png",
-      "assets/firearc-f-BAQF4mJ7.png",
-      "assets/firearc-lfr-mhTrzfoE.png",
-      "assets/firearc-lf-hTu-w6Kh.png",
-      "assets/firearc-fr-rf0FU1wm.png"
+      "assets/extra-reroll-icon-Dwd_93N4.png"
     ]
   }
 }

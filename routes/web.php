@@ -22,7 +22,9 @@ Route::get('/', [Controller::class, 'home'])->name('home');
 Route::group(['prefix' => 'fleet-builder'], function () {
     Route::get('/', [FleetBuilderController::class, 'index'])->name('builder.index');
     Route::post('/create', [FleetBuilderController::class, 'create'])->name('builder.create');
-    Route::get('/{fleet}', [FleetBuilderController::class, 'edit'])->name('builder.edit');
+    Route::get('/view/{fleet}', [FleetBuilderController::class, 'show'])->name('builder.view');
+    Route::delete('/delete/{fleet}', [FleetBuilderController::class, 'delete'])->name('builder.delete');
+    Route::get('/edit/{fleet}', [FleetBuilderController::class, 'edit'])->name('builder.edit');
     Route::get('/create/hotpick/{faction}', [FleetBuilderController::class, 'hotpickIndex'])->name('builder.index-hotpick');
     Route::get('test-export/{fleet}', [FleetBuilderController::class, 'testPdf'])->name('test.fleet.export-pdf'); //TODO: test route for testing PDF view; remove
     Route::get('{fleet}/export-pdf/', [FleetBuilderController::class, 'getFleetAsPdf'])->name('pdf-export.test');
