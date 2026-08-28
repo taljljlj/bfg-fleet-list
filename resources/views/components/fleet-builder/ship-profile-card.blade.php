@@ -51,7 +51,7 @@
                         class="drop-shadow-[0_0_15px_rgb(54,87,115)]">
                 </div>
                 @php
-                    $shipCommander = $commanders->first(function ($commander) use ($ship) {
+                    $shipCommander = $commanders?->first(function ($commander) use ($ship) {
                         return $commander->pivot->fleet_ship_id === $ship->pivot->id;
                     })
                 @endphp

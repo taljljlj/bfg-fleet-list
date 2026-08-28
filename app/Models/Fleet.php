@@ -35,7 +35,8 @@ class Fleet extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
-      
+    }
+
     //Accessors
     public function getDefaultNameAttribute() {
         return 'Fleet #' . $this->id;

@@ -31,7 +31,7 @@
                         <img src="{{ asset(file_exists(public_path('images/ships/' . $ship->img_url)) ? ('images/ships/' . $ship->img_url) : ('images/ships/ship-no-image.png')) }}" alt="Ship Profile Image">
                     </div>
                     @php
-                        $shipCommander = $commanders->first(function ($commander) use ($ship) {
+                        $shipCommander = $commanders?->first(function ($commander) use ($ship) {
                             return $commander->pivot->fleet_ship_id === $ship->pivot->id;
                         })
                     @endphp
