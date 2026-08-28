@@ -9,15 +9,15 @@ const props = defineProps({
 
 <template>
     <div class="card-ship-armaments card-box-container flex flex-wrap flex-col self-center items-center w-full" v-if="armaments && armaments.length > 0">
-      <table class="w-full border-collapse">
-        <thead class="bg-primary-500-opc-80 text-secondary">
+      <table class="w-full bg-primary-500-opc-80 border-collapse">
+        <thead class="text-secondary">
           <tr>
               <th class="font-normal">Armament</th>
               <th class="font-normal">Speed/Range</th>
               <th class="font-normal" colspan="2">Firepower</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="bg-secondary">
             <template v-for="armament in armaments" :key="armament.id">
                 <tr
                     v-if="armament.placement !== 'Starboard'"
@@ -46,25 +46,3 @@ const props = defineProps({
       </table>
     </div>
 </template>
-
-<style scoped>
-table tbody tr.firearc-lr:after {
-    background-image: url('@images/fleet-builder/firearc-lr.png');
-}
-
-table tbody tr.firearc-f:after {
-    background-image: url('@images/fleet-builder/firearc-f.png');
-}
-
-tbody tr.firearc-lfr:after {
-    background-image: url('@images/fleet-builder/firearc-lfr.png');
-}
-
-tbody tr.firearc-lf:after {
-    background-image: url('@images/fleet-builder/firearc-lf.png');
-}
-
-tbody tr.firearc-fr:after {
-    background-image: url('@images/fleet-builder/firearc-fr.png');
-}
-</style>

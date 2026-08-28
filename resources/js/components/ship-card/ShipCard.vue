@@ -260,7 +260,7 @@ const validateLdInput = (event) => {
         <div class="card-ship-pts card-input heading px-2.5">
             <label for="cardShipPts">Pts: </label>
             <input
-                @mouseenter="showTooltip('Ship/Squadron Points: Set custom points value. For squadrons set squadron ship counter prior to custom points value.')"
+                @mouseenter="showTooltip('Ship/Squadron Points: Set custom points value. For squadrons use at your own discretion as ship counter is a multiplier and resulting total points may behave unpredictably.')"
                 @mouseleave="clearTooltip"
                 type="number"
                 class="w-14 text-2xl bfi-input light-input m-0 p-0 text-center"

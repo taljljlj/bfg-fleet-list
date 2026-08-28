@@ -1,5 +1,5 @@
 <div class="card-ship border-3 border-secondary rounded-md w-[600px] backdrop-blur-sm bg-secondary mb-5">
-    <div class="card-ship-header relative bg-primary-500-opc-80 text-secondary flex flex-row justify-between items-center text-3xl z-10">
+    <div class="card-ship-header relative bg-primary-500-opc-80 text-secondary flex flex-row justify-between items-center text-3xl z-10 py-1.5">
         <div class="card-subsec-l">
             @if($ship->type === 'Escort')
                 <div class="card-ship-class heading">
@@ -45,7 +45,10 @@
         <div class="card-section-t flex justify-evenly items-center w-full">
             <div class="card-subsec-l flex flex-col w-1/2 relative">
                 <div class="card-ship-img">
-                    <img src="{{ asset(file_exists(public_path('images/ships/' . $ship->img_url)) ? ('images/ships/' . $ship->img_url) : ('images/ships/ship-no-image.png')) }}" alt="Ship Profile Image">
+                    <img
+                        src="{{ asset(file_exists(public_path('images/ships/' . $ship->img_url)) ? ('images/ships/' . $ship->img_url) : ('images/ships/ship-no-image.png')) }}"
+                        alt="Ship Profile Image"
+                        class="drop-shadow-[0_0_15px_rgb(54,87,115)]">
                 </div>
                 @php
                     $shipCommander = $commanders->first(function ($commander) use ($ship) {
@@ -109,7 +112,46 @@
                 </div>
             </div>
             <div class="card-subsec-r ship-armaments-section-container flex flex-col w-2/3 self-center pr-9">
-                <ShipArmamentsSection :armaments="ship.armaments" />
+                @if($ship->armaments)
+                    <div class="card-ship-armaments card-box-container flex flex-wrap flex-col self-center items-center w-full">
+                        <table class="w-full bg-primary-500-opc-80 border-collapse">
+                            <thead class="text-secondary w-full">
+                            <tr>
+                                <th class="font-normal">Armament</th>
+                                <th class="font-normal">Speed/Range</th>
+                                <th class="font-normal" colspan="2">Firepower</th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-secondary">
+                            @foreach($ship->armaments as $armament)
+                                @if($armament->placement !== 'Starboard')
+                                    <tr class="border-t-2 border-b-primary-500-opc-80 relative after:content-[''] after:block after:absolute after:-top-0.5 after:-right-7 after:w-6 after:h-6 after:bg-contain after:bg-no-repeat {{ 'firearc-' . $armament->fire_arc_short }}">
+                                        <!-- 1st col -->
+                                        <td class="border-r-2 border-b-primary-500-opc-80">{{ ($armament->placement === 'Port' ? 'Pt|Sb' : $armament->placement) . ' ' . $armament->type }}</td>
+
+                                        <!-- 2nd col -->
+                                        @if($armament->pivot->range_speed)
+                                            <td class="border-r-2 border-b-primary-500-opc-80">{{ $armament->pivot->range_speed }}</td>
+                                        @elseif($armament->pivot->misc)
+                                            <td class="border-r-2 border-b-primary-500-opc-80">{{ $armament->pivot->misc }}</td>
+                                        @else
+                                            <td class="border-r-2 border-b-primary-500-opc-80">N/A</td>
+                                        @endif
+
+                                        <!-- 3rd col -->
+                                        @if($armament->placement === 'Port')
+                                            <td class="border-r-2 border-b-primary-500-opc-80">{{ $armament->pivot->firepower }}</td>
+                                            <td>{{ $armament->pivot->firepower }}</td>
+                                        @else
+                                            <td colspan="2">{{ $armament->pivot->firepower }}</td>
+                                        @endif
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
