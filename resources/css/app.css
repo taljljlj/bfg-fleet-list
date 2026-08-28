@@ -100,12 +100,26 @@ input[type="number"] {
 #fleetBuilderBody {
     background-image: url('@images/fleet-builder/fleet-builder-bg-2.jpg');
 }
-/* maybe remove? not sure what is this for
-/*#fleetBuilderBody .content-wrapper:after {*/
-/*    content: "";*/
-/*    display: block;*/
-/*    clear: both;*/
-/*}*/
+
+table tbody tr.firearc-lr:after {
+    background-image: url('@images/fleet-builder/firearc-lr.png');
+}
+
+table tbody tr.firearc-f:after {
+    background-image: url('@images/fleet-builder/firearc-f.png');
+}
+
+tbody tr.firearc-lfr:after {
+    background-image: url('@images/fleet-builder/firearc-lfr.png');
+}
+
+tbody tr.firearc-lf:after {
+    background-image: url('@images/fleet-builder/firearc-lf.png');
+}
+
+tbody tr.firearc-fr:after {
+    background-image: url('@images/fleet-builder/firearc-fr.png');
+}
 
 @layer wrappers {
     .section {

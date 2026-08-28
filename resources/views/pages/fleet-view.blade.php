@@ -1,0 +1,114 @@
+@extends('layouts.builder-layout')
+
+@section('builder-content')
+    <div class="fleet-builder relative">
+        <div class="fixed z-50 top-5 left-1">
+            {{-- TODO: implement message box for tooltips much like in editor only non-vue --}}
+            <MessageBox />
+        </div>
+        <!-- Faction Selection -->
+        <div class="section section-top">
+            <div class="flex flex-row justify-between px-12 py-3 align-middle">
+                <div class="text-center user-select-none">
+                    <div class="flex flex-row justify-center">
+                        @if($fleet->faction)
+                            <img src="{{ asset('images/factions/' . $fleet->faction->img_url) }}" alt="{{ $fleet->faction->name }} Logo" class="h-8 mr-2">
+                        @endif
+                        <h3 class="tracking-wider text-white text-2xl font-bold">
+                            @if($fleet->faction)
+                                {{ $fleet->faction->name }}
+                            @endif
+                            @if($fleet->faction && $fleet->fleetList)
+                                <span class="font-light tracking-normal">({{ $fleet->fleetList->name }})</span>
+                            @endif
+                        </h3>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-4xl">{{ $fleet->name }}</h1>
+                </div>
+                <div>
+                    <h1 class="text-right text-4xl font-bold"><span id="points">{{ $fleet->points }}</span> pts.</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left Section -->
+        <div class="section section-left w-88 min-h-[50vh] float-left">
+            {{-- TODO: replace vue with blade animation for overlay when user makes requests - i think it is needed only for pdf export --}}
+            <div class="section-overlay" v-if="state.isLoading" style="visibility: hidden">
+                <img :src="loadingIcon" alt="Loading Icon">
+            </div>
+
+            <div class="section-divider divider-r">
+                <h1 class="m-0 text-right text-2xl">Fleet template by <strong>{{ $fleet->user->name ?? 'Anonymous' }}</strong></h1>
+            </div>
+
+            <div class="btn-primary text-2xl my-12 block">Export PDF</div>
+
+            <div class="btn-primary text-2xl my-12 block">Share</div>
+            @auth
+                <a href="{{ route('builder.edit', ['fleet' => $fleet->id]) }}" class="btn-primary text-2xl my-12 block">Edit</a>
+            @else
+                {{-- TODO: update href once we have clone & edit route --}}
+                <a href="" class="btn-primary text-2xl my-12 block">Clone & Edit</a>
+            @endauth
+
+        </div>
+
+        <!-- Right Section -->
+        <div class="section section-right w-[calc(100%-400px)] min-h-[50vh] float-right flex flex-col">
+            <div class="section-overlay" v-if="state.isLoading" style="visibility: hidden">
+                <img :src="loadingIcon" alt="Loading Icon">
+            </div>
+            <div class="fleet-setup-container section-divider divider-r flex flex-row">
+                <div class="flex-1/3 pb-4">
+                    @if($fleet->commanders)
+                    <!-- Commander Setup -->
+                    @foreach($fleet->commanders as $commander)
+                        @php
+                            $commanderShip = $fleet->ships->first(function ($ship) use ($commander) {
+                                return $ship->pivot->id === $commander->pivot->fleet_ship_id;
+                            });
+                        @endphp
+                        @if($loop->first)
+                            <h2 class="text-2xl mb-4">Fleet Commander:</h2>
+                        @elseif($loop->index === 1)
+                            <h2 class="text-2xl my-4">Ship Commander{{ $loop->count > 2 ? 's' : '' }}:</h2>
+                        @endif
+                        <h3 class="text-xl flex align-middle px-4">{{ $commander->name }} ({{ $commander->pivot->points }} Pts) Ld:{{ $commander->leadership }} [{{ $commanderShip ? ($commanderShip->pivot->name ?? $commanderShip->class) : 'No ship assigned' }}]
+                            @for($i=0; $i<$commander->rolls; $i++)
+                                <span>
+                                    <img class="h-7 ml-2 invert opacity-60" src="{{ asset('images/fleet-builder/reroll-icon.png') }}" alt="Re-roll Icon">
+                                </span>
+                            @endfor
+                            @for($i=$commander->rolls;$i<$commander->pivot->rolls; $i++)
+                                <span>
+                                    <img class="h-7 ml-2 opacity-60" src="{{ asset('images/fleet-builder/extra-reroll-icon.png') }}" alt="Re-roll Icon">
+                                </span>
+                            @endfor
+                        </h3>
+                    @endforeach
+                    @else
+                        <h2 class="text-2xl my-4">This fleet has no commanders assigned</h2>
+                    @endif
+                </div>
+                <div class="flex-1/3">
+                </div>
+                <div class="flex-1/3">
+                </div>
+            </div>
+
+            <!-- Ship Cards -->
+            <div class="ship-card-container flex flex-wrap flex-row text-center justify-evenly w-full pt-5">
+                @if($fleet->ships)
+                    @foreach($fleet->ships as $ship)
+                        <x-fleet-builder.ship-profile-card :ship="$ship" :commanders="$fleet->commanders"/>
+                    @endforeach
+                @else
+                    <h2 class="text-2xl mt-8">No ships have been added to the fleet yet</h2>
+                @endif
+            </div>
+        </div>
+    </div>
+@endsection
