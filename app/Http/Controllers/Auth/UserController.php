@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\Auth\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -12,10 +13,13 @@ use Illuminate\Support\Facades\Password;
 class UserController extends Controller
 {
     protected $logger;
-    public function __construct()
+    private UserService $userService;
+
+    public function __construct(UserService $userService)
     {
         $this->logger = Log::channel('user');
         $this->middleware('guest')->except('logout');
+        $this->userService = $userService;
     }
     public function showLoginForm()
     {
@@ -31,7 +35,9 @@ class UserController extends Controller
 
         try {
             if (auth()->attempt(['email' => $validated['email'], 'password' => $validated['password']], $request->get('remember'))) {
+                $this->userService->transferGuestFleets();
                 $request->session()->regenerate();
+
                 return redirect()->route('home');
             }
             $this->logger->warning('Login failed for email: '.$validated['email']);
