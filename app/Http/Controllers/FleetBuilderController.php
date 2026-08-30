@@ -18,6 +18,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Spatie\Browsershot\Browsershot;
 use Spatie\LaravelPdf\Facades\Pdf;
@@ -48,13 +49,13 @@ class FleetBuilderController extends Controller
     public function index() {
         if (auth()->check()) {
             $fleets = auth()->user()->fleets()
-                ->with('faction', 'fleetList')
+                ->with(['faction', 'fleetList'])
                 ->latest('updated_at')->get();
         } else {
             $guestFleetIds = session()->get('guestFleetIds');
             if ($guestFleetIds) {
                 $fleets = Fleet::whereKey($guestFleetIds)
-                    ->with('faction', 'fleetList')
+                    ->with(['faction', 'fleetList'])
                     ->latest('updated_at')->get();
             } else {
                 $fleets = collect();
@@ -64,6 +65,10 @@ class FleetBuilderController extends Controller
         return view('pages.fleet-index', compact(['fleets']));
     }
 
+    /**
+     * @param Fleet $fleet
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\View\View|object
+     */
     public function show(Fleet $fleet) {
         $fleet->load('faction', 'fleetList', 'commanders', 'user');
 
@@ -104,20 +109,23 @@ class FleetBuilderController extends Controller
      */
     public function delete(Fleet $fleet) : RedirectResponse
     {
-        if (auth()->check() || $fleet->user_id) {
-            $fleet->user_id = null;
-        } else {
-            $guestFleetIds = session('guestFleetIds', []);
-            $guestFleetIds = array_filter($guestFleetIds, fn($id) => $id !== $fleet->id);
-            session()->put('guestFleetIds', $guestFleetIds);
-
+        if (Gate::denies('delete', $fleet)) {
+            return redirect()->route('builder.view', $fleet);
         }
+
+        $fleet->user_id = null;
         $fleet->name = $fleet->default_name;
         $fleet->save();
 
         FleetShip::where('fleet_id', $fleet->id)
             ->whereNotNull('name')
             ->update(['name' => null]);
+
+        if(!auth()->check()) {
+            $guestFleetIds = session('guestFleetIds', []);
+            $guestFleetIds = array_filter($guestFleetIds, fn($id) => $id !== $fleet->id);
+            session()->put('guestFleetIds', $guestFleetIds);
+        }
 
         return redirect()->route('builder.index');
     }
@@ -137,12 +145,15 @@ class FleetBuilderController extends Controller
     }
 
     /**
-     * Returns Fleet Builder page blank or prefilled with params
      * @param Fleet $fleet
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|RedirectResponse|\Illuminate\View\View|object
      */
     public function edit(Fleet $fleet)
     {
+        if (Gate::denies('update', $fleet)) {
+            return redirect()->route('builder.view', $fleet);
+        }
+
         $factions = Faction::all();
 
         //If fleet has selected faction (hotpick and edit fleet)
