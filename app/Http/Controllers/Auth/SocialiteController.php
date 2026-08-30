@@ -4,17 +4,20 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Services\Auth\SocialiteService;
+use App\Services\Auth\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
 {
-    private $socialiteService;
+    private SocialiteService $socialiteService;
+    private UserService $userService;
 
-    public function __construct(SocialiteService $socialiteService)
+    public function __construct(SocialiteService $socialiteService, UserService $userService)
     {
         $this->socialiteService = $socialiteService;
+        $this->userService = $userService;
     }
 
     /**
@@ -43,6 +46,10 @@ class SocialiteController extends Controller
     {
         try {
             $this->socialiteService->handleSocialiteUser($driver);
+
+            $this->userService->transferGuestFleets();
+
+            request()->session()->regenerate();
 
             return redirect()->route('home');
         } catch (\Exception $e) {

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fleet extends Model
 {
+    protected $fillable = ['user_id', 'name'];
+
     //Relations
     public function faction() {
         return $this->belongsTo(Faction::class);
