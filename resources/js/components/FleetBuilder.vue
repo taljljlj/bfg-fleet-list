@@ -187,10 +187,7 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
     const handleExportPdf = async () => {
       try {
         const response = await fetch(`/api/${state.fleet.id}/export-pdf/`, {
-          method: 'GET',
-          headers: {
-            'X-CSRF-TOKEN': fleetData.csrfToken
-          }
+          method: 'GET'
         });
 
         if (response.status !== 200) {
