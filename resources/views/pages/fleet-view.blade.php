@@ -44,7 +44,7 @@
                 <h1 class="m-0 text-right text-2xl">Fleet template by <strong>{{ $fleet->user->name ?? 'Anonymous' }}</strong></h1>
             </div>
 
-            <div class="btn-primary text-2xl my-12 block">Export PDF</div>
+            <div id="export-pdf-btn" class="btn-primary text-2xl my-12 block">Export PDF</div>
 
             <div class="btn-primary text-2xl my-12 block">Share</div>
             @auth
@@ -112,3 +112,43 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script data-origin="fleet-view">
+        document.addEventListener('DOMContentLoaded', () => {
+            const exportPdfButton = document.getElementById('export-pdf-btn');
+
+            if (!exportPdfButton) {
+                return;
+            }
+
+            exportPdfButton.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/api/{{ $fleet->id }}/export-pdf/', {
+                        method: 'GET'
+                    });
+
+                    if (!response.ok) {
+                        console.error('Failed to fetch PDF:', response.status, response.statusText);
+                        alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
+                        return;
+                    }
+
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const downloadLink = document.createElement('a');
+
+                    downloadLink.href = url;
+                    downloadLink.download = 'fleet-builder.pdf';
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    downloadLink.remove();
+                    window.URL.revokeObjectURL(url);
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
+                }
+            });
+        });
+    </script>
+@endpush
