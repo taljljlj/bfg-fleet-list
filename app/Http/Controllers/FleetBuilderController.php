@@ -107,27 +107,34 @@ class FleetBuilderController extends Controller
      * @param Fleet $fleet
      * @return RedirectResponse
      */
-    public function delete(Fleet $fleet) : RedirectResponse
+    public function destroy(Fleet $fleet) : RedirectResponse
     {
         if (Gate::denies('delete', $fleet)) {
             return redirect()->route('builder.view', $fleet);
         }
 
-        $fleet->user_id = null;
-        $fleet->name = $fleet->default_name;
-        $fleet->save();
-
-        FleetShip::where('fleet_id', $fleet->id)
-            ->whereNotNull('name')
-            ->update(['name' => null]);
-
-        if(!auth()->check()) {
-            $guestFleetIds = session('guestFleetIds', []);
-            $guestFleetIds = array_filter($guestFleetIds, fn($id) => $id !== $fleet->id);
-            session()->put('guestFleetIds', $guestFleetIds);
-        }
+        $this->fleetBuilderService->deleteFleet($fleet);
 
         return redirect()->route('builder.index');
+    }
+
+    /**
+     * Soft-delete fleet. Detach it from user and reset fleet and ship names to defaults, but keep the fleet record.
+     * @param Fleet $fleet
+     * @return JsonResponse
+     */
+    public function destroyApi(Fleet $fleet) : JsonResponse
+    {
+        if (Gate::denies('delete', $fleet)) {
+            return response()->json(
+                ['message' => '+++ Deletion Rite Denied +++\r\nAccess to purge this fleet is forbidden. The muster rolls recognize no authority in your seal. Only the rightful master may enact the purge protocol.'],
+                403
+            );
+        }
+
+        $this->fleetBuilderService->deleteFleet($fleet);
+
+        return response()->json(['redirectUrl' => route('builder.index')]);
     }
 
     /**

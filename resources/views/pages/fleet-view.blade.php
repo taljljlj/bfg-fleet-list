@@ -47,13 +47,21 @@
             <!-- Fleet Actions -->
             <div id="export-pdf-btn" class="btn-primary text-2xl my-12 block">Export PDF</div>
 
+            @can('delete', $fleet)
+            <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="my-12 block p-0">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn-primary text-2xl w-full h-full p-1" >Delete Fleet</button>
+            </form>
+            @endcan
+
             <div class="btn-primary text-2xl my-12 block">Share</div>
-            @auth
+            @can('update', $fleet)
                 <a href="{{ route('builder.edit', ['fleet' => $fleet->id]) }}" class="btn-primary text-2xl my-12 block">Edit</a>
             @else
                 {{-- TODO: update href once we have clone & edit route --}}
                 <a href="" class="btn-primary text-2xl my-12 block">Clone & Edit</a>
-            @endauth
+            @endcan
 
         </div>
 

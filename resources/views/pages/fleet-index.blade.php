@@ -29,11 +29,12 @@
                         <div class="text-xl mr-4">{{ $fleet->points }} pts</div>
                         <div>
                             <a href="{{ route('builder.edit', $fleet->id) }}" class="btn-primary text-md px-3 py-1">Edit</a>
+
                             <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn-primary text-md leading-5 px-3 py-1">Delete</button>
-                            </form> {{-- TODO: replace route once delete is implemented --}}
+                            </form>
                         </div>
                     </div>
               @endforeach

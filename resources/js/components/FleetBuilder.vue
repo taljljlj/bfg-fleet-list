@@ -369,11 +369,31 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
             }
         } catch (error) {
             console.error('Error updating fleet name:', error);
-            alert('Failed to update fleet name. Please try again.');
+            alert('+++ Fleet Designation Update Denied +++\r\nThe muster rolls resist alteration. The fleet name remains sanctified in the archives, refusing revision. Review the records and renew the renaming protocol.');
         } finally {
             setTimeout(() => {
                 clearTooltip();
             }, 5000);
+        }
+    };
+
+    const handleDeleteFleet = async () => {
+        try {
+            const response = await fetch(`${fleetData.routes.delete}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': fleetData.csrfToken
+                },
+            });
+
+            if (response.status === 200) {
+                const data = await response.json();
+                window.location.assign(data.redirectUrl);
+            }
+        } catch (error) {
+            console.error('Error deleting fleet:', error);
+            alert('+++ Fleet Purge Denied +++\r\nThe void ledger resists alteration. The fleet clings to the muster rolls, refusing expulsion from the archives. Review the records and renew the purge protocol.');
         }
     };
 </script>
@@ -407,6 +427,7 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
         <FleetActions
             :fleet-id="state.fleet.id"
             :on-export-pdf="handleExportPdf"
+            :on-delete-fleet="handleDeleteFleet"
             :routes="fleetData.routes"
         />
 

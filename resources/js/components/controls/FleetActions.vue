@@ -4,7 +4,8 @@ defineProps({
         type: Object,
         required: true
     },
-    onExportPdf: Function
+    onExportPdf: Function,
+    onDeleteFleet: Function,
 })
 </script>
 
@@ -20,6 +21,11 @@ defineProps({
         >
             View Fleet
         </a>
+        <div @click="onDeleteFleet" class="btn-primary">
+            <div class="hover:opacity-80 p-2">
+                Delete Fleet
+            </div>
+        </div>
 
         <div id="exportUrl" class="btn-primary">
             <div class="hover:opacity-80 p-2">

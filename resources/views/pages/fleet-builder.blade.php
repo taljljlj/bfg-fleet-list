@@ -13,6 +13,7 @@
         data-csrf-token="{{ csrf_token() }}"
         data-web-routes="{{ json_encode([
             'view' => route('builder.view', $fleet),
+            'delete' => route('api.builder.delete', $fleet),
         ]) }}"
     >
         <!-- Vue app -->
