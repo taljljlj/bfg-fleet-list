@@ -208,6 +208,21 @@ class FleetBuilderController extends Controller
 
     /**
      * @param Fleet $fleet
+     * @return RedirectResponse
+     */
+    public function cloneAndEdit(Fleet $fleet)
+    {
+        if (Gate::allows('update', $fleet)) {
+            return redirect()->route('builder.edit', $fleet);
+        }
+
+        $fleetClone = $this->fleetBuilderService->cloneFleet($fleet);
+
+        return redirect()->route('builder.edit', ['fleet' => $fleetClone]);
+    }
+
+    /**
+     * @param Fleet $fleet
      * @param Faction $faction
      * @return JsonResponse
      */

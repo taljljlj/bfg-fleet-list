@@ -59,8 +59,10 @@
             @can('update', $fleet)
                 <a href="{{ route('builder.edit', ['fleet' => $fleet->id]) }}" class="btn-primary text-2xl my-12 block">Edit</a>
             @else
-                {{-- TODO: update href once we have clone & edit route --}}
-                <a href="" class="btn-primary text-2xl my-12 block">Clone & Edit</a>
+                <form action="{{ route('builder.clone-n-edit', $fleet->id) }}" method="POST" class="my-12 block p-0">
+                    @csrf
+                    <button type="submit" class="btn-primary text-2xl w-full h-full p-1" >Clone & Edit</button>
+                </form>
             @endcan
 
         </div>
