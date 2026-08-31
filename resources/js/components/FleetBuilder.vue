@@ -407,6 +407,7 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
         <FleetActions
             :fleet-id="state.fleet.id"
             :on-export-pdf="handleExportPdf"
+            :routes="fleetData.routes"
         />
 
         <!-- Fleet List Selector -->

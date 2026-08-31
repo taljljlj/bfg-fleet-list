@@ -131,9 +131,6 @@ tbody tr.firearc-fr:after {
     .section-overlay img {
         @apply w-12 h-12 animate-spin-slow;
     }
-    .export-btn {
-        @apply w-12 h-12;
-    }
     .ship-list-separator:after {
         @apply absolute block content-[''] bottom-0 -right-6 w-64 h-0.5 bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)];
     }

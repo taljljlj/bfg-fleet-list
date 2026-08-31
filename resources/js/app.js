@@ -16,7 +16,8 @@ if (fleetBuilderContainer) {
         ships: JSON.parse(fleetBuilderContainer.dataset.ships || 'null'),
         commanderList: JSON.parse(fleetBuilderContainer.dataset.commanderList || 'null'),
         commanders: JSON.parse(fleetBuilderContainer.dataset.commanders || 'null'),
-        csrfToken: fleetBuilderContainer.dataset.csrfToken
+        csrfToken: fleetBuilderContainer.dataset.csrfToken,
+        routes: JSON.parse(fleetBuilderContainer.dataset.webRoutes || '{}')
     });
 
     app.mount('#fleet-builder-app');

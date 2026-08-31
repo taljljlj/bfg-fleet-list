@@ -44,6 +44,7 @@
                 <h1 class="m-0 text-right text-2xl">Fleet template by <strong>{{ $fleet->user->name ?? 'Anonymous' }}</strong></h1>
             </div>
 
+            <!-- Fleet Actions -->
             <div id="export-pdf-btn" class="btn-primary text-2xl my-12 block">Export PDF</div>
 
             <div class="btn-primary text-2xl my-12 block">Share</div>
