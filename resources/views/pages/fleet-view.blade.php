@@ -45,23 +45,38 @@
             </div>
 
             <!-- Fleet Actions -->
-            <div id="export-pdf-btn" class="btn-primary text-2xl my-12 block">Export PDF</div>
+            <div id="export-pdf-btn" class="btn-primary text-2xl my-12 block">
+                Export PDF
+            </div>
 
-            @can('delete', $fleet)
-            <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="my-12 block p-0">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn-primary text-2xl w-full h-full p-1" >Delete Fleet</button>
-            </form>
-            @endcan
+            <a href="{{ route('builder.view-printable', $fleet) }}" class="btn-primary text-2xl my-12 block">
+                View For Printing
+            </a>
 
-            <div class="btn-primary text-2xl my-12 block">Share</div>
+            <div class="btn-primary text-2xl my-12 block">
+                Share
+            </div>
+
             @can('update', $fleet)
-                <a href="{{ route('builder.edit', ['fleet' => $fleet->id]) }}" class="btn-primary text-2xl my-12 block">Edit</a>
+                <a href="{{ route('builder.edit', ['fleet' => $fleet->id]) }}" class="btn-primary text-2xl my-12 block">
+                    Edit
+                </a>
             @else
                 <form action="{{ route('builder.clone-n-edit', $fleet->id) }}" method="POST" class="my-12 block p-0">
                     @csrf
-                    <button type="submit" class="btn-primary text-2xl w-full h-full p-1" >Clone & Edit</button>
+                    <button type="submit" class="btn-primary text-2xl w-full h-full p-1" >
+                        Clone & Edit
+                    </button>
+                </form>
+            @endcan
+
+            @can('delete', $fleet)
+                <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="my-12 block p-0">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-primary text-2xl w-full h-full p-1">
+                        Delete Fleet
+                    </button>
                 </form>
             @endcan
 

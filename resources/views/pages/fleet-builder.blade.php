@@ -14,6 +14,7 @@
         data-web-routes="{{ json_encode([
             'view' => route('builder.view', $fleet),
             'delete' => route('api.builder.delete', $fleet),
+            'viewPrintable' => route('builder.view-printable', $fleet)
         ]) }}"
     >
         <!-- Vue app -->

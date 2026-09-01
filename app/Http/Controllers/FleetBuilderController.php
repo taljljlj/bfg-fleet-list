@@ -629,8 +629,12 @@ class FleetBuilderController extends Controller
         }
     }
 
-    //TODO: for pdf testing, remove after pdf export fully completed
-    public function testPdf(Fleet $fleet)
+    /**
+     * Grayscale readonly fleet page. Ready for printing. Visually the same as exported PDF.
+     * @param Fleet $fleet
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\View\View|object
+     */
+    public function showPrintable(Fleet $fleet)
     {
         $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true, false, true)->sortBy('order');
 

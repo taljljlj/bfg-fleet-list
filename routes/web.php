@@ -27,7 +27,7 @@ Route::group(['prefix' => 'fleet-builder'], function () {
     Route::get('/edit/{fleet}', [FleetBuilderController::class, 'edit'])->name('builder.edit');
     Route::post('/clone/{fleet}', [FleetBuilderController::class, 'cloneAndEdit'])->name('builder.clone-n-edit');
     Route::get('/create/hotpick/{faction}', [FleetBuilderController::class, 'hotpickIndex'])->name('builder.index-hotpick');
-    Route::get('test-export/{fleet}', [FleetBuilderController::class, 'testPdf'])->name('test.fleet.export-pdf'); //TODO: test route for testing PDF view; remove
+    Route::get('/view-printable/{fleet}', [FleetBuilderController::class, 'showPrintable'])->name('builder.view-printable');
     Route::get('{fleet}/export-pdf/', [FleetBuilderController::class, 'getFleetAsPdf'])->name('pdf-export.test');
 });
 

@@ -16,6 +16,19 @@ defineProps({
                 <img src="/images/fleet-builder/pdf-export-icon.png" alt="PDF Export">
             </div>
         </div>
+
+        <a :href="routes['viewPrintable']"
+           class="btn-primary"
+        >
+            View For Printing
+        </a>
+
+        <div id="exportUrl" class="btn-primary">
+            <div class="hover:opacity-80 p-2">
+                <img src="/images/fleet-builder/share-icon.png" alt="Share">
+            </div>
+        </div>
+
         <a :href="routes.view"
            class="btn-primary"
         >
@@ -27,15 +40,5 @@ defineProps({
             </div>
         </div>
 
-        <div id="exportUrl" class="btn-primary">
-            <div class="hover:opacity-80 p-2">
-                <img src="/images/fleet-builder/share-icon.png" alt="Share">
-            </div>
-        </div>
-        <div id="exportStore" class="btn-primary">
-            <div class="hover:opacity-80 p-2">
-                <img src="/images/fleet-builder/save-icon.png" alt="Save">
-            </div>
-        </div>
     </div>
 </template>
