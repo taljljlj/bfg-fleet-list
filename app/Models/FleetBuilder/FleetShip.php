@@ -22,6 +22,11 @@ class FleetShip extends Pivot
     }
 
     //Relations
+
+    /**
+     * This relation connects to the ship_refit pivot table. belongsToMany works fine with attach/detach eloquent methods
+     * Not to be used to access applied_refits directly, breaks with self-referencing join. Use appliedRefitsDirect instead
+     */
     public function appliedRefits() {
         return $this->belongsToMany(AppliedRefit::class, 'applied_refits', 'fleet_ship_id', 'ship_refit_id')->withTimestamps();
     }
@@ -30,8 +35,16 @@ class FleetShip extends Pivot
         return $this->hasMany(FleetShipRule::class, 'fleet_ship_id');
     }
 
+
     public function armamentRefits() {
         return $this->hasMany(FleetShipArmament::class, 'fleet_ship_id');
+    }
+
+    /**
+     * Alternative to appliedRefits relation for direct access to applied_refits table.
+     */
+    public function appliedRefitsDirect() {
+        return $this->hasMany(AppliedRefit::class, 'fleet_ship_id');
     }
 
     public function ships() {

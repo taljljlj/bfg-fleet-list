@@ -18,11 +18,21 @@ class FleetBuilderService
     private RefitService $refitService;
     private ArmamentService $armamentService;
     private RuleService $ruleService;
+    private ShipService $shipService;
+    private CommanderService $commanderService;
 
-    public function __construct(RefitService $refitService, ArmamentService $armamentService, RuleService $ruleService) {
+    public function __construct(
+        RefitService $refitService,
+        ArmamentService $armamentService,
+        RuleService $ruleService,
+        ShipService $shipService,
+        CommanderService $commanderService
+    ) {
         $this->refitService = $refitService;
         $this->armamentService = $armamentService;
         $this->ruleService = $ruleService;
+        $this->shipService = $shipService;
+        $this->commanderService = $commanderService;
     }
     public array $shipTypeOrder = [
         'Battleship' => 1,
@@ -179,51 +189,9 @@ class FleetBuilderService
         $fleetClone->name = $fleetClone->default_name;
         $fleetClone->save();
 
-        $clonedShipIdMap = [];
-        $fleetShips = $fleet->ships()->withPivot('id', 'points','speed','turns','shields','armour','turrets','squadron_counter','leadership')->get();
-        foreach ($fleetShips as $ship) {
-        // not used - see FleetShip class for more info
-        // $clonedFleetShip = $ship->pivot->deepClone($fleetClone->id);
-            $pivot = $ship->pivot;
+        $clonedShipIdMap = $this->shipService->cloneFleetShips($fleet, $fleetClone);
 
-            $clonedFleetShip = new FleetShip([
-                'fleet_id' => $fleetClone->id,
-                'ship_id' => $ship->id,
-                'points' => $pivot->points,
-                'speed' => $pivot->speed,
-                'turns' => $pivot->turns,
-                'shields' => $pivot->shields,
-                'armour' => $pivot->armour,
-                'turrets' => $pivot->turrets,
-                'squadron_counter' => $pivot->squadron_counter,
-                'leadership' => $pivot->leadership,
-            ]);
-
-            $clonedFleetShip->name = null;
-            $clonedFleetShip->save();
-
-            $clonedShipIdMap[$pivot->id] = $clonedFleetShip->id;
-
-            //TODO: handle armaments, rules and applied refits
-        }
-
-        $fleetCommanders = $fleet->commanders()->withPivot('id','points','rolls','commander_reroll_id','fleet_ship_id')->get();
-        foreach ($fleetCommanders as $commander) {
-        // same as FleetShip
-        // $clonedFleetCommander = $commander->pivot->replicate();
-            $pivot = $commander->pivot;
-            $clonedFleetCommander = new FleetCommander([
-                'fleet_id' => $fleetClone->id,
-                'commander_id' => $pivot->commander_id,
-                'points' => $pivot->points,
-                'rolls' => $pivot->rolls,
-                'commander_reroll_id' => $pivot->commander_reroll_id,
-            ]);
-            if ($pivot->fleet_ship_id) {
-                $clonedFleetCommander->fleet_ship_id = $clonedShipIdMap[$pivot->fleet_ship_id];
-            }
-            $clonedFleetCommander->save();
-        }
+        $this->commanderService->cloneFleetCommanders($fleet, $fleetClone, $clonedShipIdMap);
 
         return $fleetClone;
     }
