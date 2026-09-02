@@ -45,7 +45,7 @@
             </div>
 
             <!-- Fleet Actions -->
-            <div id="export-pdf-btn" class="btn-primary text-2xl my-12 block">
+            <div id="export_pdf_btn" class="btn-primary text-2xl my-12 block">
                 Export PDF
             </div>
 
@@ -53,7 +53,7 @@
                 View For Printing
             </a>
 
-            <div class="btn-primary text-2xl my-12 block">
+            <div id="share_fleet_btn" class="btn-primary text-2xl my-12 block">
                 Share
             </div>
 
@@ -129,7 +129,7 @@
             <div class="ship-card-container flex flex-wrap flex-row text-center justify-evenly w-full pt-5">
                 @if($fleet->ships)
                     @foreach($fleet->ships as $ship)
-                        <x-fleet-builder.ship-profile-card :ship="$ship" :commanders="$fleet->commanders"/>
+                        <x-fleet.ship-profile-card :ship="$ship" :commanders="$fleet->commanders"/>
                     @endforeach
                 @else
                     <h2 class="text-2xl mt-8">No ships have been added to the fleet yet</h2>
@@ -139,12 +139,19 @@
     </div>
 @endsection
 
+@section('modals')
+    <x-fleet.share-modal :fleet="$fleet"/>
+@endsection
+
 @push('scripts')
     <script data-origin="fleet-view">
         document.addEventListener('DOMContentLoaded', () => {
-            const exportPdfButton = document.getElementById('export-pdf-btn');
+            const exportPdfButton = document.getElementById('export_pdf_btn');
+            const shareFleetButton = document.getElementById('share_fleet_btn');
+            const shareModal = document.getElementById('fleet_share_modal');
+            const shareModalCloseButton = document.getElementById('fleet_share_modal_close_btn');
 
-            if (!exportPdfButton) {
+            if (!exportPdfButton && !shareFleetButton) {
                 return;
             }
 
@@ -175,6 +182,14 @@
                     alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
                 }
             });
+
+            shareFleetButton.addEventListener('click', async () => {
+                shareModal.classList.remove('hidden');
+            })
+
+            shareModalCloseButton.addEventListener('click', () => {
+                shareModal.classList.add('hidden');
+            })
         });
     </script>
 @endpush

@@ -62,7 +62,7 @@ class FleetBuilderController extends Controller
             }
         }
 
-        return view('pages.fleet-index', compact(['fleets']));
+        return view('pages.fleet.index', compact(['fleets']));
     }
 
     /**
@@ -88,7 +88,7 @@ class FleetBuilderController extends Controller
         $fleet->setRelation('ships', $ships);
         $fleet->setRelation('commanders', $commanders);
 
-        return view('pages.fleet-view', compact(['fleet']));
+        return view('pages.fleet.view', compact(['fleet']));
     }
 
     /**
@@ -194,7 +194,7 @@ class FleetBuilderController extends Controller
                 ->get();
         }
 
-        return view('pages.fleet-builder', compact(
+        return view('pages.fleet.edit', compact(
             'fleet',
             'factions',
             'fleetLists',
@@ -612,7 +612,7 @@ class FleetBuilderController extends Controller
             $fleetList = $fleet->fleetList()->first();
             $commanders = $fleet->commanders()->withPivot('id', 'fleet_ship_id', 'points', 'rolls')->orderBy('points', 'desc')->get();
 
-            $pdfObject = Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList', 'fleet', 'commanders'));
+            $pdfObject = Pdf::view('pages.fleet.view-export', compact('faction', 'ships', 'fleetList', 'fleet', 'commanders'));
 
             if (config('app.env') == 'local' && config('laravel-pdf.driver') == 'browsershot') {
                 $pdfObject->withBrowsershot(fn(Browsershot $browsershot) =>
@@ -642,6 +642,6 @@ class FleetBuilderController extends Controller
         $fleetList = $fleet->fleetList()->first();
         $commanders = $fleet->commanders()->withPivot('id', 'fleet_ship_id', 'points', 'rolls')->orderBy('points', 'desc')->get();
 
-        return view('pages.fleet-export', compact('faction', 'ships', 'fleetList', 'fleet', 'commanders'));
+        return view('pages.fleet.view-export', compact('faction', 'ships', 'fleetList', 'fleet', 'commanders'));
     }
 }

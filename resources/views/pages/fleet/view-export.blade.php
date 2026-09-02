@@ -516,7 +516,7 @@
             <div class="ships-container">
                 @if($ships)
                     @foreach($ships as $ship)
-                        <x-fleet-builder.ship-profile-card-export :ship="$ship" :commanders="$commanders"/>
+                        <x-fleet.ship-profile-card-export :ship="$ship" :commanders="$commanders"/>
                         @if (($loop->index + 1) % 5 == 0 && !$loop->last)
                             <div style="page-break-after: always;"></div>
                             <div class="new-page"></div>
