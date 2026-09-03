@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-B9arort8.css",
+    "file": "assets/app-K1NjRqst.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -11,6 +11,10 @@
   "resources/images/fleet-builder/add-ship-icon.png": {
     "file": "assets/add-ship-icon-HI4Yx_AO.png",
     "src": "resources/images/fleet-builder/add-ship-icon.png"
+  },
+  "resources/images/fleet-builder/delete-icon.png": {
+    "file": "assets/delete-icon-qBZ1APnh.png",
+    "src": "resources/images/fleet-builder/delete-icon.png"
   },
   "resources/images/fleet-builder/extra-reroll-icon.png": {
     "file": "assets/extra-reroll-icon-Dwd_93N4.png",
@@ -44,6 +48,22 @@
     "file": "assets/loading-icon-ivLWt770.png",
     "src": "resources/images/fleet-builder/loading-icon.png"
   },
+  "resources/images/fleet-builder/pdf-export-icon.png": {
+    "file": "assets/pdf-export-icon-D0uR6Gwl.png",
+    "src": "resources/images/fleet-builder/pdf-export-icon.png"
+  },
+  "resources/images/fleet-builder/print-preview-icon.png": {
+    "file": "assets/print-preview-icon-DIkWz2jF.png",
+    "src": "resources/images/fleet-builder/print-preview-icon.png"
+  },
+  "resources/images/fleet-builder/share-icon.png": {
+    "file": "assets/share-icon-EXu8Xno9.png",
+    "src": "resources/images/fleet-builder/share-icon.png"
+  },
+  "resources/images/fleet-builder/view-icon.png": {
+    "file": "assets/view-icon-noFYdsLt.png",
+    "src": "resources/images/fleet-builder/view-icon.png"
+  },
   "resources/images/header-bg.jpg": {
     "file": "assets/header-bg-Djej8BmF.jpg",
     "src": "resources/images/header-bg.jpg"
@@ -53,7 +73,7 @@
     "src": "resources/images/main-bg.jpg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-CC7AVvgi.js",
+    "file": "assets/app-EF0LTvMy.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -64,6 +84,11 @@
       "assets/caret-icon-KjWOtrdo.png",
       "assets/add-ship-icon-HI4Yx_AO.png",
       "assets/loading-icon-ivLWt770.png",
+      "assets/pdf-export-icon-D0uR6Gwl.png",
+      "assets/print-preview-icon-DIkWz2jF.png",
+      "assets/share-icon-EXu8Xno9.png",
+      "assets/view-icon-noFYdsLt.png",
+      "assets/delete-icon-qBZ1APnh.png",
       "assets/extra-reroll-icon-Dwd_93N4.png"
     ]
   }
