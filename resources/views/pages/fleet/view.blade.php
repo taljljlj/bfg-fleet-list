@@ -34,7 +34,7 @@
         </div>
 
         <!-- Left Section -->
-        <div class="section section-left w-88 min-h-[50vh] float-left">
+        <div class="section section-left w-60 float-left">
             {{-- TODO: replace vue with blade animation for overlay when user makes requests - i think it is needed only for pdf export --}}
             <div class="section-overlay" v-if="state.isLoading" style="visibility: hidden">
                 <img :src="loadingIcon" alt="Loading Icon">
@@ -45,45 +45,75 @@
             </div>
 
             <!-- Fleet Actions -->
-            <div id="export_pdf_btn" class="btn-primary text-2xl my-12 block">
-                Export PDF
-            </div>
+            <div class="fleet-actions flex flex-row justify-evenly pt-2.5 flex-wrap gap-1.5 font-family-secondary tracking-tighter">
+                <div id="export_pdf_btn" class="w-16">
+                    <div class="btn-primary">
+                        <img src="{{ asset('images/fleet-builder/pdf-export-icon.png') }}" alt="PDF Export" class="hover:opacity-80 p-1">
+                    </div>
+                    <div>Export PDF</div>
+                </div>
 
-            <a href="{{ route('builder.view-printable', $fleet) }}" class="btn-primary text-2xl my-12 block">
-                View For Printing
-            </a>
-
-            <div id="share_fleet_btn" class="btn-primary text-2xl my-12 block">
-                Share
-            </div>
-
-            @can('update', $fleet)
-                <a href="{{ route('builder.edit', ['fleet' => $fleet->id]) }}" class="btn-primary text-2xl my-12 block">
-                    Edit
+                <a href="{{ route('builder.view-printable', $fleet) }}" class="w-16">
+                    <div class="btn-primary">
+                        <img src="{{ asset('images/fleet-builder/print-preview-icon.png') }}" alt="Print Preview" class="hover:opacity-80 p-1">
+                    </div>
+                    <div>
+                        Print Preview
+                    </div>
                 </a>
-            @else
-                <form action="{{ route('builder.clone-n-edit', $fleet->id) }}" method="POST" class="my-12 block p-0">
-                    @csrf
-                    <button type="submit" class="btn-primary text-2xl w-full h-full p-1" >
-                        Clone & Edit
-                    </button>
-                </form>
-            @endcan
 
-            @can('delete', $fleet)
-                <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="my-12 block p-0">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn-primary text-2xl w-full h-full p-1">
-                        Delete Fleet
-                    </button>
-                </form>
-            @endcan
+                <div id="share_fleet_btn" class="w-16">
+                    <div class="btn-primary">
+                        <img src="{{ asset('images/fleet-builder/share-icon.png') }}" alt="Share" class="hover:opacity-80 p-1">
+                    </div>
+                    <div>
+                        Share
+                    </div>
+                </div>
 
+                @can('update', $fleet)
+                    <a href="{{ route('builder.edit', $fleet) }}" class="w-16">
+                        <div class="btn-primary">
+                            <img src="{{ asset('images/fleet-builder/edit-icon.png') }}" alt="Edit" class="hover:opacity-80 p-1">
+                        </div>
+                        <div>
+                            Edit
+                        </div>
+                    </a>
+                @else
+                    <form action="{{ route('builder.clone-n-edit', $fleet->id) }}" method="POST" class="w-16">
+                        @csrf
+                        <button type="submit">
+                            <div class="btn-primary">
+                                <img src="{{ asset('images/fleet-builder/clone-n-edit-icon.png') }}" alt="Edit" class="hover:opacity-80 p-1">
+                            </div>
+                            <div>
+                                Clone & Edit
+                            </div>
+                        </button>
+
+                    </form>
+                @endcan
+
+                @can('delete', $fleet)
+                    <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="w-16">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">
+                            <div class="btn-primary">
+                                <img src="{{ asset('images/fleet-builder/delete-icon.png') }}" alt="Delete" class="hover:opacity-80 p-1">
+                            </div>
+                            <div>
+                                Delete
+                            </div>
+                        </button>
+                    </form>
+                @endcan
+            </div>
         </div>
 
         <!-- Right Section -->
-        <div class="section section-right w-[calc(100%-400px)] min-h-[50vh] float-right flex flex-col">
+        <div class="section section-right w-[calc(100%-290px)] min-h-[50vh] float-right flex flex-col">
             <div class="section-overlay" v-if="state.isLoading" style="visibility: hidden">
                 <img :src="loadingIcon" alt="Loading Icon">
             </div>
