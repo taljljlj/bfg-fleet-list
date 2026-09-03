@@ -23,7 +23,7 @@ defineProps({
             View For Printing
         </a>
 
-        <div id="exportUrl" class="btn-primary">
+        <div id="share_fleet_btn" class="btn-primary">
             <div class="hover:opacity-80 p-2">
                 <img src="/images/fleet-builder/share-icon.png" alt="Share">
             </div>

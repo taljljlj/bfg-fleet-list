@@ -23,7 +23,7 @@
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('builder.view', $fleet) }}"
                        target="_blank"
                        class="bfi-share-links">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" xml:space="preserve">
                             <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
                                 <circle cx="45" cy="45" r="45" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(93 123 181); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
                                 <path d="M 38.633 37.184 v 9.136 h -10.64 v 12.388 h 10.64 v 30.836 C 40.714 89.838 42.838 90 45 90 c 2.159 0 4.28 -0.162 6.359 -0.456 V 58.708 h 10.613 l 1.589 -12.388 H 51.359 v -7.909 c 0 -3.587 0.991 -6.031 6.107 -6.031 l 6.525 -0.003 v -11.08 c -1.128 -0.151 -5.002 -0.488 -9.508 -0.488 C 45.074 20.81 38.633 26.582 38.633 37.184 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
@@ -36,7 +36,7 @@
                     <a href="https://www.facebook.com/dialog/send?link={{ route('builder.view', $fleet) }}&app_id={{ config('services.facebook.client_id') }}&redirect_uri={{ route('builder.view', $fleet) }}"
                        target="_blank"
                        class="bfi-share-links">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" xml:space="preserve">
                             <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
                                 <path d="M 45 0 C 20.38 0 0.422 18.683 0.422 41.73 c 0 12.898 6.253 24.426 16.074 32.08 V 90 l 15.42 -8.371 c 4.138 1.188 8.531 1.83 13.084 1.83 c 24.62 0 44.578 -18.683 44.578 -41.73 C 89.578 18.683 69.62 0 45 0 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(249,249,249); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
                                 <polygon points="18.63,54.94 41.44,31.06 52.48,41.75 71.37,32.13 50.52,54.94 38.76,43.89 " style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,132,255); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
@@ -49,7 +49,7 @@
                     <a href="https://twitter.com/intent/tweet?url={{ route('builder.view', $fleet) }}"
                        target="_blank"
                        class="bfi-share-links">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" xml:space="preserve">
                             <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
                                 <polygon points="24.89,23.01 57.79,66.99 65.24,66.99 32.34,23.01 " style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
                                 <path d="M 45 0 L 45 0 C 20.147 0 0 20.147 0 45 v 0 c 0 24.853 20.147 45 45 45 h 0 c 24.853 0 45 -20.147 45 -45 v 0 C 90 20.147 69.853 0 45 0 z M 56.032 70.504 L 41.054 50.477 L 22.516 70.504 h -4.765 L 38.925 47.63 L 17.884 19.496 h 16.217 L 47.895 37.94 l 17.072 -18.444 h 4.765 L 50.024 40.788 l 22.225 29.716 H 56.032 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
@@ -62,7 +62,7 @@
                     <a href="https://www.reddit.com/submit?url={{ route('builder.view', $fleet) }}"
                        target="_blank"
                        class="bfi-share-links">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" xml:space="preserve">
                             <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
                                 <circle cx="45" cy="45" r="45" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,69,0); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
                                 <path d="M 75.011 45 c -0.134 -3.624 -3.177 -6.454 -6.812 -6.331 c -1.611 0.056 -3.143 0.716 -4.306 1.823 c -5.123 -3.49 -11.141 -5.403 -17.327 -5.537 l 2.919 -14.038 l 9.631 2.025 c 0.268 2.472 2.483 4.262 4.955 3.993 c 2.472 -0.268 4.262 -2.483 3.993 -4.955 s -2.483 -4.262 -4.955 -3.993 c -1.421 0.145 -2.696 0.973 -3.4 2.204 L 48.68 17.987 c -0.749 -0.168 -1.499 0.302 -1.667 1.063 c 0 0.011 0 0.011 0 0.022 l -3.322 15.615 c -6.264 0.101 -12.36 2.025 -17.55 5.537 c -2.64 -2.483 -6.801 -2.36 -9.284 0.291 c -2.483 2.64 -2.36 6.801 0.291 9.284 c 0.515 0.481 1.107 0.895 1.767 1.186 c -0.045 0.66 -0.045 1.32 0 1.98 c 0 10.078 11.745 18.277 26.23 18.277 c 14.485 0 26.23 -8.188 26.23 -18.277 c 0.045 -0.66 0.045 -1.32 0 -1.98 C 73.635 49.855 75.056 47.528 75.011 45 z M 30.011 49.508 c 0 -2.483 2.025 -4.508 4.508 -4.508 c 2.483 0 4.508 2.025 4.508 4.508 s -2.025 4.508 -4.508 4.508 C 32.025 53.993 30.011 51.991 30.011 49.508 z M 56.152 62.058 v -0.179 c -3.199 2.405 -7.114 3.635 -11.119 3.468 c -4.005 0.168 -7.919 -1.063 -11.119 -3.468 c -0.425 -0.515 -0.347 -1.286 0.168 -1.711 c 0.447 -0.369 1.085 -0.369 1.544 0 c 2.707 1.98 6.007 2.987 9.362 2.83 c 3.356 0.179 6.667 -0.783 9.407 -2.74 c 0.492 -0.481 1.297 -0.47 1.779 0.022 C 56.655 60.772 56.644 61.577 56.152 62.058 z M 55.537 54.34 c -0.078 0 -0.145 0 -0.224 0 l 0.034 -0.168 c -2.483 0 -4.508 -2.025 -4.508 -4.508 s 2.025 -4.508 4.508 -4.508 s 4.508 2.025 4.508 4.508 C 59.955 52.148 58.02 54.239 55.537 54.34 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
@@ -75,7 +75,7 @@
                     <a href="https://api.whatsapp.com/send?text={{ route('builder.view', $fleet) }}"
                        target="_blank"
                        class="bfi-share-links">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" xml:space="preserve">
                             <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
                                 <path d="M 2.113 44.609 c -0.003 7.587 1.98 14.994 5.749 21.524 l -6.11 22.31 l 22.83 -5.986 c 6.29 3.428 13.372 5.237 20.58 5.24 h 0.019 c 23.736 0 43.056 -19.315 43.066 -43.053 c 0.005 -11.504 -4.471 -22.32 -12.603 -30.459 C 67.514 6.047 56.702 1.563 45.18 1.558 c -23.737 0 -43.057 19.312 -43.067 43.052" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(42,181,64); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
                                 <path d="M 0.576 44.596 C 0.573 52.456 2.626 60.129 6.53 66.892 L 0.201 90 l 23.65 -6.201 c 6.516 3.553 13.852 5.426 21.318 5.429 h 0.019 c 24.586 0 44.601 -20.009 44.612 -44.597 c 0.004 -11.917 -4.633 -23.122 -13.055 -31.552 C 68.321 4.65 57.121 0.005 45.188 0 C 20.597 0 0.585 20.005 0.575 44.595 M 14.658 65.727 l -0.883 -1.402 c -3.712 -5.902 -5.671 -12.723 -5.669 -19.726 C 8.115 24.161 24.748 7.532 45.201 7.532 c 9.905 0.004 19.213 3.865 26.215 10.871 c 7.001 7.006 10.854 16.32 10.851 26.224 c -0.009 20.439 -16.643 37.068 -37.08 37.068 h -0.015 c -6.655 -0.004 -13.181 -1.79 -18.872 -5.168 l -1.355 -0.803 l -14.035 3.68 L 14.658 65.727 z M 45.188 89.228 L 45.188 89.228 L 45.188 89.228 C 45.187 89.228 45.187 89.228 45.188 89.228" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(251,251,251); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
@@ -88,7 +88,7 @@
                     <!-- Viber -->
                     <a href="viber://forward?text={{ route('builder.view', $fleet) }}"
                        class="bfi-share-links">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" xml:space="preserve">
                             <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
                                 <path d="M 78.042 8.778 c -2.237 -2.064 -11.275 -8.625 -31.406 -8.714 c 0 0 -23.74 -1.432 -35.313 9.184 C 4.881 15.692 2.615 25.12 2.376 36.809 C 2.137 48.499 1.827 70.405 22.943 76.344 h 0.02 l -0.013 9.064 c 0 0 -0.135 3.669 2.281 4.418 c 2.923 0.908 4.638 -1.881 7.428 -4.888 c 1.531 -1.65 3.646 -4.075 5.24 -5.928 c 14.442 1.215 25.549 -1.563 26.81 -1.973 c 2.916 -0.945 19.416 -3.06 22.099 -24.964 C 89.579 29.496 85.469 15.215 78.042 8.778 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(142 127 237); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
                                 <path d="M 65.906 57.835 c 0 0.009 -0.007 0.026 -0.007 0.034 c -0.93 1.612 -2.11 3.065 -3.497 4.306 c -0.016 0.008 -0.016 0.016 -0.031 0.024 c -1.205 1.007 -2.388 1.579 -3.551 1.717 c -0.171 0.03 -0.345 0.041 -0.519 0.032 c -0.513 0.005 -1.023 -0.073 -1.51 -0.232 l -0.038 -0.055 c -1.791 -0.505 -4.781 -1.769 -9.761 -4.516 c -2.882 -1.571 -5.625 -3.383 -8.201 -5.417 c -1.291 -1.019 -2.522 -2.111 -3.688 -3.271 l -0.124 -0.124 l -0.124 -0.124 l -0.124 -0.124 c -0.042 -0.04 -0.082 -0.082 -0.124 -0.124 c -1.16 -1.166 -2.252 -2.397 -3.271 -3.688 c -2.034 -2.575 -3.846 -5.318 -5.417 -8.199 c -2.747 -4.981 -4.011 -7.968 -4.516 -9.762 l -0.055 -0.038 c -0.158 -0.487 -0.236 -0.997 -0.231 -1.51 c -0.009 -0.173 0.001 -0.347 0.031 -0.519 c 0.145 -1.161 0.718 -2.345 1.719 -3.553 c 0.008 -0.015 0.016 -0.015 0.024 -0.031 c 1.24 -1.387 2.694 -2.567 4.306 -3.495 c 0.008 0 0.024 -0.008 0.034 -0.008 c 1.621 -0.844 3.158 -0.558 4.203 0.675 c 0.008 0.008 2.176 2.611 3.106 3.882 c 0.958 1.348 1.848 2.742 2.666 4.179 c 1.067 1.914 0.398 3.873 -0.65 4.681 l -2.114 1.68 c -1.067 0.862 -0.926 2.462 -0.926 2.462 s 3.131 11.849 14.828 14.835 c 0 0 1.6 0.135 2.462 -0.927 l 1.68 -2.114 c 0.81 -1.048 2.766 -1.717 4.681 -0.65 c 1.435 0.818 2.828 1.708 4.175 2.666 c 1.271 0.935 3.873 3.106 3.881 3.106 C 66.464 54.677 66.75 56.214 65.906 57.835 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
@@ -104,7 +104,7 @@
                     <a href="https://t.me/share/url?url={{ route('builder.view', $fleet) }}"
                        target="_blank"
                        class="bfi-share-links">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" xml:space="preserve">
                             <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
                                 <linearGradient id="SVGID_1" gradientUnits="userSpaceOnUse" x1="58.19" y1="75.759" x2="35.69" y2="23.289">
                                     <stop offset="0%" style="stop-color:rgb(55,174,226);stop-opacity: 1"/>
@@ -123,7 +123,7 @@
                     <a href="mailto:?subject=Check this out&body={{ route('builder.view', $fleet) }}"
                        target="_blank"
                        class="bfi-share-links">
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" xml:space="preserve">
                             <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
                                 <circle cx="45" cy="45" r="45" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(96 151 192); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
                                 <polygon points="21.07,31.48 36.59,45.44 21.07,58.53 " style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
@@ -143,25 +143,39 @@
 
 @push('scripts')
     <script data-origin="fleet-share-modal">
-        document.getElementById('copy_to_clipboard_btn').addEventListener('click', () => {
-            const input = document.getElementById('fleet_share_url_input');
-            const overlay = document.getElementById('fleet_share_url_input_overlay');
-            navigator.clipboard.writeText(input.value)
-                .then(() => {
-                    console.log('Copied to clipboard:', input.value);
+        document.addEventListener('DOMContentLoaded', () => {
+            const shareFleetButton = document.getElementById('share_fleet_btn');
+            const shareModal = document.getElementById('fleet_share_modal');
+            const shareModalCloseButton = document.getElementById('fleet_share_modal_close_btn');
 
-                    // trigger overlay animation
-                    overlay.classList.remove('invisible');
-                    overlay.classList.add('animate-input-overlay');
+            shareFleetButton.addEventListener('click', async () => {
+                shareModal.classList.remove('hidden');
+            })
 
-                    overlay.addEventListener('animationend', () => {
-                        overlay.classList.add('invisible');
-                        overlay.classList.remove('animate-input-overlay');
-                    }, { once:true });
-                })
-                .catch(err => {
-                    console.error('Failed to copy:', err);
-                });
+            shareModalCloseButton.addEventListener('click', () => {
+                shareModal.classList.add('hidden');
+            })
+
+            document.getElementById('copy_to_clipboard_btn').addEventListener('click', () => {
+                const input = document.getElementById('fleet_share_url_input');
+                const overlay = document.getElementById('fleet_share_url_input_overlay');
+                navigator.clipboard.writeText(input.value)
+                    .then(() => {
+                        console.log('Copied to clipboard:', input.value);
+
+                        // trigger overlay animation
+                        overlay.classList.remove('invisible');
+                        overlay.classList.add('animate-input-overlay');
+
+                        overlay.addEventListener('animationend', () => {
+                            overlay.classList.add('invisible');
+                            overlay.classList.remove('animate-input-overlay');
+                        }, {once: true});
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy:', err);
+                    });
+            });
         });
     </script>
 @endpush

@@ -147,9 +147,6 @@
     <script data-origin="fleet-view">
         document.addEventListener('DOMContentLoaded', () => {
             const exportPdfButton = document.getElementById('export_pdf_btn');
-            const shareFleetButton = document.getElementById('share_fleet_btn');
-            const shareModal = document.getElementById('fleet_share_modal');
-            const shareModalCloseButton = document.getElementById('fleet_share_modal_close_btn');
 
             if (!exportPdfButton && !shareFleetButton) {
                 return;
@@ -182,14 +179,6 @@
                     alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
                 }
             });
-
-            shareFleetButton.addEventListener('click', async () => {
-                shareModal.classList.remove('hidden');
-            })
-
-            shareModalCloseButton.addEventListener('click', () => {
-                shareModal.classList.add('hidden');
-            })
         });
     </script>
 @endpush

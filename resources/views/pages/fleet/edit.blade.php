@@ -21,6 +21,10 @@
     </div>
 @endsection
 
+@section('modals')
+    <x-fleet.share-modal :fleet="$fleet"/>
+@endsection
+
 @push('scripts')
     @vite(['resources/js/app.js'])
 @endpush
