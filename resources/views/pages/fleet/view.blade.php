@@ -44,15 +44,41 @@
                 <h1 class="m-0 text-right text-2xl">Fleet template by <strong>{{ $fleet->user->name ?? 'Anonymous' }}</strong></h1>
             </div>
 
-            <div class="btn-primary text-2xl my-12 block">Export PDF</div>
+            <!-- Fleet Actions -->
+            <div id="export_pdf_btn" class="btn-primary text-2xl my-12 block">
+                Export PDF
+            </div>
 
-            <div class="btn-primary text-2xl my-12 block">Share</div>
-            @auth
-                <a href="{{ route('builder.edit', ['fleet' => $fleet->id]) }}" class="btn-primary text-2xl my-12 block">Edit</a>
+            <a href="{{ route('builder.view-printable', $fleet) }}" class="btn-primary text-2xl my-12 block">
+                View For Printing
+            </a>
+
+            <div id="share_fleet_btn" class="btn-primary text-2xl my-12 block">
+                Share
+            </div>
+
+            @can('update', $fleet)
+                <a href="{{ route('builder.edit', ['fleet' => $fleet->id]) }}" class="btn-primary text-2xl my-12 block">
+                    Edit
+                </a>
             @else
-                {{-- TODO: update href once we have clone & edit route --}}
-                <a href="" class="btn-primary text-2xl my-12 block">Clone & Edit</a>
-            @endauth
+                <form action="{{ route('builder.clone-n-edit', $fleet->id) }}" method="POST" class="my-12 block p-0">
+                    @csrf
+                    <button type="submit" class="btn-primary text-2xl w-full h-full p-1" >
+                        Clone & Edit
+                    </button>
+                </form>
+            @endcan
+
+            @can('delete', $fleet)
+                <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="my-12 block p-0">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-primary text-2xl w-full h-full p-1">
+                        Delete Fleet
+                    </button>
+                </form>
+            @endcan
 
         </div>
 
@@ -103,7 +129,7 @@
             <div class="ship-card-container flex flex-wrap flex-row text-center justify-evenly w-full pt-5">
                 @if($fleet->ships)
                     @foreach($fleet->ships as $ship)
-                        <x-fleet-builder.ship-profile-card :ship="$ship" :commanders="$fleet->commanders"/>
+                        <x-fleet.ship-profile-card :ship="$ship" :commanders="$fleet->commanders"/>
                     @endforeach
                 @else
                     <h2 class="text-2xl mt-8">No ships have been added to the fleet yet</h2>
@@ -112,3 +138,47 @@
         </div>
     </div>
 @endsection
+
+@section('modals')
+    <x-fleet.share-modal :fleet="$fleet"/>
+@endsection
+
+@push('scripts')
+    <script data-origin="fleet-view">
+        document.addEventListener('DOMContentLoaded', () => {
+            const exportPdfButton = document.getElementById('export_pdf_btn');
+
+            if (!exportPdfButton && !shareFleetButton) {
+                return;
+            }
+
+            exportPdfButton.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/api/{{ $fleet->id }}/export-pdf/', {
+                        method: 'GET'
+                    });
+
+                    if (!response.ok) {
+                        console.error('Failed to fetch PDF:', response.status, response.statusText);
+                        alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
+                        return;
+                    }
+
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const downloadLink = document.createElement('a');
+
+                    downloadLink.href = url;
+                    downloadLink.download = 'fleet-builder.pdf';
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    downloadLink.remove();
+                    window.URL.revokeObjectURL(url);
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
+                }
+            });
+        });
+    </script>
+@endpush

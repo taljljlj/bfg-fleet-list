@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Log;
 
 class RefitService
 {
+    const array REFIT_MODEL_RELATIONS = ['armamentRefits', 'additionalRules', 'appliedRefitsDirect'];
     /**
-     * Due to limitations of eloquent relations rebuilding the ship's Refit relation with parent-child hierarchy
+     * Due to limitations of eloquent relations, rebuilding the ship's Refit relation with parent-child hierarchy
      * containing related Modifications
      *
      * @param Ship $ship
@@ -462,5 +463,24 @@ class RefitService
         $ship->setRelation('appliedRefits', $appliedRefits);
 
         return $ship;
+    }
+
+    /**
+     * Clone all armament refits from a fleet ship to another
+     * @param FleetShip $sourceShip
+     * @param FleetShip $newShip
+     * @param string $type name of the FleetShip relation
+     * @return void
+     */
+    public function cloneShipRefitsByType(FleetShip $sourceShip, FleetShip $newShip, string $type)
+    {
+        if (in_array($type, self::REFIT_MODEL_RELATIONS)) {
+            $refits = $sourceShip->$type()->get();
+            foreach ($refits as $refit) {
+                $refitClone = $refit->replicate();
+                $refitClone->fleet_ship_id = $newShip->id;
+                $refitClone->save();
+            }
+        }
     }
 }

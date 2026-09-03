@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Fleet;
+use App\Models\FleetBuilder\FleetCommander;
 use App\Models\FleetBuilder\FleetShipArmament;
 use App\Models\FleetBuilder\FleetShipRule;
 use App\Models\FleetList;
@@ -10,17 +11,28 @@ use App\Models\FleetBuilder\FleetShip;
 use App\Models\Ship;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Gate;
 
 class FleetBuilderService
 {
     private RefitService $refitService;
     private ArmamentService $armamentService;
     private RuleService $ruleService;
+    private ShipService $shipService;
+    private CommanderService $commanderService;
 
-    public function __construct(RefitService $refitService, ArmamentService $armamentService, RuleService $ruleService) {
+    public function __construct(
+        RefitService $refitService,
+        ArmamentService $armamentService,
+        RuleService $ruleService,
+        ShipService $shipService,
+        CommanderService $commanderService
+    ) {
         $this->refitService = $refitService;
         $this->armamentService = $armamentService;
         $this->ruleService = $ruleService;
+        $this->shipService = $shipService;
+        $this->commanderService = $commanderService;
     }
     public array $shipTypeOrder = [
         'Battleship' => 1,
@@ -134,5 +146,53 @@ class FleetBuilderService
         }
 
         return $ship;
+    }
+
+    /**
+     * Soft-delete fleet. Detach it from user and reset fleet and ship names to defaults, but keep the fleet record.
+     * @param Fleet $fleet
+     * @return void
+     */
+    public function deleteFleet(Fleet $fleet) : void
+    {
+        $fleet->user_id = null;
+        $fleet->name = $fleet->default_name;
+        $fleet->save();
+
+        FleetShip::where('fleet_id', $fleet->id)
+            ->whereNotNull('name')
+            ->update(['name' => null]);
+
+        if(!auth()->check()) {
+            $guestFleetIds = session('guestFleetIds', []);
+            $guestFleetIds = array_filter($guestFleetIds, fn($id) => $id !== $fleet->id);
+            session()->put('guestFleetIds', $guestFleetIds);
+        }
+    }
+
+    /**
+     * Clone fleet and all its related objects and assign to the current user or guest session
+     * @param Fleet $fleet
+     * @return Fleet
+     */
+    public function cloneFleet(Fleet $fleet) : Fleet
+    {
+        $fleetClone = $fleet->replicate();
+        $fleetClone->notes = null;
+        $fleetClone->save();
+
+        if (auth()->check()) {
+            $fleetClone->user_id = auth()->id();
+        } else {
+            session()->push('guestFleetIds', $fleetClone->id);
+        }
+        $fleetClone->name = $fleetClone->default_name;
+        $fleetClone->save();
+
+        $clonedShipIdMap = $this->shipService->cloneFleetShips($fleet, $fleetClone);
+
+        $this->commanderService->cloneFleetCommanders($fleet, $fleetClone, $clonedShipIdMap);
+
+        return $fleetClone;
     }
 }

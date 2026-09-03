@@ -62,7 +62,7 @@ class FleetBuilderController extends Controller
             }
         }
 
-        return view('pages.fleet-index', compact(['fleets']));
+        return view('pages.fleet.index', compact(['fleets']));
     }
 
     /**
@@ -88,7 +88,7 @@ class FleetBuilderController extends Controller
         $fleet->setRelation('ships', $ships);
         $fleet->setRelation('commanders', $commanders);
 
-        return view('pages.fleet-view', compact(['fleet']));
+        return view('pages.fleet.view', compact(['fleet']));
     }
 
     /**
@@ -107,27 +107,34 @@ class FleetBuilderController extends Controller
      * @param Fleet $fleet
      * @return RedirectResponse
      */
-    public function delete(Fleet $fleet) : RedirectResponse
+    public function destroy(Fleet $fleet) : RedirectResponse
     {
         if (Gate::denies('delete', $fleet)) {
             return redirect()->route('builder.view', $fleet);
         }
 
-        $fleet->user_id = null;
-        $fleet->name = $fleet->default_name;
-        $fleet->save();
-
-        FleetShip::where('fleet_id', $fleet->id)
-            ->whereNotNull('name')
-            ->update(['name' => null]);
-
-        if(!auth()->check()) {
-            $guestFleetIds = session('guestFleetIds', []);
-            $guestFleetIds = array_filter($guestFleetIds, fn($id) => $id !== $fleet->id);
-            session()->put('guestFleetIds', $guestFleetIds);
-        }
+        $this->fleetBuilderService->deleteFleet($fleet);
 
         return redirect()->route('builder.index');
+    }
+
+    /**
+     * Soft-delete fleet. Detach it from user and reset fleet and ship names to defaults, but keep the fleet record.
+     * @param Fleet $fleet
+     * @return JsonResponse
+     */
+    public function destroyApi(Fleet $fleet) : JsonResponse
+    {
+        if (Gate::denies('delete', $fleet)) {
+            return response()->json(
+                ['message' => '+++ Deletion Rite Denied +++\r\nAccess to purge this fleet is forbidden. The muster rolls recognize no authority in your seal. Only the rightful master may enact the purge protocol.'],
+                403
+            );
+        }
+
+        $this->fleetBuilderService->deleteFleet($fleet);
+
+        return response()->json(['redirectUrl' => route('builder.index')]);
     }
 
     /**
@@ -187,7 +194,7 @@ class FleetBuilderController extends Controller
                 ->get();
         }
 
-        return view('pages.fleet-builder', compact(
+        return view('pages.fleet.edit', compact(
             'fleet',
             'factions',
             'fleetLists',
@@ -197,6 +204,21 @@ class FleetBuilderController extends Controller
             'commanderList',
             'commanders',
         ));
+    }
+
+    /**
+     * @param Fleet $fleet
+     * @return RedirectResponse
+     */
+    public function cloneAndEdit(Fleet $fleet)
+    {
+        if (Gate::allows('update', $fleet)) {
+            return redirect()->route('builder.edit', $fleet);
+        }
+
+        $fleetClone = $this->fleetBuilderService->cloneFleet($fleet);
+
+        return redirect()->route('builder.edit', ['fleet' => $fleetClone]);
     }
 
     /**
@@ -590,7 +612,7 @@ class FleetBuilderController extends Controller
             $fleetList = $fleet->fleetList()->first();
             $commanders = $fleet->commanders()->withPivot('id', 'fleet_ship_id', 'points', 'rolls')->orderBy('points', 'desc')->get();
 
-            $pdfObject = Pdf::view('pages.fleet-export', compact('faction', 'ships', 'fleetList', 'fleet', 'commanders'));
+            $pdfObject = Pdf::view('pages.fleet.view-export', compact('faction', 'ships', 'fleetList', 'fleet', 'commanders'));
 
             if (config('app.env') == 'local' && config('laravel-pdf.driver') == 'browsershot') {
                 $pdfObject->withBrowsershot(fn(Browsershot $browsershot) =>
@@ -607,8 +629,12 @@ class FleetBuilderController extends Controller
         }
     }
 
-    //TODO: for pdf testing, remove after pdf export fully completed
-    public function testPdf(Fleet $fleet)
+    /**
+     * Grayscale readonly fleet page. Ready for printing. Visually the same as exported PDF.
+     * @param Fleet $fleet
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\View\View|object
+     */
+    public function showPrintable(Fleet $fleet)
     {
         $ships = $this->fleetBuilderService->loadAndPrepareShips($fleet->ships(), true, false, true)->sortBy('order');
 
@@ -616,6 +642,6 @@ class FleetBuilderController extends Controller
         $fleetList = $fleet->fleetList()->first();
         $commanders = $fleet->commanders()->withPivot('id', 'fleet_ship_id', 'points', 'rolls')->orderBy('points', 'desc')->get();
 
-        return view('pages.fleet-export', compact('faction', 'ships', 'fleetList', 'fleet', 'commanders'));
+        return view('pages.fleet.view-export', compact('faction', 'ships', 'fleetList', 'fleet', 'commanders'));
     }
 }
