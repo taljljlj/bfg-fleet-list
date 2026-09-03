@@ -44,7 +44,7 @@ class ArmamentService
     }
 
     /**
-     * Remove armament from collection of ship's armaments
+     * Remove armament from the collection of ship's armaments
      *
      * @param Collection $shipArms
      * @param int $shipArmId
@@ -83,7 +83,7 @@ class ArmamentService
     }
 
     /**
-     * Construct Armament object to be appended to collection of ship's default armaments
+     * Construct Armament object to be appended to the collection of ship's default armaments
      *
      * @param FleetShipArmament $refittedArm
      * @return Armament

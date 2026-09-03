@@ -27,13 +27,22 @@
                             @endif
                         </div>
                         <div class="text-xl mr-4">{{ $fleet->points }} pts</div>
-                        <div>
-                            <a href="{{ route('builder.edit', $fleet->id) }}" class="btn-primary text-md px-3 py-1">Edit</a>
-                            <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="inline-block">
+                        <div class="flex align-middle">
+                            <a href="{{ route('builder.edit', $fleet->id) }}" class="btn-primary mr-1">
+                                <div class="h-7">
+                                    <img src="{{ asset('images/fleet-builder/edit-icon.png') }}" alt="Delete" class="hover:opacity-80 p-0.5">
+                                </div>
+                            </a>
+
+                            <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="h-7">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn-primary text-md leading-5 px-3 py-1">Delete</button>
-                            </form> {{-- TODO: replace route once delete is implemented --}}
+                                <button type="submit" class="btn-primary">
+                                    <div class="h-7">
+                                        <img src="{{ asset('images/fleet-builder/delete-icon.png') }}" alt="Delete" class="hover:opacity-80 p-0.5">
+                                    </div>
+                                </button>
+                            </form>
                         </div>
                     </div>
               @endforeach
