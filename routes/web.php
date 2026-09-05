@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\BattlefieldGeneratorController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FleetBuilderController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,10 @@ Route::group(['prefix' => 'fleet-builder'], function () {
     Route::get('/create/hotpick/{faction}', [FleetBuilderController::class, 'hotpickIndex'])->name('builder.index-hotpick');
     Route::get('/view-printable/{fleet}', [FleetBuilderController::class, 'showPrintable'])->name('builder.view-printable');
     Route::get('{fleet}/export-pdf/', [FleetBuilderController::class, 'getFleetAsPdf'])->name('pdf-export.test');
+});
+
+Route::group(['prefix' => 'battlefield-generator'], function () {
+    Route::get('/', [BattlefieldGeneratorController::class, 'index'])->name('bf-gen.index');
 });
 
 Route::group(['middleware' => 'guest'], function () {
