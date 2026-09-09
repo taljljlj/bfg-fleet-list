@@ -34,7 +34,7 @@
                     <a href="{{ route('builder.index') }}" class="block no-underline h-full hover:opacity-80 text-primary-700">Fleet Builder</a>
                 </li>
                 <li class="navbar-li">
-                    <a href="{{ route('builder.index') }}" class="block no-underline h-full hover:opacity-80 text-primary-700">Battlefield Generator</a>
+                    <a href="{{ route('bf-gen.index') }}" class="block no-underline h-full hover:opacity-80 text-primary-700">Battlefield Generator</a>
                 </li>
                 <li class="navbar-li">
                     <div class="h-full text-primary-700">
