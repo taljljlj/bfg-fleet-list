@@ -20,10 +20,10 @@
     @vite('resources/css/app.css')
 </head>
 <body id="mainBody" class="font-family-primary flex flex-col min-h-screen">
-    <header id="bfgHeader" class="h-40 bg-cover text-center">
+    <header id="bfgHeader" class="h-20 md:h-28 lg:h-40 bg-cover text-center">
         <div class="banner-container relative h-full">
             <a class="logo-home inline-block h-full" href="{{ route('home') }}">
-                <img id="bfg-logo" src="{{ asset("images/bfg-logo.png") }}" alt="bfg logo">
+                <img id="bfg-logo" src="{{ asset("images/bfg-logo.png") }}" alt="Brace For Impact Logo">
             </a>
         </div>
     </header>

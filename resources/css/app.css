@@ -89,7 +89,8 @@ input[type="number"] {
 /* =================== */
 @layer wrappers {
     .navbar-li {
-        @apply box-content align-top inline-block h-10 py-3.5 px-10 leading-10 text-4xl;
+        @apply box-content align-top inline-block py-2 px-3 text-xl leading-4 h-5
+        md:px-5 md:h-8 md:text-2xl md:leading-7 md:py-2.5 lg:px-10 lg:h-10 lg:text-4xl lg:leading-10 lg:py-3.5;
     }
 }
 
