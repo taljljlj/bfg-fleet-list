@@ -2,7 +2,7 @@
 
 @section('common-content')
     <div class="relative flex flex-row pb-10">
-        <div class="section section-left flex-1 h-108">
+        <div class="section section-left flex-1">
             {{-- TODO: replace vue with blade animation for overlay when user makes requests - i think it is needed only for pdf export --}}
             <div class="section-overlay" v-if="state.isLoading" style="visibility: hidden">
                 <img :src="loadingIcon" alt="Loading Icon">
@@ -22,7 +22,7 @@
                 <div id="bf_gen_generate_btn" class="btn-primary mt-6 mb-3 text-2xl">Generate</div>
             </div>
 
-            <div>
+            <div class="section-divider divider-r">
                 <h2 class="text-2xl my-6">Legend:</h2>
                 <div class="flex justify-between mb-3 align-middle">
                     <img src="{{ asset('images/battlefield-generator/asteroid-field-asset.png') }}" alt="Asteroid Field" class="h-8 w-20">
@@ -37,6 +37,13 @@
                     <span class="ml-4">---  Warp Rift</span>
                 </div>
             </div>
+
+            <div>
+                <h2 class="text-2xl my-6">Admiralty Notice:</h2>
+                <p class="font-family-secondary">Battlefield generator simulates the rulebook’s battlezone rolls to chart your warzone.</p>
+                <p class="font-family-secondary">Celestial phenomena visuals are symbolic. Positions are provisional; asset dimensions for tabletop play are depicted on visuals. Stacking and/or overlaps may occur - redistribute as needed.</p>
+                <p class="font-family-secondary">Admirals retain full freedom to alter the battlefield; the generator is a tool, not a mandate.</p>
+            </div>
         </div>
 
         <div class="relative section-right flex-9">
@@ -46,10 +53,6 @@
             </div>
 
             <div class="section w-[1000px] h-[750px] mx-auto">
-
-                {{-- TESTING --}}
-
-
                 <div id="battlefield_container" class="p-6 w-full h-full">
                     <div class="border-2 border-secondary w-full h-full">
                         <div class="w-full h-7 border-b-2 border-b-secondary">Deployment Zone</div>
@@ -469,7 +472,7 @@
                     yPos = getRandomInt(13, 87);
                 }
 
-                return '<div class="absolute bf-gen-asset" style="top:' + yPos + '%; left:' + xPos + '%; width:150px; height:53px; transform: translate(-50%, -50%)' + rotate  + '">' +
+                return '<div class="absolute bf-gen-asset hover:z-50" style="top:' + yPos + '%; left:' + xPos + '%; width:150px; height:53px; transform: translate(-50%, -50%)' + rotate  + '">' +
                     '<div class="relative">' +
                     '<img src="/images/battlefield-generator/asteroid-field-asset.png" alt="Asteroid Field" class="drop-shadow-[0_0_10px_#c8c5dc] opacity-70">' +
                     '<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-primary-700 text-2xl font-bold drop-shadow-[0_0_10px_#c8c5dc]">' + xSize + ' x ' + ySize + ' cm</div>' +
@@ -490,7 +493,7 @@
                     yPos = getRandomInt(12, 88);
                 }
 
-                return '<div class="absolute bf-gen-asset" style="top:' + yPos + '%; left:' + xPos + '%; width:150px; height:65px; transform: translate(-50%, -50%)' + rotate  + '">' +
+                return '<div class="absolute bf-gen-asset hover:z-50" style="top:' + yPos + '%; left:' + xPos + '%; width:150px; height:65px; transform: translate(-50%, -50%)' + rotate  + '">' +
                     '<div class="relative">' +
                     '<img src="/images/battlefield-generator/gas-cloud-asset.png" alt="Gas Cloud" class="opacity-70">' +
                     '<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-primary-700 text-2xl font-bold drop-shadow-[0_0_10px_#c8c5dc]">' + xSize + ' x ' + ySize + ' cm</div>' +
@@ -516,7 +519,7 @@
                         xPos = getRandomInt(38, 62);
                         yPos = 50;
                         if(passCheck()) {
-                            planetaryRingsHtml = '<div class="absolute z-40" style="width: 260px; height: 260px; top: -41px; left: -41px;">' +
+                            planetaryRingsHtml = '<div class="absolute z-20" style="width: 260px; height: 260px; top: -41px; left: -41px;">' +
                                 '<img src="/images/battlefield-generator/planetary-rings-asset.png" alt="Planetary Rings" class="opacity-80">' +
                                 '</div>';
                         }
@@ -532,7 +535,7 @@
                 for(let i=0; i<moons; i++) {
                     let moonRotation = getRandomInt(0,360);
 
-                    moonsHtml += '<div class="absolute top-0 left-0 z-50" style="width: 170px; height: 170px; transform: rotate(' + moonRotation + 'deg)">' +
+                    moonsHtml += '<div class="absolute top-0 left-0 z-30" style="width: 170px; height: 170px; transform: rotate(' + moonRotation + 'deg)">' +
                             '<div class="absolute top-1/2 -right-20" style="width:70px; height:70px; transform: translate(0, -50%)">' +
                                 '<img src="/images/battlefield-generator/moon-asset.png" alt="Moon" class="opacity-80">' +
                                 '<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-primary-700 text-2xl font-bold drop-shadow-[0_0_20px_#c8c5dc]" style="transform: rotate(-' + moonRotation + 'deg);">Moon</div>' +
