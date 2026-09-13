@@ -8,112 +8,115 @@
         </div>
         <!-- Faction Selection -->
         <div class="section section-top">
-            <div class="flex flex-row justify-between px-12 py-3 align-middle">
+            <div class="flex flex-row justify-between align-middle lg:px-12 lg:py-3">
                 <div class="text-center user-select-none">
                     <div class="flex flex-row justify-center">
                         @if($fleet->faction)
-                            <img src="{{ asset('images/factions/' . $fleet->faction->img_url) }}" alt="{{ $fleet->faction->name }} Logo" class="h-8 mr-2">
-                        @endif
-                        <h3 class="tracking-wider text-white text-2xl font-bold">
-                            @if($fleet->faction)
+                            <img src="{{ asset('images/factions/' . $fleet->faction->img_url) }}" alt="{{ $fleet->faction->name }} Logo" class="h-4 md:h-6 md:mr-1 lg:h-8 lg:mr-2">
+                            <h3 class="tracking-wider text-white md:text-xl lg:text-2xl lg:font-bold">
                                 {{ $fleet->faction->name }}
-                            @endif
-                            @if($fleet->faction && $fleet->fleetList)
-                                <span class="font-light tracking-normal">({{ $fleet->fleetList->name }})</span>
-                            @endif
-                        </h3>
+                                @if($fleet->fleetList)
+                                    <span class="font-light tracking-normal">({{ $fleet->fleetList->name }})</span>
+                                @endif
+                            </h3>
+                        @endif
                     </div>
                 </div>
                 <div>
-                    <h1 class="text-4xl">{{ $fleet->name }}</h1>
+                    <h1 class="md:text-3xl lg:text-4xl">{{ $fleet->name }}</h1>
                 </div>
                 <div>
-                    <h1 class="text-right text-4xl font-bold"><span id="points">{{ $fleet->points }}</span> pts.</h1>
+                    <h1 class="text-right font-bold md:text-3xl lg:text-4xl"><span id="points">{{ $fleet->points }}</span> pts.</h1>
                 </div>
             </div>
         </div>
 
         <!-- Left Section -->
-        <div class="section section-left w-60 float-left">
-            {{-- TODO: replace vue with blade animation for overlay when user makes requests - i think it is needed only for pdf export --}}
-            <div class="section-overlay" v-if="state.isLoading" style="visibility: hidden">
-                <img :src="loadingIcon" alt="Loading Icon">
+        <div class="section section-left float-left flex flex-row fixed top-54 -left-3 z-10 md:top-80 md:-left-6 lg:relative lg:top-0 lg:left-0 lg:w-60">
+            <div id="sidebar_toggle_btn" class="h-5 -mr-3 md:h-7 md:-mr-5 lg:hidden">
+                <img src="{{ asset('images/caret-icon.png') }}" alt="Sidebar Toggle Icon" class="-rotate-90">
             </div>
-
-            <div class="section-divider divider-r">
-                <h1 class="m-0 text-right text-2xl">Fleet template by <strong>{{ $fleet->user->name ?? 'Anonymous' }}</strong></h1>
-            </div>
-
-            <!-- Fleet Actions -->
-            <div class="fleet-actions flex flex-row justify-evenly pt-2.5 flex-wrap gap-1.5 font-family-secondary tracking-tighter">
-                <div id="export_pdf_btn" class="w-16">
-                    <div class="btn-primary">
-                        <img src="{{ asset('images/fleet-builder/pdf-export-icon.png') }}" alt="PDF Export" class="hover:opacity-80 p-1">
-                    </div>
-                    <div>Export PDF</div>
+            <div id="sidebar" class="hidden lg:block">
+                {{-- TODO: replace vue with blade animation for overlay when user makes requests - i think it is needed only for pdf export --}}
+                <div class="section-overlay" v-if="state.isLoading" style="visibility: hidden">
+                    <img :src="loadingIcon" alt="Loading Icon">
                 </div>
 
-                <a href="{{ route('builder.view-printable', $fleet) }}" class="w-16">
-                    <div class="btn-primary">
-                        <img src="{{ asset('images/fleet-builder/print-preview-icon.png') }}" alt="Print Preview" class="hover:opacity-80 p-1">
-                    </div>
-                    <div>
-                        Print Preview
-                    </div>
-                </a>
-
-                <div id="share_fleet_btn" class="w-16">
-                    <div class="btn-primary">
-                        <img src="{{ asset('images/fleet-builder/share-icon.png') }}" alt="Share" class="hover:opacity-80 p-1">
-                    </div>
-                    <div>
-                        Share
-                    </div>
+                <div class="section-divider divider-r">
+                    <h1 class="m-0 text-right text-2xl">Fleet template by <strong>{{ $fleet->user->name ?? 'Anonymous' }}</strong></h1>
                 </div>
 
-                @can('update', $fleet)
-                    <a href="{{ route('builder.edit', $fleet) }}" class="w-16">
+                <!-- Fleet Actions -->
+                <div class="fleet-actions flex flex-row justify-evenly pt-2.5 flex-wrap gap-1.5 font-family-secondary tracking-tighter">
+                    <div id="export_pdf_btn" class="w-16">
                         <div class="btn-primary">
-                            <img src="{{ asset('images/fleet-builder/edit-icon.png') }}" alt="Edit" class="hover:opacity-80 p-1">
+                            <img src="{{ asset('images/fleet-builder/pdf-export-icon.png') }}" alt="PDF Export" class="hover:opacity-80 p-1">
+                        </div>
+                        <div>Export PDF</div>
+                    </div>
+
+                    <a href="{{ route('builder.view-printable', $fleet) }}" class="w-16">
+                        <div class="btn-primary">
+                            <img src="{{ asset('images/fleet-builder/print-preview-icon.png') }}" alt="Print Preview" class="hover:opacity-80 p-1">
                         </div>
                         <div>
-                            Edit
+                            Print Preview
                         </div>
                     </a>
-                @else
-                    <form action="{{ route('builder.clone-n-edit', $fleet->id) }}" method="POST" class="w-16">
-                        @csrf
-                        <button type="submit">
+
+                    <div id="share_fleet_btn" class="w-16">
+                        <div class="btn-primary">
+                            <img src="{{ asset('images/fleet-builder/share-icon.png') }}" alt="Share" class="hover:opacity-80 p-1">
+                        </div>
+                        <div>
+                            Share
+                        </div>
+                    </div>
+
+                    @can('update', $fleet)
+                        <a href="{{ route('builder.edit', $fleet) }}" class="w-16">
                             <div class="btn-primary">
-                                <img src="{{ asset('images/fleet-builder/clone-n-edit-icon.png') }}" alt="Edit" class="hover:opacity-80 p-1">
+                                <img src="{{ asset('images/fleet-builder/edit-icon.png') }}" alt="Edit" class="hover:opacity-80 p-1">
                             </div>
                             <div>
-                                Clone & Edit
+                                Edit
                             </div>
-                        </button>
+                        </a>
+                    @else
+                        <form action="{{ route('builder.clone-n-edit', $fleet->id) }}" method="POST" class="w-16">
+                            @csrf
+                            <button type="submit">
+                                <div class="btn-primary">
+                                    <img src="{{ asset('images/fleet-builder/clone-n-edit-icon.png') }}" alt="Edit" class="hover:opacity-80 p-1">
+                                </div>
+                                <div>
+                                    Clone & Edit
+                                </div>
+                            </button>
 
-                    </form>
-                @endcan
+                        </form>
+                    @endcan
 
-                @can('delete', $fleet)
-                    <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="w-16">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">
-                            <div class="btn-primary">
-                                <img src="{{ asset('images/fleet-builder/delete-icon.png') }}" alt="Delete" class="hover:opacity-80 p-1">
-                            </div>
-                            <div>
-                                Delete
-                            </div>
-                        </button>
-                    </form>
-                @endcan
+                    @can('delete', $fleet)
+                        <form action="{{ route('builder.delete', $fleet->id) }}" method="POST" class="w-16">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">
+                                <div class="btn-primary">
+                                    <img src="{{ asset('images/fleet-builder/delete-icon.png') }}" alt="Delete" class="hover:opacity-80 p-1">
+                                </div>
+                                <div>
+                                    Delete
+                                </div>
+                            </button>
+                        </form>
+                    @endcan
+                </div>
             </div>
         </div>
 
         <!-- Right Section -->
-        <div class="section section-right w-[calc(100%-290px)] min-h-[50vh] float-right flex flex-col">
+        <div class="section section-right w-full min-h-[50vh] flex flex-col lg:w-[calc(100%-290px)] lg:float-right">
             <div class="section-overlay" v-if="state.isLoading" style="visibility: hidden">
                 <img :src="loadingIcon" alt="Loading Icon">
             </div>
@@ -177,10 +180,7 @@
     <script data-origin="fleet-view">
         document.addEventListener('DOMContentLoaded', () => {
             const exportPdfButton = document.getElementById('export_pdf_btn');
-
-            if (!exportPdfButton && !shareFleetButton) {
-                return;
-            }
+            const sidebarToggleBtn = document.getElementById('sidebar_toggle_btn');
 
             exportPdfButton.addEventListener('click', async () => {
                 try {
@@ -208,6 +208,15 @@
                     console.error('Error:', error);
                     alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
                 }
+            });
+
+            sidebarToggleBtn.addEventListener('click', () => {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('hidden');
+                sidebarToggleBtn.firstElementChild.classList.toggle('-rotate-90');
+                sidebarToggleBtn.firstElementChild.classList.toggle('rotate-90');
+                sidebarToggleBtn.classList.toggle('-mr-3');
+                sidebarToggleBtn.classList.toggle('md:-mr-5');
             });
         });
     </script>

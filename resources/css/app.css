@@ -124,7 +124,7 @@ tbody tr.firearc-fr:after {
 
 @layer wrappers {
     .section {
-        @apply relative text-secondary p-6 border-3 border-secondary rounded-md bg-primary-100-opc-35 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc] backdrop-blur-md mt-12;
+        @apply text-secondary p-3 border-3 border-secondary rounded-md bg-primary-100-opc-35 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc] backdrop-blur-md mt-8 md:mt-12 md:p-6;
     }
     .section-dark {
         @apply relative text-secondary p-6 border-3 border-secondary rounded-md bg-primary-500-opc-80 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc] backdrop-blur-md mt-12;
@@ -176,11 +176,11 @@ tbody tr.firearc-fr:after {
     }
 
     .divider-r {
-        @apply after:-right-6 after:bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)];
+        @apply after:-right-3 after:bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)] md:after:-right-6;
     }
 
     .divider-l {
-        @apply after:-left-6 after:bg-[linear-gradient(to_left,transparent_0%,#c8c5dc_100%)];
+        @apply after:-left-3 after:bg-[linear-gradient(to_left,transparent_0%,#c8c5dc_100%)] md:after:-left-6;
     }
 
     .divider-c {
