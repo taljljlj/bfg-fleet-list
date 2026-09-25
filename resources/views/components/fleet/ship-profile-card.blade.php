@@ -43,7 +43,7 @@
 
     <div class="card-ship-body font-secondary tracking-tight flex flex-wrap flex-row pt-0.5">
         <div class="card-section-t flex justify-evenly items-center w-full">
-            <div class="card-subsec-l flex flex-col w-1/2 relative">
+            <div class="card-subsec-l flex flex-col relative w-2/5 md:w-1/2">
                 <div class="card-ship-img">
                     <img
                         src="{{ asset(file_exists(public_path('images/ships/' . $ship->img_url)) ? ('images/ships/' . $ship->img_url) : ('images/ships/ship-no-image.png')) }}"
@@ -56,25 +56,25 @@
                     })
                 @endphp
                 @if($shipCommander)
-                    <div class="absolute bottom-0 left-2.5 flex items-end">
-                        <img src="{{ asset('images/fleet-builder/commander-icon.png') }}" alt="Commander Icon" class="h-8 opacity-80 inline-block">
-                        <span class="font-family-secondary text-primary-500-opc-80 text-base inline-block ml-1">{{ $shipCommander->name }}</span>
+                    <div class="absolute -bottom-4 left-2.5 flex items-end md:bottom-0">
+                        <img src="{{ asset('images/fleet-builder/commander-icon.png') }}" alt="Commander Icon" class="h-4 opacity-80 inline-block md:h-8">
+                        <span class="font-family-secondary text-primary-500-opc-80 inline-block ml-1 text-xs md:text-base">{{ $shipCommander->name }}</span>
                     </div>
                 @endif
             </div>
-            <div class="card-subsec-r flex flex-col w-1/2 px-2.5">
+            <div class="card-subsec-r flex flex-col w-3/5 px-1 md:w-1/2 md:px-2.5">
                 <input
                     type="text"
-                    class="w-full text-lg font-thin px-2.5 py-0 text-ellipsis border-primary-500-opc-80 text-primary-500-opc-80 focus-visible:shadow-[inset_0_0_5px_#365773CC] placeholder:text-primary-500-opc-80 bfi-input m-0 text-center"
+                    class="w-full text-base font-thin px-2.5 py-0 text-ellipsis border-primary-500-opc-80 text-primary-500-opc-80 focus-visible:shadow-[inset_0_0_5px_#365773CC] placeholder:text-primary-500-opc-80 placeholder:font-family-primary bfi-input m-0 text-center md:text-lg"
                     name="cardShipName"
                     placeholder="{{ $ship->pivot->name }}"
                 >
-                <div class="card-ship-additional card-box-container w-full h-32 overflow-y-auto overflow-x-hidden">
+                <div class="card-ship-additional card-box-container w-full h-24 overflow-y-auto overflow-x-hidden md:h-32">
                     <div class="card-ship-special ship-rules-section-container">
                         @if($ship->rules)
-                            <ul class="rules-list pl-5 m-0 text-left">
+                            <ul class="rules-list pl-2 pt-1 m-0 text-left md:pl-5">
                                 @foreach($ship->rules as $rule)
-                                    <li>{{ $rule->text }}</li>
+                                    <li class="text-xs leading-3 font-family-secondary md:text-base md:leading-5">{{ $rule->text }}</li>
                                 @endforeach
                             </ul>
                         @endif
@@ -87,34 +87,34 @@
                 <div class="card-ship-stats flex flex-row flex-wrap justify-between w-full items-center\">
                     <div class="stat-box card-box-container">
                         <div class="stat-name">HP</div>
-                        <div class="stat-value font-semibold">{{ $ship->hitpoints }}</div>
+                        <div class="stat-value">{{ $ship->hitpoints }}</div>
                     </div>
                     <div class="stat-box card-box-container">
                         <div class="stat-name">Speed</div>
-                        <div class="stat-value font-semibold">{{ $ship->pivot->speed ?? $ship->speed }}{{ strlen($ship->speed) > 2 ? '' : 'cm' }}</div>
+                        <div class="stat-value">{{ $ship->pivot->speed ?? $ship->speed }}{{ strlen($ship->speed) > 2 ? '' : 'cm' }}</div>
                     </div>
                     <div class="stat-box card-box-container">
                         <div class="stat-name">Turns</div>
-                        <div class="stat-value font-semibold">{{ $ship->pivot->turns ?? $ship->turns }}{{ strlen($ship->turns) > 2 ? '' : '°' }}</div>
+                        <div class="stat-value">{{ $ship->pivot->turns ?? $ship->turns }}{{ strlen($ship->turns) > 2 ? '' : '°' }}</div>
                     </div>
                     <div class="stat-box card-box-container">
                         <div class="stat-name">Shields</div>
-                        <div class="stat-value font-semibold">{{ $ship->pivot->shields ?? $ship->shields }}</div>
+                        <div class="stat-value">{{ $ship->pivot->shields ?? $ship->shields }}</div>
                     </div>
                     <div class="stat-box card-box-container">
                         <div class="stat-name">Armour</div>
-                        <div class="stat-value font-semibold">{{ $ship->pivot->armour_short ??  $ship->armour_short }}</div>
+                        <div class="stat-value">{{ $ship->pivot->armour_short ??  $ship->armour_short }}</div>
                     </div>
                     <div class="stat-box card-box-container">
                         <div class="stat-name">{{ $ship->faction_id === 11 ? 'Spores' : 'Turrets' }}</div>
-                        <div class="stat-value font-semibold">{{ $ship->pivot->turrets ?? $ship->turrets }}</div>
+                        <div class="stat-value">{{ $ship->pivot->turrets ?? $ship->turrets }}</div>
                     </div>
                 </div>
             </div>
-            <div class="card-subsec-r ship-armaments-section-container flex flex-col w-2/3 self-center pr-9">
+            <div class="card-subsec-r ship-armaments-section-container flex flex-col w-2/3 self-center pr-6 md:pr-9">
                 @if($ship->armaments)
                     <div class="card-ship-armaments card-box-container flex flex-wrap flex-col self-center items-center w-full">
-                        <table class="w-full bg-primary-500-opc-80 border-collapse">
+                        <table class="w-full bg-primary-500-opc-80 border-collapse text-sm md:text-base">
                             <thead class="text-secondary w-full">
                             <tr>
                                 <th class="font-normal">Armament</th>
@@ -125,7 +125,7 @@
                             <tbody class="bg-secondary">
                             @foreach($ship->armaments as $armament)
                                 @if($armament->placement !== 'Starboard')
-                                    <tr class="border-t-2 border-b-primary-500-opc-80 relative after:content-[''] after:block after:absolute after:-top-0.5 after:-right-7 after:w-6 after:h-6 after:bg-contain after:bg-no-repeat {{ 'firearc-' . $armament->fire_arc_short }}">
+                                    <tr class="border-t-2 border-b-primary-500-opc-80 relative after:content-[''] after:block after:absolute after:-top-0.5 after:-right-6 after:w-5 after:h-5 after:bg-contain after:bg-no-repeat {{ 'firearc-' . $armament->fire_arc_short }} md:after:h-6 md:after:w-6 md:after:-right-7">
                                         <!-- 1st col -->
                                         <td class="border-r-2 border-b-primary-500-opc-80">{{ ($armament->placement === 'Port' ? 'Pt|Sb' : $armament->placement) . ' ' . $armament->type }}</td>
 

@@ -141,7 +141,7 @@ tbody tr.firearc-fr:after {
 
     /* Ship Cards */
     .card-ship .card-subsec-l {
-        @apply flex items-center px-2.5 relative;
+        @apply flex items-center px-1 relative md:px-2.5;
     }
 
     .card-ship .card-subsec-r {
@@ -161,9 +161,12 @@ tbody tr.firearc-fr:after {
     }
 
     .card-ship .stat-box {
-        @apply flex flex-col justify-center p-0.5 w-14 my-0.5 h-14 border-2 rounded-md bg-transparent border-primary-500-opc-80 text-primary-500-opc-80;
+        @apply flex flex-col justify-center w-1/2 h-10 text-sm leading-3.5 border-2 rounded-md bg-transparent border-primary-500-opc-80 text-primary-500-opc-80 md:p-0.5 md:w-14 md:h-14 md:text-base md:leading-4;
     }
 
+    .card-ship .stat-box .stat-value {
+        @apply font-semibold text-xs leading-3 md:text-base md:leading-4;
+    }
 }
 
 @layer components {
