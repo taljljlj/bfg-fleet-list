@@ -120,8 +120,8 @@
             <div class="section-overlay" v-if="state.isLoading" style="visibility: hidden">
                 <img :src="loadingIcon" alt="Loading Icon">
             </div>
-            <div class="fleet-setup-container section-divider divider-r flex flex-row">
-                <div class="flex-1/3 pb-4">
+            <div class="fleet-setup-container section-divider divider-r flex flex-col 2xl:flex-row">
+                <div class="pb-4 2xl:flex-1/3">
                     @if($fleet->commanders)
                     <!-- Commander Setup -->
                     @foreach($fleet->commanders as $commander)
@@ -131,19 +131,19 @@
                             });
                         @endphp
                         @if($loop->first)
-                            <h2 class="text-2xl mb-4">Fleet Commander:</h2>
+                            <h2 class="text-xl mb-4 md:text-2xl">Fleet Commander:</h2>
                         @elseif($loop->index === 1)
-                            <h2 class="text-2xl my-4">Ship Commander{{ $loop->count > 2 ? 's' : '' }}:</h2>
+                            <h2 class="text-xl my-4 md:text-2xl">Ship Commander{{ $loop->count > 2 ? 's' : '' }}:</h2>
                         @endif
-                        <h3 class="text-xl flex align-middle px-4">{{ $commander->name }} ({{ $commander->pivot->points }} Pts) Ld:{{ $commander->leadership }} [{{ $commanderShip ? ($commanderShip->pivot->name ?? $commanderShip->class) : 'No ship assigned' }}]
+                        <h3 class="text-base flex align-middle px-4 justify-center-safe md:text-xl 2xl:justify-normal">{{ $commander->name }} ({{ $commander->pivot->points }} Pts) Ld:{{ $commander->leadership }} [{{ $commanderShip ? ($commanderShip->pivot->name ?? $commanderShip->class) : 'No ship assigned' }}]
                             @for($i=0; $i<$commander->rolls; $i++)
                                 <span>
-                                    <img class="h-7 ml-2 invert opacity-60" src="{{ asset('images/fleet-builder/reroll-icon.png') }}" alt="Re-roll Icon">
+                                    <img class="h-5 ml-1 invert opacity-60 md:h-7 md:ml-2" src="{{ asset('images/fleet-builder/reroll-icon.png') }}" alt="Re-roll Icon">
                                 </span>
                             @endfor
                             @for($i=$commander->rolls;$i<$commander->pivot->rolls; $i++)
                                 <span>
-                                    <img class="h-7 ml-2 opacity-60" src="{{ asset('images/fleet-builder/extra-reroll-icon.png') }}" alt="Re-roll Icon">
+                                    <img class="h-5 ml-1 opacity-60 md:h-7 md:ml-2" src="{{ asset('images/fleet-builder/extra-reroll-icon.png') }}" alt="Extra Re-roll Icon">
                                 </span>
                             @endfor
                         </h3>
@@ -152,9 +152,9 @@
                         <h2 class="text-2xl my-4">This fleet has no commanders assigned</h2>
                     @endif
                 </div>
-                <div class="flex-1/3">
+                <div class="2xl:flex-1/3">
                 </div>
-                <div class="flex-1/3">
+                <div class="2xl:flex-1/3">
                 </div>
             </div>
 

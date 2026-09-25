@@ -1,5 +1,5 @@
 <div class="card-ship border-3 border-secondary rounded-md w-[600px] backdrop-blur-sm bg-secondary mb-5">
-    <div class="card-ship-header relative bg-primary-500-opc-80 text-secondary flex flex-row justify-between items-center text-3xl z-10 py-1.5">
+    <div class="card-ship-header relative bg-primary-500-opc-80 text-secondary flex flex-row justify-between items-center z-10 py-1 md:py-1.5">
         <div class="card-subsec-l">
             @if($ship->type === 'Escort')
                 <div class="card-ship-class heading">
@@ -9,8 +9,8 @@
                 <div class="card-ship-class heading">{{ $ship->class }}</div>
             @endif
         </div>
-        <div class="card-subsec-r px-2.5">
-            <div class="card-ship-ld card-input heading px-2.5">
+        <div class="card-subsec-r px-1.5 md:px-2.5">
+            <div class="card-ship-ld card-input heading px-0.5 md:px-2.5">
                 <label for="cardShipLd">Ld: </label>
                 <input
                     type="text"
@@ -18,17 +18,17 @@
                     readonly
                     placeholder="{{ $ship->pivot->leadership }}"
                     @if($ship->type === 'Escort')
-                        class="ship-escort-ld w-24 text-2xl bfi-input light-input m-0 p-0 text-center placeholder:text-secondary"
+                        class="w-18 text-lg bfi-input light-input m-0 p-0 text-center placeholder:text-secondary md:text-2xl md:w-24"
                     @else
-                        class="w-8 text-2xl bfi-input light-input m-0 p-0 text-center placeholder:text-secondary"
+                        class="w-6 text-lg bfi-input light-input m-0 p-0 text-center placeholder:text-secondary md:text-2xl md:w-8"
                     @endif
                 />
             </div>
-            <div class="card-ship-pts card-input heading px-2.5">
+            <div class="card-ship-pts card-input heading px-0.5 md:px-2.5">
                 <label for="cardShipPts">Pts: </label>
                 <input
                     type="number"
-                    class="w-14 text-2xl bfi-input light-input m-0 p-0 text-center placeholder:text-secondary"
+                    class="w-9 text-lg bfi-input light-input m-0 p-0 text-center placeholder:text-secondary md:text-2xl md:w-14"
                     name="cardShipPts"
                     readonly
                     @if($ship->type === 'Escort')
@@ -58,7 +58,7 @@
                 @if($shipCommander)
                     <div class="absolute bottom-0 left-2.5 flex items-end">
                         <img src="{{ asset('images/fleet-builder/commander-icon.png') }}" alt="Commander Icon" class="h-8 opacity-80 inline-block">
-                        <span class="font-family-secondary text-primary-500-opc-80 text-md inline-block ml-1">{{ $shipCommander->name }}</span>
+                        <span class="font-family-secondary text-primary-500-opc-80 text-base inline-block ml-1">{{ $shipCommander->name }}</span>
                     </div>
                 @endif
             </div>

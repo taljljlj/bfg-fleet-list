@@ -301,7 +301,7 @@ const validateLdInput = (event) => {
                 </div>
                 <div v-if="commander" class="absolute bottom-0 left-2.5 flex items-end">
                     <img src="/images/fleet-builder/commander-icon.png" alt="Commander Icon" class="h-8 opacity-80 inline-block">
-                    <span class="font-family-secondary text-primary-500-opc-80 text-md inline-block ml-1">{{ commander.name }}</span>
+                    <span class="font-family-secondary text-primary-500-opc-80 text-base inline-block ml-1">{{ commander.name }}</span>
                 </div>
             </div>
             <div class="card-subsec-r flex flex-col w-1/2 px-2.5">
