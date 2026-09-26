@@ -56,7 +56,7 @@
                     })
                 @endphp
                 @if($shipCommander)
-                    <div class="absolute -bottom-4 left-2.5 flex items-end md:bottom-0">
+                    <div class="absolute -bottom-2 left-2.5 flex items-end sm:bottom-0">
                         <img src="{{ asset('images/fleet-builder/commander-icon.png') }}" alt="Commander Icon" class="h-4 opacity-80 inline-block md:h-8">
                         <span class="font-family-secondary text-primary-500-opc-80 inline-block ml-1 text-xs md:text-base">{{ $shipCommander->name }}</span>
                     </div>
@@ -85,29 +85,29 @@
         <div class="card-section-b flex justify-evenly items-center w-full mt-1">
             <div class="card-subsec-l ship-stats-section-container flex flex-col w-1/3">
                 <div class="card-ship-stats flex flex-row flex-wrap justify-between w-full items-center\">
-                    <div class="stat-box card-box-container">
+                    <div class="stat-box card-box-container w-2/5">
                         <div class="stat-name">HP</div>
                         <div class="stat-value">{{ $ship->hitpoints }}</div>
                     </div>
-                    <div class="stat-box card-box-container">
+                    <div class="stat-box card-box-container w-3/5">
                         <div class="stat-name">Speed</div>
                         <div class="stat-value">{{ $ship->pivot->speed ?? $ship->speed }}{{ strlen($ship->speed) > 2 ? '' : 'cm' }}</div>
                     </div>
-                    <div class="stat-box card-box-container">
+                    <div class="stat-box card-box-container w-2/5">
                         <div class="stat-name">Turns</div>
                         <div class="stat-value">{{ $ship->pivot->turns ?? $ship->turns }}{{ strlen($ship->turns) > 2 ? '' : '°' }}</div>
                     </div>
-                    <div class="stat-box card-box-container">
+                    <div class="stat-box card-box-container w-3/5">
                         <div class="stat-name">Shields</div>
                         <div class="stat-value">{{ $ship->pivot->shields ?? $ship->shields }}</div>
                     </div>
-                    <div class="stat-box card-box-container">
-                        <div class="stat-name">Armour</div>
-                        <div class="stat-value">{{ $ship->pivot->armour_short ??  $ship->armour_short }}</div>
-                    </div>
-                    <div class="stat-box card-box-container">
+                    <div class="stat-box card-box-container w-2/5">
                         <div class="stat-name">{{ $ship->faction_id === 11 ? 'Spores' : 'Turrets' }}</div>
                         <div class="stat-value">{{ $ship->pivot->turrets ?? $ship->turrets }}</div>
+                    </div>
+                    <div class="stat-box card-box-container w-3/5">
+                        <div class="stat-name">Armour</div>
+                        <div class="stat-value">{{ $ship->pivot->armour_short ??  $ship->armour_short }}</div>
                     </div>
                 </div>
             </div>
