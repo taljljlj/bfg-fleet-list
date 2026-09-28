@@ -89,7 +89,8 @@ input[type="number"] {
 /* =================== */
 @layer wrappers {
     .navbar-li {
-        @apply box-content align-top inline-block h-10 py-3.5 px-10 leading-10 text-4xl;
+        @apply box-content align-top inline-block py-2 px-3 text-xl leading-4 h-5
+        md:px-5 md:h-8 md:text-2xl md:leading-7 md:py-2.5 lg:px-10 lg:h-10 lg:text-4xl lg:leading-10 lg:py-3.5;
     }
 }
 
@@ -123,7 +124,7 @@ tbody tr.firearc-fr:after {
 
 @layer wrappers {
     .section {
-        @apply relative text-secondary p-6 border-3 border-secondary rounded-md bg-primary-100-opc-35 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc] backdrop-blur-md mt-12;
+        @apply text-secondary p-3 border-3 border-secondary rounded-md bg-primary-100-opc-35 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc] backdrop-blur-md mt-8 md:mt-12 md:p-6;
     }
     .section-dark {
         @apply relative text-secondary p-6 border-3 border-secondary rounded-md bg-primary-500-opc-80 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc] backdrop-blur-md mt-12;
@@ -140,7 +141,7 @@ tbody tr.firearc-fr:after {
 
     /* Ship Cards */
     .card-ship .card-subsec-l {
-        @apply flex items-center px-2.5 relative;
+        @apply flex items-center px-1 relative md:px-2.5;
     }
 
     .card-ship .card-subsec-r {
@@ -152,7 +153,7 @@ tbody tr.firearc-fr:after {
     }
 
     .card-ship .heading {
-        @apply text-2xl font-normal z-0;
+        @apply text-base font-normal z-0 md:text-2xl;
     }
 
     .card-ship .counter-btn {
@@ -160,9 +161,12 @@ tbody tr.firearc-fr:after {
     }
 
     .card-ship .stat-box {
-        @apply flex flex-col justify-center p-0.5 w-14 my-0.5 h-14 border-2 rounded-md bg-transparent border-primary-500-opc-80 text-primary-500-opc-80;
+        @apply flex flex-col justify-center h-8 text-sm leading-3.5 border-2 rounded-md bg-transparent border-primary-500-opc-80 text-primary-500-opc-80 md:p-0.5 md:w-14 md:h-14 md:text-base md:leading-4;
     }
 
+    .card-ship .stat-box .stat-value {
+        @apply font-semibold text-xs leading-3 md:text-base md:leading-4;
+    }
 }
 
 @layer components {
@@ -175,11 +179,11 @@ tbody tr.firearc-fr:after {
     }
 
     .divider-r {
-        @apply after:-right-6 after:bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)];
+        @apply after:-right-3 after:bg-[linear-gradient(to_right,transparent_0%,#c8c5dc_100%)] md:after:-right-6;
     }
 
     .divider-l {
-        @apply after:-left-6 after:bg-[linear-gradient(to_left,transparent_0%,#c8c5dc_100%)];
+        @apply after:-left-3 after:bg-[linear-gradient(to_left,transparent_0%,#c8c5dc_100%)] md:after:-left-6;
     }
 
     .divider-c {
