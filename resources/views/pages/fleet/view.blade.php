@@ -55,7 +55,7 @@
                         <div>Export PDF</div>
                     </div>
 
-                    <a href="{{ route('builder.view-printable', $fleet) }}" class="w-16">
+                    <a href="{{ route('builder.view-printable', $fleet) }}" target="_blank" class="w-16">
                         <div class="btn-primary">
                             <img src="{{ asset('images/fleet-builder/print-preview-icon.png') }}" alt="Print Preview" class="hover:opacity-80 p-1">
                         </div>

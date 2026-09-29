@@ -1,24 +1,24 @@
 @if($fleet)
     <div id="fleet_share_modal" class="fixed z-50 top-1/2 left-1/2 -translate-1/2 hidden">
-        <div class="section-dark">
+        <div class="section-dark p-4 md:p-6">
             <div id="fleet_share_modal_close_btn" class="absolute text-2xl top-2 right-3 cursor-pointer opacity-80 hover:opacity-100 hover:text-shadow-[0_0_10px_#c8c5dc]">
                 ✖
             </div>
-            <div class="m-6 align-middle flex flex-row">
+            <div class="m-4 mt-6 align-middle flex flex-row md:m-6">
                 <div class="relative">
-                    <input id="fleet_share_url_input" name="share-url" type="text" readonly value="{{ route('builder.view', $fleet) }}" class="bfi-input light-input w-100 text-center text-xl p-2">
+                    <input id="fleet_share_url_input" name="share-url" type="text" readonly value="{{ route('builder.view', $fleet) }}" class="bfi-input light-input w-70 text-center text-sm p-1 md:p-2 md:w-100 md:text-xl">
                     <div id="fleet_share_url_input_overlay"
                          class="absolute w-full h-full top-0 left-0 text-2xl p-2 bg-primary-500-opc-80 border-2 border-secondary rounded text-shadow-[0_0_15px_#2d3748] invisible"
                     >
                         Copied!
                     </div>
                 </div>
-                <div id="copy_to_clipboard_btn" class="ml-3 h-10">
+                <div id="copy_to_clipboard_btn" class="ml-1.5 h-7 w-7 md:h-10 md:w-10 md:ml-3">
                     <img src="{{ asset('images/fleet-builder/copy-icon.png') }}" alt="Copy Icon" class="cursor-pointer opacity-60 hover:opacity-80 hover:drop-shadow-[0_0_15px_#c8c5dc]">
                 </div>
             </div>
-            <div class="flex flex-col mb-6">
-                <div class="flex justify-between px-6">
+            <div class="flex flex-col mb-3 md:mb-6">
+                <div class="flex justify-between px-3 md:px-6">
                     <!-- Facebook -->
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('builder.view', $fleet) }}"
                        target="_blank"
@@ -29,7 +29,7 @@
                                 <path d="M 38.633 37.184 v 9.136 h -10.64 v 12.388 h 10.64 v 30.836 C 40.714 89.838 42.838 90 45 90 c 2.159 0 4.28 -0.162 6.359 -0.456 V 58.708 h 10.613 l 1.589 -12.388 H 51.359 v -7.909 c 0 -3.587 0.991 -6.031 6.107 -6.031 l 6.525 -0.003 v -11.08 c -1.128 -0.151 -5.002 -0.488 -9.508 -0.488 C 45.074 20.81 38.633 26.582 38.633 37.184 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
                             </g>
                         </svg>
-                        <div>Facebook</div>
+                        <div class="text-xs md:text-base">Facebook</div>
                     </a>
 
                     <!-- Messenger -->
@@ -42,7 +42,7 @@
                                 <polygon points="18.63,54.94 41.44,31.06 52.48,41.75 71.37,32.13 50.52,54.94 38.76,43.89 " style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,132,255); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
                             </g>
                         </svg>
-                        <div>Messenger</div>
+                        <div class="text-xs md:text-base">Messenger</div>
                     </a>
 
                     <!-- X (Twitter) -->
@@ -55,7 +55,7 @@
                                 <path d="M 45 0 L 45 0 C 20.147 0 0 20.147 0 45 v 0 c 0 24.853 20.147 45 45 45 h 0 c 24.853 0 45 -20.147 45 -45 v 0 C 90 20.147 69.853 0 45 0 z M 56.032 70.504 L 41.054 50.477 L 22.516 70.504 h -4.765 L 38.925 47.63 L 17.884 19.496 h 16.217 L 47.895 37.94 l 17.072 -18.444 h 4.765 L 50.024 40.788 l 22.225 29.716 H 56.032 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
                             </g>
                         </svg>
-                        <div>X</div>
+                        <div class="text-xs md:text-base">X</div>
                     </a>
 
                     <!-- Reddit -->
@@ -68,7 +68,7 @@
                                 <path d="M 75.011 45 c -0.134 -3.624 -3.177 -6.454 -6.812 -6.331 c -1.611 0.056 -3.143 0.716 -4.306 1.823 c -5.123 -3.49 -11.141 -5.403 -17.327 -5.537 l 2.919 -14.038 l 9.631 2.025 c 0.268 2.472 2.483 4.262 4.955 3.993 c 2.472 -0.268 4.262 -2.483 3.993 -4.955 s -2.483 -4.262 -4.955 -3.993 c -1.421 0.145 -2.696 0.973 -3.4 2.204 L 48.68 17.987 c -0.749 -0.168 -1.499 0.302 -1.667 1.063 c 0 0.011 0 0.011 0 0.022 l -3.322 15.615 c -6.264 0.101 -12.36 2.025 -17.55 5.537 c -2.64 -2.483 -6.801 -2.36 -9.284 0.291 c -2.483 2.64 -2.36 6.801 0.291 9.284 c 0.515 0.481 1.107 0.895 1.767 1.186 c -0.045 0.66 -0.045 1.32 0 1.98 c 0 10.078 11.745 18.277 26.23 18.277 c 14.485 0 26.23 -8.188 26.23 -18.277 c 0.045 -0.66 0.045 -1.32 0 -1.98 C 73.635 49.855 75.056 47.528 75.011 45 z M 30.011 49.508 c 0 -2.483 2.025 -4.508 4.508 -4.508 c 2.483 0 4.508 2.025 4.508 4.508 s -2.025 4.508 -4.508 4.508 C 32.025 53.993 30.011 51.991 30.011 49.508 z M 56.152 62.058 v -0.179 c -3.199 2.405 -7.114 3.635 -11.119 3.468 c -4.005 0.168 -7.919 -1.063 -11.119 -3.468 c -0.425 -0.515 -0.347 -1.286 0.168 -1.711 c 0.447 -0.369 1.085 -0.369 1.544 0 c 2.707 1.98 6.007 2.987 9.362 2.83 c 3.356 0.179 6.667 -0.783 9.407 -2.74 c 0.492 -0.481 1.297 -0.47 1.779 0.022 C 56.655 60.772 56.644 61.577 56.152 62.058 z M 55.537 54.34 c -0.078 0 -0.145 0 -0.224 0 l 0.034 -0.168 c -2.483 0 -4.508 -2.025 -4.508 -4.508 s 2.025 -4.508 4.508 -4.508 s 4.508 2.025 4.508 4.508 C 59.955 52.148 58.02 54.239 55.537 54.34 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
                             </g>
                         </svg>
-                        <div>Reddit</div>
+                        <div class="text-xs md:text-base">Reddit</div>
                     </a>
 
                     <!-- WhatsApp -->
@@ -82,7 +82,7 @@
                                 <path d="M 34.038 25.95 c -0.835 -1.856 -1.714 -1.894 -2.508 -1.926 c -0.65 -0.028 -1.394 -0.026 -2.136 -0.026 c -0.744 0 -1.951 0.279 -2.972 1.394 c -1.022 1.116 -3.902 3.812 -3.902 9.296 c 0 5.485 3.995 10.784 4.551 11.529 c 0.558 0.743 7.712 12.357 19.041 16.825 c 9.416 3.713 11.333 2.975 13.376 2.789 c 2.044 -0.186 6.595 -2.696 7.524 -5.299 c 0.929 -2.603 0.929 -4.834 0.651 -5.299 c -0.279 -0.465 -1.022 -0.744 -2.137 -1.301 c -1.115 -0.558 -6.595 -3.254 -7.617 -3.626 c -1.022 -0.372 -1.765 -0.557 -2.509 0.559 c -0.743 1.115 -2.878 3.625 -3.528 4.368 c -0.65 0.745 -1.301 0.838 -2.415 0.28 c -1.115 -0.559 -4.705 -1.735 -8.964 -5.532 c -3.314 -2.955 -5.551 -6.603 -6.201 -7.719 c -0.65 -1.115 -0.069 -1.718 0.489 -2.274 c 0.501 -0.499 1.115 -1.301 1.673 -1.952 c 0.556 -0.651 0.742 -1.116 1.113 -1.859 c 0.372 -0.744 0.186 -1.395 -0.093 -1.953 C 37.195 33.666 35.029 28.154 34.038 25.95" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(251,251,251); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
                             </g>
                         </svg>
-                        <div>WhatsApp</div>
+                        <div class="text-xs md:text-base">WhatsApp</div>
                     </a>
 
                     <!-- Viber -->
@@ -97,7 +97,7 @@
                                 <path d="M 66.754 41.735 c -0.003 0 -0.006 0 -0.009 0 c -0.625 0 -1.134 -0.504 -1.138 -1.13 c -0.052 -6.869 -2.114 -12.336 -6.127 -16.248 c -4.021 -3.92 -9.102 -5.929 -15.103 -5.97 c -0.629 -0.004 -1.135 -0.518 -1.131 -1.146 c 0.004 -0.626 0.513 -1.131 1.138 -1.131 c 0.003 0 0.005 0 0.008 0 c 6.609 0.046 12.22 2.272 16.676 6.617 c 4.465 4.352 6.757 10.362 6.814 17.861 C 67.888 41.217 67.382 41.73 66.754 41.735 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
                             </g>
                         </svg>
-                        <div>Viber</div>
+                        <div class="text-xs md:text-base">Viber</div>
                     </a>
 
                     <!-- Telegram -->
@@ -116,7 +116,7 @@
                                 <path d="M 37.515 54.154 L 55.65 67.552 c 2.07 1.142 3.563 0.551 4.079 -1.921 l 7.382 -34.786 c 0.756 -3.03 -1.155 -4.405 -3.135 -3.506 L 20.629 44.053 c -2.959 1.187 -2.941 2.838 -0.539 3.573 l 11.124 3.472 l 25.752 -16.247 c 1.216 -0.737 2.332 -0.341 1.416 0.472 L 37.515 54.154 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(252,253,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
                             </g>
                         </svg>
-                        <div>Telegram</div>
+                        <div class="text-xs md:text-base">Telegram</div>
                     </a>
 
                     <!-- Email -->
@@ -132,7 +132,7 @@
                                 <polygon points="53.41,45.44 68.93,31.48 68.93,58.53 " style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
                             </g>
                         </svg>
-                        <div>Email</div>
+                        <div class="text-xs md:text-base">Email</div>
                     </a>
                 </div>
 

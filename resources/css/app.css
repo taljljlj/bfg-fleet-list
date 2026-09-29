@@ -127,7 +127,7 @@ tbody tr.firearc-fr:after {
         @apply text-secondary p-3 border-3 border-secondary rounded-md bg-primary-100-opc-35 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc] backdrop-blur-md mt-8 md:mt-12 md:p-6;
     }
     .section-dark {
-        @apply relative text-secondary p-6 border-3 border-secondary rounded-md bg-primary-500-opc-80 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc] backdrop-blur-md mt-12;
+        @apply relative text-secondary border-3 border-secondary rounded-md bg-primary-500-opc-80 shadow-[0_0_30px_#1a202c,inset_0_0_30px_#c8c5dc] backdrop-blur-md mt-12;
     }
     .section-overlay {
         @apply absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-primary-500-opc-50 backdrop-blur-sm z-50;
@@ -203,7 +203,7 @@ tbody tr.firearc-fr:after {
     }
 
     .bfi-share-links {
-        @apply h-15 w-12 hover:drop-shadow-[0_0_15px_#c8c5dc] text-secondary font-family-secondary tracking-tighter;
+        @apply h-12 w-9 hover:drop-shadow-[0_0_15px_#c8c5dc] text-secondary font-family-secondary tracking-tighter md:h-15 md:w-12;
     }
 }
 
