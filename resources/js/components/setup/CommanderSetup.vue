@@ -83,21 +83,21 @@ const handleApplyExtraRerolls = async (commander, commanderRerollId) => {
 </script>
 
 <template>
-    <h1 class="text-4xl mb-4">Leadership</h1>
-    <ul v-if="commanderList" class="pl-15 text-left section-divider divider-r">
+    <h1 class="text-xl mb-4 md:text-2xl lg:text-4xl">Leadership</h1>
+    <ul v-if="commanderList" class="pl-5 text-left section-divider divider-r lg:pl-15">
         <li
             v-for="commander in commanderList"
             :key="commander.id"
             class="my-1 align-middle flex w-full justify-between"
         >
             <span
-                class="cursor-pointer opacity-70 hover:opacity-100 user-select-none hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)] inline-block rotate-90 mr-2"
+                class="cursor-pointer opacity-70 hover:opacity-100 user-select-none hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)] inline-block rotate-90 mr-3 lg:mr-2"
                 @click="handleCommanderAdd(commander.id)"
             >
-                        <img :src="addShipIcon" alt="Add Ship Icon" class="h-4 w-4">
+                        <img :src="addShipIcon" alt="Add Ship Icon" class="h-3 w-3 lg:h-4 lg:w-4">
             </span>
-            <span>{{commander.name}} ({{commander.points}} pts)</span>
-            <span class="grow text-right font-family-secondary">
+            <span class="text-sm lg:text-base">{{commander.name}} ({{commander.points}} pts)</span>
+            <span class="grow text-right font-family-secondary text-sm lg:text-base">
                 0/1
             </span>
         </li>
@@ -110,29 +110,29 @@ const handleApplyExtraRerolls = async (commander, commanderRerollId) => {
         >
             <div class="flex grow">
                 <span
-                    class="cursor-pointer opacity-70 hover:opacity-100 user-select-none hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)] mr-2"
+                    class="cursor-pointer opacity-70 hover:opacity-100 user-select-none hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)] mr-2 text-sm lg:text-base"
                     @click="handleCommanderRemove(commander.pivot.id)"
                 >
                     ✖
                 </span>
-                <span class="mx-2">{{commander.name}} ({{ commander.pivot.points ?? commander.points}} pts)</span>
+                <span class="mx-1 text-sm lg:text-base lg:mx-2">{{commander.name}} ({{ commander.pivot.points ?? commander.points}} pts)</span>
             </div>
             <div class="flex">
-                <span class="mx-2 font-family-secondary">Ld: {{commander.leadership}}</span>
-                <span class="mx-2 font-family-secondary">Ship: </span>
+                <span class="mx-1 font-family-secondary text-sm lg:text-base lg:mx-2">Ld: {{commander.leadership}}</span>
+                <span class="ml-1 font-family-secondary text-sm lg:text-base lg:ml-2">Ship: </span>
             </div>
-            <div class="flex-1/4 text-sm">
+            <div class="flex-1/4 text-xs lg:text-sm">
                 <Dropdown
                     :items="mappedCommanderShipList"
                     :selectedItem="props.commanderSelectedShips[commander.pivot.id]"
                     labelKey="name"
                     valueKey="pivotId"
                     @item-selected="(pivotId, name) => handleCommanderShipAssigned(commander.pivot.id, pivotId, name)"
-                    class="mr-2"
+                    class="mr-1 lg:mr-2"
                 />
             </div>
             <div class="flex">
-                <span class="mx-2 font-family-secondary">Re-rolls: {{commander.pivot.rolls ?? commander.rolls}}</span>
+                <span class="mx-1 font-family-secondary text-sm lg:text-base lg:mx-1">Re-rolls: {{commander.pivot.rolls ?? commander.rolls}}</span>
                 <div
                     v-if="commander.commander_rerolls.length > 0"
                     class="user-select-none inline-block relative z-10"
@@ -140,13 +140,13 @@ const handleApplyExtraRerolls = async (commander, commanderRerollId) => {
                     <img
                         @click="handleShowExtraRerolls(commander)"
                         :src="extraRerollIcon" alt="Buy Extra Rerolls"
-                        class="cursor-pointer h-8 opacity-70 hover:opacity-100 hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)]"
+                        class="cursor-pointer h-5 opacity-70 hover:opacity-100 hover:filter-[drop-shadow(0_0_10px_#c8c5dc)_hue-rotate(45deg)] lg:h-8"
                     />
                     <div
                         v-show="showExtraRerolls[commander.pivot.id]"
-                        class="user-select-none absolute w-44 top-0 left-10 border-2 border-primary-500-opc-80 rounded-md bg-secondary overflow-auto text-primary-500-opc-80 z-50 text-left p-4"
+                        class="user-select-none absolute w-36 top-0 right-6 border-2 border-primary-500-opc-80 rounded-md bg-secondary overflow-auto text-primary-500-opc-80 z-50 text-left p-4 lg:top-0 lg:left-10 lg:w-44"
                     >
-                        <h3 class="mb-4">Buy extra re-rolls:</h3>
+                        <h3 class="mb-2 text-sm lg:text-base lg:mb-4">Buy extra re-rolls:</h3>
                         <input
                             type="radio"
                             :name="`reroll-${commander.pivot.id}`"
@@ -154,7 +154,7 @@ const handleApplyExtraRerolls = async (commander, commanderRerollId) => {
                             :id="`reroll-${commander.pivot.id}-0`"
                             v-model="commander.pivot.commander_reroll_id"
                         />
-                        <label :for="`reroll-${commander.pivot.id}-0`" class="px-4">None</label>
+                        <label :for="`reroll-${commander.pivot.id}-0`" class="px-4 text-sm lg:text-base">None</label>
                         <div v-for="reroll in commander.commander_rerolls" :key="reroll.id">
                             <input
                                 type="radio"
@@ -163,7 +163,7 @@ const handleApplyExtraRerolls = async (commander, commanderRerollId) => {
                                 :id="`reroll-${commander.pivot.id}-${reroll.id}`"
                                 v-model="commander.pivot.commander_reroll_id"
                             />
-                            <label :for="`reroll-${commander.pivot.id}-${reroll.id}`" class="px-2">
+                            <label :for="`reroll-${commander.pivot.id}-${reroll.id}`" class="px-2 text-sm lg:text-base">
                                 +{{ reroll.modifier }} rolls ({{ reroll.points }} pts)
                             </label>
                         </div>

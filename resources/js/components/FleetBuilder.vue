@@ -5,6 +5,7 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
     import ShipList from './setup/ShipList.vue';
     import ShipCard from './ship-card/ShipCard.vue';
     import loadingIcon from '@images/fleet-builder/loading-icon.png';
+    import sidebarCaretIcon from '@images/caret-icon.png';
     import MessageBox from './commons/MessageBox.vue';
     import FleetActions from "@/components/controls/FleetActions.vue";
     import CommanderSetup from "@/components/setup/CommanderSetup.vue";
@@ -413,53 +414,57 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
     </div>
 
     <!-- Left Section -->
-    <div class="section section-left w-88 min-h-[50vh] float-left">
-      <div class="section-overlay" v-if="state.isLoading" style="visibility: visible">
-        <img :src="loadingIcon" alt="Loading Icon">
-      </div>
+    <div class="section section-left float-left flex flex-row fixed top-70 -left-3 z-10 md:top-80 md:-left-6 lg:relative lg:top-0 lg:left-0 lg:w-60">
+        <div class="section-overlay" v-if="state.isLoading" style="visibility: visible">
+            <img :src="loadingIcon" alt="Loading Icon">
+        </div>
+        <div id="sidebar_toggle_btn" class="h-5 -mr-3 md:h-7 md:-mr-5 lg:hidden">
+            <img :src="sidebarCaretIcon" alt="Sidebar Toggle Icon" class="-rotate-90">
+        </div>
+        <div id="sidebar" class="hidden lg:block">
 
-      <!-- Points Counter -->
-      <div class="section-divider divider-r">
-        <h1 class="m-0 text-right text-4xl font-bold"><span id="points">{{ fleetPoints }}</span> pts.</h1>
-      </div>
+          <!-- Points Counter -->
+          <div class="section-divider divider-r">
+            <h1 class="m-0 text-right text-4xl font-bold"><span id="points">{{ fleetPoints }}</span> pts.</h1>
+          </div>
 
-        <!-- Fleet Actions -->
-        <FleetActions
-            :fleet-id="state.fleet.id"
-            :on-export-pdf="handleExportPdf"
-            :on-delete-fleet="handleDeleteFleet"
-            :routes="fleetData.routes"
-        />
+            <!-- Fleet Actions -->
+            <FleetActions
+                :fleet-id="state.fleet.id"
+                :on-export-pdf="handleExportPdf"
+                :on-delete-fleet="handleDeleteFleet"
+                :routes="fleetData.routes"
+            />
 
-        <!-- Fleet List Selector -->
-        <FleetListSelector
-            :fleet-lists="state.fleetLists"
-            :selected-fleet-list="state.selectedFleetList"
-            @fleet-list-selected="handleFleetListSelected"
-        />
+            <!-- Fleet List Selector -->
+            <FleetListSelector
+                :fleet-lists="state.fleetLists"
+                :selected-fleet-list="state.selectedFleetList"
+                @fleet-list-selected="handleFleetListSelected"
+            />
 
-        <!-- Ship List -->
-        <ShipList
-            :ship-list="state.shipList"
-            @ship-selected="handleShipAdded"
-        />
-
+            <!-- Ship List -->
+            <ShipList
+                :ship-list="state.shipList"
+                @ship-selected="handleShipAdded"
+            />
+        </div>
     </div>
 
     <!-- Right Section -->
-    <div class="section section-right w-[calc(100%-400px)] min-h-[50vh] float-right flex flex-col">
+    <div class="section section-right w-full min-h-[50vh] flex flex-col lg:w-[calc(100%-400px)] lg:float-right">
       <div class="section-overlay" v-if="state.isLoading" style="visibility: visible">
         <img :src="loadingIcon" alt="Loading Icon">
       </div>
         <div class="fleet-setup-container section-divider divider-r flex flex-row">
-            <div class="flex-1/3">
+            <div class="2xl:flex-1/3">
                 <!-- Fleet Name -->
                 <div class="section-divider divider-r pb-6 mb-6">
-                    <h1 class="text-4xl mb-4">Fleet Template Name</h1>
+                    <h1 class="text-xl mb-4 md:text-2xl lg:text-4xl">Fleet Template Name</h1>
                     <input type="text"
                            placeholder="Fleet Name"
                            v-model="fleetName"
-                           class="bfi-input input-light px-4 py-1 text-xl w-80"
+                           class="bfi-input input-light px-4 py-1 text-base w-80 lg:text-xl"
                            maxlength="155"
                     >
                 </div>
@@ -476,9 +481,9 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
                     @commander-rerolls-updated="handleCommanderRerollsUpdated"
                 />
             </div>
-            <div class="flex-1/3">
+            <div class="2xl:flex-1/3">
             </div>
-            <div class="flex-1/3">
+            <div class="2xl:flex-1/3">
             </div>
         </div>
 

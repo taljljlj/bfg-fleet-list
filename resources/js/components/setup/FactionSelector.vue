@@ -19,11 +19,11 @@ const handleFactionClick = (factionId) => {
 </script>
 
 <template>
-  <div class="faction-selector flex gap-4 flex-wrap justify-evenly user-select-none">
+  <div class="faction-selector flex gap-1 flex-wrap justify-evenly user-select-none lg:gap-4">
     <div
       v-for="faction in factions"
       :key="faction.id"
-      class="faction relative cursor-pointer opacity-70 my-2.5 transition-opacity duration-300 ease-in-out hover:opacity-100 hover:drop-shadow-[0_0_10px_#c8c5dc] hover:hue-rotate-45"
+      class="faction relative cursor-pointer opacity-70 my-1 transition-opacity duration-300 ease-in-out hover:opacity-100 hover:drop-shadow-[0_0_10px_#c8c5dc] hover:hue-rotate-45 md:my-1.5 lg:my-2.5"
       :class="[
         { selected: selectedFactionId === faction.id },
         selectedFactionId === faction.id
@@ -32,8 +32,8 @@ const handleFactionClick = (factionId) => {
       ]"
       @click="handleFactionClick(faction.id)"
     >
-      <img :src="`/images/factions/${faction.img_url}`" :alt="`${faction.name} Logo`" class="h-12">
-      <h3 class="m-0 tracking-wider text-white text-lg">{{ faction.name }}</h3>
+      <img :src="`/images/factions/${faction.img_url}`" :alt="`${faction.name} Logo`" class="h-5 md:h-8 lg:h-12">
+      <h3 class="m-0 tracking-wider text-white text-xs md:text-base lg:text-lg">{{ faction.name }}</h3>
     </div>
   </div>
 </template>

@@ -39,11 +39,11 @@ const handleSelect = (item) => {
 
 <template>
     <div class="dropdown relative **:select-none group" :class="{ expanded: isExpanded }">
-        <div class="dropdown-select relative w-full h-9 py-1 px-3.5 border-2 border-secondary rounded-md cursor-pointer z-0 tracking-wider hover:shadow-[inset_0_0_10px_#c8c5dc]"
+        <div class="dropdown-select relative w-full h-6 py-0.5 px-1 border-2 border-secondary rounded-md cursor-pointer z-0 tracking-wider hover:shadow-[inset_0_0_10px_#c8c5dc] align-middle lg:py-1 lg:px-3.5 lg:h-9"
              @click="handleToggleDropdown"
         >
-            <span class="inline-block w-4/5 h-full truncate">{{ selectedItem ? selectedItem[labelKey] : '' }}</span>
-            <span class="dropdown-caret inline-block h-full">
+            <span class="inline-block h-3.5 truncate w-[calc(100%-12px)] lg:w-[calc(100%-24px)] lg:h-7">{{ selectedItem ? selectedItem[labelKey] : '' }}</span>
+            <span class="dropdown-caret inline-block w-3 h-3.5 lg:w-6 lg:h-7">
                 <img :src="caretIcon" alt="Caret" class="float-right opacity-70 group-[.expanded]:rotate-180">
             </span>
         </div>
