@@ -32,5 +32,6 @@ Route::prefix('{fleet}')
             Route::patch('/commander-rerolls/{fleetCommander}/{commanderRerolls}', [FleetBuilderController::class, 'commanderApplyExtraRerolls']);
         });
         Route::delete('/delete/', [FleetBuilderController::class, 'destroyApi'])->name('api.builder.delete');
-        Route::get('/export-pdf/', [FleetBuilderController::class, 'getFleetAsPdf']);
+        Route::get('/export-pdf/', [FleetBuilderController::class, 'getFleetAsPdf'])
+            ->middleware('throttle:pdf-export');
 });

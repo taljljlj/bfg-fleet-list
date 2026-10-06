@@ -190,7 +190,12 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
           method: 'GET'
         });
 
-        if (response.status !== 200) {
+        if (response.status === 429) {
+            alert('+++ Munitorum Rate Decree +++\r\nThe export quota is exhausted, Commander. The Machine Spirit must cool its reactors before another PDF can be forged. Wait a minute, then renew your request.');
+            return;
+        }
+
+        if (!response.ok) {
             console.error('Failed to fetch PDF:', response.status, response.statusText);
             alert('+++ Vox Interruption +++\r\nData-slate request denied. The Machine Spirit refuses to yield the PDF. Review fleet data and renew the request.');
             return;
