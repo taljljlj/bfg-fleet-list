@@ -30,6 +30,16 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
     // Computed properties
     const fleetPoints = computed(() => state.fleet.points);
     const selectedFactionId = computed(() => state.fleet.faction_id);
+    const exportFilename = computed(() => {
+        const factionName = state.factions.find(faction => faction.id === state.fleet.faction_id)?.name;
+        const authorName = state.fleet.user?.name;
+        const filename = [state.fleet.name, factionName, state.fleet.points]
+            .filter(value => value !== null && value !== undefined && value !== '')
+            .join(' ')
+            + (authorName ? ` by ${authorName}` : '');
+
+        return `${filename.replace(/[<>:"/\\|?*\x00-\x1F]/g, '').trim() || 'fleet'}.pdf`;
+    });
     const fleetName = computed({
         get: () => state.fleet.name,
         set: (value) => {
@@ -200,7 +210,7 @@ import {reactive, inject, computed, onMounted, watch} from 'vue';
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'fleet-builder.pdf';
+        a.download = exportFilename.value;
         document.body.appendChild(a);
         a.click();
         a.remove();

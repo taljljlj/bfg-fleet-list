@@ -199,7 +199,8 @@
                     const downloadLink = document.createElement('a');
 
                     downloadLink.href = url;
-                    downloadLink.download = 'fleet-builder.pdf';
+                    const filename = @json(collect([$fleet->name, $fleet->faction?->name, $fleet->points])->filter(fn ($value) => $value !== null && $value !== '')->implode(' ') . ($fleet->user?->name ? ' by ' . $fleet->user->name : ''));
+                    downloadLink.download = `${filename.replace(/[<>:"/\\|?*\x00-\x1F]/g, '').trim() || 'fleet'}.pdf`;
                     document.body.appendChild(downloadLink);
                     downloadLink.click();
                     downloadLink.remove();
