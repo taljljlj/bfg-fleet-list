@@ -161,6 +161,8 @@ class FleetBuilderController extends Controller
             return redirect()->route('builder.view', $fleet);
         }
 
+        $fleet->loadMissing('faction', 'user');
+
         $factions = Faction::all();
 
         //If fleet has selected faction (hotpick and edit fleet)
